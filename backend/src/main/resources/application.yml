@@ -1,0 +1,38 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  jpa:
+    database: POSTGRESQL
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update # create
+      enable_lazy_load_no_trans: true # lazy loading
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    driverClassName: org.postgresql.Driver
+    platform: postgres
+    url: "jdbc:postgresql://localhost:5432/paf2023"
+    username: paf2023
+    password: paf2023
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+
+logging.level.org:
+  springframework: INFO
+  springframework.web: DEBUG
+  springframework.jpa: TRACE
+  hibernate: INFO
+
+
+project-name: PaF 2023
+#product.persistence.class: ProductFilePersistence
+product.persistence.class: ProductDBPersistence
+startup.print: true
+
