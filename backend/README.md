@@ -11,6 +11,3 @@
 # 2. Getting Started
 ## 2.1. Voraussetzungen
 ## 2.2. Installation
-
-## Spring Framework
-[Hilfe zu Spring](SPRING.md)
