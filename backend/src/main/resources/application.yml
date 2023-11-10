@@ -12,10 +12,9 @@ spring:
       ddl-auto: update # create
       enable_lazy_load_no_trans: true # lazy loading
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      #database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
     driverClassName: org.postgresql.Driver
-    platform: postgres
     url: "jdbc:postgresql://localhost:5432/paf2023"
     username: paf2023
     password: paf2023
@@ -23,6 +22,9 @@ spring:
     multipart:
       max-file-size: 50MB
       max-request-size: 100MB
+  sql:
+    init:
+      platform: postgres
 
 logging.level.org:
   springframework: INFO
