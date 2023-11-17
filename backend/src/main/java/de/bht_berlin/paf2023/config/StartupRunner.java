@@ -15,13 +15,13 @@ import static java.lang.Thread.sleep;
 public class StartupRunner implements ApplicationRunner {
 
   @Autowired
-  private HelloComponent helloComponent1 = new HelloComponent();
+  private HelloComponent helloComponent1;
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
     System.out.println("Hello PaF 2023");
 
-    helloComponent1.getHello();
+    System.out.println(helloComponent1.getHello());
   }
 
 
