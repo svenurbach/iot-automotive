@@ -5,6 +5,7 @@ Beispiel: http://localhost:8080/api/hello/paf2023
 
 ## Spring Framework
 ### Getting Started
+Start in IntelliJ IDEA über den Run-Button.
 
 ### Reference Documentation
 For further reference, please consider the following sections:
