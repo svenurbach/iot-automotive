@@ -13,7 +13,7 @@ public class HelloComponent {
 
     public String getHello() {
         String id = Integer.toHexString(System.identityHashCode(this));
-        return "Hello PaF 2023 from Component";
+        return "Hello PaF 2023 from Component" + ++callCounter + " instance ID:" + InstanceId + ", " + this.hashCode() + id;
     }
 
 }
