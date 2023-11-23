@@ -7,6 +7,11 @@ Beispiel: http://localhost:8080/api/hello/paf2023
 ### Getting Started
 Start in IntelliJ IDEA über den Run-Button.
 
+### Datenbank
+MacOS:  
+PostgreSQL installieren: ```brew install postgresql```
+PostgreSQL starten: ```/opt/homebrew/opt/postgresql@14/bin/postgres -D /opt/homebrew/var/postgresql@14```
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 
