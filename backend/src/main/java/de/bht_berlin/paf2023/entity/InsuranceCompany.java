@@ -5,20 +5,17 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity @Getter @Setter
-public class Vehicle extends IdentifiedEntity {
+public class InsuranceCompany extends IdentifiedEntity {
 
     @Id @GeneratedValue
     private Long id;
 
-    @Column(length = 50, nullable = false)
-    String title;
+    String name;
 
-    @Lob
-    String description;
-
-    @Lob
-    @JsonIgnore
-    byte[] image;
+    @OneToMany(mappedBy = "insurance")
+    private List<Insurance> insuranceList;
 
 }
