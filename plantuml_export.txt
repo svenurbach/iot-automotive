@@ -1,0 +1,121 @@
+@startuml
+!theme vibrant
+
+title Iot Automotive - Klassendiagramm
+
+class Person {
+ - String Name
+ - Boolean Autofahrer
+ - Boolean Autohalter
+ - Fahrverhalten Fahrverhalten
+}
+
+class Vertrag {
+ - Int Vertragsnummer
+ - String Name
+}
+
+class Fahrt {
+ - Datetime Anfangszeit
+ - Datetime Endzeit
+ - Position Start
+ - Position Ziel
+ - Fahrzeug Fahrzeug
+}
+
+class Fahrzeug {
+ - Fahrzeugmodell Fahrzeugmodell
+ - Position Position
+ - Int Baujahr
+ - Person Person
+ - Zustand Zustand
+ - String KFZ-Kennzeichen
+ - Versicherung Versicherung
+ - String Fahrzeuggestellnummer
+}
+
+class Analyse {
+ - Fahrverhalten Fahrverhalten
+ - Boolean Messfehler
+ - Boolean Inkonsistenz
+ - Int Risikobereitschaft
+ - Messung Messung
+ - Fahrt Fahrt
+}
+
+class Fahrverhalten {
+  - Int Risikobereitschaft
+  - Int Verbrauch
+  - Int Fahrsicherheit
+  - Int Gesamtbewertung
+}
+
+class Messung {
+- Float Tankfüllung
+- Float Motordrehzahl
+- Float Motortemperatur
+- Float Beschleunigung
+- Float Achsenlage
+- Float[] Reifendruck
+- Float[] Pedalwert
+- Datetime Zeitstempel
+}
+
+class Position {
+- Float Latitude
+- Float Longitude
+}
+
+class Geschwindigkeit {
+- Float Geschwindigkeit
+}
+
+class Fahrzeugmodell {
+ - String Marke
+ - String Lichtanlage
+ - String Typ
+ - Int Modelljahr 
+ - Float Gewicht
+ - String Reifentyp
+ - String Bremsen
+ - String[] Airbag
+ - String Motor
+ - String[] Sitzheizung
+ - Boolean GPS
+ - String Kraftstofftyp
+}
+
+class Versicherungsunternehmen {
+ - String Versicherungunternehmen
+ - Versicherung[] Versicherungen
+}
+ 
+class Versicherung{
+ - String Versicherungsnehmer
+ - Fahrzeug Fahrzeug
+ - String Versicherungsart
+ - Boolean Datenschutz_akzeptiert
+}
+ 
+Versicherung "1" -> "n" Vertrag
+Person "1" -> "n" Vertrag
+Person "1" -> "n" Fahrzeug : hat
+Fahrzeug "n" <-- "1"  Fahrzeugmodell : hat
+Fahrzeug "1" <-- "1"  Versicherung : hat
+Fahrzeug "1" --> "n" Messung : hat
+Fahrzeug "1" -> "n" Vertrag
+
+Fahrt "n" <-- "1" Fahrzeug : hat
+Fahrt "1" <-- "n" Messung : misst
+Fahrt "n" <-- "m" Person : hat
+
+Versicherungsunternehmen "1" --> "n" Versicherung : hat
+Analyse "1" -[dashed]-> "1" Messung : wertet aus
+Analyse -[dashed]-> Person
+Analyse -[dashed]-> Fahrt
+Analyse -[dashed]-> Fahrverhalten
+Person "1" <-- "n"  Fahrverhalten : hat
+Position --|> Messung
+Geschwindigkeit --|> Messung
+
+@enduml
