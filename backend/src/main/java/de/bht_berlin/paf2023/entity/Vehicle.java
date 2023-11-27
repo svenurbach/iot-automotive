@@ -8,17 +8,36 @@ import lombok.Setter;
 @Entity @Getter @Setter
 public class Vehicle extends IdentifiedEntity {
 
+// - Fahrzeugmodell Fahrzeugmodell
+// - Position Position
+// - Int Baujahr
+// - Person Person
+// X- Zustand Zustand
+// - String KFZ-Kennzeichen
+// - Versicherung Versicherung
+// - String Fahrzeuggestellnummer
+
     @Id @GeneratedValue
     private Long id;
 
-    @Column(length = 50, nullable = false)
-    String title;
+    VehicleModel vehicleModel;
 
-    @Lob
-    String description;
+    Position position;
 
-    @Lob
-    @JsonIgnore
-    byte[] image;
+    Integer yearOfConstruction;
+
+    String licensePlate;
+
+    Insurance insurance;
+
+    String vin;
+
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    Person person;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id")
+    VehicleModel vehicleModel;
 
 }
