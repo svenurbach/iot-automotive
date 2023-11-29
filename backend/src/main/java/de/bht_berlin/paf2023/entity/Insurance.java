@@ -4,23 +4,15 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity @Getter @Setter
 public class Insurance extends IdentifiedEntity {
 
     @Id @GeneratedValue
     private Long id;
-    String name;
-    String insuranceType;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "insurance_company_id")
-    InsuranceCompany insuranceCompanyID;
-
-    @ManyToOne
-    @JoinColumn(name = "policyholder_id")
-    Person policyholderID;
-
-    @ManyToOne
-    @JoinColumn(name = "vehicle_id")
-    Vehicle vehicleID;
+    @OneToMany
+    private List<Contract> contract;
 }

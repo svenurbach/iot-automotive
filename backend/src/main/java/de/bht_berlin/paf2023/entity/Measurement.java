@@ -18,4 +18,6 @@ public class Measurement extends IdentifiedEntity {
 
     private Date timestamp;
 
+    private Integer interval;
+
 }

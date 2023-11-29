@@ -32,4 +32,6 @@ public class DrivingBehavior extends IdentifiedEntity{
 
     private Integer evaluation;
 
+    @ManyToOne
+    private Person person;
 }

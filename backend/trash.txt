@@ -1,0 +1,6 @@
+    // https://www.baeldung.com/jpa-many-to-many
+//    @ManyToMany
+//    @JoinTable(
+//            name = "trips",
+//            joinColumns = @JoinColumn(name = "trip_id"),
+//            inverseJoinColumns = @JoinColumn(name = "person_id"))

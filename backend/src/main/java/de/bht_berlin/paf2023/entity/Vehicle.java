@@ -14,22 +14,19 @@ public class Vehicle extends IdentifiedEntity {
     @Id @GeneratedValue
     private Long id;
 
-
     private Integer yearOfConstruction;
 
     private String licensePlate;
 
-    @OneToMany
-    private List<Insurance> insurance;
+    @OneToOne
+    private Contract contract;
 
     private String vin;
 
     @ManyToOne
-    @JoinColumn(name = "person_id")
     private Person person;
 
     @ManyToOne
-    @JoinColumn(name = "vehicle_id")
     private VehicleModel vehicleModel;
 
 }

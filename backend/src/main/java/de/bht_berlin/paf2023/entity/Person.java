@@ -1,39 +1,36 @@
 package de.bht_berlin.paf2023.entity;
 
+import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity @Getter @Setter
 public class Person extends IdentifiedEntity {
-
-    // - String Name
-    // - Boolean Autofahrer
-    // - Boolean Autohalter
-    // - Fahrverhalten Fahrverhalten
 
     @Id @GeneratedValue
     private Long id;
 
     @Column(length = 50, nullable = false)
-    String name;
+    private String name;
 
-    Boolean driver;
+    private Boolean driver;
 
-    Boolean owner;
+    private Boolean owner;
 
-    DrivingBehaviour drivingBehaviour;
+    private Long currentTripID;
 
-    // https://www.baeldung.com/jpa-many-to-many
-    @ManyToMany
-    @JoinTable(
-            name = "trips",
-            joinColumns = @JoinColumn(name = "trip_id"),
-            inverseJoinColumns = @JoinColumn(name = "person_id"))
-    Trip trip;
+    @OneToMany
+    private List <DrivingBehavior> drivingBehavior;
+
+    @OneToMany
+    private List<Trip> trip;
 
     private void startTrip() {
         // TODO: Implement
+//        this.currentTripID = new Trip(Person person_id, vehicle_id ).getId();
     }
 
     private void endTrip() {

@@ -7,6 +7,10 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Entity @Getter @Setter
 public class TirePressureMeasurement extends Measurement {
 
@@ -17,4 +21,14 @@ public class TirePressureMeasurement extends Measurement {
     private Integer frontRightTire;
     private Integer backRightTire;
     private Integer backLeftTire;
+
+    //todo test @yaman
+    private List<Integer> parseList(){
+        List<Integer> list = new ArrayList<>();
+        list.add(backLeftTire);
+        list.add(frontRightTire);
+        list.add(backRightTire);
+        list.add(backLeftTire);
+        return list;
+    }
 }

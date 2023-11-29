@@ -1,36 +1,45 @@
 package de.bht_berlin.paf2023.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity @Getter @Setter
 public class Trip extends IdentifiedEntity {
 
-// - Datetime Anfangszeit
-// - Datetime Endzeit
-// - Position Start
-// - Position Ziel
-// - Fahrzeug Fahrzeug
-
     @Id @GeneratedValue
     private Long id;
 
-    Date start;
-    Date end;
+    private Date start;
+    private Date end;
 
-    Measurement.Position startLocation;
-    Measurement.Position endLocation;
+    @OneToMany
+    private List<LocationMeasurement> startLocation;
+
+    @OneToMany
+    private List<LocationMeasurement> endLocation;
 
     @ManyToOne
-    @JoinColumn(name = "vehicle_id")
-    Vehicle vehicle;
+    private Vehicle vehicle;
 
-    // Driver
-    @ManyToMany(mappedBy = "trip")
-    Person person;
+    @ManyToOne
+    private Person person;
+
+//    public Trip(vehicle...){
+//        this.vehicle = vehicle;
+//    }
+
+//    public startTrip(){
+//        LocationMeasurement startLocation = new LocationMeasurement();
+//    }
+
+//    public Integer calcDuration(end,start){{
+//    return end-start;
+//    }
 
 }

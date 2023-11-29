@@ -21,13 +21,13 @@ public class VehicleModel extends IdentifiedEntity {
 
     private String tireType;
 
-//    private String[] airbag;
+    private Boolean airbag;
 
     private String engine;
 
-//    private String[] seatHeater;
+    private Boolean seatHeater;
 //
-    private Boolean GPS;
+    private Boolean gps;
 
     private String fueltype;
 

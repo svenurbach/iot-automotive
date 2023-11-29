@@ -9,6 +9,11 @@ import java.util.List;
 @Entity @Getter @Setter
 public class Analysis extends IdentifiedEntity {
 
+    // todo finish later
+
+    @Id
+    private Long id;
+
     private Boolean measurementError;
 
     private Boolean inconsistency;
@@ -22,8 +27,7 @@ public class Analysis extends IdentifiedEntity {
 
     @OneToOne (mappedBy = "analysis")
     private Measurement measurement;
-    @Id
-    private Long id;
+
 
 //    public void setId(Long id) {
 //        this.id = id;

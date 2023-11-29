@@ -16,5 +16,4 @@ public class HelloRestController {
     public String getHello() {
         return "Hello PaF";
     }
-
 }
