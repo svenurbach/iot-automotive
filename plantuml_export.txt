@@ -13,6 +13,9 @@ class Person {
 class Vertrag {
  - Int Vertragsnummer
  - String Name
+ - Fahrzeug Fahrzeug
+ - String Versicherungsart
+ - Boolean Datenschutz_akzeptiert
 }
 
 class Fahrt {
@@ -25,10 +28,8 @@ class Fahrt {
 
 class Fahrzeug {
  - Fahrzeugmodell Fahrzeugmodell
- - Position Position
  - Int Baujahr
  - Person Person
- - Zustand Zustand
  - String KFZ-Kennzeichen
  - Versicherung Versicherung
  - String Fahrzeuggestellnummer
@@ -38,7 +39,6 @@ class Analyse {
  - Fahrverhalten Fahrverhalten
  - Boolean Messfehler
  - Boolean Inkonsistenz
- - Int Risikobereitschaft
  - Messung Messung
  - Fahrt Fahrt
 }
@@ -51,7 +51,7 @@ class Fahrverhalten {
 }
 
 class Messung {
-- Float Tankfüllung
+- Float Tankfï¿½llung
 - Float Motordrehzahl
 - Float Motortemperatur
 - Float Beschleunigung
@@ -85,16 +85,10 @@ class Fahrzeugmodell {
  - String Kraftstofftyp
 }
 
-class Versicherungsunternehmen {
- - String Versicherungunternehmen
- - Versicherung[] Versicherungen
-}
- 
+
 class Versicherung{
- - String Versicherungsnehmer
- - Fahrzeug Fahrzeug
- - String Versicherungsart
- - Boolean Datenschutz_akzeptiert
+ - String Versicherungsname
+ - String[] VertrÃ¤ge
 }
  
 Versicherung "1" -> "n" Vertrag
@@ -109,7 +103,6 @@ Fahrt "n" <-- "1" Fahrzeug : hat
 Fahrt "1" <-- "n" Messung : misst
 Fahrt "n" <-- "m" Person : hat
 
-Versicherungsunternehmen "1" --> "n" Versicherung : hat
 Analyse "1" -[dashed]-> "1" Messung : wertet aus
 Analyse -[dashed]-> Person
 Analyse -[dashed]-> Fahrt
