@@ -30,4 +30,7 @@ public class SafetyRecommendationService {
 //            getSafetyRecommendations
 //    list recommendations to improve driving safety
 //
+
+//    warnDriver
+//    warn driver for low safety score
 }
