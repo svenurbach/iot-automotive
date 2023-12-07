@@ -1,14 +1,14 @@
 package de.bht_berlin.paf2023.api;
 
 import de.bht_berlin.paf2023.service.RiskCalculationService;
+import de.bht_berlin.paf2023.service.SafetyRecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/risk")
-public class RiskCalculationController {
+@RequestMapping(path = "/safety")
+public class SafetyCalculationController {
 
     // User Story: Risikobereitschaft berechnen
     // https://trello.com/c/qWvSlzYY/25-user-story-risikobereitschaft-berechnen
@@ -16,12 +16,15 @@ public class RiskCalculationController {
     // Wir brauchen: Versicherungsunternehmen, Fahrverhalten, Fahrer
 
     @Autowired
-    private RiskCalculationService riskCalculationService;
+    private SafetyRecommendationService safetyRecommendationService;
 
-    // Risikobereitschaft eines Autofahrers ausgeben
-    // /{user}/risk
+    // Get calculated Safety score
+    // /{user}/safetyscore
 
-    // Risikobereitschaft für einen bestimmten Zeitraum ausgeben
-    // /{user}/risk/?{minDate}x=&/{maxDate}=y
+    // Get safety recommendations
+    // /{user}/safetyrecommendations
+
+    // Get safety score over time
+    // /{user}/safetyscore?from=&to=
 
 }
