@@ -14,4 +14,5 @@ public class AccelerationMeasurement extends Measurement {
     private Long id;
 
     private Integer acceleration;
+    
 }

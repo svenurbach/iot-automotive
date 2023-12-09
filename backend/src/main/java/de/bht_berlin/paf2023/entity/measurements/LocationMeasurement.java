@@ -15,4 +15,5 @@ public class LocationMeasurement extends Measurement {
 
     private Float latitude;
     private Float longitude;
+
 }

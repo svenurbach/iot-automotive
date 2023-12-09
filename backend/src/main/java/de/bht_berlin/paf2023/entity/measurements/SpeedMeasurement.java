@@ -14,4 +14,5 @@ public class SpeedMeasurement extends Measurement {
     private Long id;
 
     private Integer speed;
+
 }

@@ -14,4 +14,5 @@ public class AxisMeasurement extends Measurement {
     private Long id;
 
     private Float axisAngle;
+
 }

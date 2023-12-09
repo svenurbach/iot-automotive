@@ -20,4 +20,7 @@ public class Measurement extends IdentifiedEntity {
 
     private Integer interval;
 
+    // getMeasuredValue()   -> Messwert wird von Sensoren über Request an die Anwendung geschickt?
+    // setInterval()   ->wie oft werden Werte in DB geschrieben (alle ms, jede h ...)
+    // saveInDB()   -> Messwert wird in DB geschrieben
 }

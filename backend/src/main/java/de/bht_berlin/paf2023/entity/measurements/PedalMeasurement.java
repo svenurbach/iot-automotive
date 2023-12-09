@@ -16,4 +16,5 @@ public class PedalMeasurement extends Measurement {
     private Float accelerationPedal;
     private Float brakePedal;
     private Float couplingPedal;
+
 }

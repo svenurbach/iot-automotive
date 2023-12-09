@@ -14,4 +14,5 @@ public class FuelMeasurement extends Measurement {
     private Long id;
 
     private Integer fuelLevel;
+
 }
