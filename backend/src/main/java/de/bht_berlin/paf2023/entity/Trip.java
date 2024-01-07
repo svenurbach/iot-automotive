@@ -10,14 +10,14 @@ import java.util.Date;
 import java.util.List;
 
 @Entity @Getter @Setter
-@Table(name = "trip")
+@Table(name = "trip", schema = "public")
 public class Trip extends IdentifiedEntity {
 
 //    @Id @GeneratedValue
 //    private Integer id;
 
-    private Date start;
-    private Date end;
+    private Date trip_start;
+    private Date trip_end;
 
     @OneToMany
     @JoinColumn(name = "startLocation")
@@ -28,6 +28,7 @@ public class Trip extends IdentifiedEntity {
     private List<LocationMeasurement> endLocation;
 
     @ManyToOne
+    @JoinColumn(name = "vehicle")
     private Vehicle vehicle;
 
     @ManyToOne
