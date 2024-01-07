@@ -21,6 +21,6 @@ public class Paf2023Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// Hier können Sie die Anzahl der Dummy-Datensätze angeben
-		iService.generateDummyData(1000);
+		iService.generateDummyData(10);
 	}
 }
