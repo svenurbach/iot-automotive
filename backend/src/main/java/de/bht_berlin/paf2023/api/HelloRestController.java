@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/hello")
 public class HelloRestController {
 
-//    @Autowired
-//    private HelloComponent helloComponent;
+    @Autowired
+    private HelloComponent helloComponent;
 
     @RequestMapping(path = "/paf2023")
+//    public String getHello() {
+//        return "Hello PaF";
+//    }
     public String getHello() {
-        return "Hello PaF";
+        return helloComponent.getHello();
     }
 }

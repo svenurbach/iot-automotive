@@ -4,16 +4,21 @@ import de.bht_berlin.paf2023.entity.Contract;
 import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.repo.TripRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DistanceService {
+    private final TripRepo repository;
 
     @Autowired
-    private TripRepo tripRepo;
+    public DistanceService(TripRepo repository) {
+        this.repository = repository;
+    }
 
     public List<Trip> getAllTripsOfVehicleID(Long vehicleID) {
-        return tripRepo.findAll();
+        return repository.findAll();
     }
 
     public Long calculate_distance_per_trip(Trip trip){
@@ -53,6 +58,13 @@ public class DistanceService {
 
         // example -10% off contract_distance
         return deviation;
+    }
+
+    public String testApi(long id){
+        return repository.findById(id).get().get_average_speed().toString();
+//        return "test works";
+//        return repository.findAllByVehicle(1L).toString();
+
     }
 
 }

@@ -1,15 +1,16 @@
 package de.bht_berlin.paf2023;
 
-import de.bht_berlin.paf2023.service.InsuranceService;
+import de.bht_berlin.paf2023.service.FakerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Paf2023Application {
+public class Paf2023Application implements CommandLineRunner {
 
 	@Autowired
-	private InsuranceService iService;
+	private FakerService iService;
 
 	public static void main(String[] args) {
 
@@ -17,9 +18,9 @@ public class Paf2023Application {
 
 	}
 
-//	@Override
-	public void run(String[] args) throws Exception {
+	@Override
+	public void run(String... args) throws Exception {
 		// Hier können Sie die Anzahl der Dummy-Datensätze angeben
-		iService.generateDummyData(10);
+		iService.generateDummyData(1000);
 	}
 }
