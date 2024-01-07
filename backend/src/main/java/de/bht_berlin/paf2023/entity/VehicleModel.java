@@ -10,8 +10,8 @@ import java.util.List;
 @Entity @Getter @Setter
 public class VehicleModel extends IdentifiedEntity {
 
-    @Id @GeneratedValue
-    private Integer id;
+//    @Id @GeneratedValue
+//    private Integer id;
 
     private String name;
 
@@ -31,7 +31,7 @@ public class VehicleModel extends IdentifiedEntity {
 
     private String fueltype;
 
-    @OneToMany(mappedBy = "vehicle")
+    @OneToMany
     private List<Vehicle> vehicle;
 
 }

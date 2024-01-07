@@ -12,10 +12,6 @@ import lombok.Setter;
 @Setter
 public class DrivingBehavior extends IdentifiedEntity{
 
-
-    @Id
-    private Integer id;
-
 //    public void setId(Long id) {
 //        this.id = id;
 //    }
@@ -23,6 +19,8 @@ public class DrivingBehavior extends IdentifiedEntity{
 //    public Long getId() {
 //        return id;
 //    }
+
+
 
     private Integer riskWillingness;
 
@@ -34,4 +32,7 @@ public class DrivingBehavior extends IdentifiedEntity{
 
     @ManyToOne
     private Person person;
+
+    @ManyToOne
+    private Analysis analysis;
 }

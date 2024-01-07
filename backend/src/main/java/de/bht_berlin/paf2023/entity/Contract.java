@@ -12,10 +12,6 @@ public class Contract extends IdentifiedEntity {
 
     String insuranceType;
 
-    @Id
-    @GeneratedValue
-    private Integer id;
-
     @Column(nullable = false)
     Date begin;
 

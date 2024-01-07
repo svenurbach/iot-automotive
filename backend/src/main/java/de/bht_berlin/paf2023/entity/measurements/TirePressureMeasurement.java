@@ -14,8 +14,8 @@ import java.util.List;
 @Entity @Getter @Setter
 public class TirePressureMeasurement extends Measurement {
 
-    @Id @GeneratedValue
-    private Integer id;
+//    @Id @GeneratedValue
+//    private Integer id;
 
     private Integer frontLeftTire;
     private Integer frontRightTire;

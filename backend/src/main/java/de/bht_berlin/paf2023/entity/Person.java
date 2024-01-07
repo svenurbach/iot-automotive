@@ -8,10 +8,11 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity @Getter @Setter
+@Table(name = "person")
 public class Person extends IdentifiedEntity {
 
-    @Id @GeneratedValue
-    private Integer id;
+//    @Id @GeneratedValue
+//    private Integer id;
 
     @Column(length = 50, nullable = false)
     private String name;
@@ -26,6 +27,7 @@ public class Person extends IdentifiedEntity {
     private List <DrivingBehavior> drivingBehavior;
 
     @OneToMany
+    @Column(name = "trip_id")
     private List<Trip> trip;
 
     private void startTrip() {

@@ -12,7 +12,10 @@ spring:
       ddl-auto: update # create
       enable_lazy_load_no_trans: true # lazy loading
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-      #database-platform: org.hibernate.dialect.PostgreSQLDialect
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      jdbc:
+        lob:
+          non_contextual_creation: true
   datasource:
     driverClassName: org.postgresql.Driver
     url: "jdbc:postgresql://localhost:5432/paf2023"

@@ -9,8 +9,8 @@ import java.util.List;
 @Entity @Getter @Setter
 public class Insurance extends IdentifiedEntity {
 
-    @Id @GeneratedValue
-    private Integer id;
+//    @Id @GeneratedValue
+//    private Integer id;
     private String name;
 
     @OneToMany

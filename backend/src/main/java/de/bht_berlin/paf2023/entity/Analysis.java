@@ -11,13 +11,9 @@ public class Analysis extends IdentifiedEntity {
 
     // todo finish later
 
-    @Id
-    private Integer id;
-
     private Boolean measurementError;
 
     private Boolean inconsistency;
-
 
     @OneToMany(mappedBy = "analysis")
     private List<DrivingBehavior> drivingBehavior;
@@ -25,8 +21,8 @@ public class Analysis extends IdentifiedEntity {
     @OneToMany(mappedBy = "analysis")
     private List<Trip> trip;
 
-    @OneToOne (mappedBy = "analysis")
-    private Measurement measurement;
+    @OneToMany(mappedBy = "analysis")
+    private List<Measurement> measurement;
 
 
 //    public void setId(Long id) {

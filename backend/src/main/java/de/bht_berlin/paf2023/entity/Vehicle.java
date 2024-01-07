@@ -11,8 +11,8 @@ import java.util.List;
 @Entity @Getter @Setter
 public class Vehicle extends IdentifiedEntity {
 
-    @Id @GeneratedValue
-    private Integer id;
+//    @Id @GeneratedValue
+//    private Integer id;
 
     private Integer yearOfConstruction;
 

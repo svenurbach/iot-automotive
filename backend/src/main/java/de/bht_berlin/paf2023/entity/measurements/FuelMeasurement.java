@@ -10,8 +10,8 @@ import lombok.Setter;
 @Entity @Getter @Setter
 public class FuelMeasurement extends Measurement {
 
-    @Id @GeneratedValue
-    private Integer id;
+//    @Id @GeneratedValue
+//    private Integer id;
 
     private Integer fuelLevel;
 
