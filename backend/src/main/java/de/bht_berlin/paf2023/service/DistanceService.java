@@ -2,11 +2,19 @@ package de.bht_berlin.paf2023.service;
 
 import de.bht_berlin.paf2023.entity.Contract;
 import de.bht_berlin.paf2023.entity.Trip;
+import de.bht_berlin.paf2023.repo.TripRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class DistanceService {
 
+    @Autowired
+    private TripRepo tripRepo;
+
+    public List<Trip> getAllTripsOfVehicleID(Long vehicleID) {
+        return tripRepo.findAll();
+    }
 
     public Long calculate_distance_per_trip(Trip trip){
         Long distance;
@@ -16,7 +24,8 @@ public class DistanceService {
         return distance;
     }
 
-    public Long calculateTotalDistanceForYear(List<Trip> trips, int year) {
+    public Long calculateTotalDistanceForYear(Long vehicleID, int year) {
+        List<Trip> trips = getAllTripsOfVehicleID(vehicleID);
         Long totalDistance = 0L;
 
         for (Trip trip : trips) {
@@ -41,6 +50,8 @@ public class DistanceService {
         Long contract_distance = contract.get_contract_distance();
         Long diff = driven_distance / contract_distance * 100;
         deviation = (int) (diff - 100);
+
+        // example -10% off contract_distance
         return deviation;
     }
 
