@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity @Getter @Setter
-@Table(name = "trip", schema = "public")
+@Table(name = "trip")
 public class Trip extends IdentifiedEntity {
 
 //    @Id @GeneratedValue
