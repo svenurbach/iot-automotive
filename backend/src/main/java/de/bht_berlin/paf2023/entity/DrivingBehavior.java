@@ -14,7 +14,7 @@ public class DrivingBehavior extends IdentifiedEntity{
 
 
     @Id
-    private Long id;
+    private Integer id;
 
 //    public void setId(Long id) {
 //        this.id = id;

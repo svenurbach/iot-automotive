@@ -11,7 +11,7 @@ import java.util.List;
 public class VehicleModel extends IdentifiedEntity {
 
     @Id @GeneratedValue
-    private Long id;
+    private Integer id;
 
     private String name;
 

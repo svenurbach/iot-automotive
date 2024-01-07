@@ -11,7 +11,7 @@ import lombok.Setter;
 public class SpeedMeasurement extends Measurement {
 
     @Id @GeneratedValue
-    private Long id;
+    private Integer id;
 
     private Integer speed;
 

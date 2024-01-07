@@ -11,7 +11,7 @@ import java.util.List;
 public class Person extends IdentifiedEntity {
 
     @Id @GeneratedValue
-    private Long id;
+    private Integer id;
 
     @Column(length = 50, nullable = false)
     private String name;

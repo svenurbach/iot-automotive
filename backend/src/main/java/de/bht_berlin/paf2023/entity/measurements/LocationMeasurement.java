@@ -11,7 +11,7 @@ import lombok.Setter;
 public class LocationMeasurement extends Measurement {
 
     @Id @GeneratedValue
-    private Long id;
+    private Integer id;
 
     private Float latitude;
     private Float longitude;

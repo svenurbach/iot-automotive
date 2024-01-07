@@ -11,7 +11,7 @@ import lombok.Setter;
 public class AxisMeasurement extends Measurement {
 
     @Id @GeneratedValue
-    private Long id;
+    private Integer id;
 
     private Float axisAngle;
 

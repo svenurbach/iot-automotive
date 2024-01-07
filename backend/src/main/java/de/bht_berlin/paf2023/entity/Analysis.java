@@ -12,7 +12,7 @@ public class Analysis extends IdentifiedEntity {
     // todo finish later
 
     @Id
-    private Long id;
+    private Integer id;
 
     private Boolean measurementError;
 

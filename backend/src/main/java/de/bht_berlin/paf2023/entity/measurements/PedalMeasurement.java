@@ -11,7 +11,7 @@ import lombok.Setter;
 public class PedalMeasurement extends Measurement {
 
     @Id @GeneratedValue
-    private Long id;
+    private Integer id;
 
     private Float accelerationPedal;
     private Float brakePedal;

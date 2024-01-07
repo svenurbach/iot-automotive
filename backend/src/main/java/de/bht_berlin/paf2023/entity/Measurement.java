@@ -14,7 +14,7 @@ import java.util.List;
 public class Measurement extends IdentifiedEntity {
 
     @Id @GeneratedValue
-    private Long id;
+    private Integer id;
 
     private Date timestamp;
 

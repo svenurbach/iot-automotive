@@ -15,7 +15,7 @@ import java.util.List;
 public class TirePressureMeasurement extends Measurement {
 
     @Id @GeneratedValue
-    private Long id;
+    private Integer id;
 
     private Integer frontLeftTire;
     private Integer frontRightTire;

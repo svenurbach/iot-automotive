@@ -12,7 +12,7 @@ import java.util.List;
 public class Vehicle extends IdentifiedEntity {
 
     @Id @GeneratedValue
-    private Long id;
+    private Integer id;
 
     private Integer yearOfConstruction;
 

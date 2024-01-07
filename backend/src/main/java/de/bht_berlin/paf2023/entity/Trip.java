@@ -13,7 +13,7 @@ import java.util.List;
 public class Trip extends IdentifiedEntity {
 
     @Id @GeneratedValue
-    private Long id;
+    private Integer id;
 
     private Date start;
     private Date end;
