@@ -1,6 +1,7 @@
 package de.bht_berlin.paf2023.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.javafaker.DateAndTime;
 import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import jakarta.persistence.*;
 import lombok.Getter;

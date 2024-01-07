@@ -61,8 +61,8 @@ public class DistanceService {
     }
 
     public String testApi(long id){
-        return repository.findById(id).get().get_average_speed().toString();
-//        return "test works";
+//        return repository.findById(id).get().get_average_speed().toString();
+        return "test works";
 //        return repository.findAllByVehicle(id).toString();
 
     }
