@@ -19,6 +19,8 @@ public class Trip extends IdentifiedEntity {
     private Date trip_start;
     private Date trip_end;
 
+    private Long average_speed;
+
     @OneToMany
     @JoinColumn(name = "startLocation")
     private List<LocationMeasurement> startLocation;
@@ -26,6 +28,7 @@ public class Trip extends IdentifiedEntity {
     @OneToMany
     @JoinColumn(name = "endLocation")
     private List<LocationMeasurement> endLocation;
+
 
     @ManyToOne
     @JoinColumn(name = "vehicle")
@@ -39,7 +42,19 @@ public class Trip extends IdentifiedEntity {
     @JoinColumn(name = "analysis")
     private Analysis analysis;
 
-//    public Trip(vehicle...){
+    public Date getTrip_start() {
+        return this.trip_start;
+    }
+
+    public Date getTrip_end() {
+        return this.trip_end;
+    }
+
+    public Long get_average_speed(){
+        return this.average_speed;
+
+    }
+    //    public Trip(vehicle...){
 //        this.vehicle = vehicle;
 //    }
 

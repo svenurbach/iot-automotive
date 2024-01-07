@@ -26,4 +26,10 @@ public class Contract extends IdentifiedEntity {
     @ManyToOne
     @JoinColumn(name = "insurance_id")
     Insurance insurance;
+
+    Long contract_distance;
+
+    public Long get_contract_distance(){
+        return this.contract_distance;
+    }
 }
