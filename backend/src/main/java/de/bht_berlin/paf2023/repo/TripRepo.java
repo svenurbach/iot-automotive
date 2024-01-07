@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface TripRepo extends JpaRepository<Trip, Long> {
 
-//    List<Trip> findAllByVehicle(Long vehicleId);
+    List<Trip> findAllByVehicle(Long vehicleId);
 
 }

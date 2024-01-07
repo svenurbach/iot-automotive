@@ -1,7 +1,6 @@
 package de.bht_berlin.paf2023.repo;
 
 import de.bht_berlin.paf2023.entity.Insurance;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -9,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface InsuranceRepo extends JpaRepository<Insurance, Long> {
 
-    // Sie können benutzerdefinierte Methoden hinzufügen, wenn nötig
+    // Custom Methods/SQL-Queries
 
 
 }
