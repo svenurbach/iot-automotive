@@ -21,10 +21,10 @@ public class Paf2023Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		iService.generateDummyData("insurance", 10);
-		iService.generateDummyData("person", 10);
 		iService.generateDummyData("trip", 10);
-		iService.generateDummyData("measurement", 10);
-		iService.generateDummyData("vehicle", 10); //
+//		iService.generateDummyData("insurance", 10);
+//		iService.generateDummyData("person", 10);
+//		iService.generateDummyData("measurement", 10);
+//		iService.generateDummyData("vehicle", 10); //
 	}
 }
