@@ -55,6 +55,15 @@ public class Trip extends IdentifiedEntity {
         return this.average_speed;
 
     }
+
+    @Override
+    public String toString() {
+//        return "Trip{" +
+//                "trip_start='" + trip_start + '\'' +
+//                ", trip_end='" + trip_end + '\'' +
+//                ", average_speed='" + average_speed + '\'' +
+         return "{\"average_speed\": " + average_speed + "}";
+    }
     //    public Trip(vehicle...){
 //        this.vehicle = vehicle;
 //    }

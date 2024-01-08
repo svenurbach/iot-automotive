@@ -60,9 +60,13 @@ public class DistanceService {
         return deviation;
     }
 
-    public String testApi(long id){
-//        return repository.findById(id).get().get_average_speed().toString();
-        return "test works";
+    public String getAllTrips(){
+        return repository.findAll().toString();
+    }
+
+    public String getTrip(long id){
+        return repository.findById(id).get().get_average_speed().toString();
+//        return "test works";
 //        return repository.findAllByVehicle(id).toString();
 
     }
