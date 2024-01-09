@@ -76,7 +76,7 @@ public class FakerService {
 //                    foreign key generation for person
                     Person existingPerson = this.personRepo.getById(generateRandomForeignKey(dataSet, "person"));
                     trip.setPerson(existingPerson);
-
+                    
 //                    foreign key generation for vehicle
                     Vehicle existingVehicle = this.vehicleRepo.getById(generateRandomForeignKey(dataSet, "vehicle"));
                     trip.setVehicle(existingVehicle);

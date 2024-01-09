@@ -1,17 +1,12 @@
-import { Injectable, NgModule } from '@angular/core';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Trip } from '../model/trip';
-import { BrowserModule } from '@angular/platform-browser';
+import { Trip } from '../model/trip.model';
 
-// @NgModule({
-//     imports: [
-//     BrowserModule,
-//     HttpClientModule,
-//     ],
-// })
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class TripService {
 
     private url = 'http://localhost:8080/api/trip';  // URL to web api
@@ -22,7 +17,6 @@ export class TripService {
 
     constructor(private http: HttpClient) { }
 
-
     getTrips(): Observable<Trip[]> {
         return this.http.get<Trip[]>(this.url + '/findAll')
         .pipe(
@@ -30,7 +24,6 @@ export class TripService {
             catchError(this.handleError<Trip[]>('getTrips', []))
           );
     }
-
 
     getTrip(id: number): Observable<Trip> {
         const url = `${this.url}/find/${id}`;
