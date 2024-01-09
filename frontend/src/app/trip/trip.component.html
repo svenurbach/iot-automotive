@@ -1,5 +1,37 @@
 <h1>Trip-Page</h1>
 
+<div style="width: 400;"><canvas id="myChart"></canvas></div>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="trip_start">
+    <th mat-header-cell *matHeaderCellDef>trip_start</th>
+    <td mat-cell *matCellDef="let element"> {{element.trip_start}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="trip_end">
+    <th mat-header-cell *matHeaderCellDef>trip_end</th>
+    <td mat-cell *matCellDef="let element"> {{element.trip_end}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="average_speed">
+    <th mat-header-cell *matHeaderCellDef>average_speed</th>
+    <td mat-cell *matCellDef="let element"> {{element.average_speed}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
 <ul class="trips">
   <li *ngFor="let trip of trips">
     <!-- <a routerLink="/detail/{{pictures.id}}"> -->
