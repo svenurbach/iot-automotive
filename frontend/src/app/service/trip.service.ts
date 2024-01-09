@@ -17,7 +17,6 @@ export class TripService {
 
     constructor(private http: HttpClient) { }
 
-
     getTrips(): Observable<Trip[]> {
         return this.http.get<Trip[]>(this.url + '/findAll')
         .pipe(
@@ -25,7 +24,6 @@ export class TripService {
             catchError(this.handleError<Trip[]>('getTrips', []))
           );
     }
-
 
     getTrip(id: number): Observable<Trip> {
         const url = `${this.url}/find/${id}`;

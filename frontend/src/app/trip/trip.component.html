@@ -3,7 +3,7 @@
 <ul class="trips">
   <li *ngFor="let trip of trips">
     <!-- <a routerLink="/detail/{{pictures.id}}"> -->
-    <span class="badge">{{trip.id}}</span> {{trip.average_speed}}
+    <span class="badge">{{trip.id}}</span> {{trip.average_speed}} {{trip.trip_end}} {{trip.trip_start}}
     <!-- </a> -->
   </li>
 </ul>

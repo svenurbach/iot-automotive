@@ -6,7 +6,7 @@ export class Trip   {
 
 		average_speed!: number;
 
-		public toString(): string {
-			return this.id + ', ' + this.average_speed.toString();
-		}
+		// public toString(): string {
+		// 	return this.id + ', ' + this.average_speed.toString();
+		// }
 	}

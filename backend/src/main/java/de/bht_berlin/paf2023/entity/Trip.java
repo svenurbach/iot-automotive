@@ -7,8 +7,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity @Getter @Setter
 @Table(name = "trip")
@@ -56,14 +59,28 @@ public class Trip extends IdentifiedEntity {
 
     }
 
+//    @Override
+//    public String toString() {
+//        StringBuilder builder = new StringBuilder();
+//        builder.append("{\"trip_start\": ");
+//        builder.append(trip_start);
+//        builder.append(", \"trip_end\": ");
+//        builder.append(trip_end);
+//        builder.append(", \"average_speed\":");
+//        builder.append(average_speed);
+//        builder.append("}");
+//        return builder.toString();
+//    }
+
     @Override
     public String toString() {
-//        return "Trip{" +
-//                "trip_start='" + trip_start + '\'' +
-//                ", trip_end='" + trip_end + '\'' +
-//                ", average_speed='" + average_speed + '\'' +
-         return "{\"average_speed\": " + average_speed + "}";
+        return "{\"average_speed\": " + average_speed + ", \"trip_end\": \"" + trip_end + "\", \"trip_start\": \"" + trip_start + "\"}";
     }
+////        return "Trip{" +
+////                "trip_start='" + trip_start + '\'' +
+////                ", trip_end='" + trip_end + '\'' +
+////                ", average_speed='" + average_speed + '\'' +
+
     //    public Trip(vehicle...){
 //        this.vehicle = vehicle;
 //    }
