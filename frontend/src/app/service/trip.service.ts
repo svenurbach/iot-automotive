@@ -1,16 +1,9 @@
-import { Injectable, NgModule } from '@angular/core';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Trip } from '../model/trip';
-import { BrowserModule } from '@angular/platform-browser';
 
-// @NgModule({
-//     imports: [
-//     BrowserModule,
-//     HttpClientModule,
-//     ],
-// })
 @Injectable({ providedIn: 'root' })
 export class TripService {
 
