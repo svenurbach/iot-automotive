@@ -6,25 +6,33 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @SpringBootApplication
 public class Paf2023Application implements CommandLineRunner {
 
-	@Autowired
-	private FakerService iService;
+    @Autowired
+    private FakerService iService;
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		SpringApplication.run(Paf2023Application.class, args);
+        SpringApplication.run(Paf2023Application.class, args);
 
-	}
+    }
 
-	@Override
-	public void run(String... args) throws Exception {
+    @Override
+    public void run(String... args) throws Exception {
 
-		iService.generateDummyData("trip", 10);
-//		iService.generateDummyData("insurance", 10);
-//		iService.generateDummyData("person", 10);
-//		iService.generateDummyData("measurement", 10);
-//		iService.generateDummyData("vehicle", 10); //
-	}
+        Map<String, Long> dataSet = new LinkedHashMap<String, Long>();
+        dataSet.put("person", 10L);
+        dataSet.put("insurance", 10L);
+        dataSet.put("vehicle_model", 10L);
+        dataSet.put("vehicle", 10L);
+        dataSet.put("trip", 10L);
+        dataSet.put("contract", 10L);
+
+        iService.generateDummyDataSet(dataSet);
+    }
 }
