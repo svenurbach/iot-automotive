@@ -76,7 +76,7 @@ public class FakerService {
                 trip.setTrip_start(javaUtilDate);
 
                 trip.setTrip_end(faker.date().future(1, java.util.concurrent.TimeUnit.DAYS, javaUtilDate));
-                trip.setAverage_speed(faker.number().randomNumber());
+                trip.setAverage_speed((long) faker.number().numberBetween(10, 200));
 
                     this.tripRepo.save(trip);
             }

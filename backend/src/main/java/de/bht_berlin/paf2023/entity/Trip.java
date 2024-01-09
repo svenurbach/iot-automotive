@@ -1,24 +1,19 @@
 package de.bht_berlin.paf2023.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.github.javafaker.DateAndTime;
 import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-@Entity @Getter @Setter
+
+@Entity
+@Getter
+@Setter
 @Table(name = "trip")
 public class Trip extends IdentifiedEntity {
-
-//    @Id @GeneratedValue
-//    private Integer id;
 
     private Date trip_start;
     private Date trip_end;
@@ -32,7 +27,6 @@ public class Trip extends IdentifiedEntity {
     @OneToMany
     @JoinColumn(name = "endLocation")
     private List<LocationMeasurement> endLocation;
-
 
     @ManyToOne
     @JoinColumn(name = "vehicle")
@@ -54,35 +48,31 @@ public class Trip extends IdentifiedEntity {
         return this.trip_end;
     }
 
-    public Long get_average_speed(){
+    public Long get_average_speed() {
         return this.average_speed;
 
     }
 
-//    @Override
-//    public String toString() {
-//        StringBuilder builder = new StringBuilder();
-//        builder.append("{\"trip_start\": ");
-//        builder.append(trip_start);
-//        builder.append(", \"trip_end\": ");
-//        builder.append(trip_end);
-//        builder.append(", \"average_speed\":");
-//        builder.append(average_speed);
-//        builder.append("}");
-//        return builder.toString();
-//    }
-
     @Override
     public String toString() {
-        return "{\"average_speed\": " + average_speed + ", \"trip_end\": \"" + trip_end + "\", \"trip_start\": \"" + trip_start + "\"}";
+        StringBuilder builder = new StringBuilder();
+        builder.append("{");
+        builder.append("\"id\": \"").append(getId()).append("\", ");
+        builder.append("\"trip_start\": \"").append(trip_start).append("\", ");
+        builder.append("\"trip_end\": \"").append(trip_end).append("\", ");
+        builder.append("\"average_speed\": \"").append(average_speed).append("\", ");
+        builder.append("\"startLocation\": \"").append(startLocation).append("\", ");
+        builder.append("\"endLocation\": \"").append(endLocation).append("\", ");
+        builder.append("\"vehicle\": \"").append(vehicle).append("\", ");
+        builder.append("\"person\": \"").append(person).append("\", ");
+        builder.append("\"analysis\": ").append(analysis);
+        builder.append("}");
+        return builder.toString();
     }
-////        return "Trip{" +
-////                "trip_start='" + trip_start + '\'' +
-////                ", trip_end='" + trip_end + '\'' +
-////                ", average_speed='" + average_speed + '\'' +
 
-    //    public Trip(vehicle...){
-//        this.vehicle = vehicle;
+//    @Override
+//    public String toString() {
+//        return "{\"average_speed\": " + average_speed + ", \"trip_end\": \"" + trip_end + "\", \"trip_start\": \"" + trip_start + "\"}";
 //    }
 
 //    public startTrip(){
