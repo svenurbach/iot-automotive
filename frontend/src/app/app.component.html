@@ -2,31 +2,57 @@
 <!--<p>Congratulations! Your app is running. 🎉</p>-->
 <header>
   <mat-toolbar color="primary">
-    <span> {{ title }} </span>
+    <button (click)="showMenu=!showMenu" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span><a href="/" id="logo" title="Back to home"> {{ title }}</a></span>
   </mat-toolbar>
 </header>
-<nav>
-  <ul>
-    <li>
-      <a
-        routerLink="/home-component"
-        routerLinkActive="active"
-        ariaCurrentWhenActive="page"
-      >Home</a
-      >
-    </li>
-    <li>
-      <a
-        routerLink="/trip-component"
-        routerLinkActive="active"
-        ariaCurrentWhenActive="page"
-      >Trip</a
-      >
-    </li>
-  </ul>
-</nav>
 
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav [opened]="showMenu" [mode]="'side'">
+    <nav>
+    <ul>
+      <li>
+        <a
+          routerLink="/home"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+        >Home</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/trip"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+        >Trip</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/trip"
+          ariaCurrentWhenActive="page"
+        >Driver</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/trip"
+          ariaCurrentWhenActive="page"
+        >Measurement</a
+        >
+      </li>
+    </ul>
+  </nav>
+</mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
 
 
 

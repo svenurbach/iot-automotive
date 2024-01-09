@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Trip } from '../model/trip';
+import { Trip } from '../model/trip.model';
 import { TripService } from '../service/trip.service';
 import { CommonModule } from '@angular/common';
-import {NgFor, NgForOf} from "@angular/common";
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-trip',
   standalone: true,
-  imports: [CommonModule, NgFor],
+  imports: [CommonModule],
   templateUrl: './trip.component.html',
   styleUrl: './trip.component.css'
 })
@@ -16,9 +14,7 @@ export class TripComponent {
 
   trips: Trip[] = [];
 
-  constructor(private tripService: TripService) { }
-
-  ngOnInit(): void {
+  constructor(private tripService: TripService) {
     this.getTrips();
   }
 
