@@ -9,9 +9,12 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
-@Entity @Getter @Setter
+@Entity
+@Getter
+@Setter
 public class TirePressureMeasurement extends Measurement {
 
 //    @Id @GeneratedValue
@@ -22,8 +25,21 @@ public class TirePressureMeasurement extends Measurement {
     private Integer backRightTire;
     private Integer backLeftTire;
 
+    public TirePressureMeasurement() {
+    }
+
+
+    public TirePressureMeasurement(Date timestamp, List<Integer> tirePressure) {
+        this.frontLeftTire = tirePressure.get(0);
+        this.frontRightTire = tirePressure.get(1);
+        this.backRightTire = tirePressure.get(2);
+        this.backLeftTire = tirePressure.get(3);
+        this.setTimestamp(timestamp);
+
+    }
+
     //todo test @yaman
-    private List<Integer> parseList(){
+    private List<Integer> parseList() {
         List<Integer> list = new ArrayList<>();
         list.add(backLeftTire);
         list.add(frontRightTire);

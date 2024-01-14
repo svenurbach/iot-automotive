@@ -85,6 +85,23 @@ public class MeasurementControllerSingleton {
                 new FuelMeasurement((Date) readOuts.get(i).get("Timestamp"), (Integer) readOuts.get(i).get("Fuel level"));
             }
 
+            if (readOuts.get(i).get("Start Latitude") != null) {
+                List<Float> startLocation = new ArrayList<>();
+                startLocation.add((Float) readOuts.get(i).get("Start Latitude"));
+                startLocation.add((Float) readOuts.get(i).get("Start Longitude"));
+                new StartLocationMeasurement((Date) readOuts.get(i).get("Timestamp"), startLocation);
+            }
+
+            if (readOuts.get(i).get("End Latitude") != null) {
+                List<Float> startLocation = new ArrayList<>();
+                startLocation.add((Float) readOuts.get(i).get("End Latitude"));
+                startLocation.add((Float) readOuts.get(i).get("End Longitude"));
+                new StartLocationMeasurement((Date) readOuts.get(i).get("Timestamp"), startLocation);
+            }
+
+//            tire pressures
+//            pedal measurements
+
         }
     }
 }

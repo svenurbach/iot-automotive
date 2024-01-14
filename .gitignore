@@ -4,4 +4,5 @@
 ### VS Code ###
 .vscode/
 .run/Paf2023Application.run.xml
-*/.DS_Store
+backend/src/main/java/de/bht_berlin/paf2023/component/.DS_Store
+
