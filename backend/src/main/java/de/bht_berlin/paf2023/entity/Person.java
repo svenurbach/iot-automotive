@@ -1,13 +1,14 @@
 package de.bht_berlin.paf2023.entity;
 
-import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
-@Entity @Getter @Setter
+@Entity
+@Getter
+@Setter
 @Table(name = "person")
 public class Person extends IdentifiedEntity {
 
@@ -24,7 +25,7 @@ public class Person extends IdentifiedEntity {
     private Long currentTripID;
 
     @OneToMany
-    private List <DrivingBehavior> drivingBehavior;
+    private List<DrivingBehavior> drivingBehavior;
 
     @OneToMany
     @Column(name = "trip_id")

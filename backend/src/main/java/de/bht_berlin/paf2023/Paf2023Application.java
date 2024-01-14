@@ -1,14 +1,15 @@
 package de.bht_berlin.paf2023;
 
+import de.bht_berlin.paf2023.api.MeasurementController;
+import de.bht_berlin.paf2023.component.MeasurementControllerSingleton;
 import de.bht_berlin.paf2023.service.FakerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.sql.Array;
+import java.util.*;
 
 @SpringBootApplication
 public class Paf2023Application implements CommandLineRunner {
@@ -34,5 +35,12 @@ public class Paf2023Application implements CommandLineRunner {
         dataSet.put("contract", 10L);
 
         iService.generateDummyDataSet(dataSet);
+
+        System.out.print("Call Singleton");
+
+        List<List<String>> records = MeasurementControllerSingleton.getInstance().readFile();
+        List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance().createHashMap(records);
+        MeasurementControllerSingleton.getInstance().createMeasurementEntities(allReadOuts);
+
     }
 }

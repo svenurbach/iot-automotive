@@ -7,7 +7,9 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.List;
 
-@Entity @Getter @Setter
+@Entity
+@Getter
+@Setter
 public class Measurement extends IdentifiedEntity {
 
 //    @Id @GeneratedValue
@@ -16,6 +18,10 @@ public class Measurement extends IdentifiedEntity {
     private Date timestamp;
 
     private Integer interval;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle")
+    Vehicle vehicle;
 
     // getMeasuredValue()   -> Messwert wird von Sensoren über Request an die Anwendung geschickt?
     // setInterval()   ->wie oft werden Werte in DB geschrieben (alle ms, jede h ...)

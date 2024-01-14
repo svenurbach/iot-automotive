@@ -14,5 +14,6 @@ package de.bht_berlin.paf2023.plain;
  * - Thread Safety: S. can be made thread-safe
  * - Sngleton can be refactored to a multiton easily
  */
+
 public class Singleton {
 }

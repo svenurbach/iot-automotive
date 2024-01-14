@@ -7,12 +7,27 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity @Getter @Setter
+import java.util.Date;
+
+@Entity
+@Getter
+@Setter
 public class SpeedMeasurement extends Measurement {
 
 //    @Id @GeneratedValue
 //    private Integer id;
 
     private Integer speed;
+
+    public SpeedMeasurement() {
+    }
+
+
+    public SpeedMeasurement(Date timestamp, int speed) {
+        this.speed = speed;
+        this.setTimestamp(timestamp);
+
+    }
+
 
 }

@@ -7,12 +7,25 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity @Getter @Setter
+import java.util.Date;
+
+@Entity
+@Getter
+@Setter
 public class AccelerationMeasurement extends Measurement {
 
 //    @Id @GeneratedValue
 //    private Integer id;
 
     private Integer acceleration;
-    
+
+    public AccelerationMeasurement() {
+    }
+
+
+    public AccelerationMeasurement(Date timestamp, int acceleration) {
+        this.acceleration = acceleration;
+        this.setTimestamp(timestamp);
+
+    }
 }

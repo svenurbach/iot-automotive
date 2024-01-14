@@ -7,7 +7,11 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity @Getter @Setter
+import java.util.Date;
+
+@Entity
+@Getter
+@Setter
 public class FuelMeasurement extends Measurement {
 
 //    @Id @GeneratedValue
@@ -15,4 +19,13 @@ public class FuelMeasurement extends Measurement {
 
     private Integer fuelLevel;
 
+    public FuelMeasurement() {
+    }
+
+
+    public FuelMeasurement(Date timestamp, int fuelLevel) {
+        this.fuelLevel = fuelLevel;
+        this.setTimestamp(timestamp);
+
+    }
 }

@@ -1,14 +1,14 @@
 package de.bht_berlin.paf2023.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
-@Entity @Getter @Setter
+@Entity
+@Getter
+@Setter
 public class Vehicle extends IdentifiedEntity {
 
 //    @Id @GeneratedValue
@@ -28,5 +28,8 @@ public class Vehicle extends IdentifiedEntity {
 
     @ManyToOne
     private VehicleModel vehicleModel;
+
+    @OneToMany
+    private List<Measurement> measurement;
 
 }

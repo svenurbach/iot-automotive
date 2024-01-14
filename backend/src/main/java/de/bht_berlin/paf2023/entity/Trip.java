@@ -1,6 +1,6 @@
 package de.bht_berlin.paf2023.entity;
 
-import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
+import de.bht_berlin.paf2023.entity.measurements.StartLocationMeasurement;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,11 +22,11 @@ public class Trip extends IdentifiedEntity {
 
     @OneToMany
     @JoinColumn(name = "startLocation")
-    private List<LocationMeasurement> startLocation;
+    private List<StartLocationMeasurement> startLocation;
 
     @OneToMany
     @JoinColumn(name = "endLocation")
-    private List<LocationMeasurement> endLocation;
+    private List<StartLocationMeasurement> endLocation;
 
     @ManyToOne
     @JoinColumn(name = "vehicle")
