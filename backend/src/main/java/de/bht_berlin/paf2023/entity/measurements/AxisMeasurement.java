@@ -1,6 +1,7 @@
 package de.bht_berlin.paf2023.entity.measurements;
 
 import de.bht_berlin.paf2023.entity.Measurement;
+import de.bht_berlin.paf2023.entity.Vehicle;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -23,9 +24,9 @@ public class AxisMeasurement extends Measurement {
     }
 
 
-    public AxisMeasurement(Date timestamp, float axisAngle) {
+    public AxisMeasurement(Date timestamp, float axisAngle, Vehicle vehicle) {
         this.axisAngle = axisAngle;
         this.setTimestamp(timestamp);
-
+        this.setVehicle(vehicle);
     }
 }

@@ -1,6 +1,7 @@
 package de.bht_berlin.paf2023.entity.measurements;
 
 import de.bht_berlin.paf2023.entity.Measurement;
+import de.bht_berlin.paf2023.entity.Vehicle;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -23,9 +24,9 @@ public class FuelMeasurement extends Measurement {
     }
 
 
-    public FuelMeasurement(Date timestamp, int fuelLevel) {
+    public FuelMeasurement(Date timestamp, int fuelLevel, Vehicle vehicle) {
         this.fuelLevel = fuelLevel;
         this.setTimestamp(timestamp);
-
+        this.setVehicle(vehicle);
     }
 }

@@ -2,6 +2,7 @@ package de.bht_berlin.paf2023.entity.measurements;
 
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
+import de.bht_berlin.paf2023.entity.Vehicle;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
@@ -28,10 +29,11 @@ public class EndLocationMeasurement extends Measurement {
     }
 
 
-    public EndLocationMeasurement(Date timestamp, List<Float> startLocation) {
-        this.endLatitude = startLocation.get(0);
-        this.endlongitude = startLocation.get(1);
+    public EndLocationMeasurement(Date timestamp, List<Float> endLocation, Vehicle vehicle) {
+        this.endLatitude = endLocation.get(0);
+        this.endlongitude = endLocation.get(1);
         this.setTimestamp(timestamp);
+        this.setVehicle(vehicle);
 
     }
 

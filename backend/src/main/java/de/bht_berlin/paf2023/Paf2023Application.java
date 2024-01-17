@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import de.bht_berlin.paf2023.repo.VehicleRepo;
 
 import java.sql.Array;
 import java.util.*;
@@ -16,6 +17,9 @@ public class Paf2023Application implements CommandLineRunner {
 
     @Autowired
     private FakerService iService;
+
+    @Autowired
+    private VehicleRepo vehicleRepo;
 
     public static void main(String[] args) {
 
@@ -38,9 +42,10 @@ public class Paf2023Application implements CommandLineRunner {
 
         System.out.print("Call Singleton");
 
-        List<List<String>> records = MeasurementControllerSingleton.getInstance().readFile();
-        List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance().createHashMap(records);
-        MeasurementControllerSingleton.getInstance().createMeasurementEntities(allReadOuts);
+        List<List<String>> records = MeasurementControllerSingleton.getInstance(vehicleRepo).readFile("test.csv");
+        List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo).createHashMap(records);
+        System.out.println(allReadOuts);
+        MeasurementControllerSingleton.getInstance(vehicleRepo).createMeasurementEntities(allReadOuts);
 
     }
 }

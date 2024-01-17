@@ -1,39 +1,48 @@
 package de.bht_berlin.paf2023.component;
 
+import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.measurements.*;
+import de.bht_berlin.paf2023.repo.VehicleRepo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+
 
 @Component
 public class MeasurementControllerSingleton {
 
     private static MeasurementControllerSingleton instance;
     private final String DELIMITER = ";";
+    private final VehicleRepo vehicleRepo;
 
-    private MeasurementControllerSingleton() {
+    @Autowired
+    private MeasurementControllerSingleton(VehicleRepo vehicleRepo) {
+        this.vehicleRepo = vehicleRepo;
         System.out.println("Instance build");
     }
 
-    public static MeasurementControllerSingleton getInstance() {
+    public static MeasurementControllerSingleton getInstance(VehicleRepo vehicleRepo) {
         if (instance == null) {
-            instance = new MeasurementControllerSingleton();
+            instance = new MeasurementControllerSingleton(vehicleRepo);
         }
         return instance;
     }
 
-    public List readFile() {
+    public List readFile(String file) {
         List<List<String>> records = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("book.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(DELIMITER);
@@ -66,38 +75,59 @@ public class MeasurementControllerSingleton {
         return allReadOuts;
     }
 
+    private static Date parseDateFromString(String dateString) {
+        Date date = null;
+        String pattern = "yyyy-MM-dd HH:mm:ss"; // Use the pattern that matches your date string format
+
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+            date = dateFormat.parse(dateString);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
     public void createMeasurementEntities(List<HashMap> readOuts) {
+
 
         for (int i = 0; i < readOuts.size(); i++) {
 
+            Date timestamp = parseDateFromString(readOuts.get(i).get("Timestamp").toString());
+            Long vehicleid = Long.valueOf((readOuts.get(i).get("Vehicle").toString()));
+//            System.out.println(readOuts.get(i).get("Vehicle"));
+            Vehicle existingVehicle = this.vehicleRepo.getById(vehicleid);
 
             if (readOuts.get(i).get("Accelaration") != null) {
-                new AccelerationMeasurement((Date) readOuts.get(i).get("Timestamp"), (Integer) readOuts.get(i).get("Accelaration"));
+                new AccelerationMeasurement(timestamp, Integer.parseInt(readOuts.get(i).get("Accelaration").toString()), existingVehicle);
             }
             if (readOuts.get(i).get("Axis_angle") != null) {
-                new AxisMeasurement((Date) readOuts.get(i).get("Timestamp"), (Float) readOuts.get(i).get("Axis_angle"));
+                new AxisMeasurement(timestamp, Float.parseFloat(readOuts.get(i).get("Axis_angle").toString()), existingVehicle);
             }
             if (readOuts.get(i).get("Speed") != null) {
-                new SpeedMeasurement((Date) readOuts.get(i).get("Timestamp"), (Integer) readOuts.get(i).get("Speed"));
+                new SpeedMeasurement(timestamp, Integer.parseInt(readOuts.get(i).get("Speed").toString()),
+                        existingVehicle);
             }
 
             if (readOuts.get(i).get("Fuel level") != null) {
-                new FuelMeasurement((Date) readOuts.get(i).get("Timestamp"), (Integer) readOuts.get(i).get("Fuel level"));
+                new FuelMeasurement(timestamp, Integer.parseInt(readOuts.get(i).get("Fuel level").toString()),
+                        existingVehicle);
             }
 
-            if (readOuts.get(i).get("Start Latitude") != null) {
+            if (readOuts.get(i).get("Latitude") != null) {
                 List<Float> startLocation = new ArrayList<>();
-                startLocation.add((Float) readOuts.get(i).get("Start Latitude"));
-                startLocation.add((Float) readOuts.get(i).get("Start Longitude"));
-                new StartLocationMeasurement((Date) readOuts.get(i).get("Timestamp"), startLocation);
+                startLocation.add(Float.parseFloat(readOuts.get(i).get("Latitude").toString()));
+                startLocation.add(Float.parseFloat(readOuts.get(i).get("Longitude").toString()));
+                new StartLocationMeasurement(timestamp, startLocation, existingVehicle);
             }
-
-            if (readOuts.get(i).get("End Latitude") != null) {
-                List<Float> startLocation = new ArrayList<>();
-                startLocation.add((Float) readOuts.get(i).get("End Latitude"));
-                startLocation.add((Float) readOuts.get(i).get("End Longitude"));
-                new StartLocationMeasurement((Date) readOuts.get(i).get("Timestamp"), startLocation);
-            }
+//
+//            if (readOuts.get(i).get("End Latitude") != null) {
+//                List<Float> endLocation = new ArrayList<>();
+//                endLocation.add((Float) readOuts.get(i).get("End Latitude"));
+//                endLocation.add((Float) readOuts.get(i).get("End Longitude"));
+//                new EndLocationMeasurement(timestamp, endLocation, existingVehicle);
+//            }
 
 //            tire pressures
 //            pedal measurements
