@@ -2,6 +2,7 @@ package de.bht_berlin.paf2023.repo;
 
 import de.bht_berlin.paf2023.entity.Insurance;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface InsuranceRepo extends JpaRepository<Insurance, Long> {
 
-    // Custom Methods/SQL-Queries
-
+//    Number findSpecifiedKiloMeters(Long id);
 
 }
