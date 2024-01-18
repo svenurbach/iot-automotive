@@ -25,6 +25,9 @@ public class Person extends IdentifiedEntity {
     private List<DrivingBehavior> drivingBehavior;
 
     @OneToMany
+    private List<Contract> contracts;
+
+    @OneToMany
     @Column(name = "trip_id")
     private List<Trip> trip;
 

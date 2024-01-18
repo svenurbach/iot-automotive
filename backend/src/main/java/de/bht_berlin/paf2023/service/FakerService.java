@@ -60,7 +60,7 @@ public class FakerService {
             case "insurance":
                 for (int i = 0; i < numberOfEntries; i++) {
                     Insurance insurance = new Insurance();
-                    insurance.setName(faker.artist().name());
+                    insurance.setInsuranceName(faker.artist().name());
                     this.insuranceRepo.save(insurance);
                 }
                 break;
@@ -97,7 +97,7 @@ public class FakerService {
                     Date javaUtilDate = new Date(randomTimestamp);
                     contract.setBegin(javaUtilDate);
 
-                    contract.setContract_distance(faker.number().numberBetween(0L, 200000));
+                    contract.setContractDistance(faker.number().numberBetween(0L, 200000));
 
                     //                    foreign key generation for person
                     Insurance existingInsurance = this.insuranceRepo.getById(generateRandomForeignKey(dataSet,
@@ -144,11 +144,11 @@ public class FakerService {
                     //                    foreign key generation for vehicle
                     VehicleModel existingVehicleModel = this.vehicleModelRepo.getById(generateRandomForeignKey(dataSet,
                             "vehicle_model"));
-                    vehicle.setVehicleModel(existingVehicleModel);
+                    vehicle.setVehicleModelID(existingVehicleModel);
 
                     //                    foreign key generation for person
                     Person existingPerson = this.personRepo.getById(generateRandomForeignKey(dataSet, "person"));
-                    vehicle.setPerson(existingPerson);
+                    vehicle.setPersonID(existingPerson);
 
                     this.vehicleRepo.save(vehicle);
                 }

@@ -8,16 +8,14 @@ import java.util.List;
 @Entity @Getter @Setter
 public class Insurance extends IdentifiedEntity {
 
-    private String policyholder;
+    private String insuranceName;
 
     private String insuranceType;
-
-    @OneToOne
-    private Vehicle vehicle;
 
     @OneToMany
     private List<Contract> contracts;
 
+    @JoinColumn(name = "insurance_company_id")
     @ManyToOne
-    private InsuranceCompany insuranceCompany;
+    private InsuranceCompany insuranceCompanyID;
 }

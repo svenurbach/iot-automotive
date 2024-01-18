@@ -18,20 +18,19 @@ public class Vehicle extends IdentifiedEntity {
 
     private String vin;
 
+    @JoinColumn(name = "contract_id")
     @ManyToOne
-    private Contract contract;
+    private Contract contractID;
 
+    @JoinColumn(name = "person_id")
     @ManyToOne
-    private Person person;
+    private Person personID;
 
+    @JoinColumn(name = "vehicle_model_id")
     @ManyToOne
-    private VehicleModel vehicleModel;
+    private VehicleModel vehicleModelID;
 
     @OneToMany
     private List<Measurement> measurement;
-
-    // TODO: Brauchen wir hier EndLocationMeasurements oder Measurement?
-//    @OneToMany
-//    private EndLocationMeasurement endLocationMeasurement;
 
 }
