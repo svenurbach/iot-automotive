@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity @Getter @Setter
 public class Contract extends IdentifiedEntity {
 
-    String insuranceType;
+    String insuranceNumber;
 
     @Column(nullable = false)
     Date begin;

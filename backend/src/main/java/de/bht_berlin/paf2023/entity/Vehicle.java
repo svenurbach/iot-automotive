@@ -1,5 +1,6 @@
 package de.bht_berlin.paf2023.entity;
 
+import de.bht_berlin.paf2023.entity.measurements.EndLocationMeasurement;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,17 +12,14 @@ import java.util.List;
 @Setter
 public class Vehicle extends IdentifiedEntity {
 
-//    @Id @GeneratedValue
-//    private Integer id;
-
     private Integer yearOfConstruction;
 
     private String licensePlate;
 
-    @OneToOne
-    private Contract contract;
-
     private String vin;
+
+    @ManyToOne
+    private Contract contract;
 
     @ManyToOne
     private Person person;
@@ -31,5 +29,9 @@ public class Vehicle extends IdentifiedEntity {
 
     @OneToMany
     private List<Measurement> measurement;
+
+    // TODO: Brauchen wir hier EndLocationMeasurements oder Measurement?
+//    @OneToMany
+//    private EndLocationMeasurement endLocationMeasurement;
 
 }
