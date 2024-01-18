@@ -14,24 +14,24 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class StartLocationMeasurement extends Measurement {
+public class LocationMeasurement extends Measurement {
 
 //    @Id @GeneratedValue
 //    private Integer id;
 
-    private Float startLatitude;
-    private Float startLongitude;
+    private Float latitude;
+    private Float longitude;
 
     @ManyToOne
     private Trip trip;
 
-    public StartLocationMeasurement() {
+    public LocationMeasurement() {
     }
 
 
-    public StartLocationMeasurement(Date timestamp, List<Float> startLocation, Vehicle vehicle) {
-        this.startLatitude = startLocation.get(0);
-        this.startLongitude = startLocation.get(1);
+    public LocationMeasurement(Date timestamp, List<Float> location, Vehicle vehicle) {
+        this.latitude = location.get(0);
+        this.longitude = location.get(1);
         this.setTimestamp(timestamp);
         this.setVehicle(vehicle);
 

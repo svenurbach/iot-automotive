@@ -2,6 +2,7 @@ package de.bht_berlin.paf2023;
 
 import de.bht_berlin.paf2023.api.MeasurementController;
 import de.bht_berlin.paf2023.component.MeasurementControllerSingleton;
+import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.service.FakerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,6 +21,9 @@ public class Paf2023Application implements CommandLineRunner {
 
     @Autowired
     private VehicleRepo vehicleRepo;
+
+    @Autowired
+    private MeasurementRepo measurementRepo;
 
     public static void main(String[] args) {
 
@@ -42,10 +46,10 @@ public class Paf2023Application implements CommandLineRunner {
 
         System.out.print("Call Singleton");
 
-        List<List<String>> records = MeasurementControllerSingleton.getInstance(vehicleRepo).readFile("test.csv");
-        List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo).createHashMap(records);
+        List<List<String>> records = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test.csv");
+        List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
         System.out.println(allReadOuts);
-        MeasurementControllerSingleton.getInstance(vehicleRepo).createMeasurementEntities(allReadOuts);
+        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
 
     }
 }
