@@ -52,7 +52,7 @@ public class DistanceService {
 
     public int compare_driven_distance_with_contract_distance(Long driven_distance, Contract contract){
         int deviation = 0;
-        Long contract_distance = contract.get_contract_distance();
+        Long contract_distance = contract.getContractDistance();
         Long diff = driven_distance / contract_distance * 100;
         deviation = (int) (diff - 100);
 

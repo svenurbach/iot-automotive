@@ -1,6 +1,5 @@
 package de.bht_berlin.paf2023.entity;
 
-import de.bht_berlin.paf2023.entity.measurements.EndLocationMeasurement;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

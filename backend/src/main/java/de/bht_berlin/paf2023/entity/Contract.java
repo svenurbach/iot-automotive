@@ -13,7 +13,7 @@ public class Contract extends IdentifiedEntity {
     // Selbstbeteiligung
     private Number deductible;
 
-    private Number contractDistance;
+    private Long contractDistance;
 
     private Float contractPrice;
 
