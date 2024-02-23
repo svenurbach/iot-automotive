@@ -3,6 +3,8 @@ package de.bht_berlin.paf2023.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.sql.Date;
 import java.util.List;
 
 @Entity @Getter @Setter
@@ -12,9 +14,7 @@ public class Person extends IdentifiedEntity {
     @Column(length = 50, nullable = false)
     private String name;
 
-    private Boolean driver;
-
-    private Boolean owner;
+    private Date dateOfBirth;
 
     private Long currentTripID;
 
@@ -22,14 +22,11 @@ public class Person extends IdentifiedEntity {
     private List<Vehicle> vehicles;
 
     @OneToMany
-    private List<DrivingBehavior> drivingBehavior;
-
-    @OneToMany
-    private List<Contract> contracts;
+    private List<InsuranceContract> insuranceContracts;
 
     @OneToMany
     @Column(name = "trip_id")
-    private List<Trip> trip;
+    private List<Trip> trips;
 
     private void startTrip() {
         // TODO: Implement

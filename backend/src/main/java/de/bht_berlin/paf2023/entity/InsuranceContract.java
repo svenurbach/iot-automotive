@@ -6,7 +6,8 @@ import lombok.Setter;
 import java.util.Date;
 
 @Entity @Getter @Setter
-public class Contract extends IdentifiedEntity {
+@Table(name = "contract")
+public class InsuranceContract extends IdentifiedEntity {
 
     private String policyNumber;
 
@@ -24,7 +25,7 @@ public class Contract extends IdentifiedEntity {
     @JoinColumn(name = "person_id")
     private Person policyholderID;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicleID;
 

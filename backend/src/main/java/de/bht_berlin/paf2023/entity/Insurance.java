@@ -13,7 +13,7 @@ public class Insurance extends IdentifiedEntity {
     private String insuranceType;
 
     @OneToMany
-    private List<Contract> contracts;
+    private List<InsuranceContract> contracts;
 
     @JoinColumn(name = "insurance_company_id")
     @ManyToOne

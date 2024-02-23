@@ -6,11 +6,11 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Entity
-@Getter
-@Setter
+@Entity @Getter @Setter
+@Table(name = "vehicle")
 public class Vehicle extends IdentifiedEntity {
 
+    @Column(length = 4)
     private Integer yearOfConstruction;
 
     private String licensePlate;
@@ -18,8 +18,8 @@ public class Vehicle extends IdentifiedEntity {
     private String vin;
 
     @JoinColumn(name = "contract_id")
-    @ManyToOne
-    private Contract contractID;
+    @OneToOne
+    private InsuranceContract insuranceContractID;
 
     @JoinColumn(name = "person_id")
     @ManyToOne

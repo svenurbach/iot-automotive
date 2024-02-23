@@ -9,9 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 
-@Entity
-@Getter
-@Setter
+@Entity @Getter @Setter
 @Table(name = "trip")
 public class Trip extends IdentifiedEntity {
 

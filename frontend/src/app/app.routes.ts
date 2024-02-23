@@ -7,7 +7,7 @@ import { VehicleComponent } from './vehicle/vehicle.component';
 export const routes: Routes = [
     // see index.html for start web page
     { path: '', component: HomeComponent },
-    { path: 'home', component: HomeComponent },
+    { path: 'dashboard', component: HomeComponent },
     { path: 'insurance', component: InsuranceComponent },
     { path: 'vehicle', component: VehicleComponent },
     { path: 'trip', component: TripComponent }

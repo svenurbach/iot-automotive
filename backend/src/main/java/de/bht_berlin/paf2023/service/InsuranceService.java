@@ -1,6 +1,7 @@
 package de.bht_berlin.paf2023.service;
 
 import de.bht_berlin.paf2023.entity.Insurance;
+import de.bht_berlin.paf2023.entity.InsuranceCompany;
 import de.bht_berlin.paf2023.repo.InsuranceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,23 +9,29 @@ import java.util.List;
 
 @Service
 public class InsuranceService {
-    private final InsuranceRepo repository;
+    private final InsuranceRepo insuranceRepo;
+//    private final ContractRepo contractRepo;
+//    private final InsuranceCompanyRepo insuranceCompanyRepo;
 
     @Autowired
     public InsuranceService(InsuranceRepo repository) {
-        this.repository = repository;
+        this.insuranceRepo = repository;
     }
 
     public List<Insurance> getAllInsurances() {
-        return repository.findAll();
+        return insuranceRepo.findAll();
     }
 
     public Insurance getInsuranceById(Long id) {
-        return repository.findById(id).orElse(null);
+        return insuranceRepo.findById(id).orElse(null);
+    }
+
+    public Insurance getInsurancesByPerson(Long id) {
+        return insuranceRepo.findById(id).orElse(null);
     }
 
     public Insurance addInsurance(Insurance insurance) {
-        return repository.save(insurance);
+        return insuranceRepo.save(insurance);
     }
 
     public Number getSpecifiedKiloMeters(Long id) {
@@ -33,7 +40,7 @@ public class InsuranceService {
     }
 
     public String deleteInsurance(Long id) {
-        repository.deleteById(id);
+        insuranceRepo.deleteById(id);
         return "Insurance removed! " + id;
     }
 
