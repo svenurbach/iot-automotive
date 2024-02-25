@@ -1,6 +1,6 @@
 package de.bht_berlin.paf2023.service;
 
-import de.bht_berlin.paf2023.entity.Contract;
+import de.bht_berlin.paf2023.entity.InsuranceContract;
 import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.repo.TripRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +50,9 @@ public class DistanceService {
         return tripYear == year;
     }
 
-    public int compare_driven_distance_with_contract_distance(Long driven_distance, Contract contract){
+    public int compare_driven_distance_with_contract_distance(Long driven_distance, InsuranceContract insuranceContract){
         int deviation = 0;
-        Long contract_distance = contract.get_contract_distance();
+        Long contract_distance = insuranceContract.getContractDistance();
         Long diff = driven_distance / contract_distance * 100;
         deviation = (int) (diff - 100);
 

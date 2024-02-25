@@ -42,7 +42,7 @@ public class Paf2023Application implements CommandLineRunner {
         dataSet.put("trip", 10L);
         dataSet.put("contract", 10L);
 
-        iService.generateDummyDataSet(dataSet);
+//        iService.generateDummyDataSet(dataSet);
 
         System.out.print("Call Singleton");
 

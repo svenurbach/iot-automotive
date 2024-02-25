@@ -23,4 +23,9 @@ public class MeasurementService {
 //    showError(vehicle)
 //        show error in measurement
 
+    public String getMeasurements(long id){
+        return "test";
+        // return repository.findById(id).get().get
+    }
+
 }

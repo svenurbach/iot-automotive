@@ -25,7 +25,7 @@ public class HelloComponent {
 //        String id = Integer.toHexString(System.identityHashCode(this));
 //        logger.info("bla");
 //        return "Hello PaF 2023 from Component" + ++callCounter + " instance ID:" + InstanceId + ", " + this.hashCode() + id;
-        return "Hello PaF 2023 from Component";
+        return "Hello PaF 2023 from Component – new message";
     }
 
 }

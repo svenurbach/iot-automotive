@@ -1,6 +1,5 @@
 package de.bht_berlin.paf2023.api;
 
-import de.bht_berlin.paf2023.service.RiskCalculationService;
 import de.bht_berlin.paf2023.service.SafetyRecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

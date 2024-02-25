@@ -4,32 +4,29 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
 import java.util.List;
 
-@Entity
-@Getter
-@Setter
+@Entity @Getter @Setter
 @Table(name = "person")
 public class Person extends IdentifiedEntity {
-
-//    @Id @GeneratedValue
-//    private Integer id;
 
     @Column(length = 50, nullable = false)
     private String name;
 
-    private Boolean driver;
-
-    private Boolean owner;
+    private Date dateOfBirth;
 
     private Long currentTripID;
 
     @OneToMany
-    private List<DrivingBehavior> drivingBehavior;
+    private List<Vehicle> vehicles;
+
+    @OneToMany
+    private List<InsuranceContract> insuranceContracts;
 
     @OneToMany
     @Column(name = "trip_id")
-    private List<Trip> trip;
+    private List<Trip> trips;
 
     private void startTrip() {
         // TODO: Implement

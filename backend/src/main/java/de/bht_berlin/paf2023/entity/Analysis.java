@@ -16,9 +16,6 @@ public class Analysis extends IdentifiedEntity {
     private Boolean inconsistency;
 
     @OneToMany(mappedBy = "analysis")
-    private List<DrivingBehavior> drivingBehavior;
-
-    @OneToMany(mappedBy = "analysis")
     private List<Trip> trip;
 
     @OneToMany(mappedBy = "analysis")
