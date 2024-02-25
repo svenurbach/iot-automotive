@@ -1,6 +1,8 @@
 package de.bht_berlin.paf2023.service;
 
-import de.bht_berlin.paf2023.entity.measurements.EndLocationMeasurement;
+//import de.bht_berlin.paf2023.entity.measurements.EndLocationMeasurement;
+
+import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +18,14 @@ public class FindMyCarService {
         this.vehicleRepo = repository;
     }
 
-    public EndLocationMeasurement getLastPositionByCar(Long id) {
-        return vehicleRepo.findLastPositionByCarId(id);
+    public LocationMeasurement getLastPositionByCar(Long id) {
+        return null;
+//        return vehicleRepo.findLastPositionByCarId(id);
     }
 
-    public List<EndLocationMeasurement> getLastPositionsByPerson(Long id) {
-        return vehicleRepo.findLastPositionByPersonId(id);
+    public List<LocationMeasurement> getLastPositionsByPerson(Long id) {
+        return null;
+//        return vehicleRepo.findLastPositionByPersonId(id);
     }
 
 }

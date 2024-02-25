@@ -15,7 +15,7 @@ import java.util.List;
 public interface InsuranceRepo extends JpaRepository<Insurance, Long> {
 
 //    Number findSpecifiedKiloMeters(Long id);
-    @Query("SELECT i FROM Insurance i JOIN i.contract c JOIN c.insuredPerson p WHERE p.id = :personId")
-    List<Insurance> findInsurancesByPersonId(@Param("personId") Long personId);
+//    @Query("SELECT i FROM Insurance i JOIN i.contract c JOIN c.insuredPerson p WHERE p.id = :personId")
+//    List<Insurance> findInsurancesByPersonId(@Param("personId") Long personId);
 
 }

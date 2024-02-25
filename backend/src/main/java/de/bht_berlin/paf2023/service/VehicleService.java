@@ -1,7 +1,7 @@
 package de.bht_berlin.paf2023.service;
 
 import de.bht_berlin.paf2023.entity.Vehicle;
-import de.bht_berlin.paf2023.entity.measurements.EndLocationMeasurement;
+import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +19,12 @@ public class VehicleService {
         return repository.save(vehicle);
     }
 
-    public EndLocationMeasurement addEndLocationMeasurement(EndLocationMeasurement endLocationMeasurement) {
+    public LocationMeasurement addEndLocationMeasurement(LocationMeasurement endLocationMeasurement) {
 //        return repository.save(endLocationMeasurement);
         return null;
     }
 
-    public EndLocationMeasurement getLastLocation() {
+    public LocationMeasurement getLastLocation() {
 //        return repository.findLastLocation();
         return null;
     }
