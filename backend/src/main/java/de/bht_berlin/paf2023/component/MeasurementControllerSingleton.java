@@ -6,7 +6,6 @@ import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-//import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -18,7 +17,6 @@ import java.util.*;
 
 
 @Component
-//@Service
 public class MeasurementControllerSingleton {
 
     private static MeasurementControllerSingleton instance;
@@ -119,6 +117,12 @@ public class MeasurementControllerSingleton {
             if (readOuts.get(i).get("Fuel level") != null) {
                 this.measurementRepo.save(new FuelMeasurement(timestamp, Integer.parseInt(readOuts.get(i).get("Fuel " +
                         "level").toString()),
+                        existingVehicle));
+            }
+
+            if (readOuts.get(i).get("Steering Angle") != null) {
+                this.measurementRepo.save(new SteeringWheelMeasurement(timestamp, Float.parseFloat(readOuts.get(i).get(
+                        "Steering Angle").toString()),
                         existingVehicle));
             }
 
