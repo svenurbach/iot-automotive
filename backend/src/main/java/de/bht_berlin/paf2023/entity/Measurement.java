@@ -29,4 +29,10 @@ public class Measurement extends IdentifiedEntity {
 
     @ManyToOne
     private Analysis analysis;
+
+    private long getMeasurementsFromOneTypeOfMeasurement(){
+        // TO-DO:
+        // holt sich alle aktuellen Messungen eines Types (Geschwindigkeit, Verbrauch, Beschleunigung, etc.)
+    return 0;
+    }
 }
