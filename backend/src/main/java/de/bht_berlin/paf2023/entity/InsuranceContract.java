@@ -12,7 +12,7 @@ public class InsuranceContract extends IdentifiedEntity {
     private String policyNumber;
 
     // Selbstbeteiligung
-    private Number deductible;
+    private Long deductible;
 
     private Long contractDistance;
 

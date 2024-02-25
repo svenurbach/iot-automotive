@@ -1,7 +1,6 @@
 package de.bht_berlin.paf2023.service;
 
-import de.bht_berlin.paf2023.entity.Insurance;
-import de.bht_berlin.paf2023.repo.InsuranceRepo;
+import de.bht_berlin.paf2023.entity.measurements.EndLocationMeasurement;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +16,12 @@ public class FindMyCarService {
         this.vehicleRepo = repository;
     }
 
-    public Insurance getParkingLocationByCar(Long id) {
-        return null;
+    public EndLocationMeasurement getLastPositionByCar(Long id) {
+        return vehicleRepo.findLastPositionByCarId(id);
     }
 
-    public Insurance getParkingLocationsByPerson(Long id) {
-        return null;
+    public List<EndLocationMeasurement> getLastPositionsByPerson(Long id) {
+        return vehicleRepo.findLastPositionByPersonId(id);
     }
 
 }
