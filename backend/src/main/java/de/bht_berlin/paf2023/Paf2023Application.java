@@ -50,6 +50,5 @@ public class Paf2023Application implements CommandLineRunner {
         List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
         System.out.println(allReadOuts);
         MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
-
     }
 }

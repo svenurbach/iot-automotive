@@ -34,6 +34,7 @@ public class LocationMeasurement extends Measurement {
         this.longitude = location.get(1);
         this.setTimestamp(timestamp);
         this.setVehicle(vehicle);
+        this.setMeasurementType(this.getClass().getSimpleName());
 
     }
 }

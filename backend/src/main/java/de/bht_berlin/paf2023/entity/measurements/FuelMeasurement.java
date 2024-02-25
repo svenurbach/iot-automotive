@@ -28,5 +28,7 @@ public class FuelMeasurement extends Measurement {
         this.fuelLevel = fuelLevel;
         this.setTimestamp(timestamp);
         this.setVehicle(vehicle);
+        this.setMeasurementType(this.getClass().getSimpleName());
+
     }
 }

@@ -19,6 +19,8 @@ public class Measurement extends IdentifiedEntity {
 
     private Integer interval;
 
+    private String measurementType;
+    
     @ManyToOne
     @JoinColumn(name = "vehicle")
     Vehicle vehicle;
@@ -30,9 +32,9 @@ public class Measurement extends IdentifiedEntity {
     @ManyToOne
     private Analysis analysis;
 
-    private long getMeasurementsFromOneTypeOfMeasurement(){
+    private long getMeasurementsFromOneTypeOfMeasurement() {
         // TO-DO:
         // holt sich alle aktuellen Messungen eines Types (Geschwindigkeit, Verbrauch, Beschleunigung, etc.)
-    return 0;
+        return 0;
     }
 }

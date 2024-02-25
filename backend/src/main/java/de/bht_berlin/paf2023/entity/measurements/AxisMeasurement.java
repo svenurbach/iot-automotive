@@ -28,5 +28,7 @@ public class AxisMeasurement extends Measurement {
         this.axisAngle = axisAngle;
         this.setTimestamp(timestamp);
         this.setVehicle(vehicle);
+        this.setMeasurementType(this.getClass().getSimpleName());
+
     }
 }

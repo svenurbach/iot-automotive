@@ -32,6 +32,7 @@ public class SteeringWheelMeasurement extends Measurement {
         this.steeringWheelAngle = steeringWheelAngle;
         this.setTimestamp(timestamp);
         this.setVehicle(vehicle);
+        this.setMeasurementType(this.getClass().getSimpleName());
 
     }
 }
