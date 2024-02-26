@@ -19,12 +19,24 @@ public class Measurement extends IdentifiedEntity {
 
     private Integer interval;
 
+    private Long measuredValue;
+
+    private String measurementType;
+
     @ManyToOne
     @JoinColumn(name = "vehicle")
     Vehicle vehicle;
 
     // getMeasuredValue()   -> Messwert wird von Sensoren über Request an die Anwendung geschickt?
+    public Long getMeasuredValue(){
+        return this.measuredValue;
+    }
+
     // setInterval()   ->wie oft werden Werte in DB geschrieben (alle ms, jede h ...)
+    public Integer setInterval(){
+        return this.interval;
+    }
+
     // saveInDB()   -> Messwert wird in DB geschrieben
 
     @ManyToOne
