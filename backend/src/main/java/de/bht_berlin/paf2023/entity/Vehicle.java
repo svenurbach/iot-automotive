@@ -19,15 +19,15 @@ public class Vehicle extends IdentifiedEntity {
 
     @JoinColumn(name = "contract_id")
     @OneToOne
-    private InsuranceContract insuranceContractID;
+    private InsuranceContract insuranceContract;
 
     @JoinColumn(name = "person_id")
     @ManyToOne
-    private Person personID;
+    private Person person;
 
     @JoinColumn(name = "vehicle_model_id")
     @ManyToOne
-    private VehicleModel vehicleModelID;
+    private VehicleModel vehicleModel;
 
     @OneToMany
     private List<Measurement> measurement;

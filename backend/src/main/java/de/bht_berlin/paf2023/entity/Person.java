@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Entity @Getter @Setter
@@ -18,10 +18,10 @@ public class Person extends IdentifiedEntity {
 
     private Long currentTripID;
 
-    @OneToMany
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<Vehicle> vehicles;
 
-    @OneToMany
+    @OneToMany(mappedBy = "policyholder", cascade = CascadeType.ALL)
     private List<InsuranceContract> insuranceContracts;
 
     @OneToMany

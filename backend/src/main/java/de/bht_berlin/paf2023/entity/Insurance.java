@@ -12,10 +12,10 @@ public class Insurance extends IdentifiedEntity {
 
     private String insuranceType;
 
-    @OneToMany
+    @OneToMany(mappedBy = "insurance", cascade = CascadeType.ALL)
     private List<InsuranceContract> contracts;
 
-    @JoinColumn(name = "insurance_company_id")
     @ManyToOne
-    private InsuranceCompany insuranceCompanyID;
+    @JoinColumn(name = "insurance_company_id")
+    private InsuranceCompany insuranceCompany;
 }
