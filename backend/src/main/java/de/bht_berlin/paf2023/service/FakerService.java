@@ -63,6 +63,12 @@ public class FakerService {
                 for (int i = 0; i < numberOfEntries; i++) {
                     Insurance insurance = new Insurance();
                     insurance.setInsuranceName(faker.artist().name());
+                    insurance.setInsuranceType(faker.company().profession());
+
+                    // foreign key generation for person
+                    InsuranceCompany existingCompany = this.insuranceCompanyRepo.getById(generateRandomForeignKey(dataSet, "insurance_company"));
+                    insurance.setInsuranceCompany(existingCompany);
+
                     this.insuranceRepo.save(insurance);
                 }
                 break;
@@ -105,8 +111,10 @@ public class FakerService {
                     long randomTimestamp = faker.date().past(365, java.util.concurrent.TimeUnit.DAYS).getTime();
                     Date javaUtilDate = new Date(randomTimestamp);
                     insuranceContract.setBegin(javaUtilDate);
-
                     insuranceContract.setContractDistance(faker.number().numberBetween(0L, 200000));
+                    insuranceContract.setContractPrice((float) faker.number().randomDouble(2, 300, 1200));
+                    insuranceContract.setPolicyNumber(faker.idNumber().valid());
+                    insuranceContract.setDeductible(faker.number().numberBetween(0L, 1000));
 
                     //                    foreign key generation for person
                     Insurance existingInsurance = this.insuranceRepo.getById(generateRandomForeignKey(dataSet,
