@@ -35,10 +35,6 @@ public class SpeedMeasurement extends Measurement {
         this.setVehicle(vehicle);
     }
 
-    public boolean isSpeedMeasurementError(int minSpeedVehicle, int maxSpeedVehicle){
-
-    }
-
 
 
 

@@ -4,6 +4,7 @@ import de.bht_berlin.paf2023.api.MeasurementController;
 import de.bht_berlin.paf2023.component.MeasurementControllerSingleton;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.service.FakerService;
+import de.bht_berlin.paf2023.service.MeasurementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -51,5 +52,14 @@ public class Paf2023Application implements CommandLineRunner {
         System.out.println(allReadOuts);
         MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
 
+
+        ArrayList<Double> testArrayList = new ArrayList<>();
+        testArrayList.add(1.0);
+        testArrayList.add(2.0);
+        testArrayList.add(3.0);
+        testArrayList.add(4.0);
+        MeasurementService measurementService = new MeasurementService(measurementRepo);
+        Boolean error = measurementService.findMeasurementError(testArrayList, 2, 0.2);
+        System.out.println(error);
     }
 }
