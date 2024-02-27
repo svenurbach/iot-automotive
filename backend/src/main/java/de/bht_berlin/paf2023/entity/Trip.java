@@ -9,7 +9,9 @@ import java.util.Date;
 import java.util.List;
 
 
-@Entity @Getter @Setter
+@Entity
+@Getter
+@Setter
 @Table(name = "trip")
 public class Trip extends IdentifiedEntity {
 
@@ -18,13 +20,17 @@ public class Trip extends IdentifiedEntity {
 
     private Long average_speed;
 
-    @OneToMany
-    @JoinColumn(name = "startLocation")
-    private List<LocationMeasurement> startLocation;
+    //    @OneToMany
+//    @JoinColumn(name = "startLocation")
+    @OneToOne
+    private LocationMeasurement startLocation;
 
     @OneToMany
-    @JoinColumn(name = "endLocation")
-    private List<LocationMeasurement> endLocation;
+    @JoinColumn(name = "measurements")
+    private List<Measurement> measurements;
+
+    @OneToOne
+    private LocationMeasurement endLocation;
 
     @ManyToOne
     @JoinColumn(name = "vehicle")
@@ -68,6 +74,9 @@ public class Trip extends IdentifiedEntity {
         return builder.toString();
     }
 
+    public void addMeasurement(Measurement measurement) {
+        this.measurements.add(measurement);
+    }
 //    @Override
 //    public String toString() {
 //        return "{\"average_speed\": " + average_speed + ", \"trip_end\": \"" + trip_end + "\", \"trip_start\": \"" + trip_start + "\"}";

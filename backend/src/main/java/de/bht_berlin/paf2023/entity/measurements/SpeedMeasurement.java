@@ -33,6 +33,7 @@ public class SpeedMeasurement extends Measurement {
         this.speed = speed;
         this.setTimestamp(timestamp);
         this.setVehicle(vehicle);
+        this.setMeasurementType(this.getClass().getSimpleName());
     }
 
 

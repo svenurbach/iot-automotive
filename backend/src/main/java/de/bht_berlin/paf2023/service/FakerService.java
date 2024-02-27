@@ -16,6 +16,7 @@ import de.bht_berlin.paf2023.entity.VehicleModel;
 public class FakerService {
 
     private final InsuranceRepo insuranceRepo;
+    private final InsuranceCompanyRepo insuranceCompanyRepo;
     private final TripRepo tripRepo;
     private final AnalysisRepo analysisRepo;
     private final ContractRepo contractRepo;
@@ -26,8 +27,9 @@ public class FakerService {
     private final Faker faker;
 
     @Autowired
-    public FakerService(InsuranceRepo insuranceRepo, TripRepo tripRepo, AnalysisRepo analysisRepo, ContractRepo contractRepo, MeasurementRepo measurementRepo, PersonRepo personRepo, VehicleRepo vehicleRepo, VehicleModelRepo vehicleModelRepo) {
+    public FakerService(InsuranceRepo insuranceRepo, InsuranceCompanyRepo insuranceCompanyRepo, TripRepo tripRepo, AnalysisRepo analysisRepo, ContractRepo contractRepo, MeasurementRepo measurementRepo, PersonRepo personRepo, VehicleRepo vehicleRepo, VehicleModelRepo vehicleModelRepo) {
         this.insuranceRepo = insuranceRepo;
+        this.insuranceCompanyRepo = insuranceCompanyRepo;
         this.tripRepo = tripRepo;
         this.analysisRepo = analysisRepo;
         this.contractRepo = contractRepo;
@@ -61,7 +63,20 @@ public class FakerService {
                 for (int i = 0; i < numberOfEntries; i++) {
                     Insurance insurance = new Insurance();
                     insurance.setInsuranceName(faker.artist().name());
+                    insurance.setInsuranceType(faker.company().profession());
+
+                    // foreign key generation for person
+                    InsuranceCompany existingCompany = this.insuranceCompanyRepo.getById(generateRandomForeignKey(dataSet, "insurance_company"));
+                    insurance.setInsuranceCompany(existingCompany);
+
                     this.insuranceRepo.save(insurance);
+                }
+                break;
+            case "insurance_company":
+                for (int i = 0; i < numberOfEntries; i++) {
+                    InsuranceCompany insuranceCompany = new InsuranceCompany();
+                    insuranceCompany.setCompanyName(faker.company().name());
+                    this.insuranceCompanyRepo.save(insuranceCompany);
                 }
                 break;
             case "trip":
@@ -76,7 +91,7 @@ public class FakerService {
 //                    foreign key generation for person
                     Person existingPerson = this.personRepo.getById(generateRandomForeignKey(dataSet, "person"));
                     trip.setPerson(existingPerson);
-                    
+
 //                    foreign key generation for vehicle
                     Vehicle existingVehicle = this.vehicleRepo.getById(generateRandomForeignKey(dataSet, "vehicle"));
                     trip.setVehicle(existingVehicle);
@@ -96,8 +111,10 @@ public class FakerService {
                     long randomTimestamp = faker.date().past(365, java.util.concurrent.TimeUnit.DAYS).getTime();
                     Date javaUtilDate = new Date(randomTimestamp);
                     insuranceContract.setBegin(javaUtilDate);
-
                     insuranceContract.setContractDistance(faker.number().numberBetween(0L, 200000));
+                    insuranceContract.setContractPrice((float) faker.number().randomDouble(2, 300, 1200));
+                    insuranceContract.setPolicyNumber(faker.idNumber().valid());
+                    insuranceContract.setDeductible(faker.number().numberBetween(0L, 1000));
 
                     //                    foreign key generation for person
                     Insurance existingInsurance = this.insuranceRepo.getById(generateRandomForeignKey(dataSet,
@@ -106,11 +123,11 @@ public class FakerService {
 
                     //                    foreign key generation for person
                     Person existingPerson = this.personRepo.getById(generateRandomForeignKey(dataSet, "person"));
-                    insuranceContract.setPolicyholderID(existingPerson);
+                    insuranceContract.setPolicyholder(existingPerson);
 
                     //                    foreign key generation for vehicle
                     Vehicle existingVehicle = this.vehicleRepo.getById(generateRandomForeignKey(dataSet, "vehicle"));
-                    insuranceContract.setVehicleID(existingVehicle);
+                    insuranceContract.setVehicle(existingVehicle);
 
                     this.contractRepo.save(insuranceContract);
                 }
@@ -130,8 +147,7 @@ public class FakerService {
                 for (int i = 0; i < numberOfEntries; i++) {
                     Person person = new Person();
                     person.setName(faker.name().fullName());
-//                person.setDriver(faker.random().nextBoolean());
-//                person.setOwner(faker.random().nextBoolean());
+                    person.setDateOfBirth(faker.date().birthday());
                     person.setCurrentTripID(faker.number().numberBetween(0L, 9999L));
                     this.personRepo.save(person);
                 }
@@ -141,14 +157,15 @@ public class FakerService {
                     Vehicle vehicle = new Vehicle();
                     vehicle.setYearOfConstruction(faker.number().numberBetween(2000, 2023));
                     vehicle.setLicensePlate(String.valueOf(faker.lorem().word()));
+                    vehicle.setVin(faker.idNumber().validSvSeSsn());
                     //                    foreign key generation for vehicle
                     VehicleModel existingVehicleModel = this.vehicleModelRepo.getById(generateRandomForeignKey(dataSet,
                             "vehicle_model"));
-                    vehicle.setVehicleModelID(existingVehicleModel);
+                    vehicle.setVehicleModel(existingVehicleModel);
 
                     //                    foreign key generation for person
                     Person existingPerson = this.personRepo.getById(generateRandomForeignKey(dataSet, "person"));
-                    vehicle.setPersonID(existingPerson);
+                    vehicle.setPerson(existingPerson);
 
                     this.vehicleRepo.save(vehicle);
                 }

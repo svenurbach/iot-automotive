@@ -28,5 +28,6 @@ public class AccelerationMeasurement extends Measurement {
         this.acceleration = acceleration;
         this.setTimestamp(timestamp);
         this.setVehicle(vehicle);
+        this.setMeasurementType(this.getClass().getSimpleName());
     }
 }

@@ -39,11 +39,11 @@ public class Paf2023Application implements CommandLineRunner {
         dataSet.put("person", 10L);
         dataSet.put("insurance", 10L);
         dataSet.put("vehicle_model", 10L);
-        dataSet.put("vehicle", 10L);
+        dataSet.put("vehicle", 1L);
         dataSet.put("trip", 10L);
-        dataSet.put("contract", 10L);
+        dataSet.put("contract", 1L);
 
-//        iService.generateDummyDataSet(dataSet);
+        iService.generateDummyDataSet(dataSet);
 
         System.out.print("Call Singleton");
 

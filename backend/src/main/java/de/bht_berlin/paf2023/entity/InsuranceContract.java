@@ -23,11 +23,11 @@ public class InsuranceContract extends IdentifiedEntity {
 
     @ManyToOne
     @JoinColumn(name = "person_id")
-    private Person policyholderID;
+    private Person policyholder;
 
     @OneToOne
     @JoinColumn(name = "vehicle_id")
-    private Vehicle vehicleID;
+    private Vehicle vehicle;
 
     @ManyToOne
     @JoinColumn(name = "insurance_id")

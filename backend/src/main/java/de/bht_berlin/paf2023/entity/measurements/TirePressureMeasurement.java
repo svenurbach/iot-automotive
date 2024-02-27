@@ -35,6 +35,7 @@ public class TirePressureMeasurement extends Measurement {
         this.backRightTire = tirePressure.get(2);
         this.backLeftTire = tirePressure.get(3);
         this.setTimestamp(timestamp);
+        this.setMeasurementType(this.getClass().getSimpleName());
 
     }
 
