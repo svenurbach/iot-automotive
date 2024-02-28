@@ -20,10 +20,14 @@ public class Measurement extends IdentifiedEntity {
     private Integer interval;
 
     private String measurementType;
-    
+
     @ManyToOne
     @JoinColumn(name = "vehicle")
     Vehicle vehicle;
+
+    @ManyToOne
+    @JoinColumn(name = "trip", nullable = true)
+    Trip trip;
 
     // getMeasuredValue()   -> Messwert wird von Sensoren über Request an die Anwendung geschickt?
     // setInterval()   ->wie oft werden Werte in DB geschrieben (alle ms, jede h ...)
