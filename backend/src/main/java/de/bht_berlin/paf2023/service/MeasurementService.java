@@ -83,7 +83,6 @@ public class MeasurementService {
 
     public double calculateAverageMeasurements(ArrayList<Double> measurementArrayList) {
         double sum = 0;
-
         for (Double measurement : measurementArrayList) {
             sum += measurement;
         }
@@ -127,4 +126,27 @@ public class MeasurementService {
         }
         return measurementError;
     }
+
+    public int countErrorsPerMeasurementType(Measurement measurement, ArrayList<Double> measurementArrayInDouble, int comparativeValuesArraySize, Double tolerance) {
+        switch (measurement.getMeasurementType()) {
+            case "AccelerationMeasurement":
+
+            case "AxisMeasurement":
+
+            case "FuelMeasurement":
+
+            case "SpeedMeasurement":
+
+            case "SteeringWheelMeasurement":
+
+            case "TirePressureMeasurement":
+        }
+        return 0;
+    }
+
+    public int countErrorsPerWholeTrip(){
+        int errorsTotal = 0;
+        // Zählt alle Messfehler von jedem Typ Messung zusammen
+        return errorsTotal;
+        }
 }
