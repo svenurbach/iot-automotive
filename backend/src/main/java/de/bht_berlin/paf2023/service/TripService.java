@@ -65,16 +65,27 @@ public class TripService {
                 endMeasurement = newTripIndices.get(i + 1) - 1;
 //                isEntireTrip = true;
             } else {
+                System.out.println("else list size");
                 endMeasurement = list.size() - 1;
+                System.out.println("endMeasurement:" + endMeasurement);
+                System.out.println("list size: " + list.size());
+
             }
             for (int j = startingMeasurement; j < endMeasurement; j++) {
                 measurements.add(list.get(j));
                 ints.add(Math.toIntExact(list.get(j).getId()));
             }
             segmentedList.add(measurements);
+
         }
-        System.out.println(segmentedList);
+        System.out.println("segmentedList.get(i).get(j)");
+
         for (int i = 0; i < segmentedList.size(); i++) {
+            for (int j = 0; j < segmentedList.get(i).size(); j++) {
+                System.out.println(segmentedList.get(i).get(j).getId());
+            }
+
+
             addEntireTrip(segmentedList.get(i));
         }
     }
@@ -89,18 +100,19 @@ public class TripService {
             }
         });
         for (int i = 0; i < measurementList.size(); i++) {
-            System.out.println(measurementList.get(i).getMeasurementType());
+//            System.out.println(measurementList.get(i).getMeasurementType());
             if (measurementList.get(i).getMeasurementType().equals("LocationMeasurement")) {
                 startLocation = (LocationMeasurement) measurementList.get(i);
                 break;
             }
         }
+        System.out.println(measurementList.toString());
         for (int i = measurementList.size() - 1; i >= 0; i--) {
-            System.out.println(measurementList.get(i).getMeasurementType());
+            System.out.println(measurementList.get(i).getId() + ": " + measurementList.get(i).getMeasurementType());
 
             if (measurementList.get(i).getMeasurementType().equals("LocationMeasurement")) {
-                System.out.println("found endlocation");
                 endLocation = (LocationMeasurement) measurementList.get(i);
+                System.out.println("found endlocation" + endLocation.getLongitude() + " date: " + endLocation.getTimestamp());
                 break;
             }
         }
