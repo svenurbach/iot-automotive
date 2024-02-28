@@ -28,7 +28,7 @@ public class VehicleModel extends IdentifiedEntity {
 
     private String fueltype;
 
-    @OneToMany
+    @OneToMany(mappedBy = "vehicleModel", cascade = CascadeType.ALL)
     private List<Vehicle> vehicle;
 
 }

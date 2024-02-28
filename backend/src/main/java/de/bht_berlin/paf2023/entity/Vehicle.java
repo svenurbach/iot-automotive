@@ -15,18 +15,18 @@ public class Vehicle extends IdentifiedEntity {
 
     private String licensePlate;
 
+    // Vehicle Identification Number
     private String vin;
 
-    @JoinColumn(name = "contract_id")
     @OneToOne
+    @JoinColumn(name = "contract_id")
     private InsuranceContract insuranceContract;
 
-    @JoinColumn(name = "person_id")
-    @ManyToOne
-    private Person person;
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+    private List<Trip> trips;
 
-    @JoinColumn(name = "vehicle_model_id")
     @ManyToOne
+    @JoinColumn(name = "vehicle_model_id")
     private VehicleModel vehicleModel;
 
     @OneToMany

@@ -34,16 +34,8 @@ public class Trip extends IdentifiedEntity {
     private List<Measurement> measurements;
 
     @ManyToOne
-    @JoinColumn(name = "vehicle")
+    @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
-
-    @ManyToOne
-    @JoinColumn(name = "person")
-    private Person person;
-
-    @ManyToOne
-    @JoinColumn(name = "analysis")
-    private Analysis analysis;
 
     public Trip() {
         this.measurements = new ArrayList<>();
@@ -69,8 +61,6 @@ public class Trip extends IdentifiedEntity {
         builder.append("\"startLocation\": \"").append(startLocation).append("\", ");
         builder.append("\"endLocation\": \"").append(endLocation).append("\", ");
         builder.append("\"vehicle\": \"").append(vehicle).append("\", ");
-        builder.append("\"person\": \"").append(person).append("\", ");
-        builder.append("\"analysis\": ").append(analysis);
         builder.append("}");
         return builder.toString();
     }

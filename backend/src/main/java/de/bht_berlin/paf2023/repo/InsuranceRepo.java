@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface InsuranceRepo extends JpaRepository<Insurance, Long> {
 
-//    @Query("SELECT i FROM Insurance i JOIN i.contracts c JOIN i.insurance_company ic WHERE person_id = :personId")
+//    @Query("SELECT i FROM Insurance i JOIN i.contracts c JOIN i.insuranceCompany ic WHERE c.person_id = :personId")
 //    List<Insurance> findInsurancesByPersonId(@Param("personId") Long personId);
 
 }

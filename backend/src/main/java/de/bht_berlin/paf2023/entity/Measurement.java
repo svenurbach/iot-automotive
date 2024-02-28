@@ -33,9 +33,6 @@ public class Measurement extends IdentifiedEntity {
     // setInterval()   ->wie oft werden Werte in DB geschrieben (alle ms, jede h ...)
     // saveInDB()   -> Messwert wird in DB geschrieben
 
-    @ManyToOne
-    private Analysis analysis;
-
     private long getMeasurementsFromOneTypeOfMeasurement() {
         // TO-DO:
         // holt sich alle aktuellen Messungen eines Types (Geschwindigkeit, Verbrauch, Beschleunigung, etc.)

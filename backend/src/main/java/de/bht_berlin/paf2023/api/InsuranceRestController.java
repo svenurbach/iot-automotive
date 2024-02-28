@@ -1,6 +1,7 @@
 package de.bht_berlin.paf2023.api;
 
 import de.bht_berlin.paf2023.entity.Insurance;
+import de.bht_berlin.paf2023.entity.InsuranceContract;
 import de.bht_berlin.paf2023.service.InsuranceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,21 +27,23 @@ public class InsuranceRestController {
         return insuranceService.deleteInsurance(id);
     }
 
-    @RequestMapping(path = "/find/{id}")
+    @GetMapping(path = "/find/{id}")
     public Insurance getInsurance(@PathVariable Long id) {
         return insuranceService.getInsuranceById(id);
 //        http://localhost:8080/api/insurance/find/2
     }
 
-    @RequestMapping(path = "/findByPerson/{id}")
-    public Insurance getInsurancesByPerson(@PathVariable Long id) {
+    @GetMapping(path = "/findByPerson/{id}")
+    public List<InsuranceContract> getInsurancesByPerson(@PathVariable Long id) {
         return insuranceService.getInsurancesByPerson(id);
-//        http://localhost:8080/api/insurance/findByPerson/2
+//        http://localhost:8080/api/insurance/findByPerson/9
     }
 
     @GetMapping(path = "/findAll")
-    public List<Insurance> getAllInsurances() {
-        return insuranceService.getAllInsurances();
+    public String getAllContracts() {
+        return insuranceService.getAllContracts();
 //        http://localhost:8080/api/insurance/findAll
     }
+
+
 }

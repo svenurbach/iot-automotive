@@ -1,8 +1,10 @@
 package de.bht_berlin.paf2023.service;
 
 import de.bht_berlin.paf2023.entity.Insurance;
-import de.bht_berlin.paf2023.entity.InsuranceCompany;
+import de.bht_berlin.paf2023.entity.InsuranceContract;
+import de.bht_berlin.paf2023.repo.ContractRepo;
 import de.bht_berlin.paf2023.repo.InsuranceRepo;
+import de.bht_berlin.paf2023.repo.PersonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -10,24 +12,30 @@ import java.util.List;
 @Service
 public class InsuranceService {
     private final InsuranceRepo insuranceRepo;
-//    private final ContractRepo contractRepo;
-//    private final InsuranceCompanyRepo insuranceCompanyRepo;
+    private final ContractRepo contractRepo;
+    private final PersonRepo personRepo;
 
     @Autowired
-    public InsuranceService(InsuranceRepo repository) {
+    public InsuranceService(InsuranceRepo repository, ContractRepo contractRepo, PersonRepo personRepo) {
         this.insuranceRepo = repository;
+        this.contractRepo = contractRepo;
+        this.personRepo = personRepo;
     }
 
-    public List<Insurance> getAllInsurances() {
-        return insuranceRepo.findAll();
+    public String getAllContracts() {
+        return contractRepo.findAll().toString();
     }
 
     public Insurance getInsuranceById(Long id) {
         return insuranceRepo.findById(id).orElse(null);
     }
 
-    public Insurance getInsurancesByPerson(Long id) {
+    public Insurance getInsuranceByCar(Long id) {
         return insuranceRepo.findById(id).orElse(null);
+    }
+
+    public List<InsuranceContract> getInsurancesByPerson(Long id) {
+        return personRepo.findById(id).orElse(null).getInsuranceContracts();
     }
 
     public Insurance addInsurance(Insurance insurance) {
