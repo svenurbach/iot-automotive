@@ -42,30 +42,30 @@ public class Paf2023Application implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         Map<String, Long> dataSet = new LinkedHashMap<String, Long>();
-        dataSet.put("person", 10L);
-        dataSet.put("insurance_company", 10L);
-        dataSet.put("insurance", 10L);
+//        dataSet.put("person", 10L);
+//        dataSet.put("insurance_company", 10L);
+//        dataSet.put("insurance", 10L);
         dataSet.put("vehicle_model", 10L);
-        dataSet.put("vehicle", 1L);
-        dataSet.put("trip", 10L);
-        dataSet.put("contract", 1L);
+        dataSet.put("vehicle", 2L);
+//        dataSet.put("trip", 10L);
+//        dataSet.put("contract", 1L);
 
-//        iService.generateDummyDataSet(dataSet);
+        iService.generateDummyDataSet(dataSet);
 
-//        System.out.print("Call Singleton");
-//
-//        List<List<String>> records = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test.csv");
-//        List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
-//        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
-//
-//        List<Measurement> list = measurementRepo.findByVehicle(1);
-//        System.out.println(list.size());
-//
-//        List<Measurement> list2 = measurementRepo.findByMeasurementType("SpeedMeasurement");
-//        System.out.println(list2.size());
+        System.out.print("Call Singleton");
 
-//        TripService service = new TripService(tripRepo, measurementRepo);
-//        Vehicle existingVehicle = this.vehicleRepo.getById(1L);
-//        service.segmentDataIntoTrips(existingVehicle);
+        List<List<String>> records = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test.csv");
+        List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
+        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
+
+        List<Measurement> list = measurementRepo.findByVehicle(1);
+        System.out.println(list.size());
+
+        List<Measurement> list2 = measurementRepo.findByMeasurementType("SpeedMeasurement");
+        System.out.println(list2.size());
+
+        TripService service = new TripService(tripRepo, measurementRepo);
+        Vehicle existingVehicle = this.vehicleRepo.getById(1L);
+        service.segmentDataIntoTrips(existingVehicle);
     }
 }

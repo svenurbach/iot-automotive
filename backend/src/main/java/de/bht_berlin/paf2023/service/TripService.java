@@ -71,7 +71,7 @@ public class TripService {
                 System.out.println("list size: " + list.size());
 
             }
-            for (int j = startingMeasurement; j < endMeasurement; j++) {
+            for (int j = startingMeasurement; j <= endMeasurement; j++) {
                 measurements.add(list.get(j));
                 ints.add(Math.toIntExact(list.get(j).getId()));
             }
@@ -86,8 +86,6 @@ public class TripService {
             for (int j = 0; j < segmentedList.get(i).size(); j++) {
                 System.out.println(segmentedList.get(i).get(j).getId());
             }
-
-
             addEntireTrip(segmentedList.get(i));
         }
     }
@@ -135,7 +133,8 @@ public class TripService {
                           Vehicle vehicle) {
         Trip trip = new Trip();
         trip.setTrip_start(startLocation.getTimestamp());
-        trip.setStartLocation(startLocation);
+        trip.setStart_longitude(startLocation.getLongitude());
+        trip.setStart_latitude(startLocation.getLatitude());
         trip.setVehicle(vehicle);
 
         return repository.save(trip);
@@ -148,7 +147,8 @@ public class TripService {
 
     public void endTrip(Trip trip, LocationMeasurement endLocation) {
         trip.setTrip_end(endLocation.getTimestamp());
-        trip.setEndLocation(endLocation);
+        trip.setEnd_longitude(endLocation.getLongitude());
+        trip.setEnd_latitude(endLocation.getLatitude());
         repository.save(trip);
     }
 

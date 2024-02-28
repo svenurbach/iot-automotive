@@ -23,11 +23,17 @@ public class Trip extends IdentifiedEntity {
 
     private Long average_speed;
 
-    @OneToOne
-    private LocationMeasurement startLocation;
+//    @OneToOne
+//    private LocationMeasurement startLocation;
+//
+//    @OneToOne
+//    private LocationMeasurement endLocation;
 
-    @OneToOne
-    private LocationMeasurement endLocation;
+    private Float start_latitude;
+    private Float start_longitude;
+
+    private Float end_latitude;
+    private Float end_longitude;
 
     @OneToMany
     @JoinColumn(name = "measurements")
@@ -58,8 +64,8 @@ public class Trip extends IdentifiedEntity {
         builder.append("\"trip_start\": \"").append(trip_start).append("\", ");
         builder.append("\"trip_end\": \"").append(trip_end).append("\", ");
         builder.append("\"average_speed\": \"").append(average_speed).append("\", ");
-        builder.append("\"startLocation\": \"").append(startLocation).append("\", ");
-        builder.append("\"endLocation\": \"").append(endLocation).append("\", ");
+//        builder.append("\"startLocation\": \"").append(startLocation).append("\", ");
+//        builder.append("\"endLocation\": \"").append(endLocation).append("\", ");
         builder.append("\"vehicle\": \"").append(vehicle).append("\", ");
         builder.append("}");
         return builder.toString();
