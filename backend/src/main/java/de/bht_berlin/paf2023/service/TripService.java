@@ -79,8 +79,10 @@ public class TripService {
 
         }
         System.out.println("segmentedList.get(i).get(j)");
+        System.out.println(segmentedList.size());
 
         for (int i = 0; i < segmentedList.size(); i++) {
+            System.out.println("trip: " + i);
             for (int j = 0; j < segmentedList.get(i).size(); j++) {
                 System.out.println(segmentedList.get(i).get(j).getId());
             }
