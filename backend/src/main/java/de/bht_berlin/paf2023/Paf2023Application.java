@@ -2,9 +2,12 @@ package de.bht_berlin.paf2023;
 
 import de.bht_berlin.paf2023.api.MeasurementController;
 import de.bht_berlin.paf2023.component.MeasurementControllerSingleton;
+import de.bht_berlin.paf2023.entity.Measurement;
+import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
+import de.bht_berlin.paf2023.repo.TripRepo;
 import de.bht_berlin.paf2023.service.FakerService;
-import de.bht_berlin.paf2023.service.MeasurementService;
+import de.bht_berlin.paf2023.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,6 +29,9 @@ public class Paf2023Application implements CommandLineRunner {
     @Autowired
     private MeasurementRepo measurementRepo;
 
+    @Autowired
+    private TripRepo tripRepo;
+
     public static void main(String[] args) {
 
         SpringApplication.run(Paf2023Application.class, args);
@@ -37,9 +43,10 @@ public class Paf2023Application implements CommandLineRunner {
 
         Map<String, Long> dataSet = new LinkedHashMap<String, Long>();
         dataSet.put("person", 10L);
+        dataSet.put("insurance_company", 10L);
         dataSet.put("insurance", 10L);
         dataSet.put("vehicle_model", 10L);
-        dataSet.put("vehicle", 1L);
+        dataSet.put("vehicle", 5L);
         dataSet.put("trip", 10L);
         dataSet.put("contract", 1L);
 
@@ -49,17 +56,17 @@ public class Paf2023Application implements CommandLineRunner {
 
         List<List<String>> records = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test.csv");
         List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
-        System.out.println(allReadOuts);
         MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
+//
+//        List<Measurement> list = measurementRepo.findByVehicle(1);
+//        System.out.println(list.size());
+//
+//        List<Measurement> list2 = measurementRepo.findByMeasurementType("SpeedMeasurement");
+//        System.out.println(list2.size());
 
+        TripService service = new TripService(tripRepo, measurementRepo);
+        Vehicle existingVehicle = this.vehicleRepo.getById(1L);
 
-        ArrayList<Double> testArrayList = new ArrayList<>();
-        testArrayList.add(1.0);
-        testArrayList.add(2.0);
-        testArrayList.add(3.0);
-        testArrayList.add(4.0);
-        MeasurementService measurementService = new MeasurementService(measurementRepo);
-        Boolean error = measurementService.findMeasurementError(testArrayList, 2, 0.2);
-        System.out.println(error);
+        service.segmentDataIntoTrips(existingVehicle);
     }
 }

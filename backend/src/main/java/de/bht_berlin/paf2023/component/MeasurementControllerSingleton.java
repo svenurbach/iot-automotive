@@ -55,6 +55,9 @@ public class MeasurementControllerSingleton {
     }
 
     public List<HashMap> createHashMap(List<List<String>> readOuts) {
+//        System.out.println("readOuts");
+//        System.out.println(readOuts);
+
         List<String> keys = new ArrayList<>();
         List<HashMap> allReadOuts = new ArrayList<>();
 
@@ -62,13 +65,16 @@ public class MeasurementControllerSingleton {
             keys.add(readOuts.get(0).get(i));
         }
 
-        HashMap<String, String> valuesMeasured = new HashMap<>();
+
+        System.out.println("allReadOuts");
 
         for (int i = 1; i < readOuts.size(); i++) {
+            HashMap<String, String> valuesMeasured = new HashMap<>();
             for (int j = 0; j < keys.size(); j++) {
                 valuesMeasured.put(keys.get(j), readOuts.get(i).get(j));
             }
             allReadOuts.add(valuesMeasured);
+//            System.out.println(allReadOuts);
         }
         return allReadOuts;
     }
@@ -98,7 +104,7 @@ public class MeasurementControllerSingleton {
             Date timestamp = parseDateFromString(readOuts.get(i).get("Timestamp").toString());
 
             Long vehicleid = Long.valueOf((readOuts.get(i).get("Vehicle").toString()));
-//            System.out.println(readOuts.get(i).get("Vehicle"));
+//            System.out.println(readOuts.get(i));
             Vehicle existingVehicle = this.vehicleRepo.getById(vehicleid);
 
             if (readOuts.get(i).get("Accelaration") != null) {

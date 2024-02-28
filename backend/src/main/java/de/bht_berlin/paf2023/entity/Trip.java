@@ -1,10 +1,13 @@
 package de.bht_berlin.paf2023.entity;
 
 import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
+import de.bht_berlin.paf2023.repo.MeasurementRepo;
+import de.bht_berlin.paf2023.repo.TripRepo;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,17 +23,15 @@ public class Trip extends IdentifiedEntity {
 
     private Long average_speed;
 
-    //    @OneToMany
-//    @JoinColumn(name = "startLocation")
     @OneToOne
     private LocationMeasurement startLocation;
+
+    @OneToOne
+    private LocationMeasurement endLocation;
 
     @OneToMany
     @JoinColumn(name = "measurements")
     private List<Measurement> measurements;
-
-    @OneToOne
-    private LocationMeasurement endLocation;
 
     @ManyToOne
     @JoinColumn(name = "vehicle")
@@ -44,8 +45,8 @@ public class Trip extends IdentifiedEntity {
     @JoinColumn(name = "analysis")
     private Analysis analysis;
 
-    public Date getTrip_start() {
-        return this.trip_start;
+    public Trip() {
+        this.measurements = new ArrayList<>();
     }
 
     public Date getTrip_end() {
