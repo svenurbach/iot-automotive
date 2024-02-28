@@ -42,16 +42,6 @@ public class MeasurementService {
         return repository.findById(id).get().getMeasuredValue().toString();
     }
 
-    // returns Array with n past measurements
-    public Measurement[] getAmountOfPastMeasurements(int n, String measurementType) {
-        List<Measurement> measurements = repository.findTopNByOrderByTimestampDesc(n, measurementType);
-        Measurement[] measurementsArray = new Measurement[n];
-        for (int i = 0; i < n; i++) {
-            measurementsArray[i] = measurements.get(i);
-        }
-        return measurementsArray;
-    }
-
 
     public ArrayList<Double> parseMeasurementArrayToDouble(Measurement[] measurementsArray) {
         ArrayList<Double> measurementArrayList = new ArrayList<>();
@@ -61,7 +51,7 @@ public class MeasurementService {
         return measurementArrayList;
     }
 
-    private Double convertMeasurementToDouble(Measurement measurement) {
+    private double convertMeasurementToDouble(Measurement measurement) {
         switch (measurement.getMeasurementType()) {
             case "AccelerationMeasurement":
                 return roundToTwoDecimalPlaces((double) ((AccelerationMeasurement) measurement).getAcceleration());
@@ -76,16 +66,16 @@ public class MeasurementService {
 //            case "TirePressureMeasurement":
 //                return roundToTwoDecimalPlaces((double) ((TirePressureMeasurement) measurement).getTirePressure());
             default:
-                return null;
+                return 0.0;
         }
     }
 
-    private Double roundToTwoDecimalPlaces(Double value) {
+    private double roundToTwoDecimalPlaces(Double value) {
         return Math.round(value * 100.0) / 100.0;
     }
 
 
-    public Double calculateAverageMeasurements(ArrayList<Double> measurementArrayList) {
+    public double calculateAverageMeasurements(ArrayList<Double> measurementArrayList) {
         double sum = 0;
 
         for (Double measurement : measurementArrayList) {
@@ -99,18 +89,32 @@ public class MeasurementService {
         }
     }
 
-    public Boolean findMeasurementError(ArrayList<Double> measurementArrayInDouble, int comparativeValuesArraySize, Double toleranz) {
-        Boolean measurementError = true;
-        ArrayList<Double> comparativeValuesArray = new ArrayList<>();
+    public boolean findMeasurementError(ArrayList<Double> measurementArrayInDouble, int comparativeValuesArraySize, Double tolerance) {
+        if (measurementArrayInDouble.size() < comparativeValuesArraySize) {
+            System.out.println("Nicht genügend Werte im Array, um Messfehler zu identifizieren");
+            return false;
+        }
+        boolean measurementError = true;
+        ArrayList<Double> comparativeValuesArrayPast = new ArrayList<>();
+        ArrayList<Double> comparativeValuesArrayFuture = new ArrayList<>();
         for (int i = 0; i < measurementArrayInDouble.size(); i++) {
             if (i < comparativeValuesArraySize) {
                 break;
             } else {
-                while(comparativeValuesArray.size() < comparativeValuesArraySize) {
-                    comparativeValuesArray.add(measurementArrayInDouble.get(i));
+                while(comparativeValuesArrayPast.size() < comparativeValuesArraySize) {
+                    comparativeValuesArrayPast.add(measurementArrayInDouble.get(i));
                 }
-                Double average = calculateAverageMeasurements(comparativeValuesArray);
-                if(average <= measurementArrayInDouble.get(i) - (measurementArrayInDouble.get(i) * toleranz) || average >=measurementArrayInDouble.get(i) + (measurementArrayInDouble.get(i) * toleranz)){
+                double averagePast = calculateAverageMeasurements(comparativeValuesArrayPast);
+                if(averagePast <= measurementArrayInDouble.get(i) - (measurementArrayInDouble.get(i) * tolerance) ||
+                        averagePast >=measurementArrayInDouble.get(i) + (measurementArrayInDouble.get(i) * tolerance)){
+                    measurementError = false;
+                }
+                while (comparativeValuesArrayFuture.size() < comparativeValuesArraySize){
+                    comparativeValuesArrayFuture.add(measurementArrayInDouble.get(i+comparativeValuesArraySize+1));
+                }
+                double averageFuture = calculateAverageMeasurements(comparativeValuesArrayPast);
+                if(averageFuture <= measurementArrayInDouble.get(i) - (measurementArrayInDouble.get(i) * tolerance) ||
+                        averageFuture >=measurementArrayInDouble.get(i) + (measurementArrayInDouble.get(i) * tolerance)){
                     measurementError = false;
                 }
             }
