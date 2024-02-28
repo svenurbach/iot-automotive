@@ -1,5 +1,6 @@
 package de.bht_berlin.paf2023.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +8,6 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity @Getter @Setter
-@Table(name = "vehicle")
 public class Vehicle extends IdentifiedEntity {
 
     @Column(length = 4)
@@ -19,17 +19,19 @@ public class Vehicle extends IdentifiedEntity {
     private String vin;
 
     @OneToOne
-    @JoinColumn(name = "contract_id")
     private InsuranceContract insuranceContract;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Trip> trips;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "vehicle_model_id")
     private VehicleModel vehicleModel;
 
     @OneToMany
+    @JsonIgnore
     private List<Measurement> measurement;
 
 }

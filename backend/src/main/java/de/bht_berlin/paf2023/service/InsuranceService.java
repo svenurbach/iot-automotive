@@ -22,8 +22,8 @@ public class InsuranceService {
         this.personRepo = personRepo;
     }
 
-    public String getAllContracts() {
-        return contractRepo.findAll().toString();
+    public List<InsuranceContract> getAllContracts() {
+        return contractRepo.findAll();
     }
 
     public Insurance getInsuranceById(Long id) {

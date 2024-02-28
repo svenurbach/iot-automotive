@@ -40,7 +40,7 @@ public class InsuranceRestController {
     }
 
     @GetMapping(path = "/findAll")
-    public String getAllContracts() {
+    public List<InsuranceContract> getAllContracts() {
         return insuranceService.getAllContracts();
 //        http://localhost:8080/api/insurance/findAll
     }

@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 
 @Entity @Getter @Setter
-@Table(name = "person")
 public class Person extends IdentifiedEntity {
 
     @Column(length = 50, nullable = false)
