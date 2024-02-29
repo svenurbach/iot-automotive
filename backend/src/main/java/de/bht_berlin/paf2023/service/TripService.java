@@ -34,8 +34,8 @@ public class TripService {
         Collections.sort(list, Comparator.comparing(Measurement::getTimestamp));
 
         List<List<Measurement>> segmentedList = new ArrayList<>();
-
         List<Integer> newTripIndices = new ArrayList<>();
+
         newTripIndices.add(0);
 
         long timeBetweenTripsInMinutes = 30;
@@ -45,10 +45,8 @@ public class TripService {
                 long differenceInMillis =
                         list.get(i).getTimestamp().getTime() - list.get(i - 1).getTimestamp().getTime();
                 long differenceInMinutes = differenceInMillis / (60 * 1000);
-
                 if (differenceInMinutes > timeBetweenTripsInMinutes) {
                     newTripIndices.add(i);
-//                    System.out.println(list.get(i - 1).getTimestamp() + " –-- " + list.get(i).getTimestamp() + ": " + differenceInMinutes);
                 }
             }
         }
@@ -118,6 +116,8 @@ public class TripService {
         }
         if (startLocation != null) {
             Trip trip = startTrip(startLocation, measurementList.get(0).getVehicle());
+            startLocation.setTrip(trip);
+            measurementRepo.save(startLocation);
             for (int i = 0; i < measurementList.size(); i++) {
                 updateTrip(trip, measurementList.get(i));
             }
@@ -125,8 +125,6 @@ public class TripService {
                 endTrip(trip, endLocation);
             }
         }
-
-
     }
 
     public Trip startTrip(LocationMeasurement startLocation,
@@ -135,20 +133,21 @@ public class TripService {
         trip.setTrip_start(startLocation.getTimestamp());
         trip.setStart_longitude(startLocation.getLongitude());
         trip.setStart_latitude(startLocation.getLatitude());
-        trip.setVehicle(vehicle);
-
         return repository.save(trip);
     }
 
     public void updateTrip(Trip trip, Measurement measurement) {
-        trip.addMeasurement(measurement);
-
+//        trip.addMeasurement(measurement);
+        measurement.setTrip(trip);
+        measurementRepo.save(measurement);
     }
 
     public void endTrip(Trip trip, LocationMeasurement endLocation) {
         trip.setTrip_end(endLocation.getTimestamp());
         trip.setEnd_longitude(endLocation.getLongitude());
         trip.setEnd_latitude(endLocation.getLatitude());
+        endLocation.setTrip(trip);
+        measurementRepo.save(endLocation);
         repository.save(trip);
     }
 

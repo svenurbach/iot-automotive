@@ -26,7 +26,7 @@ public class Measurement extends IdentifiedEntity {
     Vehicle vehicle;
 
     @ManyToOne
-    @JoinColumn(name = "trip", nullable = true)
+    @JoinColumn(name = "trip")
     Trip trip;
 
     // getMeasuredValue()   -> Messwert wird von Sensoren über Request an die Anwendung geschickt?

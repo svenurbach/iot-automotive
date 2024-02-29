@@ -21,11 +21,11 @@ public class DistanceService {
         return repository.findAll();
     }
 
-    public Long calculate_distance_per_trip(Trip trip){
+    public Long calculate_distance_per_trip(Trip trip) {
         Long distance;
         Long time = trip.getTrip_end().getTime() - trip.getTrip_start().getTime();
-        Long average_speed = trip.get_average_speed();
-        distance = time * average_speed;
+//        Long average_speed = trip.get_average_speed();
+        distance = time;
         return distance;
     }
 
@@ -50,7 +50,7 @@ public class DistanceService {
         return tripYear == year;
     }
 
-    public int compare_driven_distance_with_contract_distance(Long driven_distance, InsuranceContract insuranceContract){
+    public int compare_driven_distance_with_contract_distance(Long driven_distance, InsuranceContract insuranceContract) {
         int deviation = 0;
         Long contract_distance = insuranceContract.getContractDistance();
         Long diff = driven_distance / contract_distance * 100;
@@ -60,12 +60,12 @@ public class DistanceService {
         return deviation;
     }
 
-    public String getAllTrips(){
+    public String getAllTrips() {
         return repository.findAll().toString();
     }
 
-    public String getTrip(long id){
-        return repository.findById(id).get().get_average_speed().toString();
+    public String getTrip(long id) {
+        return null;
 //        return "test works";
 //        return repository.findAllByVehicle(id).toString();
 

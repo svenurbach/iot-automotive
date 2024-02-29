@@ -20,8 +20,10 @@ public class FindMyCarService {
     }
 
     public List<Float> getLastPositionByCar(Long id) {
-        return positionStrategy.findLastPosition(Objects.requireNonNull(vehicleRepo.findById(id).orElse(null))
-                .getTrips());
+//        todo add query to get trips from measurements
+//        return positionStrategy.findLastPosition(Objects.requireNonNull(vehicleRepo.findById(id).orElse(null))
+//                .getTrips());
+        return null;
 
     }
 

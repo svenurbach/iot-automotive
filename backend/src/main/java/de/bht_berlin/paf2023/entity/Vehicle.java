@@ -7,7 +7,9 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Entity @Getter @Setter
+@Entity
+@Getter
+@Setter
 public class Vehicle extends IdentifiedEntity {
 
     @Column(length = 4)
@@ -21,17 +23,15 @@ public class Vehicle extends IdentifiedEntity {
     @OneToOne(mappedBy = "vehicle")
     private InsuranceContract insuranceContract;
 
-    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Trip> trips;
+//    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+//    @JsonIgnore
+//    private List<Trip> trips;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "vehicle_model_id")
     private VehicleModel vehicleModel;
 
-    @OneToMany
-    @JsonIgnore
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
     private List<Measurement> measurement;
 
 }

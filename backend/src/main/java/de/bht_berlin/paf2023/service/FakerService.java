@@ -84,11 +84,11 @@ public class FakerService {
                     Date javaUtilDate = new Date(randomTimestamp);
                     trip.setTrip_start(javaUtilDate);
                     trip.setTrip_end(faker.date().future(1, java.util.concurrent.TimeUnit.DAYS, javaUtilDate));
-                    trip.setAverage_speed(faker.number().numberBetween(0L, 140L));
+//                    trip.setAverage_speed(faker.number().numberBetween(0L, 140L));
 
 //                    foreign key generation for vehicle
                     Vehicle existingVehicle = this.vehicleRepo.getById(generateRandomForeignKey(dataSet, "vehicle"));
-                    trip.setVehicle(existingVehicle);
+//                    trip.setVehicle(existingVehicle);
 
                     this.tripRepo.save(trip);
                 }
