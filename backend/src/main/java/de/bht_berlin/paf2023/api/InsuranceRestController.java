@@ -1,6 +1,5 @@
 package de.bht_berlin.paf2023.api;
 
-import de.bht_berlin.paf2023.entity.Insurance;
 import de.bht_berlin.paf2023.entity.InsuranceContract;
 import de.bht_berlin.paf2023.repo.ContractRepo;
 import de.bht_berlin.paf2023.service.InsuranceService;
@@ -14,7 +13,7 @@ import java.util.List;
 @RequestMapping(path = "/insurance")
 public class InsuranceRestController {
 
-    private ContractRepo contractRepo;
+    private final ContractRepo contractRepo;
 
     @Autowired
     private InsuranceService insuranceService;

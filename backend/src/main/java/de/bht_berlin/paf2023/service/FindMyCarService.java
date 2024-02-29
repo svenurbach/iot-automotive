@@ -1,15 +1,12 @@
 package de.bht_berlin.paf2023.service;
 
-//import de.bht_berlin.paf2023.entity.measurements.EndLocationMeasurement;
-
-import de.bht_berlin.paf2023.entity.Trip;
-import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import de.bht_berlin.paf2023.strategy.PositionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class FindMyCarService {
@@ -23,7 +20,9 @@ public class FindMyCarService {
     }
 
     public List<Float> getLastPositionByCar(Long id) {
-        return positionStrategy.findLastPosition(vehicleRepo.getOne(id).getTrips());
+        return positionStrategy.findLastPosition(Objects.requireNonNull(vehicleRepo.findById(id).orElse(null))
+                .getTrips());
+
     }
 
 }

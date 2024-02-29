@@ -1,7 +1,6 @@
 package de.bht_berlin.paf2023.component;
 
 import de.bht_berlin.paf2023.entity.Trip;
-import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import de.bht_berlin.paf2023.strategy.PositionStrategy;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +16,7 @@ public class LastTripPositionStrategy implements PositionStrategy {
     // Trips anhand von "trip_end" sortieren und den letzten Trip ausgeben
     public List<Float> findLastPosition(List<Trip> trips) {
         Comparator<Trip> tripEndComparator = Comparator.comparing(Trip::getTrip_end);
-        Collections.sort(trips, tripEndComparator.reversed());
+        trips.sort(tripEndComparator.reversed());
         Trip aktuellsteTrip = trips.get(0);
 
         List<Float> lastPosition = new ArrayList<>();

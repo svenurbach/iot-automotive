@@ -1,9 +1,5 @@
 package de.bht_berlin.paf2023.api;
 
-import de.bht_berlin.paf2023.entity.Insurance;
-//import de.bht_berlin.paf2023.entity.measurements.EndLocationMeasurement;
-import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
-import de.bht_berlin.paf2023.repo.ContractRepo;
 import de.bht_berlin.paf2023.service.FindMyCarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +11,7 @@ import java.util.List;
 @RequestMapping(path = "/findMyCar")
 public class FindMyCarRestController {
 
-    private FindMyCarService findMyCarService;
+    private final FindMyCarService findMyCarService;
 
     @Autowired
     public FindMyCarRestController(FindMyCarService findMyCarService) {

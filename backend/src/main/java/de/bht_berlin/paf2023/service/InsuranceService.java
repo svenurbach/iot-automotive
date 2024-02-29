@@ -1,6 +1,5 @@
 package de.bht_berlin.paf2023.service;
 
-import de.bht_berlin.paf2023.entity.Insurance;
 import de.bht_berlin.paf2023.entity.InsuranceContract;
 import de.bht_berlin.paf2023.repo.ContractRepo;
 import de.bht_berlin.paf2023.repo.InsuranceRepo;
@@ -10,6 +9,7 @@ import de.bht_berlin.paf2023.repo.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class InsuranceService {
@@ -37,11 +37,11 @@ public class InsuranceService {
     }
 
     public InsuranceContract getInsuranceByCar(Long id) {
-        return vehicleRepo.findById(id).orElse(null).getInsuranceContract();
+        return Objects.requireNonNull(vehicleRepo.findById(id).orElse(null)).getInsuranceContract();
     }
 
     public List<InsuranceContract> getInsurancesByPerson(Long id) {
-        return personRepo.findById(id).orElse(null).getInsuranceContracts();
+        return Objects.requireNonNull(personRepo.findById(id).orElse(null)).getInsuranceContracts();
     }
 
     public InsuranceContract addInsuranceContract(InsuranceContract insuranceContact) {
