@@ -5,7 +5,9 @@ import de.bht_berlin.paf2023.entity.Person;
 import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
+import de.bht_berlin.paf2023.observer.MeasurementObserver;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
+import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.TripRepo;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +19,28 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
-public class TripService {
+public class TripService implements MeasurementObserver {
     private final TripRepo repository;
-    private final MeasurementRepo measurementRepo;
+    private final MeasurementRepoSubject measurementRepo;
+//    private TripProcessingStrategy processingStrategy;
 
+    @Override
+    public void updateMeasurement(Measurement newMeasurement) {
+//        Trip trip = repository.getTripById(newMeasurement.getTripId());
+//        if (trip != null) {
+//            TripProcessingStrategy processingStrategy = processingStrategyFactory.getStrategyForTrip(trip);
+//            processingStrategy.processMeasurement(trip, newMeasurement);
+//        } else {
+//            System.out.println("Trip not found.");
+//        }
+    }
 
     @Autowired
-    public TripService(TripRepo repository, MeasurementRepo measurementRepo) {
+    public TripService(TripRepo repository, MeasurementRepoSubject measurementRepo) {
         this.repository = repository;
         this.measurementRepo = measurementRepo;
+        measurementRepo.addObserver(this); // Register as an observer
+
 
     }
 

@@ -3,6 +3,7 @@ package de.bht_berlin.paf2023.component;
 import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.measurements.*;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
+import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,7 +23,7 @@ public class MeasurementControllerSingleton {
     private static MeasurementControllerSingleton instance;
     private final String DELIMITER = ";";
     private final VehicleRepo vehicleRepo;
-    private final MeasurementRepo measurementRepo;
+    private final MeasurementRepoSubject measurementRepo;
 
     @Autowired
     private MeasurementControllerSingleton(VehicleRepo vehicleRepo, MeasurementRepo measurementRepo) {

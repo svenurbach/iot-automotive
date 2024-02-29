@@ -5,6 +5,7 @@ import de.bht_berlin.paf2023.component.MeasurementControllerSingleton;
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
+import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.TripRepo;
 import de.bht_berlin.paf2023.service.FakerService;
 import de.bht_berlin.paf2023.service.TripService;
@@ -27,7 +28,7 @@ public class Paf2023Application implements CommandLineRunner {
     private VehicleRepo vehicleRepo;
 
     @Autowired
-    private MeasurementRepo measurementRepo;
+    private MeasurementRepoSubject measurementRepo;
 
     @Autowired
     private TripRepo tripRepo;
