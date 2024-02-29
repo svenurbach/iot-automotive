@@ -2,8 +2,6 @@ package de.bht_berlin.paf2023.service;
 
 import de.bht_berlin.paf2023.entity.InsuranceContract;
 import de.bht_berlin.paf2023.repo.ContractRepo;
-import de.bht_berlin.paf2023.repo.InsuranceRepo;
-import de.bht_berlin.paf2023.repo.InsuranceCompanyRepo;
 import de.bht_berlin.paf2023.repo.PersonRepo;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
