@@ -13,16 +13,12 @@ import java.util.Objects;
 
 @Service
 public class InsuranceService {
-    private final InsuranceRepo insuranceRepo;
-    private final InsuranceCompanyRepo insuranceCompanyRepo;
     private final ContractRepo contractRepo;
     private final PersonRepo personRepo;
     private final VehicleRepo vehicleRepo;
 
     @Autowired
-    public InsuranceService(InsuranceRepo insuranceRepo, InsuranceCompanyRepo insuranceCompanyRepo, ContractRepo contractRepo, PersonRepo personRepo, VehicleRepo vehicleRepo) {
-        this.insuranceRepo = insuranceRepo;
-        this.insuranceCompanyRepo = insuranceCompanyRepo;
+    public InsuranceService(ContractRepo contractRepo, PersonRepo personRepo, VehicleRepo vehicleRepo) {
         this.contractRepo = contractRepo;
         this.personRepo = personRepo;
         this.vehicleRepo = vehicleRepo;

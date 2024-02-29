@@ -5,7 +5,6 @@ import de.bht_berlin.paf2023.strategy.PositionStrategy;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
