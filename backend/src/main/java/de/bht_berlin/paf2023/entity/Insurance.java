@@ -1,5 +1,6 @@
 package de.bht_berlin.paf2023.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,9 +14,11 @@ public class Insurance extends IdentifiedEntity {
     private String insuranceType;
 
     @OneToMany(mappedBy = "insurance", cascade = CascadeType.ALL)
-    private List<InsuranceContract> contracts;
+    private List<InsuranceContract> insuranceContracts;
 
     @ManyToOne
     @JoinColumn(name = "insurance_company_id")
+    @JsonIgnoreProperties("insurances")
     private InsuranceCompany insuranceCompany;
+
 }

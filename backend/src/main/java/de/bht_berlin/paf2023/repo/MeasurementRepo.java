@@ -13,7 +13,6 @@ import java.util.List;
 @Repository
 public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
 
-
     @Query("SELECT m FROM Measurement m WHERE m.vehicle.id = :vehicleId")
     List<Measurement> findByVehicle(long vehicleId);
 

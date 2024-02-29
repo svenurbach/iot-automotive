@@ -14,4 +14,5 @@ public class InsuranceCompany extends IdentifiedEntity {
 
     @OneToMany(mappedBy = "insuranceCompany", cascade = CascadeType.ALL)
     private List<Insurance> insurances;
+
 }

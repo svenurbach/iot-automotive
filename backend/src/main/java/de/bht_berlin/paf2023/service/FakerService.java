@@ -18,7 +18,6 @@ public class FakerService {
     private final InsuranceRepo insuranceRepo;
     private final InsuranceCompanyRepo insuranceCompanyRepo;
     private final TripRepo tripRepo;
-    private final AnalysisRepo analysisRepo;
     private final ContractRepo contractRepo;
     private final MeasurementRepo measurementRepo;
     private final PersonRepo personRepo;
@@ -27,11 +26,10 @@ public class FakerService {
     private final Faker faker;
 
     @Autowired
-    public FakerService(InsuranceRepo insuranceRepo, InsuranceCompanyRepo insuranceCompanyRepo, TripRepo tripRepo, AnalysisRepo analysisRepo, ContractRepo contractRepo, MeasurementRepo measurementRepo, PersonRepo personRepo, VehicleRepo vehicleRepo, VehicleModelRepo vehicleModelRepo) {
+    public FakerService(InsuranceRepo insuranceRepo, InsuranceCompanyRepo insuranceCompanyRepo, TripRepo tripRepo, ContractRepo contractRepo, MeasurementRepo measurementRepo, PersonRepo personRepo, VehicleRepo vehicleRepo, VehicleModelRepo vehicleModelRepo) {
         this.insuranceRepo = insuranceRepo;
         this.insuranceCompanyRepo = insuranceCompanyRepo;
         this.tripRepo = tripRepo;
-        this.analysisRepo = analysisRepo;
         this.contractRepo = contractRepo;
         this.measurementRepo = measurementRepo;
         this.personRepo = personRepo;
@@ -86,23 +84,13 @@ public class FakerService {
                     Date javaUtilDate = new Date(randomTimestamp);
                     trip.setTrip_start(javaUtilDate);
                     trip.setTrip_end(faker.date().future(1, java.util.concurrent.TimeUnit.DAYS, javaUtilDate));
-                    trip.setAverage_speed(faker.number().numberBetween(0L, 140L));
-
-//                    foreign key generation for person
-                    Person existingPerson = this.personRepo.getById(generateRandomForeignKey(dataSet, "person"));
-                    trip.setPerson(existingPerson);
+//                    trip.setAverage_speed(faker.number().numberBetween(0L, 140L));
 
 //                    foreign key generation for vehicle
                     Vehicle existingVehicle = this.vehicleRepo.getById(generateRandomForeignKey(dataSet, "vehicle"));
-                    trip.setVehicle(existingVehicle);
+//                    trip.setVehicle(existingVehicle);
 
                     this.tripRepo.save(trip);
-                }
-                break;
-            case "analysis":
-                for (int i = 0; i < numberOfEntries; i++) {
-                    Analysis analysis = new Analysis();
-                    this.analysisRepo.save(analysis);
                 }
                 break;
             case "contract":
@@ -162,11 +150,6 @@ public class FakerService {
                     VehicleModel existingVehicleModel = this.vehicleModelRepo.getById(generateRandomForeignKey(dataSet,
                             "vehicle_model"));
                     vehicle.setVehicleModel(existingVehicleModel);
-
-                    //                    foreign key generation for person
-                    Person existingPerson = this.personRepo.getById(generateRandomForeignKey(dataSet, "person"));
-                    vehicle.setPerson(existingPerson);
-
                     this.vehicleRepo.save(vehicle);
                 }
                 break;

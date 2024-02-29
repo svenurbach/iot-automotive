@@ -23,12 +23,14 @@ public class Measurement extends IdentifiedEntity {
 
     private String measurementType;
 
+    private Boolean isError;
+
     @ManyToOne
     @JoinColumn(name = "vehicle")
     Vehicle vehicle;
 
     @ManyToOne
-    @JoinColumn(name = "trip", nullable = true)
+    @JoinColumn(name = "trip")
     Trip trip;
 
     // getMeasuredValue()   -> Messwert wird von Sensoren über Request an die Anwendung geschickt?
@@ -42,9 +44,6 @@ public class Measurement extends IdentifiedEntity {
     }
 
     // saveInDB()   -> Messwert wird in DB geschrieben
-
-    @ManyToOne
-    private Analysis analysis;
 
     private long getMeasurementsFromOneTypeOfMeasurement() {
         // TO-DO:

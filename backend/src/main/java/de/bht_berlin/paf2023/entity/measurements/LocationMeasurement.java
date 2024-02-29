@@ -22,9 +22,6 @@ public class LocationMeasurement extends Measurement {
     private Float latitude;
     private Float longitude;
 
-    @ManyToOne
-    private Trip trip;
-
     public LocationMeasurement() {
     }
 

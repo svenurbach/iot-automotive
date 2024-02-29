@@ -20,10 +20,6 @@ public class SteeringWheelMeasurement extends Measurement {
 
     private Float steeringWheelAngle;
 
-
-    @ManyToOne
-    private Trip trip;
-
     public SteeringWheelMeasurement() {
     }
 

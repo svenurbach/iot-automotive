@@ -1,13 +1,15 @@
 package de.bht_berlin.paf2023.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
-@Entity @Getter @Setter
-@Table(name = "vehicle")
+@Entity
+@Getter
+@Setter
 public class Vehicle extends IdentifiedEntity {
 
     @Column(length = 4)
@@ -15,21 +17,21 @@ public class Vehicle extends IdentifiedEntity {
 
     private String licensePlate;
 
+    // Vehicle Identification Number
     private String vin;
 
-    @JoinColumn(name = "contract_id")
-    @OneToOne
+    @OneToOne(mappedBy = "vehicle")
     private InsuranceContract insuranceContract;
 
-    @JoinColumn(name = "person_id")
-    @ManyToOne
-    private Person person;
+//    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+//    @JsonIgnore
+//    private List<Trip> trips;
 
-    @JoinColumn(name = "vehicle_model_id")
     @ManyToOne
+    @JoinColumn(name = "vehicle_model_id")
     private VehicleModel vehicleModel;
 
-    @OneToMany
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
     private List<Measurement> measurement;
 
 }
