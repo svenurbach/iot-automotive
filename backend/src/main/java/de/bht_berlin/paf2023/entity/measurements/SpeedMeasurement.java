@@ -8,7 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
@@ -17,8 +17,8 @@ import java.util.Date;
 @Setter
 public class SpeedMeasurement extends Measurement {
 
-    @Autowired
-    private MeasurementRepo measurementRepo;
+//    @Autowired
+//    private MeasurementRepo measurementRepo;
 
 //    @Id @GeneratedValue
 //    private Integer id;

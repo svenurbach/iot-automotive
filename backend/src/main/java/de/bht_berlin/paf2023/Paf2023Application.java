@@ -7,6 +7,7 @@ import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.repo.TripRepo;
 import de.bht_berlin.paf2023.service.FakerService;
+import de.bht_berlin.paf2023.service.MeasurementService;
 import de.bht_berlin.paf2023.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -68,5 +69,21 @@ public class Paf2023Application implements CommandLineRunner {
         Vehicle existingVehicle = this.vehicleRepo.getById(1L);
 
         service.segmentDataIntoTrips(existingVehicle);
+
+        ArrayList<Double> testArrayList = new ArrayList<>();
+        testArrayList.add(1.0);
+        testArrayList.add(2.02);
+        testArrayList.add(3.0);
+        testArrayList.add(4.0);
+        testArrayList.add(5.0);
+        testArrayList.add(6.0);
+        testArrayList.add(7.0);
+        testArrayList.add(8.0);
+        MeasurementService measurementService = new MeasurementService(measurementRepo);
+        boolean error = measurementService.findMeasurementError(testArrayList, 3, 0.9);
+//        System.out.println("Messfehler:" + error);
+//       System.out.println(tripRepo.findById(11L));
+//       System.out.println(measurementService.calculateAverageMeasurements(testArrayList));
+
     }
 }

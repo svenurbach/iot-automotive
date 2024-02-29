@@ -97,37 +97,44 @@ public class MeasurementService {
     public boolean findMeasurementError(ArrayList<Double> measurementArrayInDouble, int comparativeValuesArraySize, Double tolerance) {
         if (measurementArrayInDouble.size() < comparativeValuesArraySize) {
             System.out.println("Nicht genügend Werte im Array, um Messfehler zu identifizieren");
-            return false;
+            return true;
         }
-        boolean measurementError = true;
+        boolean measurementError = false;
         ArrayList<Double> comparativeValuesArrayPast = new ArrayList<>();
         ArrayList<Double> comparativeValuesArrayFuture = new ArrayList<>();
-        for (int i = 0; i < measurementArrayInDouble.size(); i++) {
+        for (int i = 0; i < measurementArrayInDouble.size(); i++)  {
             if (i < comparativeValuesArraySize) {
-                break;
+                System.out.println("zählt bis zu vergleichenden Wert");
             } else {
                 while(comparativeValuesArrayPast.size() < comparativeValuesArraySize) {
-                    comparativeValuesArrayPast.add(measurementArrayInDouble.get(i));
+                    comparativeValuesArrayPast.add(measurementArrayInDouble.get(i - (comparativeValuesArrayPast.size()+1)));
                 }
                 double averagePast = calculateAverageMeasurements(comparativeValuesArrayPast);
-                if(averagePast <= measurementArrayInDouble.get(i) - (measurementArrayInDouble.get(i) * tolerance) ||
-                        averagePast >=measurementArrayInDouble.get(i) + (measurementArrayInDouble.get(i) * tolerance)){
-                    measurementError = false;
+                if(!(averagePast <= measurementArrayInDouble.get(i) - (measurementArrayInDouble.get(i) * tolerance) ||
+                        averagePast <=measurementArrayInDouble.get(i) + (measurementArrayInDouble.get(i) * tolerance))){
+                    measurementError = true;
                 }
-                while (comparativeValuesArrayFuture.size() < comparativeValuesArraySize){
-                    comparativeValuesArrayFuture.add(measurementArrayInDouble.get(i+comparativeValuesArraySize+1));
-                }
-                double averageFuture = calculateAverageMeasurements(comparativeValuesArrayPast);
-                if(averageFuture <= measurementArrayInDouble.get(i) - (measurementArrayInDouble.get(i) * tolerance) ||
-                        averageFuture >=measurementArrayInDouble.get(i) + (measurementArrayInDouble.get(i) * tolerance)){
-                    measurementError = false;
-                }
+                comparativeValuesArrayPast.clear();
+
             }
+            if (i >= 1){
+                while (comparativeValuesArrayFuture.size() <= comparativeValuesArraySize && i < (measurementArrayInDouble.size() - comparativeValuesArraySize +1)){
+                    comparativeValuesArrayFuture.add(measurementArrayInDouble.get((i+comparativeValuesArraySize) - (comparativeValuesArrayFuture.size()+1)));
+                }
+                double averageFuture = calculateAverageMeasurements(comparativeValuesArrayFuture);
+                if(!(averageFuture <= measurementArrayInDouble.get(i) - (measurementArrayInDouble.get(i) * tolerance) ||
+                        averageFuture <=measurementArrayInDouble.get(i) + (measurementArrayInDouble.get(i) * tolerance))){
+                    measurementError = true;
+                }
+                comparativeValuesArrayFuture.clear();
+            }
+        System.out.println("Messfehler: " + measurementError);
         }
         return measurementError;
     }
 
-    public int countErrorsPerMeasurementType(Measurement measurement, ArrayList<Double> measurementArrayInDouble, int comparativeValuesArraySize, Double tolerance) {
+    public int countErrorsPerMeasurementType(Measurement measurement) {
+
         switch (measurement.getMeasurementType()) {
             case "AccelerationMeasurement":
 
