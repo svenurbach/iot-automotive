@@ -21,6 +21,8 @@ public class Measurement extends IdentifiedEntity {
 
     private String measurementType;
 
+    private Boolean isError;
+
     @ManyToOne
     @JoinColumn(name = "vehicle")
     Vehicle vehicle;
