@@ -18,7 +18,7 @@ public class Vehicle extends IdentifiedEntity {
     // Vehicle Identification Number
     private String vin;
 
-    @OneToOne
+    @OneToOne(mappedBy = "vehicle")
     private InsuranceContract insuranceContract;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
