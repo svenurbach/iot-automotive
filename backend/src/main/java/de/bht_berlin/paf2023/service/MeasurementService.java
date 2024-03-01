@@ -4,12 +4,11 @@ import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.measurements.*;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.repo.TripRepo;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class MeasurementService {
@@ -44,12 +43,21 @@ public class MeasurementService {
 //    showError(vehicle)
 //        show error in measurement
 
-    public String getMeasurements(long id) {
-        return measurementRepo.findById(id).get().getMeasuredValue().toString();
+//    public String getMeasurements(long id) {
+//        return measurementRepo.findById(id).get().getMeasuredValue().toString();
+//    }
+
+    // fügt Boolean über Messfehler zu Messung hinzu
+    public void addMeasurement(Boolean measurementError) {
+        Measurement measurement = new Measurement();
+        measurement.setIsError(measurementError);
+        measurementRepo.save(measurement);
     }
 
 
-    public ArrayList<Double> parseMeasurementArrayToDouble(Measurement[] measurementsArray) {
+
+    // bekommt Array aus Messungen und parst die enthaltenen Werte zum Typ double
+    public ArrayList<Double> parseMeasurementArrayToDouble(List<Measurement> measurementsArray) {
         ArrayList<Double> measurementArrayList = new ArrayList<>();
         for (Measurement measurement : measurementsArray) {
             measurementArrayList.add(convertMeasurementToDouble(measurement));
@@ -70,7 +78,10 @@ public class MeasurementService {
             case "SteeringWheelMeasurement":
                 return roundToTwoDecimalPlaces((double) ((SteeringWheelMeasurement) measurement).getSteeringWheelAngle());
 //            case "TirePressureMeasurement":
-//                return roundToTwoDecimalPlaces((double) ((TirePressureMeasurement) measurement).getTirePressure());
+//                return roundToTwoDecimalPlaces((double) ((TirePressureMeasurement) measurement).getFrontLeftTire());
+//            return roundToTwoDecimalPlaces((double) ((TirePressureMeasurement) measurement).getFrontRightTire());
+//            return roundToTwoDecimalPlaces((double) ((TirePressureMeasurement) measurement).getBackLeftTire());
+//            return roundToTwoDecimalPlaces((double) ((TirePressureMeasurement) measurement).getBackRightTire());
             default:
                 return 0.0;
         }
@@ -81,6 +92,7 @@ public class MeasurementService {
     }
 
 
+    // bekommt Array übergeben und berechnet aus diesem den Durchschnittswert
     public double calculateAverageMeasurements(ArrayList<Double> measurementArrayList) {
         double sum = 0;
         for (Double measurement : measurementArrayList) {
@@ -94,6 +106,8 @@ public class MeasurementService {
         }
     }
 
+    // findet Messfehler durch vergleichen der Durchschnittwerte aus dem Vergleichsarray und gibt true oder false zurück,
+    // wenn ein Messfehler gefunden wurde (TO-DO: in DB schreiben)
     public boolean findMeasurementError(ArrayList<Double> measurementArrayInDouble, int comparativeValuesArraySize, Double tolerance) {
         if (measurementArrayInDouble.size() < comparativeValuesArraySize) {
             System.out.println("Nicht genügend Werte im Array, um Messfehler zu identifizieren");
@@ -115,7 +129,6 @@ public class MeasurementService {
                     measurementError = true;
                 }
                 comparativeValuesArrayPast.clear();
-
             }
             if (i >= 1){
                 while (comparativeValuesArrayFuture.size() <= comparativeValuesArraySize && i < (measurementArrayInDouble.size() - comparativeValuesArraySize +1)){
@@ -130,30 +143,31 @@ public class MeasurementService {
             }
         System.out.println("Messfehler: " + measurementError);
         }
+        addMeasurement(measurementError);
         return measurementError;
     }
 
-    public int countErrorsPerMeasurementType(Measurement measurement) {
-
-        switch (measurement.getMeasurementType()) {
-            case "AccelerationMeasurement":
-
-            case "AxisMeasurement":
-
-            case "FuelMeasurement":
-
-            case "SpeedMeasurement":
-
-            case "SteeringWheelMeasurement":
-
-            case "TirePressureMeasurement":
+    public Map<String, Integer> countErrorsPerMeasurementType(long tripId) {
+        Map<String, Integer> errorCounts = new HashMap<>();
+        List<Measurement> allMeasurementsFromTrip = measurementRepo.getAllMeasurementsFromTrip(tripId);
+        for (int i = 0; i < allMeasurementsFromTrip.size(); i++) {
+            if (allMeasurementsFromTrip.get(i).getIsError()) {
+                String measurementType = allMeasurementsFromTrip.get(i).getMeasurementType();
+                if (!errorCounts.containsKey(measurementType)) {
+                    errorCounts.put(measurementType, 1);
+                } else {
+                    errorCounts.put(measurementType, errorCounts.get(measurementType) + 1);
+                }
+            }
         }
-        return 0;
+        return errorCounts;
     }
 
-    public int countErrorsPerWholeTrip(){
+    public int countErrorsPerWholeTrip(Map<String, Integer> errorCountsMeasurementType){
         int errorsTotal = 0;
-        // Zählt alle Messfehler von jedem Typ Messung zusammen
+        for (Map.Entry<String, Integer> entry : errorCountsMeasurementType.entrySet()){
+            errorsTotal += entry.getValue();
+        }
         return errorsTotal;
         }
 }

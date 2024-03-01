@@ -16,10 +16,10 @@ public class MeasurementController {
     @Autowired
     private MeasurementService measurementService;
 
-    @RequestMapping(path = "/errors/{errorId}")
-    public String getMeasurements(@PathVariable Long id) {
-        return measurementService.getMeasurements(id);
-    }
+//    @RequestMapping(path = "/errors/{errorId}")
+//    public String getMeasurements(@PathVariable Long id) {
+//        return measurementService.getMeasurements(id);
+//    }
 
 
     // Get all measurements from trip

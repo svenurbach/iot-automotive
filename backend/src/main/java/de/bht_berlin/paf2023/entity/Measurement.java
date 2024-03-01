@@ -38,10 +38,6 @@ public class Measurement extends IdentifiedEntity {
         return this.measuredValue;
     }
 
-    // setInterval()   ->wie oft werden Werte in DB geschrieben (alle ms, jede h ...)
-    public Integer setInterval(){
-        return this.interval;
-    }
 
     // saveInDB()   -> Messwert wird in DB geschrieben
 

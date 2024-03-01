@@ -51,35 +51,35 @@ public class Paf2023Application implements CommandLineRunner {
 //        dataSet.put("trip", 10L);
 //        dataSet.put("contract", 1L);
 
-        iService.generateDummyDataSet(dataSet);
+//        iService.generateDummyDataSet(dataSet);
+//
+//        System.out.print("Call Singleton");
+//
+//        List<List<String>> records = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test.csv");
+//        List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
+//        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
+//
+//        List<Measurement> list = measurementRepo.findByVehicle(1);
+//        System.out.println(list.size());
+//
+//        List<Measurement> list2 = measurementRepo.findByMeasurementType("SpeedMeasurement");
+//        System.out.println(list2.size());
+//
+//        TripService service = new TripService(tripRepo, measurementRepo);
+//        Vehicle existingVehicle = this.vehicleRepo.getById(1L);
+//        service.segmentDataIntoTrips(existingVehicle);
 
-        System.out.print("Call Singleton");
-
-        List<List<String>> records = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test.csv");
-        List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
-        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
-
-        List<Measurement> list = measurementRepo.findByVehicle(1);
-        System.out.println(list.size());
-
-        List<Measurement> list2 = measurementRepo.findByMeasurementType("SpeedMeasurement");
-        System.out.println(list2.size());
-
-        TripService service = new TripService(tripRepo, measurementRepo);
-        Vehicle existingVehicle = this.vehicleRepo.getById(1L);
-        service.segmentDataIntoTrips(existingVehicle);
-
-        ArrayList<Double> testArrayList = new ArrayList<>();
-        testArrayList.add(1.0);
-        testArrayList.add(2.02);
-        testArrayList.add(3.0);
-        testArrayList.add(4.0);
-        testArrayList.add(5.0);
-        testArrayList.add(6.0);
-        testArrayList.add(7.0);
-        testArrayList.add(8.0);
-        MeasurementService measurementService = new MeasurementService(measurementRepo);
-        boolean error = measurementService.findMeasurementError(testArrayList, 3, 0.9);
+//        ArrayList<Double> testArrayList = new ArrayList<>();
+//        testArrayList.add(1.0);
+//        testArrayList.add(2.02);
+//        testArrayList.add(3.0);
+//        testArrayList.add(4.0);
+//        testArrayList.add(5.0);
+//        testArrayList.add(6.0);
+//        testArrayList.add(7.0);
+//        testArrayList.add(8.0);
+//        MeasurementService measurementService = new MeasurementService(measurementRepo);
+//        boolean error = measurementService.findMeasurementError(testArrayList, 3, 0.9);
 //        System.out.println("Messfehler:" + error);
 //       System.out.println(tripRepo.findById(11L));
 //       System.out.println(measurementService.calculateAverageMeasurements(testArrayList));
