@@ -27,8 +27,51 @@ public class Trip extends IdentifiedEntity {
     private Float end_latitude;
     private Float end_longitude;
 
+    public enum TripState {
+        RUNNING,
+        PAUSED,
+        FINISHED
+    }
+
+    private TripState state;
+
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
     private List<Measurement> measurements;
+
+    public Trip() {
+        this.state = TripState.RUNNING;
+    }
+
+    public Trip(LocationMeasurement startLocation) {
+        this.state = TripState.RUNNING;
+        
+    }
+
+    public void start() {
+        if (state == TripState.RUNNING) {
+            System.out.println("Trip is already started.");
+        } else {
+            state = TripState.RUNNING;
+            System.out.println("Trip started.");
+        }
+    }
+
+    public void pause() {
+        if (state == TripState.RUNNING) {
+            state = TripState.PAUSED;
+            System.out.println("Trip paused.");
+        } else {
+            System.out.println("Cannot pause trip. Trip is not running.");
+        }
+    }
+
+    public void finish() {
+        if (state == TripState.FINISHED || state == TripState.PAUSED) {
+            System.out.println("Trip already finished.");
+        } else {
+            System.out.println("Finish trip.");
+        }
+    }
 
     @Override
     public String toString() {
