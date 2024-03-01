@@ -16,6 +16,14 @@ public class MeasurementRepoSubject {
     @Autowired
     private MeasurementRepo measurementRepo;
 
+    public List<Measurement> findByVehicle(long vehicleId) {
+        return measurementRepo.findByVehicle(vehicleId);
+    }
+
+    public List<Measurement> findByMeasurementType(String measurementType) {
+        return measurementRepo.findByMeasurementType(measurementType);
+    }
+
     public void addObserver(MeasurementObserver observer) {
         observers.add(observer);
     }
