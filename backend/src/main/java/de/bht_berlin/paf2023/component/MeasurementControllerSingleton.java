@@ -3,6 +3,7 @@ package de.bht_berlin.paf2023.component;
 import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.measurements.*;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
+import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,16 +23,16 @@ public class MeasurementControllerSingleton {
     private static MeasurementControllerSingleton instance;
     private final String DELIMITER = ";";
     private final VehicleRepo vehicleRepo;
-    private final MeasurementRepo measurementRepo;
+    private final MeasurementRepoSubject measurementRepo;
 
     @Autowired
-    private MeasurementControllerSingleton(VehicleRepo vehicleRepo, MeasurementRepo measurementRepo) {
+    private MeasurementControllerSingleton(VehicleRepo vehicleRepo, MeasurementRepoSubject measurementRepo) {
         this.vehicleRepo = vehicleRepo;
         this.measurementRepo = measurementRepo;
         System.out.println("Instance build");
     }
 
-    public static MeasurementControllerSingleton getInstance(VehicleRepo vehicleRepo, MeasurementRepo measurementRepo) {
+    public static MeasurementControllerSingleton getInstance(VehicleRepo vehicleRepo, MeasurementRepoSubject measurementRepo) {
         if (instance == null) {
             instance = new MeasurementControllerSingleton(vehicleRepo, measurementRepo);
         }
@@ -108,26 +109,26 @@ public class MeasurementControllerSingleton {
             Vehicle existingVehicle = this.vehicleRepo.getById(vehicleid);
 
             if (readOuts.get(i).get("Accelaration") != null) {
-                this.measurementRepo.save(new AccelerationMeasurement(timestamp,
+                this.measurementRepo.addMeasurement(new AccelerationMeasurement(timestamp,
                         Integer.parseInt(readOuts.get(i).get("Accelaration").toString()), existingVehicle));
             }
             if (readOuts.get(i).get("Axis_angle") != null) {
-                this.measurementRepo.save(new AxisMeasurement(timestamp, Float.parseFloat(readOuts.get(i).get(
+                this.measurementRepo.addMeasurement(new AxisMeasurement(timestamp, Float.parseFloat(readOuts.get(i).get(
                         "Axis_angle").toString()), existingVehicle));
             }
             if (readOuts.get(i).get("Speed") != null) {
-                this.measurementRepo.save(new SpeedMeasurement(timestamp, Integer.parseInt(readOuts.get(i).get("Speed").toString()),
+                this.measurementRepo.addMeasurement(new SpeedMeasurement(timestamp, Integer.parseInt(readOuts.get(i).get("Speed").toString()),
                         existingVehicle));
             }
 
             if (readOuts.get(i).get("Fuel level") != null) {
-                this.measurementRepo.save(new FuelMeasurement(timestamp, Integer.parseInt(readOuts.get(i).get("Fuel " +
+                this.measurementRepo.addMeasurement(new FuelMeasurement(timestamp, Integer.parseInt(readOuts.get(i).get("Fuel " +
                         "level").toString()),
                         existingVehicle));
             }
 
             if (readOuts.get(i).get("Steering Angle") != null) {
-                this.measurementRepo.save(new SteeringWheelMeasurement(timestamp, Float.parseFloat(readOuts.get(i).get(
+                this.measurementRepo.addMeasurement(new SteeringWheelMeasurement(timestamp, Float.parseFloat(readOuts.get(i).get(
                         "Steering Angle").toString()),
                         existingVehicle));
             }
@@ -136,7 +137,7 @@ public class MeasurementControllerSingleton {
                 List<Float> location = new ArrayList<>();
                 location.add(Float.parseFloat(readOuts.get(i).get("Latitude").toString()));
                 location.add(Float.parseFloat(readOuts.get(i).get("Longitude").toString()));
-                this.measurementRepo.save(new LocationMeasurement(timestamp, location, existingVehicle));
+                this.measurementRepo.addMeasurement(new LocationMeasurement(timestamp, location, existingVehicle));
             }
 
 //            tire pressures

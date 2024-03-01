@@ -20,8 +20,8 @@ public class FindMyCarRestController {
 
     @GetMapping(path = "/{id}")
     // http://localhost:8080/api/findMyCar/1
-    public List<Float> getLastPositionByCar(@PathVariable Long id) {
-        return findMyCarService.getLastPositionByCar(id);
+    public List<Float> getLastCarPosition(@PathVariable Long id) {
+        return findMyCarService.getLastCarPosition(id);
     }
 
 }
