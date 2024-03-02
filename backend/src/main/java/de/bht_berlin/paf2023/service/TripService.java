@@ -10,7 +10,6 @@ import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.TripRepo;
 import de.bht_berlin.paf2023.strategy.TripHandlerStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -26,7 +25,7 @@ public class TripService implements MeasurementObserver {
         if (this.tripHandlerStrategy == null) {
             System.out.println("No strategy deployed yet");
         } else {
-            if (this.tripHandlerStrategy.getClass().getSimpleName() == "HandleSingleTripStrategy") {
+            if (this.tripHandlerStrategy.getClass().getSimpleName().equals("HandleSingleTripStrategy")) {
                 this.tripHandlerStrategy.addData(newMeasurement);
                 System.out.println(this.tripHandlerStrategy.getClass().getSimpleName());
                 System.out.println(newMeasurement);

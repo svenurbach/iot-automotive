@@ -65,7 +65,9 @@ public class StartupRunner implements ApplicationRunner {
         SegmentTripsInDBStrategy segmentTripsInDBStrategy = new SegmentTripsInDBStrategy(tripRepo, measurementRepo);
         service.changeTripHandlerStrategy(segmentTripsInDBStrategy);
         Vehicle existingVehicle = this.vehicleRepo.getById(1L);
+        Vehicle existingVehicle2 = this.vehicleRepo.getById(2L);
         service.segmentTripBatches(existingVehicle);
+        service.segmentTripBatches(existingVehicle2);
 
         HandleSingleTripStrategy handleSingleTripStrategy = new HandleSingleTripStrategy(tripRepo, measurementRepo);
         service.changeTripHandlerStrategy(handleSingleTripStrategy);

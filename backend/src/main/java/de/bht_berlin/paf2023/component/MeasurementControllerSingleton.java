@@ -127,9 +127,9 @@ public class MeasurementControllerSingleton {
                         existingVehicle));
             }
 
-            if (readOuts.get(i).get("Steering Angle") != null) {
+            if (readOuts.get(i).get("Steering") != null) {
                 this.measurementRepo.addMeasurement(new SteeringWheelMeasurement(timestamp, Float.parseFloat(readOuts.get(i).get(
-                        "Steering Angle").toString()),
+                        "Steering").toString()),
                         existingVehicle));
             }
 
