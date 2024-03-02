@@ -1,6 +1,10 @@
 package de.bht_berlin.paf2023.repo;
 
 import de.bht_berlin.paf2023.entity.Measurement;
+import de.bht_berlin.paf2023.entity.Vehicle;
+import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -16,7 +20,25 @@ public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
     @Query("SELECT m FROM Measurement m WHERE m.vehicle.id = :vehicleId")
     List<Measurement> findByVehicle(long vehicleId);
 
+//    List<Measurement> findMeasurements_Vehicle(Vehicle car);
+
     @Query("SELECT m FROM Measurement m WHERE m.measurementType = :measurementType")
     List<Measurement> findByMeasurementType(String measurementType);
+
+    @Query("SELECT m FROM Measurement m WHERE m.vehicle.id = :vehicleId ORDER BY m.timestamp DESC")
+    List<Measurement> findLastMeasurementByVehicleId(long vehicleId, Pageable pageable);
+
+    default Measurement findLastMeasurementByVehicleId(long vehicleId) {
+        List<Measurement> measurements = findLastMeasurementByVehicleId(vehicleId, PageRequest.of(0, 1));
+        return measurements.isEmpty() ? null : measurements.get(0);
+    }
+
+    @Query("SELECT m FROM Measurement m WHERE m.vehicle.id = :vehicleId AND m.measurementType = 'LocationMeasurement' ORDER BY m.timestamp DESC")
+    List<Measurement> findLastLocationMeasurementByVehicleId(long vehicleId, Pageable pageable);
+
+    default Measurement findLastLocationMeasurementByVehicleId(long vehicleId) {
+        List<Measurement> measurements = findLastLocationMeasurementByVehicleId(vehicleId, PageRequest.of(0, 1));
+        return measurements.isEmpty() ? null : measurements.get(0);
+    }
 
 }

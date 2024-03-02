@@ -1,5 +1,6 @@
 package de.bht_berlin.paf2023.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.repo.TripRepo;
@@ -44,14 +45,17 @@ public class Trip extends IdentifiedEntity {
 
     public Trip(LocationMeasurement startLocation) {
         this.state = TripState.RUNNING;
-        
+
     }
 
-    public void start() {
+    public void start(LocationMeasurement startLocation) {
         if (state == TripState.RUNNING) {
             System.out.println("Trip is already started.");
         } else {
             state = TripState.RUNNING;
+//            this.setStart_latitude(startLocation.getLatitude());
+//            this.setStart_longitude(startLocation.getLongitude());
+//            this.setTrip_start(startLocation.getTimestamp());
             System.out.println("Trip started.");
         }
     }
@@ -65,10 +69,14 @@ public class Trip extends IdentifiedEntity {
         }
     }
 
-    public void finish() {
+    public void finish(LocationMeasurement endLocation) {
         if (state == TripState.FINISHED || state == TripState.PAUSED) {
             System.out.println("Trip already finished.");
         } else {
+            state = TripState.FINISHED;
+//            this.setEnd_latitude(endLocation.getLatitude());
+//            this.setEnd_longitude(endLocation.getLongitude());
+//            this.setTrip_end(endLocation.getTimestamp());
             System.out.println("Finish trip.");
         }
     }

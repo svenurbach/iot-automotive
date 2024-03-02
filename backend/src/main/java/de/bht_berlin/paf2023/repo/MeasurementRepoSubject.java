@@ -1,6 +1,7 @@
 package de.bht_berlin.paf2023.repo;
 
 import de.bht_berlin.paf2023.entity.Measurement;
+import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.observer.MeasurementObserver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,9 +17,22 @@ public class MeasurementRepoSubject {
     @Autowired
     private MeasurementRepo measurementRepo;
 
+//    public List<Measurement> findByVehicle_new(Vehicle vehicle) {
+//        return measurementRepo.findMeasurements_Vehicle(vehicle);
+//    }
+
     public List<Measurement> findByVehicle(long vehicleId) {
         return measurementRepo.findByVehicle(vehicleId);
     }
+
+    public Measurement findLastMeasurementByVehicleId(long vehicleId) {
+        return measurementRepo.findLastMeasurementByVehicleId(vehicleId);
+    }
+
+    public Measurement findLastLocationMeasurementByVehicleId(long vehicleId) {
+        return measurementRepo.findLastLocationMeasurementByVehicleId(vehicleId);
+    }
+
 
     public List<Measurement> findByMeasurementType(String measurementType) {
         return measurementRepo.findByMeasurementType(measurementType);
