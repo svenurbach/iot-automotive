@@ -58,26 +58,27 @@ public class Paf2023Application implements CommandLineRunner {
 
         System.out.print("Call Singleton");
 
-//        ArrayList<Double> testArrayList = new ArrayList<>();
-//        testArrayList.add(1.0);
-//        testArrayList.add(2.02);
-//        testArrayList.add(3.0);
-//        testArrayList.add(4.0);
-//        testArrayList.add(5.0);
-//        testArrayList.add(6.0);
-//        testArrayList.add(7.0);
-//        testArrayList.add(8.0);
-//        MeasurementService measurementService = new MeasurementService(measurementRepo);
+        ArrayList<Double> testArrayList = new ArrayList<>();
+        testArrayList.add(1.0);
+        testArrayList.add(2.02);
+        testArrayList.add(3.0);
+        testArrayList.add(4.0);
+        testArrayList.add(5.0);
+        testArrayList.add(6.0);
+        testArrayList.add(7.0);
+        testArrayList.add(8.0);
+        MeasurementService measurementService = new MeasurementService(measurementRepo);
+
 //        boolean error = measurementService.findMeasurementError(testArrayList, 3, 0.9);
 //        System.out.println("Messfehler:" + error);
 //       System.out.println(tripRepo.findById(11L));
 //       System.out.println(measurementService.calculateAverageMeasurements(testArrayList));
 
-        List<Measurement> list = measurementRepo.findByVehicle(1);
-        System.out.println(list.size());
-
-        List<Measurement> list2 = measurementRepo.findByMeasurementType("SpeedMeasurement");
-        System.out.println(list2.size());
+//        List<Measurement> list = measurementRepo.findByVehicle(1);
+//        System.out.println(list.size());
+//
+//        List<Measurement> list2 = measurementRepo.findByMeasurementType("SpeedMeasurement");
+//        System.out.println(list2.size());
 
         SegmentTripsInDBStrategy segmentTripsInDBStrategy = new SegmentTripsInDBStrategy(tripRepo, measurementRepo);
         TripService service = new TripService(tripRepo, measurementRepo);

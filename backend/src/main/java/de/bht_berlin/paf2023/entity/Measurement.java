@@ -41,9 +41,4 @@ public class Measurement extends IdentifiedEntity {
 
     // saveInDB()   -> Messwert wird in DB geschrieben
 
-    private long getMeasurementsFromOneTypeOfMeasurement() {
-        // TO-DO:
-        // holt sich alle aktuellen Messungen eines Types (Geschwindigkeit, Verbrauch, Beschleunigung, etc.)
-        return 0;
-    }
 }

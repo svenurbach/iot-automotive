@@ -12,21 +12,17 @@ public class VehicleModel extends IdentifiedEntity {
 
     private String name;
 
+    private Integer constructionYear;
+
     private String manufacturer;
 
     private Float weight;
 
-    private String tireType;
+    private String fuelType;
 
-    private Boolean airbag;
+    private Float maxSpeed;
 
-    private String engine;
-
-    private Boolean seatHeater;
-
-    private Boolean gps;
-
-    private String fueltype;
+    private Float maxAcceleration;
 
     @OneToMany(mappedBy = "vehicleModel", cascade = CascadeType.ALL)
     private List<Vehicle> vehicle;

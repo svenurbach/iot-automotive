@@ -143,7 +143,7 @@ public class FakerService {
             case "vehicle":
                 for (int i = 0; i < numberOfEntries; i++) {
                     Vehicle vehicle = new Vehicle();
-                    vehicle.setYearOfConstruction(faker.number().numberBetween(2000, 2023));
+//                    vehicle.setYearOfConstruction(faker.number().numberBetween(2000, 2023));
                     vehicle.setLicensePlate(String.valueOf(faker.lorem().word()));
                     vehicle.setVin(faker.idNumber().validSvSeSsn());
                     //                    foreign key generation for vehicle
@@ -157,6 +157,12 @@ public class FakerService {
                 for (int i = 0; i < numberOfEntries; i++) {
                     VehicleModel vehicleModel = new VehicleModel();
                     vehicleModel.setName(faker.funnyName().name());
+                    vehicleModel.setConstructionYear(faker.number().numberBetween(2000, 2023));
+                    vehicleModel.setManufacturer(faker.name().username());
+                    vehicleModel.setWeight((float) faker.number().randomDouble(2, 300, 1200));
+//                    vehicleModel.setFueltype();
+                    vehicleModel.setMaxSpeed((float) faker.number().numberBetween(180, 600));
+                    vehicleModel.setMaxAcceleration((float) faker.number().numberBetween(-20, 100));
                     this.vehicleModelRepo.save(vehicleModel);
                 }
                 break;

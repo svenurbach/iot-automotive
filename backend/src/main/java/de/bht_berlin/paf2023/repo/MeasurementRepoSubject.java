@@ -24,6 +24,14 @@ public class MeasurementRepoSubject {
         return measurementRepo.findByMeasurementType(measurementType);
     }
 
+    public List<Measurement> getAllMeasurementsFromTrip(Long id) {
+        return measurementRepo.getAllMeasurementsFromTrip(id);
+    }
+
+    public List<Measurement> findMeasurementTypeInTrip(String measurementType) {
+        return measurementRepo.findMeasurementTypeInTrip(measurementType);
+    }
+
     public void addObserver(MeasurementObserver observer) {
         observers.add(observer);
     }
@@ -36,6 +44,8 @@ public class MeasurementRepoSubject {
         measurementRepo.save(measurement);
         notifyObservers(measurement);
     }
+
+
 
     private void notifyObservers(Measurement newMeasurement) {
         for (MeasurementObserver observer : observers) {
