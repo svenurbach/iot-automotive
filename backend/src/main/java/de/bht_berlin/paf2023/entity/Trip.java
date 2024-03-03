@@ -66,10 +66,12 @@ public class Trip extends IdentifiedEntity {
     }
 
     public void finish() {
-        if (state == TripState.FINISHED || state == TripState.PAUSED) {
+        if (state == TripState.FINISHED) {
             System.out.println("Trip already finished.");
         } else {
+            state = TripState.FINISHED;
             System.out.println("Finish trip.");
+            // measurementService.notifyTripfinished(this || this.measurements || this.id)
         }
     }
 

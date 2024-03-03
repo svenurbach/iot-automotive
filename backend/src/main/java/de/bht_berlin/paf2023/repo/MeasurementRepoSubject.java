@@ -21,15 +21,16 @@ public class MeasurementRepoSubject {
     }
 
     public List<Measurement> findByMeasurementType(String measurementType) {
-        return measurementRepo.findByMeasurementType(measurementType);
+        return measurementRepo.findMeasurementType(measurementType);
     }
 
-    public List<Measurement> getAllMeasurementsFromTrip(Long id) {
+    public List<Measurement> getAllMeasurementsFromTrip(long id) {
+        System.out.println("Ausgabe");
         return measurementRepo.getAllMeasurementsFromTrip(id);
     }
 
-    public List<Measurement> findMeasurementTypeInTrip(String measurementType) {
-        return measurementRepo.findMeasurementTypeInTrip(measurementType);
+    public List<Measurement> findMeasurementTypeInTrip(String measurementType, long trip) {
+        return measurementRepo.findMeasurementTypeInTrip(measurementType, trip);
     }
 
     public void addObserver(MeasurementObserver observer) {

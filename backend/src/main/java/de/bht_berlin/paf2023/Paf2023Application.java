@@ -4,6 +4,7 @@ import de.bht_berlin.paf2023.api.MeasurementController;
 import de.bht_berlin.paf2023.component.MeasurementControllerSingleton;
 import de.bht_berlin.paf2023.component.SegmentTripsInDBStrategy;
 import de.bht_berlin.paf2023.entity.Measurement;
+import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
@@ -80,10 +81,21 @@ public class Paf2023Application implements CommandLineRunner {
 //        List<Measurement> list2 = measurementRepo.findByMeasurementType("SpeedMeasurement");
 //        System.out.println(list2.size());
 
+        List<List<String>> records = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test.csv");
+        List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
+        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
+
         SegmentTripsInDBStrategy segmentTripsInDBStrategy = new SegmentTripsInDBStrategy(tripRepo, measurementRepo);
         TripService service = new TripService(tripRepo, measurementRepo);
         service.changeTripHandlerStrategy(segmentTripsInDBStrategy);
         Vehicle existingVehicle = this.vehicleRepo.getById(1L);
         service.segmentTripBatches(existingVehicle);
+
+
+//        System.out.println(measurementService.getAllMeasurementsFromTrip(1L));
+//        HashMap<String, ArrayList<Measurement>> hashMap = measurementService.getAllMeasurementsFromTrip(1L);
+//        System.out.println(measurementService.sortMeasurementsFromTrip(hashMap));
+//
+//        System.out.println(measurementService.findErrorPerTrip(hashMap, 2, 0.9));
     }
 }

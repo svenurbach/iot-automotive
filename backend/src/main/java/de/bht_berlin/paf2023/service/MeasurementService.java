@@ -2,9 +2,7 @@ package de.bht_berlin.paf2023.service;
 
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.measurements.*;
-import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
-import de.bht_berlin.paf2023.repo.VehicleModelRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,15 +86,50 @@ public class MeasurementService {
         }
     }
 
-public ArrayList<Measurement> getAllMeasurementsFromTrip(){
-        ArrayList<Measurement> measurementsFromTrip = new ArrayList<>();
-        measurementRepo.findMeasurementTypeInTrip("x");
-        return measurementsFromTrip;
-}
+    // (wenn Fahrt FINISHED ist) bekommt alle Messwerte, ordnet diese zu Messtyp
+    // und speichert sie in Map {Messtyp: [Messung1, Messung2]; ...}
+    public HashMap<String,  ArrayList<Measurement>> getAllMeasurementsFromTrip(long tripId){
+            List<Measurement> measurementsFromTrip = measurementRepo.getAllMeasurementsFromTrip(tripId);
+            HashMap<String,  ArrayList<Measurement>> sortedMeasurements = new HashMap<>();
+            for (int i = 0; i < measurementsFromTrip.size(); i++){
+                String measurementType = measurementsFromTrip.get(i).getMeasurementType();
+                if(!sortedMeasurements.containsKey(measurementType)){
+                    sortedMeasurements.put(measurementType, new ArrayList<>());
+                }
+                sortedMeasurements.get(measurementType).add(measurementsFromTrip.get(i));
+        }
+            return sortedMeasurements;
+    }
+
+    public HashMap<String, ArrayList<Measurement>> sortMeasurementsFromTrip(HashMap<String, ArrayList<Measurement>> hashMap){
+        HashMap<String, ArrayList<Measurement>> sorted = new HashMap<>();
+        for(String type : hashMap.keySet()){
+            ArrayList<Measurement> values = hashMap.get(type);
+            Collections.sort(values, Comparator.comparing(Measurement::getTimestamp));
+            sorted.put(type, values);
+            for (int i = 0; i < values.size(); i++){
+                System.out.println(values.get(i).getMeasurementType() + values.get(i).getTimestamp());
+            }
+        }
+        return sorted;
+    }
+
+    public boolean findErrorPerTrip(HashMap<String, ArrayList<Measurement>> sortedMap, int comparativeValuesArraySize, Double tolerance){
+        boolean error = false;
+        for(String type : sortedMap.keySet()){
+            ArrayList<Measurement> measurementsOfType = sortedMap.get(type);
+            ArrayList<Double> arrayInDouble = parseMeasurementArrayToDouble(measurementsOfType);
+            if(findErrorInList(arrayInDouble, comparativeValuesArraySize, tolerance)){
+                System.out.println("Fehler gefunden");
+                error = true;
+            }
+        }
+        return error;
+    }
 
     // findet Messfehler durch vergleichen der Durchschnittwerte aus dem Vergleichsarray und gibt true oder false zurück,
     // wenn ein Messfehler gefunden wurde. Schreibt error (true/false) in DB
-    public boolean findMeasurementError(ArrayList<Double> measurementArrayInDouble, int comparativeValuesArraySize, Double tolerance) {
+    public boolean findErrorInList(ArrayList<Double> measurementArrayInDouble, int comparativeValuesArraySize, Double tolerance) {
         if (measurementArrayInDouble.size() < comparativeValuesArraySize) {
             System.out.println("Nicht genügend Werte im Array, um Messfehler zu identifizieren");
             return true;
