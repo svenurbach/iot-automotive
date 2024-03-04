@@ -63,17 +63,17 @@ public class StartupRunner implements ApplicationRunner {
 
         List<List<String>> records = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test.csv");
         List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
-        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
+//        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
 
         SegmentTripsInDBStrategy segmentTripsInDBStrategy = new SegmentTripsInDBStrategy(tripRepo, measurementRepo);
         service.changeTripHandlerStrategy(segmentTripsInDBStrategy);
-        service.tripHandlerStrategy.addData(vehicleRepo.findAll());
+//        service.tripHandlerStrategy.addData(vehicleRepo.findAll());
 
         HandleSingleTripStrategy handleSingleTripStrategy = new HandleSingleTripStrategy(tripRepo, measurementRepo);
         service.changeTripHandlerStrategy(handleSingleTripStrategy);
         System.out.println("up and running");
         System.out.println(service.tripHandlerStrategy.getClass().getSimpleName());
-//        measurementCreationService.setSchedulerActive(true);
+        measurementCreationService.setSchedulerActive(true);
     }
 
 
