@@ -1,6 +1,7 @@
 package de.bht_berlin.paf2023.repo;
 
 import de.bht_berlin.paf2023.entity.Measurement;
+import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.observer.MeasurementObserver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,17 @@ public class MeasurementRepoSubject {
         return measurementRepo.findLastMeasurementByVehicleId(vehicleId);
     }
 
+    public Measurement findLastMeasurementBeforeCurrent(long vehicleId, Measurement measurement) {
+        return measurementRepo.findLastMeasurementBeforeCurrent(vehicleId, measurement);
+    }
+
     public Measurement findLastLocationMeasurementByVehicleId(long vehicleId) {
         return measurementRepo.findLastLocationMeasurementByVehicleId(vehicleId);
     }
 
+    public Trip findLastTripByVehicleId(long vehicleId) {
+        return measurementRepo.findLastTripByVehicleId(vehicleId);
+    }
 
     public List<Measurement> findByMeasurementType(String measurementType) {
         return measurementRepo.findByMeasurementType(measurementType);
@@ -51,10 +59,18 @@ public class MeasurementRepoSubject {
         notifyObservers(measurement);
     }
 
+    public void updateMeasurement(Measurement measurement) {
+        measurementRepo.save(measurement);
+    }
+
     private void notifyObservers(Measurement newMeasurement) {
         for (MeasurementObserver observer : observers) {
             observer.updateMeasurement(newMeasurement);
         }
+    }
+
+    public long getTotalMeasurementCount() {
+        return measurementRepo.count();
     }
 
 }

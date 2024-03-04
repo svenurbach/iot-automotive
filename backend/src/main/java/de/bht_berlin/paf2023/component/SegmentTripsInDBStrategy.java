@@ -2,6 +2,7 @@ package de.bht_berlin.paf2023.component;
 
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
+import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.TripRepo;
@@ -30,7 +31,7 @@ public class SegmentTripsInDBStrategy implements TripHandlerStrategy {
     @Override
     public void updateTrip(Trip trip, Measurement measurement) {
         measurement.setTrip(trip);
-        measurementRepo.addMeasurement(measurement);
+        measurementRepo.updateMeasurement(measurement);
     }
 
     @Override
@@ -40,7 +41,14 @@ public class SegmentTripsInDBStrategy implements TripHandlerStrategy {
 
 
     @Override
-    public void addData(List<Measurement> list) {
+    public void addData(List<Vehicle> vehicles) {
+        for (int i = 0; i < vehicles.size(); i++) {
+            List<Measurement> measurements = measurementRepo.findByVehicle(vehicles.get(i).getId());
+            segmentTripBatches(measurements);
+        }
+    }
+
+    public void segmentTripBatches(List<Measurement> list) {
         Collections.sort(list, Comparator.comparing(Measurement::getTimestamp));
 
         List<List<Measurement>> segmentedList = new ArrayList<>();
@@ -111,14 +119,14 @@ public class SegmentTripsInDBStrategy implements TripHandlerStrategy {
             Trip trip = startTrip(startLocation);
             repository.save(trip);
             startLocation.setTrip(trip);
-            measurementRepo.addMeasurement(startLocation);
+            measurementRepo.updateMeasurement(startLocation);
             for (int i = 0; i < measurementList.size(); i++) {
                 updateTrip(trip, measurementList.get(i));
             }
             if (endLocation != null) {
                 repository.save(trip);
                 endTrip(trip, endLocation);
-                measurementRepo.addMeasurement(endLocation);
+                measurementRepo.updateMeasurement(endLocation);
             }
         }
     }

@@ -8,6 +8,7 @@ import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.TripRepo;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import de.bht_berlin.paf2023.service.FakerService;
+import de.bht_berlin.paf2023.service.MeasurementCreationService;
 import de.bht_berlin.paf2023.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -40,10 +41,12 @@ public class StartupRunner implements ApplicationRunner {
     @Autowired
     private TripService service;
 
-    // Alles aus der Main hier rein. Faker & CSV
+    @Autowired
+    MeasurementCreationService measurementCreationService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+
 
         Map<String, Long> dataSet = new LinkedHashMap<String, Long>();
 //        dataSet.put("person", 10L);
@@ -64,15 +67,13 @@ public class StartupRunner implements ApplicationRunner {
 
         SegmentTripsInDBStrategy segmentTripsInDBStrategy = new SegmentTripsInDBStrategy(tripRepo, measurementRepo);
         service.changeTripHandlerStrategy(segmentTripsInDBStrategy);
-        Vehicle existingVehicle = this.vehicleRepo.getById(1L);
-        Vehicle existingVehicle2 = this.vehicleRepo.getById(2L);
-        service.segmentTripBatches(existingVehicle);
-        service.segmentTripBatches(existingVehicle2);
+        service.tripHandlerStrategy.addData(vehicleRepo.findAll());
 
         HandleSingleTripStrategy handleSingleTripStrategy = new HandleSingleTripStrategy(tripRepo, measurementRepo);
         service.changeTripHandlerStrategy(handleSingleTripStrategy);
         System.out.println("up and running");
         System.out.println(service.tripHandlerStrategy.getClass().getSimpleName());
+//        measurementCreationService.setSchedulerActive(true);
     }
 
 

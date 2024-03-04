@@ -8,6 +8,7 @@ import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import de.bht_berlin.paf2023.observer.MeasurementObserver;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.TripRepo;
+import de.bht_berlin.paf2023.repo.VehicleRepo;
 import de.bht_berlin.paf2023.strategy.TripHandlerStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,8 @@ public class TripService implements MeasurementObserver {
         } else {
             if (this.tripHandlerStrategy.getClass().getSimpleName().equals("HandleSingleTripStrategy")) {
                 this.tripHandlerStrategy.addData(newMeasurement);
-                System.out.println(this.tripHandlerStrategy.getClass().getSimpleName());
-                System.out.println(newMeasurement);
+//                System.out.println(this.tripHandlerStrategy.getClass().getSimpleName());
+//                System.out.println(newMeasurement);
             } else {
                 System.out.println(this.tripHandlerStrategy.getClass().getSimpleName());
             }
@@ -46,11 +47,6 @@ public class TripService implements MeasurementObserver {
         measurementRepo.addObserver(this);
     }
 
-    public void segmentTripBatches(Vehicle vehicle) {
-        List<Measurement> measurements = measurementRepo.findByVehicle(vehicle.getId());
-        tripHandlerStrategy.addData(measurements);
-    }
-
     public static void endTrip(Trip trip, LocationMeasurement endLocation, MeasurementRepoSubject measurementRepo,
                                TripRepo repository) {
         trip.setTrip_end(endLocation.getTimestamp());
@@ -58,7 +54,7 @@ public class TripService implements MeasurementObserver {
         trip.setEnd_latitude(endLocation.getLatitude());
         endLocation.setTrip(trip);
         trip.finish(endLocation);
-        measurementRepo.addMeasurement(endLocation);
+        measurementRepo.updateMeasurement(endLocation);
         repository.save(trip);
     }
 
@@ -75,6 +71,5 @@ public class TripService implements MeasurementObserver {
     public List<Trip> getAllTrips() {
         return repository.findAll();
     }
-
 
 }
