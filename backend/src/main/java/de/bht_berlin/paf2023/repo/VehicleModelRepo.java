@@ -14,8 +14,8 @@ import java.util.List;
 public interface VehicleModelRepo extends JpaRepository<VehicleModel, Long> {
 
     @Query("select vm from VehicleModel vm where vm.maxSpeed = :maxSpeed")
-    List<VehicleModel> findMaxSpeed(long maxSpeed);
+    List<VehicleModel> getMaxSpeed(long maxSpeed);
 
     @Query("select vm from VehicleModel vm where vm.maxAcceleration = :maxAcceleration")
-    List<VehicleModel> findMaxAcceleration(long maxAcceleration);
+    List<VehicleModel> getMaxAcceleration(long maxAcceleration);
     }

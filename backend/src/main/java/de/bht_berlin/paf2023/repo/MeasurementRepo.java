@@ -1,6 +1,8 @@
 package de.bht_berlin.paf2023.repo;
 
 import de.bht_berlin.paf2023.entity.Measurement;
+import de.bht_berlin.paf2023.entity.Vehicle;
+import de.bht_berlin.paf2023.entity.VehicleModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -27,6 +29,7 @@ public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
 
     @Query("SELECT m FROM Measurement m WHERE m.trip.id = :tripId")
     List<Measurement> getAllMeasurementsFromTrip(long tripId);
+
 
 
 //    acceleration, axis_angle, back_left_tire, back_right_tire, front_left_tire, front_right_tire, fuel_level, speed, steering_wheel_angle

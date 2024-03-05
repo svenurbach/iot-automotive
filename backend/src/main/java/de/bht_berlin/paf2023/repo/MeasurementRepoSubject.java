@@ -54,4 +54,8 @@ public class MeasurementRepoSubject {
         }
     }
 
+    public void setIsError(Measurement measurement, boolean isError) {
+        measurement.setIsError(isError);
+        measurementRepo.save(measurement);
+    }
 }
