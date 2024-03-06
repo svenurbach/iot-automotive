@@ -65,7 +65,7 @@ public class StartupRunner implements ApplicationRunner {
         List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
 
         // call measurement controller to create measurements from hashmap
-//        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
+        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
 
         // instantiate strategy go segment trips from import
         SegmentTripsInDBStrategy segmentTripsInDBStrategy = new SegmentTripsInDBStrategy(tripRepo, measurementRepo);
@@ -79,7 +79,12 @@ public class StartupRunner implements ApplicationRunner {
         service.changeTripHandlerStrategy(handleSingleTripStrategy);
 
         // enable scheduler to continously read csv to simulate incoming measurement stream
-        measurementCreationService.setSchedulerActive(true);
+//        measurementCreationService.setSchedulerActive(true);
+
+        System.out.print("total distance");
+        System.out.println(service.getTotalDistanceForTrip(tripRepo.getById(1L)));
+        System.out.print("avarage speed");
+        System.out.println(service.getAvarageSpeedForTrip(tripRepo.getById(1L)));
     }
 
 

@@ -81,6 +81,22 @@ public class TripService implements MeasurementObserver {
         return repository.findLatestMeasurementOfFirstUnfinishedTrip();
     }
 
+    public Double getTotalDistanceForTrip(Trip trip) {
+        Double totalDistanceInKilometers;
+        long tripId = trip.getId();
+        totalDistanceInKilometers = getTotalDistance(measurementRepo.findMeasurementTypeInTrip(
+                "SpeedMeasurement", tripId));
+        return totalDistanceInKilometers;
+    }
+
+    public Double getAvarageSpeedForTrip(Trip trip) {
+        Double avarageSpeed;
+        long tripId = trip.getId();
+        avarageSpeed = avarageSpeed(measurementRepo.findMeasurementTypeInTrip(
+                "SpeedMeasurement", tripId));
+        return avarageSpeed;
+    }
+
     public Double avarageSpeed(List<Measurement> measurements) {
         double avarageSpeed = 0;
         if (measurements == null || measurements.isEmpty()) {
