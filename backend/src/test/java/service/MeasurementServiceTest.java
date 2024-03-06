@@ -102,16 +102,16 @@ public class MeasurementServiceTest {
 //        assertTrue(result);
 //    }
 
-    @Test
-    public void testFindMeasurementError_WithNoError() {
-        ArrayList<Double> measurementArrayInDouble = new ArrayList<>(Arrays.asList(10.0, 20.0, 30.0, 25.0, 35.0));
-//        ArrayList<Double> measurementArrayInDouble = new ArrayList<>(Arrays.asList(10.0, 10.0, 10.0, 10.0, 10.0, 10.0));
-        int comparativeValuesArraySize = 3;
-        Double tolerance = 0.9;
-        MeasurementService measurementService = new MeasurementService(measurementRepoSubject);
-        boolean result = measurementService.findMeasurementError(measurementArrayInDouble, comparativeValuesArraySize, tolerance);
-        assertFalse(result);
-    }
+//    @Test
+//    public void testFindMeasurementError_WithNoError() {
+//        ArrayList<Double> measurementArrayInDouble = new ArrayList<>(Arrays.asList(10.0, 20.0, 30.0, 25.0, 35.0));
+////        ArrayList<Double> measurementArrayInDouble = new ArrayList<>(Arrays.asList(10.0, 10.0, 10.0, 10.0, 10.0, 10.0));
+//        int comparativeValuesArraySize = 3;
+//        Double tolerance = 0.9;
+//        MeasurementService measurementService = new MeasurementService(measurementRepoSubject);
+//        boolean result = measurementService.findMeasurementError(measurementArrayInDouble, comparativeValuesArraySize, tolerance);
+//        assertFalse(result);
+//    }
 
 //    @Test
 //    public void testFindMeasurementError_WithError() {

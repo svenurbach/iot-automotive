@@ -8,6 +8,7 @@ import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.TripRepo;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import de.bht_berlin.paf2023.service.FakerService;
+import de.bht_berlin.paf2023.service.MeasurementCreationService;
 import de.bht_berlin.paf2023.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -40,11 +41,13 @@ public class StartupRunner implements ApplicationRunner {
     @Autowired
     private TripService service;
 
-    // Alles aus der Main hier rein. Faker & CSV
+    @Autowired
+    MeasurementCreationService measurementCreationService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
+//create entities with faker
         Map<String, Long> dataSet = new LinkedHashMap<String, Long>();
 //        dataSet.put("person", 10L);
 //        dataSet.put("insurance_company", 10L);
@@ -54,25 +57,29 @@ public class StartupRunner implements ApplicationRunner {
 //        dataSet.put("trip", 10L);
 //        dataSet.put("contract", 1L);
 
+        //call faker to create dummy set
         iService.generateDummyDataSet(dataSet);
 
-        System.out.println("Call Importer Singleton");
-
+        // read out csv file to create hashmap for batch measurement import
         List<List<String>> records = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test.csv");
         List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
-        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
 
+        // call measurement controller to create measurements from hashmap
+//        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
+
+        // instantiate strategy go segment trips from import
         SegmentTripsInDBStrategy segmentTripsInDBStrategy = new SegmentTripsInDBStrategy(tripRepo, measurementRepo);
+        // set strategy
         service.changeTripHandlerStrategy(segmentTripsInDBStrategy);
-        Vehicle existingVehicle = this.vehicleRepo.getById(1L);
-        Vehicle existingVehicle2 = this.vehicleRepo.getById(2L);
-        service.segmentTripBatches(existingVehicle);
-        service.segmentTripBatches(existingVehicle2);
+        // call segment method on strategy
+        service.tripHandlerStrategy.addData(vehicleRepo.findAll());
 
+        // instantiate and set new strategy
         HandleSingleTripStrategy handleSingleTripStrategy = new HandleSingleTripStrategy(tripRepo, measurementRepo);
         service.changeTripHandlerStrategy(handleSingleTripStrategy);
-        System.out.println("up and running");
-        System.out.println(service.tripHandlerStrategy.getClass().getSimpleName());
+
+        // enable scheduler to continously read csv to simulate incoming measurement stream
+        measurementCreationService.setSchedulerActive(true);
     }
 
 

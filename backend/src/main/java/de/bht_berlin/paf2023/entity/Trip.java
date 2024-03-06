@@ -37,6 +37,7 @@ public class Trip extends IdentifiedEntity {
     private TripState state;
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("trip")
     private List<Measurement> measurements;
 
     public Trip() {

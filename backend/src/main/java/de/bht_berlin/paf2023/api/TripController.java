@@ -28,6 +28,11 @@ public class TripController {
 //        http://localhost:8080/api/trips/findAll
     }
 
+//    @GetMapping(path = "/findAll/{vehicleId}")
+//    public List<Trip> getAllTripsByVehicle(@PathVariable Long vehicleId) {
+//        return tripService.getAllTripsByVehicle(vehicleId);
+//    }
+
     @GetMapping(path = "/{id}")
     public Optional<Trip> getTrip(@PathVariable Long id) {
         return tripRepo.findById(id);
