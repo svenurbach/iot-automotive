@@ -5,6 +5,7 @@ import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
+import de.bht_berlin.paf2023.entity.measurements.SpeedMeasurement;
 import de.bht_berlin.paf2023.observer.MeasurementObserver;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.TripRepo;
@@ -28,10 +29,6 @@ public class TripService implements MeasurementObserver {
         } else {
             if (this.tripHandlerStrategy.getClass().getSimpleName().equals("HandleSingleTripStrategy")) {
                 this.tripHandlerStrategy.addData(newMeasurement);
-//                System.out.println(this.tripHandlerStrategy.getClass().getSimpleName());
-//                System.out.println(newMeasurement);
-            } else {
-                System.out.println(this.tripHandlerStrategy.getClass().getSimpleName());
             }
         }
     }
@@ -72,4 +69,63 @@ public class TripService implements MeasurementObserver {
         return repository.findAll();
     }
 
+    public List<Trip> getTripsByDateRange(Date start, Date end) {
+        return repository.getTripsByDateRange(start, end);
+    }
+
+    public List<Trip> findAllByVehicleId(long vehicleId) {
+        return repository.findAllByVehicleId(vehicleId);
+    }
+
+    public Optional<Measurement> findLatestMeasurementOfFirstUnfinishedTrip(long vehicleId) {
+        return repository.findLatestMeasurementOfFirstUnfinishedTrip();
+    }
+
+    public Double avarageSpeed(List<Measurement> measurements) {
+        double avarageSpeed = 0;
+        if (measurements == null || measurements.isEmpty()) {
+            throw new IllegalArgumentException("Measurement list is null or empty");
+        }
+
+        double totalDistance = 0.0;
+        long totalTime = 0;
+
+        // Calculate total distance and total time
+        for (int i = 1; i < measurements.size(); i++) {
+            SpeedMeasurement prevMeasurement = (SpeedMeasurement) measurements.get(i - 1);
+            SpeedMeasurement currMeasurement = (SpeedMeasurement) measurements.get(i);
+
+            double distance =
+                    prevMeasurement.getSpeed() * (currMeasurement.getTimestamp().getTime() - prevMeasurement.getTimestamp().getTime());
+            totalDistance += distance;
+            totalTime += (currMeasurement.getTimestamp().getTime() - prevMeasurement.getTimestamp().getTime());
+        }
+
+        // Calculate average speed
+        if (totalTime != 0) {
+            avarageSpeed = totalDistance / totalTime;
+        } else {
+            throw new ArithmeticException("Total time is zero");
+        }
+        return avarageSpeed;
+    }
+
+    public Double getTotalDistance(List<Measurement> measurements) {
+        double getTotalDistance = 0;
+        if (measurements == null || measurements.isEmpty()) {
+            throw new IllegalArgumentException("Measurement list is null or empty");
+        }
+        for (int i = 1; i < measurements.size(); i++) {
+            SpeedMeasurement prevMeasurement = (SpeedMeasurement) measurements.get(i - 1);
+            SpeedMeasurement currMeasurement = (SpeedMeasurement) measurements.get(i);
+
+            getTotalDistance =
+                    prevMeasurement.getSpeed() * (currMeasurement.getTimestamp().getTime() - prevMeasurement.getTimestamp().getTime());
+        }
+        if (getTotalDistance != 0) {
+            return getTotalDistance;
+        } else {
+            throw new ArithmeticException("Total time is zero");
+        }
+    }
 }

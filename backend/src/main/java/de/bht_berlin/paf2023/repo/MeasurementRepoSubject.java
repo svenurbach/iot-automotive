@@ -3,6 +3,7 @@ package de.bht_berlin.paf2023.repo;
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.entity.Vehicle;
+import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import de.bht_berlin.paf2023.observer.MeasurementObserver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -42,6 +43,11 @@ public class MeasurementRepoSubject {
         return measurementRepo.findLastTripByVehicleId(vehicleId);
     }
 
+    public Measurement findLastMeasurementByTripId(long tripId) {
+        return measurementRepo.findLastMeasurementByTripId(tripId);
+    }
+
+
     public List<Measurement> findByMeasurementType(String measurementType) {
         return measurementRepo.findByMeasurementType(measurementType);
     }
@@ -61,6 +67,10 @@ public class MeasurementRepoSubject {
 
     public void updateMeasurement(Measurement measurement) {
         measurementRepo.save(measurement);
+    }
+
+    public Measurement findLastLocationMeasurementByTripId(long tripId) {
+        return measurementRepo.findLastLocationMeasurementByTripId(tripId);
     }
 
     private void notifyObservers(Measurement newMeasurement) {

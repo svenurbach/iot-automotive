@@ -25,19 +25,10 @@ public class HandleSingleTripStrategy implements TripHandlerStrategy {
     @Override
     @Transactional
     public void addData(Measurement newMeasurement) {
-        System.out.println("from inner handler");
-//        System.out.println(newMeasurement.toString());
-        Vehicle vehicle = newMeasurement.getVehicle();
-//        Measurement lastMeasurement = measurementRepo.findLastMeasurementByVehicleId(vehicle.getId());
-        Measurement lastMeasurement = measurementRepo.findLastMeasurementBeforeCurrent(vehicle.getId(), newMeasurement);
-        if (lastMeasurement != null) {
-            System.out.println("Last Measurement: " + lastMeasurement.getMeasurementType() + " ID: " + lastMeasurement.getId() + " time: " + lastMeasurement.getTimestamp());
-        }
-        System.out.println("New Measurement: " + newMeasurement.getMeasurementType() + " ID: " + newMeasurement.getId() + " time: " + newMeasurement.getTimestamp());
 
+        Vehicle vehicle = newMeasurement.getVehicle();
+        Measurement lastMeasurement = measurementRepo.findLastMeasurementBeforeCurrent(vehicle.getId(), newMeasurement);
         Trip lastTrip = measurementRepo.findLastTripByVehicleId(vehicle.getId());
-//        System.out.println("Last trip");
-//        System.out.println(lastTrip);
 
         if (lastTrip == null || lastMeasurement == null) {
             startNewTrip(newMeasurement);
@@ -45,7 +36,6 @@ public class HandleSingleTripStrategy implements TripHandlerStrategy {
             long differenceInMillis =
                     newMeasurement.getTimestamp().getTime() - lastMeasurement.getTimestamp().getTime();
             long differenceInMinutes = differenceInMillis / (60 * 1000);
-            System.out.println("diff: " + differenceInMillis);
             if (differenceInMinutes > timeBetweenTripsInMinutes) {
                 updateTrip(lastTrip, newMeasurement);
                 LocationMeasurement lastLocation =
@@ -76,8 +66,6 @@ public class HandleSingleTripStrategy implements TripHandlerStrategy {
 
     @Override
     public void updateTrip(Trip trip, Measurement measurement) {
-        System.out.println("updateTrip");
-        System.out.println(measurement.getMeasurementType());
         measurement.setTrip(trip);
         measurementRepo.updateMeasurement(measurement);
     }

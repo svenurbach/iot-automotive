@@ -64,6 +64,18 @@ public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
         return measurements.isEmpty() ? null : measurements.get(0);
     }
 
+    @Query("SELECT m FROM Measurement m WHERE m.trip.id = :tripId AND m.measurementType = 'LocationMeasurement' ORDER" +
+            " BY m.timestamp DESC")
+    List<Measurement> findLastLocationMeasurementByTripId(long tripId, Pageable pageable);
+
+    default Measurement findLastLocationMeasurementByTripId(long tripId) {
+        List<Measurement> measurements = findLastLocationMeasurementByTripId(tripId, PageRequest.of(0, 1));
+        return measurements.isEmpty() ? null : measurements.get(0);
+    }
+
     @Query("SELECT m.trip FROM Measurement m WHERE m.vehicle.id = :vehicleId ORDER BY m.timestamp DESC LIMIT 1")
     Trip findLastTripByVehicleId(long vehicleId);
+
+    @Query("SELECT m FROM Measurement m WHERE m.trip.id = :tripId ORDER BY m.timestamp DESC LIMIT 1")
+    Measurement findLastMeasurementByTripId(long tripId);
 }

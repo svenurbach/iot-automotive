@@ -47,7 +47,7 @@ public class StartupRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-
+//create entities with faker
         Map<String, Long> dataSet = new LinkedHashMap<String, Long>();
 //        dataSet.put("person", 10L);
 //        dataSet.put("insurance_company", 10L);
@@ -57,22 +57,28 @@ public class StartupRunner implements ApplicationRunner {
 //        dataSet.put("trip", 10L);
 //        dataSet.put("contract", 1L);
 
+        //call faker to create dummy set
         iService.generateDummyDataSet(dataSet);
 
-        System.out.println("Call Importer Singleton");
-
+        // read out csv file to create hashmap for batch measurement import
         List<List<String>> records = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test.csv");
         List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
+
+        // call measurement controller to create measurements from hashmap
 //        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
 
+        // instantiate strategy go segment trips from import
         SegmentTripsInDBStrategy segmentTripsInDBStrategy = new SegmentTripsInDBStrategy(tripRepo, measurementRepo);
+        // set strategy
         service.changeTripHandlerStrategy(segmentTripsInDBStrategy);
-//        service.tripHandlerStrategy.addData(vehicleRepo.findAll());
+        // call segment method on strategy
+        service.tripHandlerStrategy.addData(vehicleRepo.findAll());
 
+        // instantiate and set new strategy
         HandleSingleTripStrategy handleSingleTripStrategy = new HandleSingleTripStrategy(tripRepo, measurementRepo);
         service.changeTripHandlerStrategy(handleSingleTripStrategy);
-        System.out.println("up and running");
-        System.out.println(service.tripHandlerStrategy.getClass().getSimpleName());
+
+        // enable scheduler to continously read csv to simulate incoming measurement stream
         measurementCreationService.setSchedulerActive(true);
     }
 

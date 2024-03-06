@@ -29,7 +29,6 @@ public class MeasurementControllerSingleton {
     private MeasurementControllerSingleton(VehicleRepo vehicleRepo, MeasurementRepoSubject measurementRepo) {
         this.vehicleRepo = vehicleRepo;
         this.measurementRepo = measurementRepo;
-        System.out.println("Instance build");
     }
 
     public static MeasurementControllerSingleton getInstance(VehicleRepo vehicleRepo, MeasurementRepoSubject measurementRepo) {
@@ -56,8 +55,6 @@ public class MeasurementControllerSingleton {
     }
 
     public List<HashMap> createHashMap(List<List<String>> readOuts) {
-//        System.out.println("readOuts");
-//        System.out.println(readOuts);
 
         List<String> keys = new ArrayList<>();
         List<HashMap> allReadOuts = new ArrayList<>();
@@ -66,16 +63,12 @@ public class MeasurementControllerSingleton {
             keys.add(readOuts.get(0).get(i));
         }
 
-
-        System.out.println("allReadOuts");
-
         for (int i = 1; i < readOuts.size(); i++) {
             HashMap<String, String> valuesMeasured = new HashMap<>();
             for (int j = 0; j < keys.size(); j++) {
                 valuesMeasured.put(keys.get(j), readOuts.get(i).get(j));
             }
             allReadOuts.add(valuesMeasured);
-//            System.out.println(allReadOuts);
         }
         return allReadOuts;
     }
@@ -111,10 +104,8 @@ public class MeasurementControllerSingleton {
 //                createMeasurementEntities(readout);
             }
         } catch (FileNotFoundException e) {
-            System.out.print("went into exception0");
             e.printStackTrace();
         } catch (IOException e) {
-            System.out.print("went into exception1");
             e.printStackTrace();
         }
         return readout;
@@ -134,8 +125,6 @@ public class MeasurementControllerSingleton {
     }
 
     public void createMeasurementEntities(List<HashMap> readOuts) {
-        System.out.println("vehicle repo: " + vehicleRepo);
-        System.out.println(readOuts);
 
 
         for (int i = 0; i < readOuts.size(); i++) {
@@ -143,7 +132,6 @@ public class MeasurementControllerSingleton {
             Date timestamp = parseDateFromString(readOuts.get(i).get("Timestamp").toString());
 
             Long vehicleid = Long.valueOf((readOuts.get(i).get("Vehicle").toString()));
-//            System.out.println(readOuts.get(i));
             Vehicle existingVehicle = this.vehicleRepo.getById(vehicleid);
 
             if (readOuts.get(i).get("Latitude") != null) {
