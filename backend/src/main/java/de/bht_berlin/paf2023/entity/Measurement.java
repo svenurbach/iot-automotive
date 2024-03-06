@@ -19,6 +19,8 @@ public class Measurement extends IdentifiedEntity {
 
     private Integer interval;
 
+    private Long measuredValue;
+
     private String measurementType;
 
     private Boolean isError;
@@ -32,12 +34,11 @@ public class Measurement extends IdentifiedEntity {
     Trip trip;
 
     // getMeasuredValue()   -> Messwert wird von Sensoren über Request an die Anwendung geschickt?
-    // setInterval()   ->wie oft werden Werte in DB geschrieben (alle ms, jede h ...)
+    public Long getMeasuredValue(){
+        return this.measuredValue;
+    }
+
+
     // saveInDB()   -> Messwert wird in DB geschrieben
 
-    private long getMeasurementsFromOneTypeOfMeasurement() {
-        // TO-DO:
-        // holt sich alle aktuellen Messungen eines Types (Geschwindigkeit, Verbrauch, Beschleunigung, etc.)
-        return 0;
-    }
 }

@@ -20,16 +20,16 @@ public class TirePressureMeasurement extends Measurement {
 //    @Id @GeneratedValue
 //    private Integer id;
 
-    private Integer frontLeftTire;
-    private Integer frontRightTire;
-    private Integer backRightTire;
-    private Integer backLeftTire;
+    private Float frontLeftTire;
+    private Float frontRightTire;
+    private Float backRightTire;
+    private Float backLeftTire;
 
     public TirePressureMeasurement() {
     }
 
 
-    public TirePressureMeasurement(Date timestamp, List<Integer> tirePressure) {
+    public TirePressureMeasurement(Date timestamp, List<Float> tirePressure) {
         this.frontLeftTire = tirePressure.get(0);
         this.frontRightTire = tirePressure.get(1);
         this.backRightTire = tirePressure.get(2);
@@ -40,8 +40,8 @@ public class TirePressureMeasurement extends Measurement {
     }
 
     //todo test @yaman
-    private List<Integer> parseList() {
-        List<Integer> list = new ArrayList<>();
+    private List<Float> parseList() {
+        List<Float> list = new ArrayList<>();
         list.add(backLeftTire);
         list.add(frontRightTire);
         list.add(backRightTire);

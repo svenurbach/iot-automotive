@@ -53,9 +53,6 @@ public class Trip extends IdentifiedEntity {
             System.out.println("Trip is already started.");
         } else {
             state = TripState.RUNNING;
-//            this.setStart_latitude(startLocation.getLatitude());
-//            this.setStart_longitude(startLocation.getLongitude());
-//            this.setTrip_start(startLocation.getTimestamp());
             System.out.println("Trip started.");
         }
     }

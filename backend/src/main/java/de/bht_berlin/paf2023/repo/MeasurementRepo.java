@@ -2,6 +2,8 @@ package de.bht_berlin.paf2023.repo;
 
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Vehicle;
+import de.bht_berlin.paf2023.entity.VehicleModel;
+import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +25,20 @@ public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
 //    List<Measurement> findMeasurements_Vehicle(Vehicle car);
 
     @Query("SELECT m FROM Measurement m WHERE m.measurementType = :measurementType")
-    List<Measurement> findByMeasurementType(String measurementType);
+    List<Measurement> findMeasurementType(String measurementType);
+
+    @Query("SELECT m FROM Measurement m WHERE m.measurementType = :measurementType and m.trip = :trip")
+    List<Measurement> findMeasurementTypeInTrip(String measurementType, long trip);
+
+    @Query("SELECT m FROM Measurement m WHERE m.isError = :measurementError")
+    List<Measurement> findMeasurementError(boolean measurementError);
+
+    @Query("SELECT m FROM Measurement m WHERE m.trip.id = :tripId")
+    List<Measurement> getAllMeasurementsFromTrip(long tripId);
+
+
+
+//    acceleration, axis_angle, back_left_tire, back_right_tire, front_left_tire, front_right_tire, fuel_level, speed, steering_wheel_angle
 
     @Query("SELECT m FROM Measurement m WHERE m.vehicle.id = :vehicleId ORDER BY m.timestamp DESC")
     List<Measurement> findLastMeasurementByVehicleId(long vehicleId, Pageable pageable);

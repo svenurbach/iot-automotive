@@ -35,7 +35,16 @@ public class MeasurementRepoSubject {
 
 
     public List<Measurement> findByMeasurementType(String measurementType) {
-        return measurementRepo.findByMeasurementType(measurementType);
+        return measurementRepo.findMeasurementType(measurementType);
+    }
+
+    public List<Measurement> getAllMeasurementsFromTrip(long id) {
+        System.out.println("Ausgabe");
+        return measurementRepo.getAllMeasurementsFromTrip(id);
+    }
+
+    public List<Measurement> findMeasurementTypeInTrip(String measurementType, long trip) {
+        return measurementRepo.findMeasurementTypeInTrip(measurementType, trip);
     }
 
     public void addObserver(MeasurementObserver observer) {
@@ -51,10 +60,16 @@ public class MeasurementRepoSubject {
         notifyObservers(measurement);
     }
 
+
+
     private void notifyObservers(Measurement newMeasurement) {
         for (MeasurementObserver observer : observers) {
             observer.updateMeasurement(newMeasurement);
         }
     }
 
+    public void setIsError(Measurement measurement, boolean isError) {
+        measurement.setIsError(isError);
+        measurementRepo.save(measurement);
+    }
 }
