@@ -31,6 +31,7 @@ public class MeasurementTimeSortHandler implements MeasurementHandler {
 
     @Override
     public void handle(HashMap<String, ArrayList<Measurement>> hashMap) {
+        System.out.println("MeasurementTimeSortHandler");
         HashMap<String, ArrayList<Measurement>> sortedByTime = new HashMap<>();
         for(String type : hashMap.keySet()){
             ArrayList<Measurement> values = hashMap.get(type);

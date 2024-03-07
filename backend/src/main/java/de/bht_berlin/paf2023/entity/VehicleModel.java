@@ -24,6 +24,8 @@ public class VehicleModel extends IdentifiedEntity {
 
     private Float maxAcceleration;
 
+    private String imgURL;
+
     @OneToMany(mappedBy = "vehicleModel", cascade = CascadeType.ALL)
     private List<Vehicle> vehicle;
 

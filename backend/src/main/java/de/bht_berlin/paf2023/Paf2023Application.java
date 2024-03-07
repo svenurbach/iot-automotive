@@ -6,9 +6,11 @@ import de.bht_berlin.paf2023.component.SegmentTripsInDBStrategy;
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.entity.Vehicle;
-import de.bht_berlin.paf2023.repo.MeasurementRepo;
-import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
-import de.bht_berlin.paf2023.repo.TripRepo;
+import de.bht_berlin.paf2023.handler.ComparitiveListErrorHandler;
+import de.bht_berlin.paf2023.handler.MeasurementTimeSortHandler;
+import de.bht_berlin.paf2023.handler.ThresholdErrorHandler;
+import de.bht_berlin.paf2023.handler.TripMeasurementHandler;
+import de.bht_berlin.paf2023.repo.*;
 import de.bht_berlin.paf2023.service.FakerService;
 import de.bht_berlin.paf2023.service.MeasurementService;
 import de.bht_berlin.paf2023.service.TripService;
@@ -17,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import de.bht_berlin.paf2023.repo.VehicleRepo;
 
 import java.sql.Array;
 import java.util.*;
@@ -32,10 +33,19 @@ public class Paf2023Application implements CommandLineRunner {
     private VehicleRepo vehicleRepo;
 
     @Autowired
+    private VehicleModelRepo vehicleModelRepo;
+
+    @Autowired
     private MeasurementRepoSubject measurementRepo;
 
     @Autowired
     private TripRepo tripRepo;
+
+
+    private TripMeasurementHandler tripMeasurementHandler;
+    private MeasurementTimeSortHandler measurementTimeSortHandler;
+    private ThresholdErrorHandler thresholdErrorHandler;
+    private ComparitiveListErrorHandler comparitiveListErrorHandler;
 
     public static void main(String[] args) {
 
@@ -54,6 +64,7 @@ public class Paf2023Application implements CommandLineRunner {
         dataSet.put("vehicle", 2L);
 //        dataSet.put("trip", 10L);
 //        dataSet.put("contract", 1L);
+
 
         iService.generateDummyDataSet(dataSet);
 
@@ -97,5 +108,13 @@ public class Paf2023Application implements CommandLineRunner {
 //        System.out.println(measurementService.sortMeasurementsFromTrip(hashMap));
 //
 //        System.out.println(measurementService.findErrorPerTrip(hashMap, 2, 0.9));
+
+// Tests Handler to find Measurement Errors
+        comparitiveListErrorHandler = new ComparitiveListErrorHandler(measurementRepo, measurementService);
+        thresholdErrorHandler = new ThresholdErrorHandler(measurementRepo, comparitiveListErrorHandler, measurementService, vehicleModelRepo);
+        measurementTimeSortHandler = new MeasurementTimeSortHandler(measurementRepo, thresholdErrorHandler);
+        tripMeasurementHandler = new TripMeasurementHandler(measurementRepo, measurementTimeSortHandler);
+        Trip trip = tripRepo.getById(1L);
+        tripMeasurementHandler.handle(trip);
     }
 }

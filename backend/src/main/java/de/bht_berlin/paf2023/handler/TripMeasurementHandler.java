@@ -4,6 +4,8 @@ import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +31,7 @@ public class TripMeasurementHandler implements MeasurementHandler {
 
     @Override
     public void handle(Trip trip) {
+        System.out.println("TripMeasurementHandler");
         long tripId = trip.getId();
         List<Measurement> measurementsFromTrip = measurementRepo.getAllMeasurementsFromTrip(tripId);
         HashMap<String,  ArrayList<Measurement>> sortedByMeasurementType = new HashMap<>();

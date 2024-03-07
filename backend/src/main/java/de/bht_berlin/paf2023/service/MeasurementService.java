@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class MeasurementService {
@@ -22,10 +24,6 @@ public class MeasurementService {
 //        this.vehicleModelRepo = vehicleModelRepo;
     }
 
-
-//    public String getMeasurements(long id) {
-//        return measurementRepo.findById(id).get().getMeasuredValue().toString();
-//    }
 
     // fügt Boolean über Messfehler zu Messung hinzu
     public void addMeasurement(Boolean measurementError, Measurement measurement) {
@@ -87,34 +85,6 @@ public class MeasurementService {
         }
     }
 
-    // (wenn Fahrt FINISHED ist) bekommt alle Messwerte, ordnet diese zu Messtyp
-    // und speichert sie in Map {Messtyp: [Messung1, Messung2]; ...}
-//    public HashMap<String,  ArrayList<Measurement>> getAllMeasurementsFromTrip(long tripId){
-//            List<Measurement> measurementsFromTrip = measurementRepo.getAllMeasurementsFromTrip(tripId);
-//            HashMap<String,  ArrayList<Measurement>> sortedMeasurements = new HashMap<>();
-//            for (int i = 0; i < measurementsFromTrip.size(); i++){
-//                String measurementType = measurementsFromTrip.get(i).getMeasurementType();
-//                if(!sortedMeasurements.containsKey(measurementType)){
-//                    sortedMeasurements.put(measurementType, new ArrayList<>());
-//                }
-//                sortedMeasurements.get(measurementType).add(measurementsFromTrip.get(i));
-//        }
-//            return sortedMeasurements;
-//    }
-
-//    public HashMap<String, ArrayList<Measurement>> sortMeasurementsFromTrip(HashMap<String, ArrayList<Measurement>> hashMap){
-//        HashMap<String, ArrayList<Measurement>> sorted = new HashMap<>();
-//        for(String type : hashMap.keySet()){
-//            ArrayList<Measurement> values = hashMap.get(type);
-//            Collections.sort(values, Comparator.comparing(Measurement::getTimestamp));
-//            sorted.put(type, values);
-////            for (int i = 0; i < values.size(); i++){
-////                System.out.println(values.get(i).getMeasurementType() + values.get(i).getTimestamp());
-////            }
-//        }
-//        return sorted;
-//    }
-
     public ArrayList<Measurement> filterMeasurementsPerType(HashMap<String, ArrayList<Measurement>> sortedHashMap) {
         ArrayList<Measurement> singleMeasurementTypeList = new ArrayList<>();
         for (ArrayList<Measurement> values : sortedHashMap.values()) {
@@ -125,64 +95,21 @@ public class MeasurementService {
         return singleMeasurementTypeList;
     }
 
-//    public ArrayList<Measurement> createSingeList(HashMap<String, ArrayList<Measurement>> hashMap){
-//        ArrayList<Measurement> singleList= new ArrayList<>();
-//        Set<String> keys = hashMap.keySet();
-//        return null;
-//    }
-
-
-//    public boolean findErrorPerTrip(HashMap<String, ArrayList<Measurement>> sortedMap, int comparativeValuesArraySize, Double tolerance){
-//        boolean error = false;
-//        for(String type : sortedMap.keySet()){
-//            ArrayList<Measurement> measurementsOfType = sortedMap.get(type);
-//            ArrayList<Double> arrayInDouble = parseMeasurementArrayToDouble(measurementsOfType);
-//            if(findErrorInList(arrayInDouble, comparativeValuesArraySize, tolerance)){
-//                System.out.println("Fehler gefunden");
-//                error = true;
-//            }
-//        }
-//        return error;
-//    }
-
-    // findet Messfehler durch vergleichen der Durchschnittwerte aus dem Vergleichsarray und gibt true oder false zurück,
-    // wenn ein Messfehler gefunden wurde. Schreibt error (true/false) in DB
-//    public boolean findErrorInList(ArrayList<Double> measurementArrayInDouble, int comparativeValuesArraySize, Double tolerance) {
-//        if (measurementArrayInDouble.size() < comparativeValuesArraySize) {
-//            System.out.println("Nicht genügend Werte im Array, um Messfehler zu identifizieren");
-//            return true;
-//        }
-//        boolean measurementError = false;
-//        ArrayList<Double> comparativeValuesArrayPast = new ArrayList<>();
-//        ArrayList<Double> comparativeValuesArrayFuture = new ArrayList<>();
-//        for (int i = 0; i < measurementArrayInDouble.size(); i++)  {
-//            System.out.println("i:" + measurementArrayInDouble.get(i));
-//            if (i < comparativeValuesArraySize) {
-//                System.out.println("zählt bis zu vergleichenden Wert");
-//            } else {
-//                measurementError= findErrorInPastArray(i, measurementArrayInDouble, tolerance,
-//                        comparativeValuesArrayPast, comparativeValuesArraySize);
-//            }
-//            if (i >= 0 && i < measurementArrayInDouble.size() - comparativeValuesArraySize){
-//                measurementError = findErrorInFutureArray(i, measurementArrayInDouble, tolerance,
-//                        comparativeValuesArrayFuture, comparativeValuesArraySize);
-//            }
-//        System.out.println("Messfehler: " + measurementError);
-////            addMeasurement(measurementError, measurementArrayInDouble.get(i));
-//        }
-//        return measurementError;
-//    }
 
     public boolean isValueInTolerance(double average, int counter, ArrayList<Double> measurementArrayInDouble, Double tolerance){
         return average - (measurementArrayInDouble.get(counter) * tolerance) <= measurementArrayInDouble.get(counter) &&
                 measurementArrayInDouble.get(counter) <= average + (measurementArrayInDouble.get(counter) * tolerance);
     }
 
-    public boolean findErrorInFutureArray(int counter, ArrayList<Double> measurementArrayInDouble, Double tolerance,
+    public boolean findErrorInFutureArray(int counter, ArrayList<Measurement> values, ArrayList<Double> measurementArrayInDouble, Double tolerance,
                                           ArrayList<Double> comparativeValuesArrayFuture, int comparativeValuesArraySize){
         boolean measurementError = false;
-        while (comparativeValuesArrayFuture.size() < comparativeValuesArraySize && counter < (measurementArrayInDouble.size() - comparativeValuesArraySize +1)){
-            comparativeValuesArrayFuture.add(measurementArrayInDouble.get((counter+comparativeValuesArraySize) - (comparativeValuesArrayFuture.size())));
+        while (comparativeValuesArrayFuture.size() < comparativeValuesArraySize && counter <
+                (measurementArrayInDouble.size() - comparativeValuesArraySize +1)){
+            if(!values.get(counter).getIsError()){
+                comparativeValuesArrayFuture.add(measurementArrayInDouble.get((counter+comparativeValuesArraySize) -
+                        (comparativeValuesArrayFuture.size())));
+            }
         }
         System.out.println("vergleichsarray future: " + comparativeValuesArrayFuture);
         double averageFuture = calculateAverageMeasurements(comparativeValuesArrayFuture);
@@ -195,19 +122,23 @@ public class MeasurementService {
         return measurementError;
     }
 
-    public boolean findErrorInPastArray(int counter, ArrayList<Double> measurementArrayInDouble, Double tolerance,
+
+
+    public boolean findErrorInPastArray(int counter, ArrayList<Measurement> values, ArrayList<Double> measurementArrayInDouble, Double tolerance,
                                         ArrayList<Double> comparativeValuesArrayPast, int comparativeValuesArraySize){
         boolean measurementError = false;
         while(comparativeValuesArrayPast.size() < comparativeValuesArraySize) {
-            comparativeValuesArrayPast.add(measurementArrayInDouble.get(counter - (comparativeValuesArrayPast.size()+1)));
+            if(!values.get(counter).getIsError()){
+                comparativeValuesArrayPast.add(measurementArrayInDouble.get(counter - (comparativeValuesArrayPast.size()+1)));
+            }
         }
-        System.out.println("vergleichsarray past: " + comparativeValuesArrayPast);
+//        System.out.println("vergleichsarray past: " + comparativeValuesArrayPast);
         double averagePast = calculateAverageMeasurements(comparativeValuesArrayPast);
-        System.out.println("durchschnitt past: " + averagePast);
+//        System.out.println("durchschnitt past: " + averagePast);
         if(!(isValueInTolerance(averagePast, counter, measurementArrayInDouble, tolerance))){
             measurementError = true;
         }
-        System.out.println("Messfehler past: " + measurementError);
+//        System.out.println("Messfehler past: " + measurementError);
         comparativeValuesArrayPast.clear();
         return measurementError;
     }
@@ -237,12 +168,6 @@ public class MeasurementService {
         }
         return errorsTotal;
         }
-
-
-public void test (Measurement measurement){
-        Float as = measurement.getVehicle().getVehicleModel().getMaxSpeed();
-
-    }
 
 
 }
