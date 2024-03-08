@@ -53,6 +53,7 @@ public class TripController {
                                          @RequestParam(required = false) String startTime,
                                          @RequestParam(required = false) String endTime) {
         if (startTime != null && endTime != null) {
+            // date format example 2018-01-17T05:01:33.000Z
             Date start = Date.from(Instant.parse(startTime));
             Date end = Date.from(Instant.parse(endTime));
             return tripService.findAllByVehicleId(vehicleId, start, end);
