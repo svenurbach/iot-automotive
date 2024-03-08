@@ -1,0 +1,10 @@
+<h1>Vertragsübersicht</h1>
+<mat-form-field>
+  <mat-label>Vertrag auswählen:</mat-label>
+  <mat-select (selectionChange)="onContractSelected($event)">
+    @for (contract of contracts; track contract) {
+      <mat-option [value]="contract.id">{{contract.policyNumber}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+<app-contract-details [selectedContractId]="selectedContractId"></app-contract-details>
