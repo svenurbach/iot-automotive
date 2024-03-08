@@ -24,7 +24,26 @@ public class VehicleModel extends IdentifiedEntity {
 
     private Float maxAcceleration;
 
+    private Float maxAxis;
+    private Float minAxis;
+
+    private Float maxSteeringWheel;
+    private Float minSteeringWheel;
+
+
     private String imgURL;
+
+    private Float speedTolerance;
+
+    private Float accelerationTolerance;
+
+    private Float locationTolerance;
+
+    private Float fuelLevelTolerance;
+
+    private Float AxisTolerance;
+
+    private Float SteeringWheelTolerance;
 
     @OneToMany(mappedBy = "vehicleModel", cascade = CascadeType.ALL)
     private List<Vehicle> vehicle;

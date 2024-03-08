@@ -13,10 +13,8 @@ import java.util.stream.IntStream;
 
 @Service
 public class MeasurementService {
-//    private final MeasurementRepo repository;
 
     private final MeasurementRepoSubject measurementRepo;
-//    private final VehicleModelRepo vehicleModelRepo;
 
     @Autowired
     public MeasurementService(MeasurementRepoSubject measurementRepo) {
@@ -26,15 +24,19 @@ public class MeasurementService {
 
 
     // fügt Boolean über Messfehler zu Messung hinzu
-    public void addMeasurement(Boolean measurementError, Measurement measurement) {
-//        Measurement measurement = new Measurement();
-        measurement.setIsError(measurementError);
-        measurementRepo.addMeasurement(measurement);
-    }
+//    public void addMeasurement(Boolean measurementError, Measurement measurement) {
+////        Measurement measurement = new Measurement();
+//        measurement.setIsError(measurementError);
+//        measurementRepo.addMeasurement(measurement);
+//    }
 
 
-
-    // bekommt Array aus Messungen und parst die enthaltenen Werte zum Typ double
+    /**
+     * Parses an ArrayList of Measurement objects into an ArrayList of double values.
+     *
+     * @param measurementsArray ArrayList of Measurement objects to parse
+     * @return ArrayList of double values representing the measurements
+     */
     public ArrayList<Double> parseMeasurementArrayToDouble(ArrayList<Measurement> measurementsArray) {
         ArrayList<Double> measurementArrayList = new ArrayList<>();
         for (Measurement measurement : measurementsArray) {
@@ -43,6 +45,12 @@ public class MeasurementService {
         return measurementArrayList;
     }
 
+    /**
+     * Converts a Measurement object to a double value based on its type.
+     *
+     * @param measurement Measurement object to convert
+     * @return converted double value
+     */
     private double convertMeasurementToDouble(Measurement measurement) {
         switch (measurement.getMeasurementType()) {
             case "AccelerationMeasurement":
@@ -55,11 +63,6 @@ public class MeasurementService {
                 return roundToTwoDecimalPlaces((double) ((SpeedMeasurement) measurement).getSpeed());
             case "SteeringWheelMeasurement":
                 return roundToTwoDecimalPlaces((double) ((SteeringWheelMeasurement) measurement).getSteeringWheelAngle());
-//            case "TirePressureMeasurement":
-//                return roundToTwoDecimalPlaces((double) ((TirePressureMeasurement) measurement).getFrontLeftTire());
-//            return roundToTwoDecimalPlaces((double) ((TirePressureMeasurement) measurement).getFrontRightTire());
-//            return roundToTwoDecimalPlaces((double) ((TirePressureMeasurement) measurement).getBackLeftTire());
-//            return roundToTwoDecimalPlaces((double) ((TirePressureMeasurement) measurement).getBackRightTire());
             default:
                 return 0.0;
         }
@@ -71,12 +74,18 @@ public class MeasurementService {
     }
 
 
-    // bekommt Array übergeben und berechnet aus diesem den Durchschnittswert
+    /**
+     * Calculates the average of the measurements in an ArrayList of double values.
+     *
+     * @param measurementArrayList ArrayList of double values representing the measurements
+     * @return Average of measurements, rounded to two decimal places
+     */
     public double calculateAverageMeasurements(ArrayList<Double> measurementArrayList) {
         double sum = 0;
         for (Double measurement : measurementArrayList) {
             sum += measurement;
         }
+        // check if ArrayList is not empty
         if (!measurementArrayList.isEmpty()) {
             double average = sum / measurementArrayList.size();
             return roundToTwoDecimalPlaces(average);
@@ -85,60 +94,82 @@ public class MeasurementService {
         }
     }
 
-    public ArrayList<Measurement> filterMeasurementsPerType(HashMap<String, ArrayList<Measurement>> sortedHashMap) {
-        ArrayList<Measurement> singleMeasurementTypeList = new ArrayList<>();
-        for (ArrayList<Measurement> values : sortedHashMap.values()) {
-            for (Measurement measurement : values) {
-                singleMeasurementTypeList.add(measurement);
-            }
-        }
-        return singleMeasurementTypeList;
+//    public ArrayList<Measurement> filterMeasurementsPerType(HashMap<String, ArrayList<Measurement>> sortedHashMap) {
+//        ArrayList<Measurement> singleMeasurementTypeList = new ArrayList<>();
+//        for (ArrayList<Measurement> values : sortedHashMap.values()) {
+//            for (Measurement measurement : values) {
+//                singleMeasurementTypeList.add(measurement);
+//            }
+//        }
+//        return singleMeasurementTypeList;
+//    }
+
+
+    /**
+     * Checks if a measurement value is within a certain tolerance range of the average.
+     *
+     * @param average Average of the measurements.
+     * @param counter Index of the measurement value in the ArrayList.
+     * @param measurementArrayInDouble ArrayList of double values representing the measurements.
+     * @param tolerance Tolerance value within which the measurement should be.
+     * @return True if the measurement value is within the tolerance range of the average, false otherwise.
+     */
+    public boolean isValueInTolerance(double average, int counter, ArrayList<Double> measurementArrayInDouble, Double tolerance) {
+        double lowerBound = average - (measurementArrayInDouble.get(counter) * tolerance);
+        double upperBound = average + (measurementArrayInDouble.get(counter) * tolerance);
+        double measurementValue = measurementArrayInDouble.get(counter);
+        return lowerBound <= measurementValue && measurementValue <= upperBound;
     }
 
+    /**
+     * Finds if there is an error in future measurements based on the average of upcoming measurements and tolerance.
+     *
+     * @param counter Index of the current measurement value
+     * @param values ArrayList of Measurement objects
+     * @param measurementArrayInDouble ArrayList of double values representing the measurements
+     * @param tolerance Tolerance value within which the measurement should be
+     * @param comparativeValuesArrayFuture List of double values representing future comparative measurements
+     * @param comparativeValuesArraySize Size of the comparative values array
+     * @return True if an error is found in future measurements, false otherwise
+     */
+    public boolean findErrorInFutureArray(int counter, ArrayList<Measurement> values, ArrayList<Double> measurementArrayInDouble,
+                                          Double tolerance, List<Double> comparativeValuesArrayFuture, int comparativeValuesArraySize){
+        int endIndex = counter + comparativeValuesArraySize;
+        ArrayList<Double> futureMeasurements = IntStream.range(counter, Math.min(endIndex, values.size()))
+                .filter(i -> values.get(i).getIsError() != null && !values.get(i).getIsError())
+                .mapToObj(i -> measurementArrayInDouble.get(i))
+                .collect(Collectors.toCollection(ArrayList::new));
+        double averageFuture = calculateAverageMeasurements(futureMeasurements);
 
-    public boolean isValueInTolerance(double average, int counter, ArrayList<Double> measurementArrayInDouble, Double tolerance){
-        return average - (measurementArrayInDouble.get(counter) * tolerance) <= measurementArrayInDouble.get(counter) &&
-                measurementArrayInDouble.get(counter) <= average + (measurementArrayInDouble.get(counter) * tolerance);
+        return !isValueInTolerance(averageFuture, counter, measurementArrayInDouble, tolerance);
     }
 
-    public boolean findErrorInFutureArray(int counter, ArrayList<Measurement> values, ArrayList<Double> measurementArrayInDouble, Double tolerance,
-                                          ArrayList<Double> comparativeValuesArrayFuture, int comparativeValuesArraySize){
-        boolean measurementError = false;
-        while (comparativeValuesArrayFuture.size() < comparativeValuesArraySize && counter <
-                (measurementArrayInDouble.size() - comparativeValuesArraySize +1)){
-            if(!values.get(counter).getIsError()){
-                comparativeValuesArrayFuture.add(measurementArrayInDouble.get((counter+comparativeValuesArraySize) -
-                        (comparativeValuesArrayFuture.size())));
-            }
-        }
-        System.out.println("vergleichsarray future: " + comparativeValuesArrayFuture);
-        double averageFuture = calculateAverageMeasurements(comparativeValuesArrayFuture);
-        System.out.println("durchschnitt future: " + averageFuture);
-        if(!(isValueInTolerance(averageFuture, counter, measurementArrayInDouble, tolerance))){
-            measurementError = true;
-        }
-        System.out.println("Messfehler future: " + measurementError);
-        comparativeValuesArrayFuture.clear();
-        return measurementError;
-    }
-
-
-
+    /**
+     * Finds if there is an error in past measurements based on the average of past comparative measurements and tolerance.
+     *
+     * @param counter Index of the current measurement value
+     * @param values ArrayList of Measurement objects
+     * @param measurementArrayInDouble ArrayList of double values representing the measurements
+     * @param tolerance Tolerance value within which the measurement should be
+     * @param comparativeValuesArrayPast ArrayList of double values representing past comparative measurements
+     * @param comparativeValuesArraySize Size of the comparative values array
+     * @return True if an error is found in past measurements, false otherwise
+     */
     public boolean findErrorInPastArray(int counter, ArrayList<Measurement> values, ArrayList<Double> measurementArrayInDouble, Double tolerance,
                                         ArrayList<Double> comparativeValuesArrayPast, int comparativeValuesArraySize){
         boolean measurementError = false;
         while(comparativeValuesArrayPast.size() < comparativeValuesArraySize) {
-            if(!values.get(counter).getIsError()){
+            if(values.get(counter).getIsError() == null || !values.get(counter).getIsError()){
                 comparativeValuesArrayPast.add(measurementArrayInDouble.get(counter - (comparativeValuesArrayPast.size()+1)));
             }
         }
-//        System.out.println("vergleichsarray past: " + comparativeValuesArrayPast);
-        double averagePast = calculateAverageMeasurements(comparativeValuesArrayPast);
-//        System.out.println("durchschnitt past: " + averagePast);
+        double averagePast = comparativeValuesArrayPast.stream()
+                .mapToDouble(Double::doubleValue)
+                .average()
+                .orElse(0.0);
         if(!(isValueInTolerance(averagePast, counter, measurementArrayInDouble, tolerance))){
             measurementError = true;
         }
-//        System.out.println("Messfehler past: " + measurementError);
         comparativeValuesArrayPast.clear();
         return measurementError;
     }

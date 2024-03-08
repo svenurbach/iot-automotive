@@ -127,7 +127,7 @@ public class FakerService {
 
                     Date javaUtilDate = new Date(randomTimestamp);
                     measurement.setTimestamp(javaUtilDate);
-                    measurement.setInterval(faker.number().numberBetween(100, 999));
+//                    measurement.setInterval(faker.number().numberBetween(100, 999));
                     this.measurementRepo.save(measurement);
                 }
                 break;
@@ -163,6 +163,10 @@ public class FakerService {
 //                    vehicleModel.setFueltype();
                     vehicleModel.setMaxSpeed((float) faker.number().numberBetween(180, 600));
                     vehicleModel.setMaxAcceleration((float) faker.number().numberBetween(-20, 100));
+                    vehicleModel.setAccelerationTolerance((float) faker.number().randomDouble(2, 0, 1));
+                    vehicleModel.setSpeedTolerance((float) faker.number().randomDouble(2, 0, 1));
+                    vehicleModel.setFuelLevelTolerance((float) faker.number().randomDouble(2, 0, 1));
+                    vehicleModel.setLocationTolerance((float) faker.number().randomDouble(2, 0, 1));
                     this.vehicleModelRepo.save(vehicleModel);
                 }
                 break;

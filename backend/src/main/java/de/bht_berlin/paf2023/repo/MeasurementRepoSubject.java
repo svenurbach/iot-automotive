@@ -55,6 +55,7 @@ public class MeasurementRepoSubject {
     }
 
     public void setIsError(Measurement measurement, boolean isError) {
+        System.out.println("set Error");
         measurement.setIsError(isError);
         measurementRepo.save(measurement);
     }

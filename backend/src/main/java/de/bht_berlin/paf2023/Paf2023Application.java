@@ -1,9 +1,7 @@
 package de.bht_berlin.paf2023;
 
-import de.bht_berlin.paf2023.api.MeasurementController;
 import de.bht_berlin.paf2023.component.MeasurementControllerSingleton;
 import de.bht_berlin.paf2023.component.SegmentTripsInDBStrategy;
-import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.handler.ComparitiveListErrorHandler;
@@ -14,13 +12,12 @@ import de.bht_berlin.paf2023.repo.*;
 import de.bht_berlin.paf2023.service.FakerService;
 import de.bht_berlin.paf2023.service.MeasurementService;
 import de.bht_berlin.paf2023.service.TripService;
-import de.bht_berlin.paf2023.strategy.TripHandlerStrategy;
+import de.bht_berlin.paf2023.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.sql.Array;
 import java.util.*;
 
 @SpringBootApplication
@@ -41,6 +38,8 @@ public class Paf2023Application implements CommandLineRunner {
     @Autowired
     private TripRepo tripRepo;
 
+    @Autowired
+    private VehicleService vehicleService;
 
     private TripMeasurementHandler tripMeasurementHandler;
     private MeasurementTimeSortHandler measurementTimeSortHandler;
@@ -116,5 +115,10 @@ public class Paf2023Application implements CommandLineRunner {
         tripMeasurementHandler = new TripMeasurementHandler(measurementRepo, measurementTimeSortHandler);
         Trip trip = tripRepo.getById(1L);
         tripMeasurementHandler.handle(trip);
+
+        System.out.println("vehicleService.getVehicleModel(1L)");
+
+        System.out.println(vehicleService.getAllVehicleModels());
+
     }
 }

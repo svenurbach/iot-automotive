@@ -17,8 +17,6 @@ public class Measurement extends IdentifiedEntity {
 
     private Date timestamp;
 
-    private Integer interval;
-
     private Long measuredValue;
 
     private String measurementType;
@@ -33,12 +31,9 @@ public class Measurement extends IdentifiedEntity {
     @JoinColumn(name = "trip")
     Trip trip;
 
-    // getMeasuredValue()   -> Messwert wird von Sensoren über Request an die Anwendung geschickt?
     public Long getMeasuredValue(){
         return this.measuredValue;
     }
 
-
-    // saveInDB()   -> Messwert wird in DB geschrieben
 
 }
