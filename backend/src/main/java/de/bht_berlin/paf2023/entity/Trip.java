@@ -72,9 +72,6 @@ public class Trip extends IdentifiedEntity {
             System.out.println("Trip already finished.");
         } else {
             state = TripState.FINISHED;
-//            this.setEnd_latitude(endLocation.getLatitude());
-//            this.setEnd_longitude(endLocation.getLongitude());
-//            this.setTrip_end(endLocation.getTimestamp());
             System.out.println("Finish trip.");
         }
     }

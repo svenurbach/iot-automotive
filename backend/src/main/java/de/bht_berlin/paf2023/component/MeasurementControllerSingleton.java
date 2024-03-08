@@ -141,9 +141,9 @@ public class MeasurementControllerSingleton {
                 this.measurementRepo.addMeasurement(new LocationMeasurement(timestamp, location, existingVehicle));
             }
 
-            if (readOuts.get(i).get("Accelaration") != null) {
+            if (readOuts.get(i).get("Acceleration") != null) {
                 this.measurementRepo.addMeasurement(new AccelerationMeasurement(timestamp,
-                        Integer.parseInt(readOuts.get(i).get("Accelaration").toString()), existingVehicle));
+                        Integer.parseInt(readOuts.get(i).get("Acceleration").toString()), existingVehicle));
             }
             if (readOuts.get(i).get("Axis_angle") != null) {
                 this.measurementRepo.addMeasurement(new AxisMeasurement(timestamp, Float.parseFloat(readOuts.get(i).get(

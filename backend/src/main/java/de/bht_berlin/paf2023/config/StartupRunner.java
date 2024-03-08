@@ -61,7 +61,8 @@ public class StartupRunner implements ApplicationRunner {
         iService.generateDummyDataSet(dataSet);
 
         // read out csv file to create hashmap for batch measurement import
-        List<List<String>> records = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test.csv");
+        List<List<String>> records =
+                MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test2.csv");
         List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
 
         // call measurement controller to create measurements from hashmap
@@ -81,10 +82,7 @@ public class StartupRunner implements ApplicationRunner {
         // enable scheduler to continously read csv to simulate incoming measurement stream
 //        measurementCreationService.setSchedulerActive(true);
 
-        System.out.print("total distance");
-        System.out.println(service.getTotalDistanceForTrip(tripRepo.getById(1L)));
-        System.out.print("avarage speed");
-        System.out.println(service.getAvarageSpeedForTrip(tripRepo.getById(1L)));
+
     }
 
 

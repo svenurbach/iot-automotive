@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -24,8 +25,11 @@ public interface TripRepo extends JpaRepository<Trip, Long> {
     @Query("SELECT t FROM Trip t WHERE t.trip_start BETWEEN :start AND :end")
     List<Trip> getTripsByDateRange(Date start, Date end);
 
-    @Query("SELECT DISTINCT m.trip FROM Measurement m WHERE m.vehicle = :vehicleId")
-    List<Trip> findAllByVehicleId(long vehicleId);
+//    @Query("SELECT DISTINCT m.trip FROM Measurement m WHERE m.vehicle = :vehicleId")
+//    List<Trip> findAllByVehicleId(long vehicleId);
+
+    @Query("SELECT DISTINCT m.trip FROM Measurement m WHERE m.vehicle.id = :vehicleId")
+    List<Trip> findAllByVehicleId(@Param("vehicleId") long vehicleId);
 
     @Query("SELECT m FROM Measurement m " +
             "WHERE m.trip.id = (SELECT MIN(t.id) FROM Trip t WHERE t.state = 0 OR t.state = 1) " +
@@ -34,5 +38,13 @@ public interface TripRepo extends JpaRepository<Trip, Long> {
 
     @Query("SELECT t FROM Trip t WHERE t.state = 0 OR t.state = 1 ORDER BY t.id ASC")
     Trip findFirstUnfinishedTrip();
+
+    @Query("SELECT DISTINCT m.trip FROM Measurement m " +
+            "WHERE m.vehicle.id = :vehicleId " +
+            "AND m.trip.trip_start BETWEEN :startDate AND :endDate")
+    List<Trip> findAllByVehicleIdAndDateRange(
+            @Param("vehicleId") long vehicleId,
+            @Param("startDate") Date startDate,
+            @Param("endDate") Date endDate);
 
 }

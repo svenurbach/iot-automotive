@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TripService implements MeasurementObserver {
@@ -24,14 +25,12 @@ public class TripService implements MeasurementObserver {
 
     @Override
     public void updateMeasurement(Measurement newMeasurement) {
-        if (this.tripHandlerStrategy == null) {
-            System.out.println("No strategy deployed yet");
-        } else {
-            if (this.tripHandlerStrategy.getClass().getSimpleName().equals("HandleSingleTripStrategy")) {
-                this.tripHandlerStrategy.addData(newMeasurement);
-            }
+        if (this.tripHandlerStrategy != null && this.tripHandlerStrategy.getClass().getSimpleName().equals(
+                "HandleSingleTripStrategy")) {
+            this.tripHandlerStrategy.addData(newMeasurement);
         }
     }
+
 
     public void changeTripHandlerStrategy(TripHandlerStrategy tripHandlerStrategy) {
         this.tripHandlerStrategy = tripHandlerStrategy;
@@ -77,6 +76,10 @@ public class TripService implements MeasurementObserver {
         return repository.findAllByVehicleId(vehicleId);
     }
 
+    public List<Trip> findAllByVehicleId(long vehicleId, Date startDate, Date endDate) {
+        return repository.findAllByVehicleIdAndDateRange(vehicleId, startDate, endDate);
+    }
+
     public Optional<Measurement> findLatestMeasurementOfFirstUnfinishedTrip(long vehicleId) {
         return repository.findLatestMeasurementOfFirstUnfinishedTrip();
     }
@@ -84,64 +87,99 @@ public class TripService implements MeasurementObserver {
     public Double getTotalDistanceForTrip(Trip trip) {
         Double totalDistanceInKilometers;
         long tripId = trip.getId();
-        totalDistanceInKilometers = getTotalDistance(measurementRepo.findMeasurementTypeInTrip(
-                "SpeedMeasurement", tripId));
+        List<Measurement> orginalList = measurementRepo.findMeasurementTypeInTrip(
+                "SpeedMeasurement", tripId);
+        List<Measurement> filteredList = filterOutErrors(orginalList);
+        totalDistanceInKilometers = getTotalDistance(filteredList);
         return totalDistanceInKilometers;
     }
 
-    public Double getAvarageSpeedForTrip(Trip trip) {
-        Double avarageSpeed;
+    public Double getAverageSpeedForTrip(Trip trip) {
+        Double averageSpeed;
         long tripId = trip.getId();
-        avarageSpeed = avarageSpeed(measurementRepo.findMeasurementTypeInTrip(
-                "SpeedMeasurement", tripId));
-        return avarageSpeed;
+        List<Measurement> orginalList = measurementRepo.findMeasurementTypeInTrip(
+                "SpeedMeasurement", tripId);
+        List<Measurement> filteredList = filterOutErrors(orginalList);
+        averageSpeed = getAverageSpeed(filteredList);
+        return averageSpeed;
     }
 
-    public Double avarageSpeed(List<Measurement> measurements) {
-        double avarageSpeed = 0;
+    public Double getAverageSpeed(List<Measurement> measurements) {
         if (measurements == null || measurements.isEmpty()) {
             throw new IllegalArgumentException("Measurement list is null or empty");
         }
 
-        double totalDistance = 0.0;
-        long totalTime = 0;
+        // Conversion factor from milliseconds to hours
+        double timeConversionFactor = 1.0 / (1000.0 * 60 * 60);
 
-        // Calculate total distance and total time
+        double totalDistance = 0.0;
+        long totalTimeMillis = 0;
+
+        // Iterate through the measurements to calculate total distance and total time
         for (int i = 1; i < measurements.size(); i++) {
             SpeedMeasurement prevMeasurement = (SpeedMeasurement) measurements.get(i - 1);
             SpeedMeasurement currMeasurement = (SpeedMeasurement) measurements.get(i);
 
-            double distance =
-                    prevMeasurement.getSpeed() * (currMeasurement.getTimestamp().getTime() - prevMeasurement.getTimestamp().getTime());
-            totalDistance += distance;
-            totalTime += (currMeasurement.getTimestamp().getTime() - prevMeasurement.getTimestamp().getTime());
+            // Calculate time difference in milliseconds
+            long timeDifferenceMillis = currMeasurement.getTimestamp().getTime() - prevMeasurement.getTimestamp().getTime();
+
+            // Only consider measurements where the speed is not zero
+            if (prevMeasurement.getSpeed() != 0) {
+                // Convert time difference to hours
+                double timeDifferenceHours = timeDifferenceMillis * timeConversionFactor;
+
+                // Calculate distance covered in kilometers
+                double distance = prevMeasurement.getSpeed() * timeDifferenceHours;
+                totalDistance += distance;
+                totalTimeMillis += timeDifferenceMillis;
+            }
         }
 
         // Calculate average speed
-        if (totalTime != 0) {
-            avarageSpeed = totalDistance / totalTime;
+        if (totalTimeMillis != 0) {
+            // Convert total time to hours
+            double totalTimeHours = totalTimeMillis * timeConversionFactor;
+            return totalDistance / totalTimeHours;
         } else {
             throw new ArithmeticException("Total time is zero");
         }
-        return avarageSpeed;
     }
 
+
     public Double getTotalDistance(List<Measurement> measurements) {
-        double getTotalDistance = 0;
+        double totalDistance = 0;
         if (measurements == null || measurements.isEmpty()) {
             throw new IllegalArgumentException("Measurement list is null or empty");
         }
+
+        // Iterate through the measurements to calculate total distance
         for (int i = 1; i < measurements.size(); i++) {
             SpeedMeasurement prevMeasurement = (SpeedMeasurement) measurements.get(i - 1);
             SpeedMeasurement currMeasurement = (SpeedMeasurement) measurements.get(i);
 
-            getTotalDistance =
-                    prevMeasurement.getSpeed() * (currMeasurement.getTimestamp().getTime() - prevMeasurement.getTimestamp().getTime());
+            // Convert time difference to hours
+            double timeDifferenceHours =
+                    (currMeasurement.getTimestamp().getTime() - prevMeasurement.getTimestamp().getTime()) / (1000.0 * 60 * 60);
+
+            double distance = prevMeasurement.getSpeed() * timeDifferenceHours;
+
+            // Only consider measurements where the speed is not zero
+            if (prevMeasurement.getSpeed() != 0) {
+                totalDistance += distance;
+            }
         }
-        if (getTotalDistance != 0) {
-            return getTotalDistance;
-        } else {
-            throw new ArithmeticException("Total time is zero");
-        }
+
+        return totalDistance;
     }
+
+    public List<Measurement> filterOutErrors(List<Measurement> measurements) {
+        return measurements.stream()
+                .filter(measurement -> measurement.getIsError() == null || measurement.getIsError() == false)
+                .collect(Collectors.toList());
+    }
+
+    public long calculateTripDurationInMillis(Trip trip) {
+        return trip.getTrip_end().getTime() - trip.getTrip_start().getTime();
+    }
+
 }

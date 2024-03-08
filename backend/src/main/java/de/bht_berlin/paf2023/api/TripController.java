@@ -4,11 +4,11 @@ import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.repo.TripRepo;
 import de.bht_berlin.paf2023.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,5 +37,29 @@ public class TripController {
     public Optional<Trip> getTrip(@PathVariable Long id) {
         return tripRepo.findById(id);
     }
+
+    @GetMapping(path = "/{id}/average-speed")
+    public Double getAverageSpeed(@PathVariable Long id) {
+        return tripService.getAverageSpeedForTrip(tripRepo.findById(id).get());
+    }
+
+    @GetMapping(path = "/{id}/total-distance")
+    public Double getTotalDistanceForTrip(@PathVariable Long id) {
+        return tripService.getTotalDistanceForTrip(tripRepo.findById(id).get());
+    }
+
+    @GetMapping(path = "/findAll/{vehicleId}")
+    public List<Trip> findAllByVehicleId(@PathVariable Long vehicleId,
+                                         @RequestParam(required = false) String startTime,
+                                         @RequestParam(required = false) String endTime) {
+        if (startTime != null && endTime != null) {
+            Date start = Date.from(Instant.parse(startTime));
+            Date end = Date.from(Instant.parse(endTime));
+            return tripService.findAllByVehicleId(vehicleId, start, end);
+        } else {
+            return tripService.findAllByVehicleId(vehicleId);
+        }
+    }
+
 }
 
