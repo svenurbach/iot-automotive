@@ -1,5 +1,6 @@
 package de.bht_berlin.paf2023.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.repo.TripRepo;
@@ -36,6 +37,7 @@ public class Trip extends IdentifiedEntity {
     private TripState state;
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("trip")
     private List<Measurement> measurements;
 
     public Trip() {
@@ -44,10 +46,10 @@ public class Trip extends IdentifiedEntity {
 
     public Trip(LocationMeasurement startLocation) {
         this.state = TripState.RUNNING;
-        
+
     }
 
-    public void start() {
+    public void start(LocationMeasurement startLocation) {
         if (state == TripState.RUNNING) {
             System.out.println("Trip is already started.");
         } else {
@@ -65,13 +67,12 @@ public class Trip extends IdentifiedEntity {
         }
     }
 
-    public void finish() {
-        if (state == TripState.FINISHED) {
+    public void finish(LocationMeasurement endLocation) {
+        if (state == TripState.FINISHED || state == TripState.PAUSED) {
             System.out.println("Trip already finished.");
         } else {
             state = TripState.FINISHED;
             System.out.println("Finish trip.");
-            // measurementService.notifyTripfinished(this || this.measurements || this.id)
         }
     }
 

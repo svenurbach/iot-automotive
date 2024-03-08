@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequestMapping(path = "/trip")
 public class DistanceRestController {
-
-    @Autowired
-    private DistanceService distanceService;
-
-    @RequestMapping(path = "/find/{id}")
-    public String getTrip(@PathVariable Long id) {
-        return distanceService.getTrip(id);
-//        http://localhost:8080/api/trip/find/22
-    }
-
-    @GetMapping(path = "/findAll")
-    public String getAllTrips() {
-        return distanceService.getAllTrips();
-//        http://localhost:8080/api/trip/findAll
-    }
+//
+//    @Autowired
+//    private DistanceService distanceService;
+//
+//    @RequestMapping(path = "/find/{id}")
+//    public String getTrip(@PathVariable Long id) {
+//        return distanceService.getTrip(id);
+////        http://localhost:8080/api/trip/find/22
+//    }
+//
+//    @GetMapping(path = "/findAll")
+//    public String getAllTrips() {
+//        return distanceService.getAllTrips();
+////        http://localhost:8080/api/trip/findAll
+//    }
 }

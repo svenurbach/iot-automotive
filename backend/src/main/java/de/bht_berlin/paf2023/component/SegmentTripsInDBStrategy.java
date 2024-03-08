@@ -6,6 +6,7 @@ import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.TripRepo;
+import de.bht_berlin.paf2023.service.TripService;
 import de.bht_berlin.paf2023.strategy.TripHandlerStrategy;
 
 import java.util.ArrayList;
@@ -23,32 +24,31 @@ public class SegmentTripsInDBStrategy implements TripHandlerStrategy {
     }
 
     @Override
-    public Trip startTrip(LocationMeasurement startLocation, Vehicle vehicle) {
-        Trip trip = new Trip();
-        trip.setTrip_start(startLocation.getTimestamp());
-        trip.setStart_longitude(startLocation.getLongitude());
-        trip.setStart_latitude(startLocation.getLatitude());
-        return repository.save(trip);
+    public Trip startTrip(LocationMeasurement startLocation) {
+        return TripService.startTrip(startLocation, repository);
     }
 
     @Override
     public void updateTrip(Trip trip, Measurement measurement) {
         measurement.setTrip(trip);
-        measurementRepo.addMeasurement(measurement);
+        measurementRepo.updateMeasurement(measurement);
     }
 
     @Override
     public void endTrip(Trip trip, LocationMeasurement endLocation) {
-        trip.setTrip_end(endLocation.getTimestamp());
-        trip.setEnd_longitude(endLocation.getLongitude());
-        trip.setEnd_latitude(endLocation.getLatitude());
-        endLocation.setTrip(trip);
-        measurementRepo.addMeasurement(endLocation);
-        repository.save(trip);
+        TripService.endTrip(trip, endLocation, measurementRepo, repository);
     }
 
+
     @Override
-    public void addData(List<Measurement> list) {
+    public void addData(List<Vehicle> vehicles) {
+        for (int i = 0; i < vehicles.size(); i++) {
+            List<Measurement> measurements = measurementRepo.findByVehicle(vehicles.get(i).getId());
+            segmentTripBatches(measurements);
+        }
+    }
+
+    public void segmentTripBatches(List<Measurement> list) {
         Collections.sort(list, Comparator.comparing(Measurement::getTimestamp));
 
         List<List<Measurement>> segmentedList = new ArrayList<>();
@@ -68,10 +68,7 @@ public class SegmentTripsInDBStrategy implements TripHandlerStrategy {
                 }
             }
         }
-        System.out.println(newTripIndices);
-
         for (int i = 0; i < newTripIndices.size(); i++) {
-//            boolean isEntireTrip = false;
             List<Measurement> measurements = new ArrayList<>();
             List<Integer> ints = new ArrayList<>();
 
@@ -79,36 +76,22 @@ public class SegmentTripsInDBStrategy implements TripHandlerStrategy {
             int endMeasurement = 0;
             if (i < newTripIndices.size() - 1) {
                 endMeasurement = newTripIndices.get(i + 1) - 1;
-//                isEntireTrip = true;
             } else {
-                System.out.println("else list size");
                 endMeasurement = list.size() - 1;
-                System.out.println("endMeasurement:" + endMeasurement);
-                System.out.println("list size: " + list.size());
-
             }
             for (int j = startingMeasurement; j <= endMeasurement; j++) {
                 measurements.add(list.get(j));
                 ints.add(Math.toIntExact(list.get(j).getId()));
             }
             segmentedList.add(measurements);
-
         }
-        System.out.println("segmentedList.get(i).get(j)");
-        System.out.println(segmentedList.size());
-
         for (int i = 0; i < segmentedList.size(); i++) {
-            System.out.println("trip: " + i);
-            for (int j = 0; j < segmentedList.get(i).size(); j++) {
-                System.out.println(segmentedList.get(i).get(j).getId());
-            }
             addEntireTrip(segmentedList.get(i));
         }
     }
 
     @Override
     public void addData(Measurement measurements) {
-
     }
 
     public void addEntireTrip(List<Measurement> measurementList) {
@@ -121,31 +104,29 @@ public class SegmentTripsInDBStrategy implements TripHandlerStrategy {
             }
         });
         for (int i = 0; i < measurementList.size(); i++) {
-//            System.out.println(measurementList.get(i).getMeasurementType());
             if (measurementList.get(i).getMeasurementType().equals("LocationMeasurement")) {
                 startLocation = (LocationMeasurement) measurementList.get(i);
                 break;
             }
         }
-        System.out.println(measurementList.toString());
         for (int i = measurementList.size() - 1; i >= 0; i--) {
-            System.out.println(measurementList.get(i).getId() + ": " + measurementList.get(i).getMeasurementType());
-
             if (measurementList.get(i).getMeasurementType().equals("LocationMeasurement")) {
                 endLocation = (LocationMeasurement) measurementList.get(i);
-                System.out.println("found endlocation" + endLocation.getLongitude() + " date: " + endLocation.getTimestamp());
                 break;
             }
         }
         if (startLocation != null) {
-            Trip trip = startTrip(startLocation, measurementList.get(0).getVehicle());
+            Trip trip = startTrip(startLocation);
+            repository.save(trip);
             startLocation.setTrip(trip);
-            measurementRepo.addMeasurement(startLocation);
+            measurementRepo.updateMeasurement(startLocation);
             for (int i = 0; i < measurementList.size(); i++) {
                 updateTrip(trip, measurementList.get(i));
             }
             if (endLocation != null) {
+                repository.save(trip);
                 endTrip(trip, endLocation);
+                measurementRepo.updateMeasurement(endLocation);
             }
         }
     }

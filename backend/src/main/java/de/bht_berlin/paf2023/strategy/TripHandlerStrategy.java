@@ -11,14 +11,13 @@ import java.util.List;
 @Component
 public interface TripHandlerStrategy {
 
-    Trip startTrip(LocationMeasurement startLocation,
-                   Vehicle vehicle);
+    Trip startTrip(LocationMeasurement startLocation);
 
     void updateTrip(Trip trip, Measurement measurement);
 
     void endTrip(Trip trip, LocationMeasurement endLocation);
 
-    void addData(List<Measurement> measurements);
+    void addData(List<Vehicle> vehicles);
 
     void addData(Measurement measurements);
 }

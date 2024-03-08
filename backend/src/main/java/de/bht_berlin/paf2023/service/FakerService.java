@@ -40,7 +40,6 @@ public class FakerService {
 
 
     public void generateDummyDataSet(Map dataSet) {
-        System.out.println(dataSet);
         for (Object entity : dataSet.keySet()) {
             generateDummyData((String) entity, (Long) dataSet.get(entity), dataSet);
         }

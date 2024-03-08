@@ -29,7 +29,6 @@ public class MeasurementControllerSingleton {
     private MeasurementControllerSingleton(VehicleRepo vehicleRepo, MeasurementRepoSubject measurementRepo) {
         this.vehicleRepo = vehicleRepo;
         this.measurementRepo = measurementRepo;
-        System.out.println("Instance build");
     }
 
     public static MeasurementControllerSingleton getInstance(VehicleRepo vehicleRepo, MeasurementRepoSubject measurementRepo) {
@@ -56,8 +55,6 @@ public class MeasurementControllerSingleton {
     }
 
     public List<HashMap> createHashMap(List<List<String>> readOuts) {
-//        System.out.println("readOuts");
-//        System.out.println(readOuts);
 
         List<String> keys = new ArrayList<>();
         List<HashMap> allReadOuts = new ArrayList<>();
@@ -66,16 +63,12 @@ public class MeasurementControllerSingleton {
             keys.add(readOuts.get(0).get(i));
         }
 
-
-        System.out.println("allReadOuts");
-
         for (int i = 1; i < readOuts.size(); i++) {
             HashMap<String, String> valuesMeasured = new HashMap<>();
             for (int j = 0; j < keys.size(); j++) {
                 valuesMeasured.put(keys.get(j), readOuts.get(i).get(j));
             }
             allReadOuts.add(valuesMeasured);
-//            System.out.println(allReadOuts);
         }
         return allReadOuts;
     }
@@ -94,19 +87,59 @@ public class MeasurementControllerSingleton {
         return date;
     }
 
-    public void testClass() {
+    public List<HashMap> readFileLineByLine(String file, List<String> columnHeaders, int currentLineIndex) {
+        List<HashMap> readout = null;
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            List<List<String>> valuesInList = new ArrayList<>();
+            valuesInList.add(columnHeaders);
+            for (int i = 0; i < currentLineIndex; i++) {
+                br.readLine();
+            }
 
+            if ((line = br.readLine()) != null) {
+                List<String> values = Arrays.asList(line.split(DELIMITER));
+                valuesInList.add(values);
+                readout = createHashMap(valuesInList);
+//                createMeasurementEntities(readout);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return readout;
+    }
+
+    public List<String> getCSVColumnHeaders(String file) {
+        List<String> columnHeaders = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            if ((line = br.readLine()) != null) {
+                columnHeaders = Arrays.asList(line.split(";")); // Assuming ';' is your delimiter
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return columnHeaders;
     }
 
     public void createMeasurementEntities(List<HashMap> readOuts) {
+
 
         for (int i = 0; i < readOuts.size(); i++) {
 
             Date timestamp = parseDateFromString(readOuts.get(i).get("Timestamp").toString());
 
             Long vehicleid = Long.valueOf((readOuts.get(i).get("Vehicle").toString()));
-//            System.out.println(readOuts.get(i));
             Vehicle existingVehicle = this.vehicleRepo.getById(vehicleid);
+
+            if (readOuts.get(i).get("Latitude") != null) {
+                List<Float> location = new ArrayList<>();
+                location.add(Float.parseFloat(readOuts.get(i).get("Latitude").toString()));
+                location.add(Float.parseFloat(readOuts.get(i).get("Longitude").toString()));
+                this.measurementRepo.addMeasurement(new LocationMeasurement(timestamp, location, existingVehicle));
+            }
 
             if (readOuts.get(i).get("Acceleration") != null) {
                 this.measurementRepo.addMeasurement(new AccelerationMeasurement(timestamp,
@@ -127,17 +160,10 @@ public class MeasurementControllerSingleton {
                         existingVehicle));
             }
 
-            if (readOuts.get(i).get("Steering Angle") != null) {
+            if (readOuts.get(i).get("Steering") != null) {
                 this.measurementRepo.addMeasurement(new SteeringWheelMeasurement(timestamp, Float.parseFloat(readOuts.get(i).get(
-                        "Steering Angle").toString()),
+                        "Steering").toString()),
                         existingVehicle));
-            }
-
-            if (readOuts.get(i).get("Latitude") != null) {
-                List<Float> location = new ArrayList<>();
-                location.add(Float.parseFloat(readOuts.get(i).get("Latitude").toString()));
-                location.add(Float.parseFloat(readOuts.get(i).get("Longitude").toString()));
-                this.measurementRepo.addMeasurement(new LocationMeasurement(timestamp, location, existingVehicle));
             }
 
 //            tire pressures

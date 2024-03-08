@@ -17,9 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import de.bht_berlin.paf2023.repo.VehicleRepo;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.*;
 
+//@EnableScheduling
 @SpringBootApplication
 public class Paf2023Application implements CommandLineRunner {
 

@@ -1,5 +1,7 @@
 package de.bht_berlin.paf2023.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,9 +14,6 @@ import java.util.List;
 @Setter
 public class Measurement extends IdentifiedEntity {
 
-//    @Id @GeneratedValue
-//    private Integer id;
-
     private Date timestamp;
 
     private Long measuredValue;
@@ -23,8 +22,9 @@ public class Measurement extends IdentifiedEntity {
 
     private Boolean isError;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "vehicle")
+    @JsonIgnore
     Vehicle vehicle;
 
     @ManyToOne
