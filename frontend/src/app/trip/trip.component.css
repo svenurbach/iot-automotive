@@ -12,3 +12,24 @@ div.trip-stat-card {
   align-content: center;
   gap: 10px;
 }
+
+div.dates-container {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 20px
+}
+
+div.single-date {
+  display: flex;
+  flex-flow: row wrap;
+  width: 80px
+}
+
+.clear-button {
+  margin: 5px
+}
+
+.clear-button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

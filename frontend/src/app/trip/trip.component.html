@@ -1,6 +1,86 @@
 <h1>Trip-Page</h1>
 
-<div style="width: 400;"><canvas id="myChart"></canvas></div>
+<mat-form-field>
+  <mat-label>Fahrzeug auswählen:</mat-label>
+  <mat-select (selectionChange)="onVehicleSelected($event)">
+    <mat-option [value]="1">Vehicle 1</mat-option>
+    <mat-option [value]="2">Vehicle 2</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Enter a date range</mat-label>
+  <mat-date-range-input [rangePicker]="picker">
+    <input matStartDate matInput placeholder="Start date" [(ngModel)]="datePickerStart" (dateChange)="changeDate('start',
+    $event)"
+           id="inputStartDate"/>
+    <input matEndDate matInput placeholder="End date" [(ngModel)]="datePickerEnd" (dateChange)="changeDate('end',
+    $event)"
+           id="inputEndDate" />
+  </mat-date-range-input>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
+<mat-icon class="clear-button" matDatepickerToggleIcon (click)="clearDate()">clear</mat-icon>
+
+
+<div class="trip-stats">
+  <div class="trip-stat-card">
+    <img src="assets/icons/car-solid.svg" width="50px">
+    <h2>{{trips.length}} Fahrten</h2>
+  </div>
+
+  <div class="trip-stat-card">
+    <img src="assets/icons/ruler-horizontal-solid.svg" width="50px">
+    <div><h2>{{distance.toFixed(2)}} km</h2>
+      <p>&empty; {{getAverage(distance, trips.length)}} km</p></div>
+  </div>
+
+  <div class="trip-stat-card">
+    <img src="assets/icons/clock-solid.svg" width="50px">
+    <div>
+    <h2>{{convertDuration(duration)}}</h2>
+    <p>&empty; {{convertDuration(getAverage(duration, trips.length))}}</p>
+    </div>
+  </div>
+
+  <div class="trip-stat-card">
+    <img src="assets/icons/gauge-high-solid.svg" width="50px">
+    <h2>&empty;{{getAverageSpeed(speeds)}} km/h</h2>
+  </div>
+</div>
+
+<ul class="trips">
+  @for(trip of trips; track trip.id){
+  <li>
+  <div class="dates-container">
+  <div class="single-date">{{dateInYyyyMmDdHhMmSs(trip.trip_start)}}</div> –
+  <div class="single-date">{{dateInYyyyMmDdHhMmSs(trip.trip_end)}}</div>
+  </div>
+   Status: {{trip.state}}
+   <google-map
+    height="200px"
+    width="300px"
+    [options]="mapOptions"
+    [center] = "{lat: trip.start_latitude, lng: trip.start_longitude}">
+    <map-marker
+    [position]="{lat: trip.start_latitude, lng: trip.start_longitude}"
+    [label]="{ color: 'black', text: 'Start'}"
+    ></map-marker>
+        <map-marker
+    [position]="{lat: trip.end_latitude, lng: trip.end_longitude}"
+    [label]="{ color: 'black', text: 'Ende'}"></map-marker>
+    <map-polyline
+    [options]="getPolyLineOptions(trip)"></map-polyline>
+    </google-map>
+  </li>
+  }
+</ul>
+
+
+<!--<div style="width: 400;">-->
+<!--  <canvas id="myChart"></canvas>-->
+<!--</div>-->
 
 <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"> -->
 
@@ -31,44 +111,3 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table> -->
-<div class="trip-stats">
-  <div class="trip-stat-card">
-    <img src="assets/icons/car-solid.svg" width="50px">
-    <h2>{{trips.length}} Fahrten</h2>
-  </div>
-
-  <div class="trip-stat-card">
-    <img src="assets/icons/ruler-horizontal-solid.svg" width="50px">
-    <h2>{{distance.toFixed(2)}} km</h2>
-  </div>
-
-  <div class="trip-stat-card">
-    <img src="assets/icons/clock-solid.svg" width="50px">
-    <h2>{{convertDuration(duration)}}</h2>
-  </div>
-
-  <div class="trip-stat-card">
-    <img src="assets/icons/gauge-high-solid.svg" width="50px">
-    <h2>{{getAverageSpeed()}} km/h</h2>
-  </div>
-</div>
-
-
-<ul class="trips">
-
-
-  @for(trip of trips; track trip.id){
-  <li>
-    {{trip.state}}
-    START
-    {{trip.trip_start}}
-    {{trip.start_latitude}}
-    {{trip.start_longitude}}
-    END
-    {{trip.trip_end}}
-    {{trip.end_latitude}}
-    {{trip.end_longitude}}
-  </li>
-  }
-
-</ul>

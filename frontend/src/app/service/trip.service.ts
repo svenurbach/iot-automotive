@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import {Trip} from '../model/trip.model';
+import {FormControl} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +18,13 @@ export class TripService {
   constructor(private http: HttpClient) {
   }
 
-  getTrips(): Observable<Trip[]> {
-    return this.http.get<Trip[]>(this.url + '/findAll').pipe(
+  getTrips(vehicleSelection: number, datePickerStart: Date | null, datePickerEnd: Date | null): Observable<Trip[]> {
+    var queryString = `/findAll/${vehicleSelection}`;
+    if (datePickerStart && datePickerEnd) {
+      queryString += `?startTime=${datePickerStart.toISOString()}&endTime=${datePickerEnd.toISOString()}`
+    }
+    console.log("dateParams", queryString)
+    return this.http.get<Trip[]>(this.url + queryString).pipe(
       tap((_) => this.log('fetched trips')),
       catchError(this.handleError<Trip[]>('getTrips', []))
     );

@@ -1,3 +1,5 @@
+import {Measurement} from "./measurement.model";
+
 export interface Trip {
   id: number;
   trip_start: Date;
@@ -9,4 +11,6 @@ export interface Trip {
   end_longitude: number;
   distance: number;
   state: string;
+  measurements: Measurement[];
+  trip_path: Object[];
 }
