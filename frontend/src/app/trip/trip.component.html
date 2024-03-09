@@ -2,13 +2,13 @@
 
 <div style="width: 400;"><canvas id="myChart"></canvas></div>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"> -->
 
-  <!--- Note that these columns can be defined in any order.
+<!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
 
-  <!-- Position Column -->
-  <ng-container matColumnDef="id">
+<!-- Position Column -->
+<!-- <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef>ID</th>
     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
   </ng-container>
@@ -30,12 +30,45 @@
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+</table> -->
+<div class="trip-stats">
+  <div class="trip-stat-card">
+    <img src="assets/icons/car-solid.svg" width="50px">
+    <h2>{{trips.length}} Fahrten</h2>
+  </div>
+
+  <div class="trip-stat-card">
+    <img src="assets/icons/ruler-horizontal-solid.svg" width="50px">
+    <h2>{{distance.toFixed(2)}} km</h2>
+  </div>
+
+  <div class="trip-stat-card">
+    <img src="assets/icons/clock-solid.svg" width="50px">
+    <h2>{{convertDuration(duration)}}</h2>
+  </div>
+
+  <div class="trip-stat-card">
+    <img src="assets/icons/gauge-high-solid.svg" width="50px">
+    <h2>{{getAverageSpeed()}} km/h</h2>
+  </div>
+</div>
+
 
 <ul class="trips">
-  <li *ngFor="let trip of trips">
-    <!-- <a routerLink="/detail/{{pictures.id}}"> -->
-    <span class="badge">{{trip.id}}</span> {{trip.average_speed}} {{trip.trip_end}} {{trip.trip_start}}
-    <!-- </a> -->
+
+
+  @for(trip of trips; track trip.id){
+  <li>
+    {{trip.state}}
+    START
+    {{trip.trip_start}}
+    {{trip.start_latitude}}
+    {{trip.start_longitude}}
+    END
+    {{trip.trip_end}}
+    {{trip.end_latitude}}
+    {{trip.end_longitude}}
   </li>
+  }
+
 </ul>

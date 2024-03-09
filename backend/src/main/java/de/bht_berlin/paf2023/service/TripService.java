@@ -141,7 +141,8 @@ public class TripService implements MeasurementObserver {
             double totalTimeHours = totalTimeMillis * timeConversionFactor;
             return totalDistance / totalTimeHours;
         } else {
-            throw new ArithmeticException("Total time is zero");
+//            throw new ArithmeticException("Total time is zero");
+            return 0.0;
         }
     }
 

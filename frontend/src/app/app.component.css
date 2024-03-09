@@ -17,7 +17,7 @@ mat-sidenav {
 
 mat-sidenav ul {
   padding: 0;
-  
+
 }
 
 mat-sidenav li {
@@ -37,7 +37,7 @@ mat-sidenav li a {
 }
 
 mat-sidenav li a:active,
-mat-sidenav li a:hover { 
+mat-sidenav li a:hover {
   color: #000;
 }
 
@@ -45,3 +45,4 @@ mat-sidenav-content {
   padding: 20px;
   min-height: 100vh;
 }
+

@@ -1,0 +1,14 @@
+div.trip-stats {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  gap: 45px
+}
+
+div.trip-stat-card {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  align-content: center;
+  gap: 10px;
+}
