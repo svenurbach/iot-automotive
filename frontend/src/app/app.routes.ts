@@ -3,6 +3,7 @@ import { TripComponent } from './trip/trip.component';
 import { HomeComponent } from './home/home.component';
 import { InsuranceComponent } from './insurance/insurance.component';
 import { VehicleComponent } from './vehicle/vehicle.component';
+import {VehicleDetailsComponent} from "./vehicle-details/vehicle-details.component";
 
 export const routes: Routes = [
     // see index.html for start web page
@@ -10,6 +11,7 @@ export const routes: Routes = [
     { path: 'dashboard', component: HomeComponent },
     { path: 'insurance', component: InsuranceComponent },
     { path: 'vehicle', component: VehicleComponent },
+    { path: 'vehicle/:id', component: VehicleDetailsComponent},
     { path: 'trip', component: TripComponent }
 
 ];

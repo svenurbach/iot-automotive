@@ -1,10 +1,11 @@
-export interface Trip   {
-	id: number;
-	yearOfConstruction: Date;
-	licensePlate: String;
-	vin: String;
-	contractID: number;
-	personID: number;
-	vehicleModelID: number;
-	measurementID: number[];
+export interface Vehicle   {
+
+  id: number;
+  licensePlate: String;
+  vehicleModel: {
+    modelName: string;
+    constructionYear: number;
+    imgURL: String;
+    manufacturer: string;
+  }
 }

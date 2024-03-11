@@ -36,7 +36,7 @@ public class Paf2023Application implements CommandLineRunner {
     private VehicleModelRepo vehicleModelRepo;
 
     @Autowired
-    private MeasurementRepoSubject measurementRepo;
+    private MeasurementRepo measurementRepo;
 
     @Autowired
     private TripRepo tripRepo;
@@ -85,25 +85,7 @@ public class Paf2023Application implements CommandLineRunner {
 
 //        boolean error = measurementService.findMeasurementError(testArrayList, 3, 0.9);
 //        System.out.println("Messfehler:" + error);
-//       System.out.println(tripRepo.findById(11L));
 //       System.out.println(measurementService.calculateAverageMeasurements(testArrayList));
-
-//        List<Measurement> list = measurementRepo.findByVehicle(1);
-//        System.out.println(list.size());
-//
-//        List<Measurement> list2 = measurementRepo.findByMeasurementType("SpeedMeasurement");
-//        System.out.println(list2.size());
-
-        List<List<String>> records = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test.csv");
-        List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
-        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
-
-        SegmentTripsInDBStrategy segmentTripsInDBStrategy = new SegmentTripsInDBStrategy(tripRepo, measurementRepo);
-        TripService service = new TripService(tripRepo, measurementRepo);
-        service.changeTripHandlerStrategy(segmentTripsInDBStrategy);
-        Vehicle existingVehicle = this.vehicleRepo.getById(1L);
-        service.segmentTripBatches(existingVehicle);
-
 
 //        System.out.println(measurementService.getAllMeasurementsFromTrip(1L));
 //        HashMap<String, ArrayList<Measurement>> hashMap = measurementService.getAllMeasurementsFromTrip(1L);
@@ -112,16 +94,16 @@ public class Paf2023Application implements CommandLineRunner {
 //        System.out.println(measurementService.findErrorPerTrip(hashMap, 2, 0.9));
 
 // Tests Handler to find Measurement Errors
-        comparitiveListErrorHandler = new ComparitiveListErrorHandler(measurementRepo, measurementService);
-        thresholdErrorHandler = new ThresholdErrorHandler(measurementRepo, comparitiveListErrorHandler, measurementService, vehicleModelRepo);
-        measurementTimeSortHandler = new MeasurementTimeSortHandler(measurementRepo, thresholdErrorHandler);
-        tripMeasurementHandler = new TripMeasurementHandler(measurementRepo, measurementTimeSortHandler);
-        Trip trip = tripRepo.getById(1L);
-        tripMeasurementHandler.handle(trip);
+//        comparitiveListErrorHandler = new ComparitiveListErrorHandler(measurementRepo, measurementService);
+//        thresholdErrorHandler = new ThresholdErrorHandler(measurementRepo, comparitiveListErrorHandler, measurementService, vehicleModelRepo);
+//        measurementTimeSortHandler = new MeasurementTimeSortHandler(measurementRepo, thresholdErrorHandler);
+//        tripMeasurementHandler = new TripMeasurementHandler(measurementRepo, measurementTimeSortHandler);
+//        Trip trip = tripRepo.getById(1L);
+//        tripMeasurementHandler.handle(trip);
+//
+//        System.out.println("vehicleService.getVehicleModel(1L)");
 
-        System.out.println("vehicleService.getVehicleModel(1L)");
-
-        System.out.println(vehicleService.getAllVehicleModels());
+//        System.out.println(vehicleService.getAllVehicleModels());
 
     }
 }

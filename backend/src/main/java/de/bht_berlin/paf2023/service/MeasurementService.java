@@ -1,8 +1,8 @@
 package de.bht_berlin.paf2023.service;
 
 import de.bht_berlin.paf2023.entity.Measurement;
-import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.measurements.*;
+import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +14,16 @@ import java.util.stream.IntStream;
 @Service
 public class MeasurementService {
 
-    private final MeasurementRepoSubject measurementRepo;
+    private final MeasurementRepo measurementRepo;
 
     @Autowired
-    public MeasurementService(MeasurementRepoSubject measurementRepo) {
+    public MeasurementService(MeasurementRepo measurementRepo) {
         this.measurementRepo = measurementRepo;
 //        this.vehicleModelRepo = vehicleModelRepo;
+    }
+
+    public List<Measurement> findAllMeasurementsFromVehicleWithError(Long id){
+        return measurementRepo.findAllMeasurementsFromVehicleWithError(id, true);
     }
 
 

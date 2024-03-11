@@ -1,5 +1,6 @@
 package de.bht_berlin.paf2023.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class Vehicle extends IdentifiedEntity {
     private VehicleModel vehicleModel;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Measurement> measurements;
 
 }

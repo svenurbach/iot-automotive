@@ -3,6 +3,6 @@ export interface Insurance {
   policyNumber: string;
   deductible: number;
 // //   vehicle_id: number;
-  policyholder: Person;
+  policyholder: string;
 //   insurance_id: number;
 }

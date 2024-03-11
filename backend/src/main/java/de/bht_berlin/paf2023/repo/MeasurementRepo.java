@@ -38,6 +38,9 @@ public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
     @Query("SELECT m FROM Measurement m WHERE m.isError = :measurementError")
     List<Measurement> findMeasurementError(boolean measurementError);
 
+    @Query("SELECT m FROM Measurement m WHERE m.isError = :error AND m.vehicle.id = :vehicleId")
+    List<Measurement> findAllMeasurementsFromVehicleWithError(long vehicleId, boolean error);
+
     @Query("SELECT m FROM Measurement m WHERE m.trip.id = :tripId")
     List<Measurement> getAllMeasurementsFromTrip(long tripId);
 

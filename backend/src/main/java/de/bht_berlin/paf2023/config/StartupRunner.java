@@ -3,12 +3,19 @@ package de.bht_berlin.paf2023.config;
 import de.bht_berlin.paf2023.component.HandleSingleTripStrategy;
 import de.bht_berlin.paf2023.component.MeasurementControllerSingleton;
 import de.bht_berlin.paf2023.component.SegmentTripsInDBStrategy;
+import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.entity.Vehicle;
+import de.bht_berlin.paf2023.handler.ComparitiveListErrorHandler;
+import de.bht_berlin.paf2023.handler.MeasurementTimeSortHandler;
+import de.bht_berlin.paf2023.handler.ThresholdErrorHandler;
+import de.bht_berlin.paf2023.handler.TripMeasurementHandler;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.TripRepo;
+import de.bht_berlin.paf2023.repo.VehicleModelRepo;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import de.bht_berlin.paf2023.service.FakerService;
 import de.bht_berlin.paf2023.service.MeasurementCreationService;
+import de.bht_berlin.paf2023.service.MeasurementService;
 import de.bht_berlin.paf2023.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -33,8 +40,12 @@ public class StartupRunner implements ApplicationRunner {
     private VehicleRepo vehicleRepo;
 
     @Autowired
+    private VehicleModelRepo vehicleModelRepo;
+    @Autowired
     private MeasurementRepoSubject measurementRepo;
 
+    @Autowired
+    private MeasurementService measurementService;
     @Autowired
     private TripRepo tripRepo;
 
@@ -82,6 +93,16 @@ public class StartupRunner implements ApplicationRunner {
         // enable scheduler to continously read csv to simulate incoming measurement stream
 //        measurementCreationService.setSchedulerActive(true);
 
+//        MeasurementService measurementService = new MeasurementService();
+//        VehicleModelRepo
+        ComparitiveListErrorHandler comparitiveListErrorHandler = new ComparitiveListErrorHandler(measurementRepo, measurementService);
+        ThresholdErrorHandler thresholdErrorHandler = new ThresholdErrorHandler(measurementRepo, comparitiveListErrorHandler, measurementService, vehicleModelRepo);
+        MeasurementTimeSortHandler measurementTimeSortHandler = new MeasurementTimeSortHandler(measurementRepo, thresholdErrorHandler);
+        TripMeasurementHandler tripMeasurementHandler = new TripMeasurementHandler(measurementRepo, measurementTimeSortHandler);
+        Trip trip = tripRepo.getById(1L);
+        tripMeasurementHandler.handle(trip);
+
+        System.out.println("vehicleService.getVehicleModel(1L)");
 
     }
 

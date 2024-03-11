@@ -155,7 +155,7 @@ public class FakerService {
             case "vehicle_model":
                 for (int i = 0; i < numberOfEntries; i++) {
                     VehicleModel vehicleModel = new VehicleModel();
-                    vehicleModel.setName(faker.funnyName().name());
+                    vehicleModel.setModelName(faker.funnyName().name());
                     vehicleModel.setConstructionYear(faker.number().numberBetween(2000, 2023));
                     vehicleModel.setManufacturer(faker.name().username());
                     vehicleModel.setWeight((float) faker.number().randomDouble(2, 300, 1200));
