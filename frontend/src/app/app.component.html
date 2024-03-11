@@ -3,11 +3,14 @@
 <header>
   <mat-toolbar color="primary">
     <button (click)="showMenu=!showMenu" mat-icon-button class="example-icon"
-      aria-label="Example icon-button with menu icon">
+            aria-label="Example icon-button with menu icon">
       <mat-icon>menu</mat-icon>
     </button>
     <span><a href="/" id="logo" title="Back to home"> {{ title }}</a></span>
   </mat-toolbar>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+  </script>
 </header>
 
 <mat-sidenav-container>
@@ -34,10 +37,6 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-
-
-
 
 
 <!--<header>-->

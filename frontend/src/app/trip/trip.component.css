@@ -2,7 +2,7 @@ div.trip-stats {
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
-  gap: 45px
+  gap: 10px
 }
 
 div.trip-stats h2 {
@@ -11,6 +11,7 @@ div.trip-stats h2 {
 }
 
 div.trip-stat-column {
+  width: 120px;
   display: flex;
   flex-flow: column wrap;
   justify-content: flex-start;
@@ -19,19 +20,36 @@ div.trip-stat-column {
 }
 
 div.dates-container {
+  margin: 0.3em 0 0 0;
   display: flex;
-  flex-flow: row nowrap;
-  gap: 20px
+  flex-flow: row;
+  justify-content: space-between;
+  align-content: center;
+  gap: 2em;
 }
 
 div.single-date {
+  margin: 1em 0;
   display: flex;
   flex-flow: row wrap;
   width: 80px
 }
 
+div.date-divider {
+  margin: auto 0;
+  height: 0.1em;
+  width: 1em;
+  background-color: black;
+}
+
+span.date-type {
+  color: #6e6e6e;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
 .clear-button {
-  margin: 5px;
+  margin: 0.2em;
   display: inline;
   flex-flow: row nowrap;
 }
@@ -39,7 +57,7 @@ div.single-date {
 .clear-button img {
   width: 25px;
   filter: invert(30%);
-  margin-left: 5px;
+  margin-left: 0.2em;
 }
 
 .clear-button:hover {
@@ -53,16 +71,24 @@ ul.trips-grid {
   flex-flow: row wrap;
   justify-content: flex-start;
   padding: 0;
-  gap: 15px
+  gap: 0.5em
 }
 
 div.trip-card {
-  border: #000000 solid 1px;
-  padding: 8px
+  border: #e3e3e3 solid 1px;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+div.trip-card:hover {
+  cursor: pointer;
+  border-color: #673ab7;
+  background-color: #f7f2ff;
 }
 
 p .trip-status {
   font-weight: bold;
+  text-transform: lowercase;
 }
 
 div.stacked-stat {
@@ -72,7 +98,7 @@ div.stacked-stat {
 }
 
 div.img-container {
-  min-height: 60px;
+  min-height: 4em;
   text-align: center;
 }
 
@@ -83,5 +109,5 @@ div.img-container {
 div.trip-filter-bar {
   display: flex;
   flex-flow: row nowrap;
-  gap: 15px
+  gap: 0.5em
 }
