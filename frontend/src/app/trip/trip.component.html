@@ -1,14 +1,111 @@
 <h1>Trip-Page</h1>
+<div class="trip-filter-bar">
+<mat-form-field>
+  <mat-label>Fahrzeug auswählen:</mat-label>
+  <mat-select (selectionChange)="onVehicleSelected($event)">
+    <mat-option [value]="1">Vehicle 1</mat-option>
+    <mat-option [value]="2">Vehicle 2</mat-option>
+  </mat-select>
+</mat-form-field>
 
-<div style="width: 400;"><canvas id="myChart"></canvas></div>
+  <div>
+<mat-form-field>
+  <mat-label>Enter a date range</mat-label>
+  <mat-date-range-input [rangePicker]="picker">
+    <input matStartDate matInput placeholder="Start date" [(ngModel)]="datePickerStart" (dateChange)="changeDate('start',
+    $event)"
+           id="inputStartDate"/>
+    <input matEndDate matInput placeholder="End date" [(ngModel)]="datePickerEnd" (dateChange)="changeDate('end',
+    $event)"
+           id="inputEndDate" />
+  </mat-date-range-input>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
+<mat-icon class="clear-button hidden" matDatepickerToggleIcon (click)="clearDate()"><img
+  src="assets/icons/circle-xmark-regular.svg" />
+</mat-icon>
+  </div>
+</div>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div class="trip-stats">
+  <div class="trip-stat-column">
+    <div class="img-container">
+      <img src="assets/icons/car-solid.svg" width="50px">
+    </div>
+    <h2>{{trips.length}} Fahrten</h2>
+  </div>
 
-  <!--- Note that these columns can be defined in any order.
+  <div class="trip-stat-column">
+    <div class="img-container">
+      <img src="assets/icons/ruler-horizontal-solid.svg" width="50px">
+    </div>
+    <div class="stacked-stat"><h2>{{distance.toFixed(2)}} km</h2>
+      <p>&empty; {{getAverage(distance, trips.length)}} km</p></div>
+  </div>
+
+  <div class="trip-stat-column">
+    <div class="img-container">
+      <img src="assets/icons/clock-solid.svg" width="50px">
+    </div>
+    <div class="stacked-stat">
+    <h2>{{convertDuration(duration)}}</h2>
+    <p>&empty; {{convertDuration(getAverage(duration, trips.length))}}</p>
+    </div>
+  </div>
+
+  <div class="trip-stat-column">
+    <div class="img-container">
+      <img src="assets/icons/gauge-high-solid.svg" width="50px">
+    </div>
+    <h2>&empty;{{getAverageSpeed(speeds).toFixed(1)}} km/h</h2>
+  </div>
+</div>
+
+<ul class="trips-grid">
+  @for(trip of trips; track trip.id){
+  <li>
+  <div class="trip-card">
+    <google-map
+     height="200px"
+     width="300px"
+     [options]="mapOptions"
+     [center] = "{lat: trip.start_latitude, lng: trip.start_longitude}">
+      <map-marker
+      [position]="{lat: trip.start_latitude, lng: trip.start_longitude}"
+      [label]="{ color: 'black', text: 'Start'}"
+      ></map-marker>
+          <map-marker
+      [position]="{lat: trip.end_latitude, lng: trip.end_longitude}"
+      [label]="{ color: 'black', text: 'Ende'}"></map-marker>
+      <map-polyline
+      [options]="getPolyLineOptions(trip)"></map-polyline>
+      </google-map>
+
+    <div class="dates-container">
+      <div class="single-date">{{dateInYyyyMmDdHhMmSs(trip.trip_start)}}</div> –
+      <div class="single-date">{{dateInYyyyMmDdHhMmSs(trip.trip_end)}}</div>
+    </div>
+     <p>Status: <span class="trip-status">{{trip.state}}</span></p>
+    <a href="trips/{{ trip.id }}" class="details-button">More</a>
+    </div>
+
+  </li>
+  }
+</ul>
+
+
+<!--<div style="width: 400;">-->
+<!--  <canvas id="myChart"></canvas>-->
+<!--</div>-->
+
+<!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"> -->
+
+<!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
 
-  <!-- Position Column -->
-  <ng-container matColumnDef="id">
+<!-- Position Column -->
+<!-- <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef>ID</th>
     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
   </ng-container>
@@ -30,12 +127,4 @@
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-
-<ul class="trips">
-  <li *ngFor="let trip of trips">
-    <!-- <a routerLink="/detail/{{pictures.id}}"> -->
-    <span class="badge">{{trip.id}}</span> {{trip.average_speed}} {{trip.trip_end}} {{trip.trip_start}}
-    <!-- </a> -->
-  </li>
-</ul>
+</table> -->

@@ -73,7 +73,7 @@ public class StartupRunner implements ApplicationRunner {
 
         // read out csv file to create hashmap for batch measurement import
         List<List<String>> records =
-                MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test2.csv");
+                MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test.csv");
         List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
 
         // call measurement controller to create measurements from hashmap

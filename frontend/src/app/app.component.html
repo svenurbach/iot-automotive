@@ -2,7 +2,8 @@
 <!--<p>Congratulations! Your app is running. 🎉</p>-->
 <header>
   <mat-toolbar color="primary">
-    <button (click)="showMenu=!showMenu" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <button (click)="showMenu=!showMenu" mat-icon-button class="example-icon"
+      aria-label="Example icon-button with menu icon">
       <mat-icon>menu</mat-icon>
     </button>
     <span><a href="/" id="logo" title="Back to home"> {{ title }}</a></span>
@@ -12,43 +13,23 @@
 <mat-sidenav-container>
   <mat-sidenav [opened]="showMenu" [mode]="'side'">
     <nav>
-    <ul>
-      <li>
-        <a
-          routerLink="/dashboard"
-          routerLinkActive="active"
-          ariaCurrentWhenActive="page"
-        >Dashboard</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/trip"
-          routerLinkActive="active"
-          ariaCurrentWhenActive="page"
-        >Fahrten</a
-        >
-      </li>
+      <ul>
+        <li>
+          <a routerLink="/dashboard" routerLinkActive="active" ariaCurrentWhenActive="page">Dashboard</a>
+        </li>
+        <li>
+          <a routerLink="/trips" routerLinkActive="active" ariaCurrentWhenActive="page">Fahrten</a>
+        </li>
 
-      <li>
-        <a
-          routerLink="/vehicle"
-          routerLinkActive="active"
-          ariaCurrentWhenActive="page"
-        >Fahrzeuge</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/insurance"
-          routerLinkActive="active"
-          ariaCurrentWhenActive="page"
-        >Versicherungen</a
-        >
-      </li>
-    </ul>
-  </nav>
-</mat-sidenav>
+        <li>
+          <a routerLink="/vehicle" routerLinkActive="active" ariaCurrentWhenActive="page">Fahrzeuge</a>
+        </li>
+        <li>
+          <a routerLink="/insurance" routerLinkActive="active" ariaCurrentWhenActive="page">Versicherungen</a>
+        </li>
+      </ul>
+    </nav>
+  </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

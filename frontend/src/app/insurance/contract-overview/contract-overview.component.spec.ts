@@ -6,7 +6,7 @@
 <ul class="insurance">
   @for (contract of contracts; track contract.id) {
     <li>
-      <strong>{{contract.id}}</strong>
+      {{contract.id}}
     </li>
     <li>
       Policynumber; <span>{{contract.policyNumber}}</span>
@@ -14,9 +14,7 @@
     <li>
       dd; <span>{{contract.deductible}}</span>
     </li>
-    <li>
-      dd; <span>{{contract.policyholder}}</span>
-    </li>
+
   }
   @empty {
     <span>Task list is empty</span>

@@ -64,7 +64,7 @@ export class InsuranceService {
     }
 
     private log(message: string) {
-        // this.messageService.add(`TripService: ${message}`);
-        console.log(`TripService: ${message}`);
+        // this.messageService.add(`InsuranceService: ${message}`);
+        console.log(`InsuranceService: ${message}`);
     }
 }

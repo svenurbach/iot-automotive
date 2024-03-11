@@ -1,0 +1,43 @@
+div.trip-stats h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+div.start-end-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+div.start-end-point {
+  width: 300px
+}
+
+div.trip-stats {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  gap: 45px
+}
+
+div.trip-inner-details {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  gap: 45px
+}
+
+google-map {
+  width: 100%;
+}
+
+.map-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.outer-maps-container {
+  flex-grow: 1;
+  max-width: 80%;
+  min-height: 400px
+}

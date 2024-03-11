@@ -1,0 +1,59 @@
+<h1>Fahrt: <span class="trip-status">{{trip.state}}</span></h1>
+<div class="start-end-container">
+  <div
+    class="start-end-point"><h2>Start: {{dateInYyyyMmDdHhMmSs(trip.trip_start)}}</h2>
+    <div class="address">
+      <p>{{getAddress("start")}}</p>
+    </div>
+  </div>
+  <div class="start-end-point"><h2>Ende: {{dateInYyyyMmDdHhMmSs(trip.trip_end)}}</h2>
+    <div class="address">
+      <p>{{getAddress("end")}}</p>
+    </div>
+
+  </div>
+</div>
+<div class="trip-inner-details">
+  <div class="outer-maps-container">
+    <google-map
+      width="100%"
+      height="100%"
+      [options]="mapOptions"
+      [center]="{lat: trip.start_latitude, lng: trip.start_longitude}">
+      <map-marker
+        [position]="{lat: trip.start_latitude, lng: trip.start_longitude}"
+        [label]="{ color: 'black', text: 'Start'}"
+      ></map-marker>
+      <map-marker
+        [position]="{lat: trip.end_latitude, lng: trip.end_longitude}"
+        [label]="{ color: 'black', text: 'Ende'}"></map-marker>
+      <map-polyline
+        [options]="getPolyLineOptions()"></map-polyline>
+    </google-map>
+  </div>
+  <div class="trip-stats">
+    <div class="trip-stat-column">
+      <div class="img-container">
+        <img src="assets/icons/ruler-horizontal-solid.svg" width="50px">
+      </div>
+      <div class="stacked-stat"><h2>{{distance.toFixed(2)}} km</h2>
+      </div>
+
+      <div class="trip-stat-column">
+        <div class="img-container">
+          <img src="assets/icons/clock-solid.svg" width="50px">
+        </div>
+        <div class="stacked-stat">
+          <h2>{{convertDuration(duration)}}</h2>
+        </div>
+      </div>
+
+      <div class="trip-stat-column">
+        <div class="img-container">
+          <img src="assets/icons/gauge-high-solid.svg" width="50px">
+        </div>
+        <h2>&empty;{{average_speed.toFixed(1)}} km/h</h2>
+      </div>
+    </div>
+  </div>
+</div>
