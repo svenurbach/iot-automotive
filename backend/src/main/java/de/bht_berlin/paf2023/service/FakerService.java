@@ -154,6 +154,11 @@ public class FakerService {
                 break;
             case "vehicle_model":
                 for (int i = 0; i < numberOfEntries; i++) {
+                    Random random = new Random();
+                    String[] imgURLArray = {"https://image.stern.de/8424922/t/8I/v2/w1440/r0/-/30--artikel22517bild01jpg---b5e7066e38d38876.jpg",
+                            "https://apps-cloud.n-tv.de/img/14348811-1421670548000/16-9/750/Opel-Adam.jpg",
+                            "https://www.sueddeutsche.de/image/sz.1.4713503/704x396?v=1575642916"};
+                    int randomIndex = random.nextInt(imgURLArray.length);
                     VehicleModel vehicleModel = new VehicleModel();
                     vehicleModel.setModelName(faker.funnyName().name());
                     vehicleModel.setConstructionYear(faker.number().numberBetween(2000, 2023));
@@ -166,6 +171,7 @@ public class FakerService {
                     vehicleModel.setSpeedTolerance((float) faker.number().randomDouble(2, 0, 1));
                     vehicleModel.setFuelLevelTolerance((float) faker.number().randomDouble(2, 0, 1));
                     vehicleModel.setLocationTolerance((float) faker.number().randomDouble(2, 0, 1));
+                    vehicleModel.setImgURL(imgURLArray[randomIndex]);
                     this.vehicleModelRepo.save(vehicleModel);
                 }
                 break;

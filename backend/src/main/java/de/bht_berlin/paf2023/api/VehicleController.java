@@ -1,5 +1,6 @@
 package de.bht_berlin.paf2023.api;
 
+import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,11 @@ public class VehicleController {
     @GetMapping(path = "/{id}")
     public Optional<Vehicle> getVehicle(@PathVariable Long id){
         return vehicleService.getVehicleDetail(id);
+    }
+
+    @GetMapping(path = "/{id}/measurementErrors")
+    public List<Measurement> findAllMeasurementsFromVehicleWithError(@PathVariable Long id)
+                                                                     {
+        return vehicleService.findAllMeasurementsFromVehicleWithError(id);
     }
 }

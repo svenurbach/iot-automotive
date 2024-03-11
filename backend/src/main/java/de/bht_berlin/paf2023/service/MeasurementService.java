@@ -23,7 +23,7 @@ public class MeasurementService {
     }
 
     public List<Measurement> findAllMeasurementsFromVehicleWithError(Long id){
-        return measurementRepo.findAllMeasurementsFromVehicleWithError(id, true);
+        return measurementRepo.findAllMeasurementsFromVehicleWithError(id);
     }
 
 

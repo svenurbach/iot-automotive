@@ -2,23 +2,18 @@
 
 
 <ul class="vehicle">
-
   <li class="vehicle-details">
+    <img src="{{vehicle?.vehicleModel?.imgURL}}" alt="Fahrzeugbild" class="vehicle-img"><br>
     <strong>Hersteller:</strong> {{vehicle?.vehicleModel?.manufacturer}} <br>
     <strong>Modell:</strong> {{vehicle?.vehicleModel?.modelName}} <br>
     <strong>Kennzeichen:</strong> {{vehicle?.licensePlate}} <br>
     <strong>Baujahr:</strong> {{vehicle?.vehicleModel?.constructionYear}} <br>
+<!--    <strong>Autohalter:</strong> {{contract.policyholder}} <br>-->
+<!--    <strong>Versicherung:</strong> {{}} <br>-->
+<!--    <strong>Versicherungsnummer:</strong> {{contract.policyNumber}} <br>-->
+    <strong>Fahrten:</strong> {{ sumTrips$ | async }} <br>
+    <div class="chart-container">
+      <canvas  id="MyChart" >{{ chart }}</canvas>
+    </div>
   </li>
 </ul>
-
-<!--<li class="vehicle-details">-->
-<!--  <strong>Hersteller:</strong> {{vehicle?.vehicleModel.manufacturer}} <br>-->
-<!--  <strong>Modell:</strong> {{vehicle?.vehicleModel.modelName}} <br>-->
-<!--  <strong>Kennzeichen:</strong> {{vehicle?.licensePlate}} <br>-->
-<!--  <strong>Baujahr:</strong> {{vehicle?.vehicleModel.constructionYear}} <br>-->
-
-
-<!--    @empty {-->
-<!--    <span>Task list is empty</span>-->
-<!--    }-->
-<!--</li>-->

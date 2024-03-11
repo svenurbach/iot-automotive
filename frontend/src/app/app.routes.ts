@@ -1,8 +1,4 @@
-import { Routes } from '@angular/router';
-import { TripComponent } from './trip/trip.component';
-import { HomeComponent } from './home/home.component';
-import { InsuranceComponent } from './insurance/insurance.component';
-import { VehicleComponent } from './vehicle/vehicle.component';
+// import { InsuranceComponent } from './insurance/insurance/insurance.component';
 import {VehicleDetailsComponent} from "./vehicle-details/vehicle-details.component";
 import {RouterModule, Routes} from '@angular/router';
 import {TripComponent} from './trip/trip.component';

@@ -5,6 +5,7 @@ import {catchError, tap} from "rxjs/operators";
 import {VehicleModel} from "../model/vehicle-model.model";
 import {Vehicle} from "../model/vehicle.model";
 import {Injectable} from "@angular/core";
+import {Measurement} from "../model/measurement.model";
 
 @Injectable({
   providedIn: 'root'
@@ -41,15 +42,16 @@ export class VehicleService{
     return this.http.get<Vehicle>(url);
   }
 
+  getAllMeasurementErrors(vehicleId: number): Observable<Measurement[]>{
+    return this.http.get<Measurement[]>(`${this.url}/${vehicleId}/measurementErrors`);
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
-
       // TODO: better job of transforming error for user consumption
       console.log(`${operation} failed: ${error.message}`);
-
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };

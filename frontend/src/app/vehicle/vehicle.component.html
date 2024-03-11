@@ -2,12 +2,13 @@
 
 <ul class="vehicle">
   @for (vehicle of vehicles; track vehicle.id){
-  <li class="vehicle-details">
+  <li class="vehicle-details" [routerLink]="['/vehicle', vehicle.id]">
     <img src="{{vehicle.vehicleModel.imgURL}}" alt="Fahrzeugbild" class="vehicle-img">
     <div class="vehicle-details-in-overview">
     <strong>{{vehicle.vehicleModel.modelName}} </strong>  <br>
     <strong>{{vehicle.licensePlate}}</strong>  <br>
     </div>
+    <a href="/vehicle/{{vehicle.id}}">Details</a>
   </li>
   }
 
