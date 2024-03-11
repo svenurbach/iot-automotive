@@ -11,6 +11,10 @@ import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {Injectable} from '@angular/core';
 import {GoogleMapsModule} from '@angular/google-maps'
 import {FormsModule} from "@angular/forms";
+import * as utils from "../../utils"
+import {dateInYyyyMmDdHhMmSs, getAverageSpeed} from "../../utils";
+import _default from "chart.js/dist/plugins/plugin.tooltip";
+import numbers = _default.defaults.animations.numbers;
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +22,7 @@ import {FormsModule} from "@angular/forms";
 @Component({
   selector: 'app-trip',
   standalone: true,
-  imports: [MatFormFieldModule, ReactiveFormsModule, MatNativeDateModule, MatSelectModule, MatDatepickerModule, ReactiveFormsModule, FormsModule, CommonModule, GoogleMapsModule,],
+  imports: [MatFormFieldModule, ReactiveFormsModule, MatNativeDateModule, MatSelectModule, MatDatepickerModule, ReactiveFormsModule, FormsModule, CommonModule, GoogleMapsModule],
   templateUrl: './trip.component.html',
   styleUrl: './trip.component.css',
   providers: [],
@@ -40,11 +44,32 @@ export class TripComponent {
   ];
   dataSource: any = [];
   mapOptions: google.maps.MapOptions = {
-    zoom: 11,
+    zoom: 12,
     disableDefaultUI: true
   };
   datePickerStart: Date | null
   datePickerEnd: Date | null
+
+  dateInYyyyMmDdHhMmSs(date: Date, dateDiveder: string = "."): string {
+    return utils.dateInYyyyMmDdHhMmSs(date, ".");
+  }
+
+  getAverageSpeed(arr: number[]): number {
+    return utils.getAverageSpeed(arr);
+  }
+
+  getAverage(val: number, divisor: number): number {
+    return utils.getAverage(val, divisor);
+  }
+
+  convertDuration(val: number): string {
+    return utils.convertDuration(val)
+  }
+
+  getPointsForPath(measurements: Measurement[]): Object[] {
+    return utils.getPointsForPath(measurements);
+  }
+
 
   constructor(private tripService: TripService) {
     this.datePickerStart = null
@@ -53,48 +78,38 @@ export class TripComponent {
     console.log("date")
   }
 
+
   getTrips(): void {
     this.distance = 0;
     this.duration = 0;
+    this.speeds = [];
     this.tripService.getTrips(this.vehicleSelection, this.datePickerStart, this.datePickerEnd).subscribe((data) => {
       this.trips = data;
       console.log(data);
       this.trips.forEach((trip) => {
-        this.tripService
-          .getTotalDistanceForTrip(trip.id)
-          .subscribe((distance) => {
-            // Accumulate total distance for all trips
-            this.distance += distance;
+        if (trip.distance) {
+          this.distance += trip.distance;
+        } else {
+          this.tripService
+            .getTotalDistanceForTrip(trip.id)
+            .subscribe((distance) => {
+              // Accumulate total distance for all trips
+              this.distance += distance;
 
-          });
+            });
+        }
         this.duration += new Date(trip.trip_end).getTime() - new Date(trip.trip_start).getTime();
         this.addTripPathToTrip(trip.id, this.getPointsForPath(trip.measurements))
-        this.tripService.getAverageSpeedForTrip(trip.id).subscribe((speed) => {
-          this.speeds.push(speed);
-        });
+        if (trip.average_speed) {
+          this.speeds.push(trip.average_speed);
+        } else {
+          this.tripService.getAverageSpeedForTrip(trip.id).subscribe((speed) => {
+            this.speeds.push(speed);
+          });
+        }
       });
     });
     this.trips.sort((a, b) => new Date(a.trip_start).getTime() - new Date(b.trip_start).getTime());
-  }
-
-  getPointsForPath(measurements: Measurement[]): Object[] {
-    const pathsArr = [];
-
-    // Filter and map measurements to lat/lng objects
-    for (const measurement of measurements) {
-      if (measurement.measurementType === "LocationMeasurement" && !measurement.isError) {
-        pathsArr.push({
-          lat: measurement.latitude,
-          lng: measurement.longitude,
-          timestamp: new Date(measurement.timestamp)
-        });
-      }
-    }
-
-    // Sort pathsArr by timestamp
-    const sortedPathArr = pathsArr.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
-
-    return sortedPathArr;
   }
 
   addTripPathToTrip(tripId: number, tripPathArr: Object[]): void {
@@ -104,29 +119,6 @@ export class TripComponent {
     } else {
       console.error(`Trip with ID ${tripId} not found.`);
     }
-  }
-
-  convertDuration(val: number): string {
-    const hours = Math.floor(val / (1000 * 60 * 60));
-    const minutes = Math.floor((val % (1000 * 60 * 60)) / (1000 * 60));
-    return hours + " Std. " + minutes + " Min.";
-  }
-
-  getAverageSpeed(arr: number[]): number {
-    let total = 0;
-    for (let speed of arr) {
-      total += speed;
-    }
-    return Math.round(total / arr.length);
-  }
-
-  getAverage(val: number, divisor: number): number {
-
-    return Math.round(val / divisor);
-  }
-
-  padTwoDigits(num: number): string {
-    return num.toString().padStart(2, "0");
   }
 
   getPolyLineOptions(trip: Trip): Object {
@@ -146,9 +138,8 @@ export class TripComponent {
       }
       if (type == "end") {
         this.datePickerEnd = new Date(event.value)
-        console.log("start", this.datePickerStart)
-        console.log("end", this.datePickerEnd)
         this.getTrips();
+        document.getElementsByClassName('clear-button')[0].classList.remove("hidden")
       }
     }
   }
@@ -157,29 +148,12 @@ export class TripComponent {
     this.datePickerStart = null;
     this.datePickerEnd = null;
     this.getTrips();
-
+    document.getElementsByClassName('clear-button')[0].classList.add("hidden")
   }
 
   onVehicleSelected(event: any) {
     this.vehicleSelection = event.value;
     this.getTrips();
-  }
-
-  dateInYyyyMmDdHhMmSs(date: Date, dateDiveder: string = "."): string {
-    const dateFormat = new Date(date);
-    return (
-      [
-        this.padTwoDigits(dateFormat.getDate()),
-        this.padTwoDigits(dateFormat.getMonth() + 1),
-        dateFormat.getFullYear(),
-      ].join(dateDiveder) +
-      " " +
-      [
-        this.padTwoDigits(dateFormat.getHours()),
-        this.padTwoDigits(dateFormat.getMinutes()),
-        this.padTwoDigits(dateFormat.getSeconds()),
-      ].join(":")
-    );
   }
 }
 

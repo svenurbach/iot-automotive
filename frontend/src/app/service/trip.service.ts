@@ -4,6 +4,7 @@ import {Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import {Trip} from '../model/trip.model';
 import {FormControl} from "@angular/forms";
+import {Measurement} from "../model/measurement.model";
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +32,7 @@ export class TripService {
   }
 
   getTrip(id: number): Observable<Trip> {
-    const url = `${this.url}/find/${id}`;
+    const url = `${this.url}/${id}`;
     return this.http.get<Trip>(url).pipe(
       tap((_) => this.log(`fetched trip id=${id}`)),
       catchError(this.handleError<Trip>(`getTrip id=${id}`))
@@ -62,5 +63,15 @@ export class TripService {
   private log(message: string) {
     // this.messageService.add(`TripService: ${message}`);
     console.log(`TripService: ${message}`);
+  }
+
+  getAddressFromCoordinates(latitude: number, longitude: number): Observable<Object> {
+    const google_api_key = "AIzaSyCU4bQpfJ7gExmklVSYXjCo6rv0Kxq7oV8";
+    https://maps.googleapis.com/maps/api/geocode/json?latlng=52.52389395505191,13.337066155575759&key=AIzaSyCU4bQpfJ7gExmklVSYXjCo6rv0Kxq7oV8
+      return this.http.get<Object>(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${google_api_key}`).pipe(
+        tap((_) => console.log(`fetched address`)),
+        catchError(this.handleError<Object>(`fetching address`))
+      );
+    ;
   }
 }

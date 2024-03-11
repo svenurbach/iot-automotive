@@ -85,23 +85,36 @@ public class TripService implements MeasurementObserver {
     }
 
     public Double getTotalDistanceForTrip(Trip trip) {
-        Double totalDistanceInKilometers;
-        long tripId = trip.getId();
-        List<Measurement> orginalList = measurementRepo.findMeasurementTypeInTrip(
-                "SpeedMeasurement", tripId);
-        List<Measurement> filteredList = filterOutErrors(orginalList);
-        totalDistanceInKilometers = getTotalDistance(filteredList);
+        Double totalDistanceInKilometers = trip.getDistance();
+        if (totalDistanceInKilometers == null) {
+            long tripId = trip.getId();
+            List<Measurement> orginalList = measurementRepo.findMeasurementTypeInTrip(
+                    "SpeedMeasurement", tripId);
+            List<Measurement> filteredList = filterOutErrors(orginalList);
+            totalDistanceInKilometers = getTotalDistance(filteredList);
+            if (trip.getState() == Trip.TripState.FINISHED) {
+                trip.setDistance(totalDistanceInKilometers);
+                repository.save(trip);
+            }
+        }
         return totalDistanceInKilometers;
     }
 
     public Double getAverageSpeedForTrip(Trip trip) {
-        Double averageSpeed;
-        long tripId = trip.getId();
-        List<Measurement> orginalList = measurementRepo.findMeasurementTypeInTrip(
-                "SpeedMeasurement", tripId);
-        List<Measurement> filteredList = filterOutErrors(orginalList);
-        averageSpeed = getAverageSpeed(filteredList);
+        Double averageSpeed = trip.getAverage_speed();
+        if (averageSpeed == null) {
+            long tripId = trip.getId();
+            List<Measurement> orginalList = measurementRepo.findMeasurementTypeInTrip(
+                    "SpeedMeasurement", tripId);
+            List<Measurement> filteredList = filterOutErrors(orginalList);
+            averageSpeed = getAverageSpeed(filteredList);
+            if (trip.getState() == Trip.TripState.FINISHED) {
+                trip.setAverage_speed(averageSpeed);
+                repository.save(trip);
+            }
+        }
         return averageSpeed;
+
     }
 
     public Double getAverageSpeed(List<Measurement> measurements) {
@@ -183,4 +196,19 @@ public class TripService implements MeasurementObserver {
         return trip.getTrip_end().getTime() - trip.getTrip_start().getTime();
     }
 
+//    public static void setAverageSpeedForTrip(Trip trip) {
+//        Double average = getAverageSpeedForTrip(trip);
+//        trip.setAverage_speed(average);
+//    }
+//
+//    public static void setTotalDistance(Trip trip) {
+//        Double total_distance = getTotalDistanceForTrip(trip);
+//        trip.setTotal_distance(total_distance);
+//    }
+//
+//    public static void setStatisticsForTrip(Trip trip, TripRepo repo) {
+//        setAverageSpeedForTrip(trip);
+//        setTotalDistance(trip);
+//        repo.save(trip);
+//    }
 }

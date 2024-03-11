@@ -1,5 +1,5 @@
 <h1>Trip-Page</h1>
-
+<div class="trip-filter-bar">
 <mat-form-field>
   <mat-label>Fahrzeug auswählen:</mat-label>
   <mat-select (selectionChange)="onVehicleSelected($event)">
@@ -8,6 +8,7 @@
   </mat-select>
 </mat-form-field>
 
+  <div>
 <mat-form-field>
   <mat-label>Enter a date range</mat-label>
   <mat-date-range-input [rangePicker]="picker">
@@ -21,58 +22,74 @@
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-date-range-picker #picker></mat-date-range-picker>
 </mat-form-field>
-<mat-icon class="clear-button" matDatepickerToggleIcon (click)="clearDate()">clear</mat-icon>
-
+<mat-icon class="clear-button hidden" matDatepickerToggleIcon (click)="clearDate()"><img
+  src="assets/icons/circle-xmark-regular.svg" />
+</mat-icon>
+  </div>
+</div>
 
 <div class="trip-stats">
-  <div class="trip-stat-card">
-    <img src="assets/icons/car-solid.svg" width="50px">
+  <div class="trip-stat-column">
+    <div class="img-container">
+      <img src="assets/icons/car-solid.svg" width="50px">
+    </div>
     <h2>{{trips.length}} Fahrten</h2>
   </div>
 
-  <div class="trip-stat-card">
-    <img src="assets/icons/ruler-horizontal-solid.svg" width="50px">
-    <div><h2>{{distance.toFixed(2)}} km</h2>
+  <div class="trip-stat-column">
+    <div class="img-container">
+      <img src="assets/icons/ruler-horizontal-solid.svg" width="50px">
+    </div>
+    <div class="stacked-stat"><h2>{{distance.toFixed(2)}} km</h2>
       <p>&empty; {{getAverage(distance, trips.length)}} km</p></div>
   </div>
 
-  <div class="trip-stat-card">
-    <img src="assets/icons/clock-solid.svg" width="50px">
-    <div>
+  <div class="trip-stat-column">
+    <div class="img-container">
+      <img src="assets/icons/clock-solid.svg" width="50px">
+    </div>
+    <div class="stacked-stat">
     <h2>{{convertDuration(duration)}}</h2>
     <p>&empty; {{convertDuration(getAverage(duration, trips.length))}}</p>
     </div>
   </div>
 
-  <div class="trip-stat-card">
-    <img src="assets/icons/gauge-high-solid.svg" width="50px">
-    <h2>&empty;{{getAverageSpeed(speeds)}} km/h</h2>
+  <div class="trip-stat-column">
+    <div class="img-container">
+      <img src="assets/icons/gauge-high-solid.svg" width="50px">
+    </div>
+    <h2>&empty;{{getAverageSpeed(speeds).toFixed(1)}} km/h</h2>
   </div>
 </div>
 
-<ul class="trips">
+<ul class="trips-grid">
   @for(trip of trips; track trip.id){
   <li>
-  <div class="dates-container">
-  <div class="single-date">{{dateInYyyyMmDdHhMmSs(trip.trip_start)}}</div> –
-  <div class="single-date">{{dateInYyyyMmDdHhMmSs(trip.trip_end)}}</div>
-  </div>
-   Status: {{trip.state}}
-   <google-map
-    height="200px"
-    width="300px"
-    [options]="mapOptions"
-    [center] = "{lat: trip.start_latitude, lng: trip.start_longitude}">
-    <map-marker
-    [position]="{lat: trip.start_latitude, lng: trip.start_longitude}"
-    [label]="{ color: 'black', text: 'Start'}"
-    ></map-marker>
-        <map-marker
-    [position]="{lat: trip.end_latitude, lng: trip.end_longitude}"
-    [label]="{ color: 'black', text: 'Ende'}"></map-marker>
-    <map-polyline
-    [options]="getPolyLineOptions(trip)"></map-polyline>
-    </google-map>
+  <div class="trip-card">
+    <google-map
+     height="200px"
+     width="300px"
+     [options]="mapOptions"
+     [center] = "{lat: trip.start_latitude, lng: trip.start_longitude}">
+      <map-marker
+      [position]="{lat: trip.start_latitude, lng: trip.start_longitude}"
+      [label]="{ color: 'black', text: 'Start'}"
+      ></map-marker>
+          <map-marker
+      [position]="{lat: trip.end_latitude, lng: trip.end_longitude}"
+      [label]="{ color: 'black', text: 'Ende'}"></map-marker>
+      <map-polyline
+      [options]="getPolyLineOptions(trip)"></map-polyline>
+      </google-map>
+
+    <div class="dates-container">
+      <div class="single-date">{{dateInYyyyMmDdHhMmSs(trip.trip_start)}}</div> –
+      <div class="single-date">{{dateInYyyyMmDdHhMmSs(trip.trip_end)}}</div>
+    </div>
+     <p>Status: <span class="trip-status">{{trip.state}}</span></p>
+    <a href="trips/{{ trip.id }}" class="details-button">More</a>
+    </div>
+
   </li>
   }
 </ul>

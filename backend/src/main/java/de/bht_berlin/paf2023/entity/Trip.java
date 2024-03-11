@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.repo.TripRepo;
+import de.bht_berlin.paf2023.service.TripService;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +29,9 @@ public class Trip extends IdentifiedEntity {
 
     private Float end_latitude;
     private Float end_longitude;
+
+    private Double average_speed;
+    private Double distance;
 
     public enum TripState {
         RUNNING,

@@ -5,10 +5,15 @@ div.trip-stats {
   gap: 45px
 }
 
-div.trip-stat-card {
+div.trip-stats h2 {
+  margin: 0;
+  font-size: 14px;
+}
+
+div.trip-stat-column {
   display: flex;
   flex-flow: column wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-content: center;
   gap: 10px;
 }
@@ -26,10 +31,57 @@ div.single-date {
 }
 
 .clear-button {
-  margin: 5px
+  margin: 5px;
+  display: inline;
+  flex-flow: row nowrap;
+}
+
+.clear-button img {
+  width: 25px;
+  filter: invert(30%);
+  margin-left: 5px;
 }
 
 .clear-button:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+ul.trips-grid {
+  list-style: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  padding: 0;
+  gap: 15px
+}
+
+div.trip-card {
+  border: #000000 solid 1px;
+  padding: 8px
+}
+
+p .trip-status {
+  font-weight: bold;
+}
+
+div.stacked-stat {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+}
+
+div.img-container {
+  min-height: 60px;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+div.trip-filter-bar {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 15px
 }
