@@ -6,11 +6,19 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {ContractDetailsComponent} from '../contract-details/contract-details.component';
+import {OsmViewComponent} from '../../osm-view/osm-view.component';
 
 @Component({
   selector: 'app-contract-overview',
   standalone: true,
-  imports: [MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule, ContractDetailsComponent],
+  imports: [
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    FormsModule,
+    ContractDetailsComponent,
+    OsmViewComponent
+  ],
   templateUrl: './contract-overview.component.html',
   styleUrl: './contract-overview.component.css'
 })
