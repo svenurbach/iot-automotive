@@ -1,8 +1,8 @@
 <h1>Fahrzeuge</h1>
 
-<ul class="vehicle">
+<ul class="entity-grid">
   @for (vehicle of vehicles; track vehicle.id){
-  <div class="vehicle-card">
+  <div class="entity-card">
   <li class="vehicle-details" [routerLink]="['/vehicle', vehicle.id]">
     <img src="{{vehicle.vehicleModel.imgURL}}" alt="Fahrzeugbild" class="vehicle-img">
     <div class="vehicle-details-line">

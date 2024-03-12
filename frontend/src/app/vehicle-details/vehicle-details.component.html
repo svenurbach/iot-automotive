@@ -1,48 +1,44 @@
 <h1>Fahrzeug Details</h1>
 
 <div class="upper-half">
-<ul class="vehicle">
-  <li class="vehicle-details">
-    <div class="all-details">
-      <img src="{{vehicle?.vehicleModel?.imgURL}}" alt="Fahrzeugbild" class="vehicle-img"><br>
-      <div class="vehicle-details">
-        <label>Hersteller:</label>
-        <p>{{vehicle?.vehicleModel?.manufacturer}}</p>
-      </div>
-      <div class="vehicle-details">
-        <label>Modell:</label>
-        <p>{{vehicle?.vehicleModel?.modelName}}</p>
-      </div>
-      <div class="vehicle-details">
-        <label>Kennzeichen:</label>
-        <p>{{vehicle?.licensePlate}}</p>
-      </div>
-      <div class="vehicle-details">
-        <label>Baujahr:</label>
-        <p>{{vehicle?.vehicleModel?.constructionYear}}</p>
-      </div>
-<!--          <div class="vehicle-details">-->
-<!--            <label>Autohalter:</label>-->
-<!--            <p>{{contract.policyholder}}</p>-->
-<!--          </div>-->
-<!--          <div class="vehicle-details">-->
-<!--&lt;!&ndash;            <label>Versicherung:</label> <p>{{}}</p>&ndash;&gt;-->
-<!--          </div>-->
-<!--          <div class="vehicle-details">-->
-<!--          <label>Versicherungsnummer:</label>-->
-<!--            <p>{{contract.policyNumber}}</p>-->
-<!--          </div>-->
-      <div class="vehicle-details">
-        <label>Fahrten:</label>
-        <p>{{ sumTrips$ | async }}</p>
-      </div>
+  <div class="all-details">
+    <img src="{{vehicle?.vehicleModel?.imgURL}}" alt="Fahrzeugbild" class="vehicle-img"><br>
+    <div class="vehicle-details">
+      <label>Hersteller:</label>
+      <p>{{vehicle?.vehicleModel?.manufacturer}}</p>
     </div>
-  </li>
-</ul>
-<div class="loc-pieChart">
-  <app-osm-view></app-osm-view>
-  <div class="chart-container">
-    <canvas id="MyChart"><p>{{ chart }}</p></canvas>
+    <div class="vehicle-details">
+      <label>Modell:</label>
+      <p>{{vehicle?.vehicleModel?.modelName}}</p>
+    </div>
+    <div class="vehicle-details">
+      <label>Kennzeichen:</label>
+      <p>{{vehicle?.licensePlate}}</p>
+    </div>
+    <div class="vehicle-details">
+      <label>Baujahr:</label>
+      <p>{{vehicle?.vehicleModel?.constructionYear}}</p>
+    </div>
+    <!--          <div class="vehicle-details">-->
+    <!--            <label>Autohalter:</label>-->
+    <!--            <p>{{contract.policyholder}}</p>-->
+    <!--          </div>-->
+    <!--          <div class="vehicle-details">-->
+    <!--&lt;!&ndash;            <label>Versicherung:</label> <p>{{}}</p>&ndash;&gt;-->
+    <!--          </div>-->
+    <!--          <div class="vehicle-details">-->
+    <!--          <label>Versicherungsnummer:</label>-->
+    <!--            <p>{{contract.policyNumber}}</p>-->
+    <!--          </div>-->
+    <div class="vehicle-details">
+      <label>Fahrten:</label>
+      <p>{{ sumTrips$ | async }}</p>
+    </div>
   </div>
-</div>
+  <div class="loc-pieChart">
+    <app-osm-view></app-osm-view>
+    <div class="chart-container">
+      <canvas id="MyChart"><p>{{ chart }}</p></canvas>
+    </div>
+  </div>
 </div>
