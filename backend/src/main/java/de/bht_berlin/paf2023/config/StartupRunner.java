@@ -60,16 +60,16 @@ public class StartupRunner implements ApplicationRunner {
 
 //create entities with faker
         Map<String, Long> dataSet = new LinkedHashMap<String, Long>();
-//        dataSet.put("person", 10L);
-//        dataSet.put("insurance_company", 10L);
-//        dataSet.put("insurance", 10L);
+        dataSet.put("person", 10L);
+        dataSet.put("insurance_company", 10L);
+        dataSet.put("insurance", 10L);
         dataSet.put("vehicle_model", 10L);
         dataSet.put("vehicle", 2L);
-//        dataSet.put("trip", 10L);
-//        dataSet.put("contract", 1L);
+        dataSet.put("trip", 10L);
+        dataSet.put("contract", 1L);
 
         //call faker to create dummy set
-        iService.generateDummyDataSet(dataSet);
+//        iService.generateDummyDataSet(dataSet);
 
         // read out csv file to create hashmap for batch measurement import
         List<List<String>> records =
