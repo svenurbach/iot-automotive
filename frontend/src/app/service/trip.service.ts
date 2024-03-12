@@ -19,8 +19,23 @@ export class TripService {
   constructor(private http: HttpClient) {
   }
 
-  getTrips(vehicleSelection: number, datePickerStart: Date | null, datePickerEnd: Date | null): Observable<Trip[]> {
-    var queryString = `/findAll/${vehicleSelection}`;
+  // getTrips(vehicleSelection: number, datePickerStart: Date | null, datePickerEnd: Date | null): Observable<Trip[]> {
+  //   var queryString = `/findAll/${vehicleSelection}`;
+  //   if (datePickerStart && datePickerEnd) {
+  //     queryString += `?startTime=${datePickerStart.toISOString()}&endTime=${datePickerEnd.toISOString()}`
+  //   }
+  //   console.log("dateParams", queryString)
+  //   return this.http.get<Trip[]>(this.url + queryString).pipe(
+  //     tap((_) => this.log('fetched trips')),
+  //     catchError(this.handleError<Trip[]>('getTrips', []))
+  //   );
+  // }
+
+  getTrips(vehicleIds: number[], datePickerStart: Date | null, datePickerEnd: Date | null): Observable<Trip[]> {
+    var queryString = `/findAllByVehicleIds?`;
+    vehicleIds.forEach(function (vehicleId: number) {
+      queryString += `vehicleIds=${vehicleId}&`
+    })
     if (datePickerStart && datePickerEnd) {
       queryString += `?startTime=${datePickerStart.toISOString()}&endTime=${datePickerEnd.toISOString()}`
     }

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {VehicleService} from "../service/vehicle.service";
 import {Vehicle} from "../model/vehicle.model";
 import {Insurance} from "../model/insurance.model";
@@ -21,7 +21,7 @@ import {OsmViewComponent} from "../osm-view/osm-view.component";
   templateUrl: './vehicle-details.component.html',
   styleUrl: './vehicle-details.component.css'
 })
-export class VehicleDetailsComponent{
+export class VehicleDetailsComponent {
   public chart: any;
   vehicle!: Vehicle;
   contract!: Insurance;
@@ -47,7 +47,8 @@ export class VehicleDetailsComponent{
   }
 
   getTrips(id: number): Observable<number> {
-    return this.tripService.getTrips(id, null, null).pipe(
+    const idArray: number[] = [id];
+    return this.tripService.getTrips(idArray, null, null).pipe(
       map(data => data.length)
     );
   }
@@ -58,7 +59,7 @@ export class VehicleDetailsComponent{
         this.measurementErrors = data;
         const jsonData = JSON.stringify(this.measurementErrors);
         const parsedData = JSON.parse(jsonData);
-        this.measurementTypes =  parsedData.map((item: any) => item.measurementType);
+        this.measurementTypes = parsedData.map((item: any) => item.measurementType);
         this.countMap = this.getSumOfMeasurementErrorOfType(this.measurementTypes);
         this.createChart();
       });
@@ -77,7 +78,7 @@ export class VehicleDetailsComponent{
     return this.countMap;
   }
 
-  getMeasurementTypeFromMap(countMap: { [key: string]: number }):  String[]{
+  getMeasurementTypeFromMap(countMap: { [key: string]: number }): String[] {
     const keys = Object.keys(countMap);
     const typeArray: string[] = [];
     keys.forEach(key => {
@@ -95,7 +96,7 @@ export class VehicleDetailsComponent{
   }
 
   // Kreisdiagramm für Messfehler pro Fahrzeug
-  createChart(){
+  createChart() {
     this.chart = new Chart("MyChart", {
       type: 'pie',
       data: {
@@ -116,7 +117,7 @@ export class VehicleDetailsComponent{
         ]
       },
       options: {
-        aspectRatio:2.5
+        aspectRatio: 2.5
       }
 
     });
