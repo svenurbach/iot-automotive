@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import * as utils from "../../utils";
 import {Measurement} from "../model/measurement.model";
@@ -64,6 +64,7 @@ export class TripDetailComponent {
   }
 
   constructor(private tripService: TripService, private route: ActivatedRoute) {
+    window.scrollTo(0, 0)
     this.tripId = this.route.snapshot.paramMap.get('id');
     this.getTrip();
   }

@@ -1,6 +1,7 @@
-import {Component, afterNextRender} from '@angular/core';
+import {Component} from '@angular/core';
 import {Trip} from '../model/trip.model';
 import {Measurement} from '../model/measurement.model';
+import {Vehicle} from "../model/vehicle.model";
 import {TripService} from '../service/trip.service';
 import {VehicleService} from "../service/vehicle.service";
 import {CommonModule} from '@angular/common';
@@ -16,20 +17,21 @@ import * as utils from "../../utils"
 import {dateInYyyyMmDdHhMmSs, getAverageSpeed} from "../../utils";
 import _default from "chart.js/dist/plugins/plugin.tooltip";
 import numbers = _default.defaults.animations.numbers;
-import {Vehicle} from "../model/vehicle.model";
 
+import {RouterLink} from '@angular/router';
+import {filter} from "rxjs";
 @Injectable({
   providedIn: 'root',
 })
 @Component({
   selector: 'app-trip',
   standalone: true,
-  imports: [MatFormFieldModule, ReactiveFormsModule, MatNativeDateModule, MatSelectModule, MatDatepickerModule, ReactiveFormsModule, FormsModule, CommonModule, GoogleMapsModule],
+  imports: [MatFormFieldModule, ReactiveFormsModule, MatNativeDateModule, MatSelectModule, MatDatepickerModule, ReactiveFormsModule, FormsModule, CommonModule, GoogleMapsModule, RouterLink],
   templateUrl: './trip.component.html',
   styleUrl: './trip.component.css',
   providers: [],
-
 })
+
 export class TripComponent {
   trips: Trip[] = [];
   vehicles: Vehicle[] = [];
@@ -48,7 +50,9 @@ export class TripComponent {
   dataSource: any = [];
   mapOptions: google.maps.MapOptions = {
     zoom: 12,
-    disableDefaultUI: true
+    disableDefaultUI: true,
+    gestureHandling: "none",
+    clickableIcons: false
   };
   datePickerStart: Date | null
   datePickerEnd: Date | null
@@ -165,40 +169,3 @@ export class TripComponent {
     this.getTrips();
   }
 }
-
-
-// createChart(): void {
-//   const labels = this.trips.map(trip => trip.id); // X-Achse
-//   const data = this.trips.map(trip => trip.average_speed); // Y-Achse
-
-//   new Chart("myChart", {
-//     type: 'line',
-//     data: {
-//       labels: labels,
-//       datasets: [{
-//         label: 'Average Speed',
-//         data: data,
-//         fill: false,
-//         borderColor: 'rgb(75, 192, 192)',
-//         tension: 0.1
-//       }]
-//     },
-//     options: {
-//       scales: {
-//         y: {
-//           beginAtZero: true
-//         }
-//       }
-//     }
-//   });
-// }
-
-// getTrips(): void {
-//   this.tripService.getTrips().subscribe((data) => {
-//     this.trips = data;
-//     this.dataSource = data;
-//     console.log(data);
-//     // console.table(data)
-//     // this.createChart();
-//   });
-// }
