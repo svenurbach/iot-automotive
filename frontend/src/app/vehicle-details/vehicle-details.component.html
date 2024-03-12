@@ -3,17 +3,41 @@
 
 <ul class="vehicle">
   <li class="vehicle-details">
-    <img src="{{vehicle?.vehicleModel?.imgURL}}" alt="Fahrzeugbild" class="vehicle-img"><br>
-    <strong>Hersteller:</strong> {{vehicle?.vehicleModel?.manufacturer}} <br>
-    <strong>Modell:</strong> {{vehicle?.vehicleModel?.modelName}} <br>
-    <strong>Kennzeichen:</strong> {{vehicle?.licensePlate}} <br>
-    <strong>Baujahr:</strong> {{vehicle?.vehicleModel?.constructionYear}} <br>
-<!--    <strong>Autohalter:</strong> {{contract.policyholder}} <br>-->
-<!--    <strong>Versicherung:</strong> {{}} <br>-->
-<!--    <strong>Versicherungsnummer:</strong> {{contract.policyNumber}} <br>-->
-    <strong>Fahrten:</strong> {{ sumTrips$ | async }} <br>
+    <div class="all-details">
+      <img src="{{vehicle?.vehicleModel?.imgURL}}" alt="Fahrzeugbild" class="vehicle-img"><br>
+      <div class="vehicle-details">
+        <label>Hersteller:</label>
+        <p>{{vehicle?.vehicleModel?.manufacturer}}</p>
+      </div>
+      <div class="vehicle-details">
+        <label>Modell:</label>
+        <p>{{vehicle?.vehicleModel?.modelName}}</p>
+      </div>
+      <div class="vehicle-details">
+        <label>Kennzeichen:</label>
+        <p>{{vehicle?.licensePlate}}</p>
+      </div>
+      <div class="vehicle-details">
+        <label>Baujahr:</label>
+        <p>{{vehicle?.vehicleModel?.constructionYear}}</p>
+      </div>
+<!--          <div class="vehicle-details">-->
+<!--            <label>Autohalter:</label> <p>{{contract.policyholder}}</p> -->
+<!--          </div>-->
+<!--          <div class="vehicle-details">-->
+<!--            <label>Versicherung:</label> <p>{{}}</p> -->
+<!--          </div>-->
+<!--          <div class="vehicle-details">-->
+<!--          <label>Versicherungsnummer:</label> <p>{{contract.policyNumber}}</p> -->
+<!--          </div>-->
+      <div class="vehicle-details">
+        <label>Fahrten:</label>
+        <p>{{ sumTrips$ | async }}</p>
+      </div>
+    </div>
+
     <div class="chart-container">
-      <canvas  id="MyChart" >{{ chart }}</canvas>
+      <canvas id="MyChart"><p>{{ chart }}</p></canvas>
     </div>
   </li>
 </ul>

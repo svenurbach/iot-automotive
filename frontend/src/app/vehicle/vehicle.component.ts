@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
-import {VehicleModel} from "../model/vehicle-model.model";
 import {Vehicle} from "../model/vehicle.model";
-import {InsuranceService} from "../service/insurance.service";
 import {VehicleService} from "../service/vehicle.service";
-import {Insurance} from "../model/insurance.model";
-import {Measurement} from "../model/measurement.model";
 import {RouterLink} from "@angular/router";
 
 

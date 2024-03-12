@@ -2,22 +2,21 @@
 
 <ul class="vehicle">
   @for (vehicle of vehicles; track vehicle.id){
+  <div class="vehicle-card">
   <li class="vehicle-details" [routerLink]="['/vehicle', vehicle.id]">
     <img src="{{vehicle.vehicleModel.imgURL}}" alt="Fahrzeugbild" class="vehicle-img">
-    <div class="vehicle-details-in-overview">
-    <strong>{{vehicle.vehicleModel.modelName}} </strong>  <br>
-    <strong>{{vehicle.licensePlate}}</strong>  <br>
+    <div class="vehicle-details-line">
+    <p id="model-name">{{vehicle.vehicleModel.modelName}}</p>  <br>
+    <div id="location">
+    <img src="assets/icons/location-dot-solid.svg">
+    <p>Standort</p>
     </div>
-    <a href="/vehicle/{{vehicle.id}}">Details</a>
+    </div>
+    <div class="vehicle-details-line">
+    <p>{{vehicle.licensePlate}}</p>  <br>
+    </div>
   </li>
-  }
-
-
-
-
-
-  @empty {
-  <span>Task list is empty</span>
+  </div>
   }
 </ul>
 
