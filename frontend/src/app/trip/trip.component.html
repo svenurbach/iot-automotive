@@ -3,6 +3,7 @@
 <mat-form-field>
   <mat-label>Fahrzeug auswählen:</mat-label>
   <mat-select (selectionChange)="onVehicleSelected($event)">
+    <mat-option [value]="0">Alle</mat-option>
     @for(vehicle of vehicles; track vehicle.id){
     <mat-option [value]="vehicle.id">{{vehicle.vehicleModel.manufacturer}}
     {{vehicle.vehicleModel.modelName}}</mat-option>
