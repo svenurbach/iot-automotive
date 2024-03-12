@@ -21,11 +21,11 @@ export class VehicleComponent {
   }
 
   constructor(private vehicleService: VehicleService) {
-    this.getCarsByPerson(9);
+    this.getVehicles();
   }
 
-  getCarsByPerson(id: number): void {
-    this.vehicleService.getCarsByPerson(id)
+  getVehicles(): void {
+    this.vehicleService.getVehicles()
       .subscribe((data) => {
         this.vehicles = data;
         console.log(data)
