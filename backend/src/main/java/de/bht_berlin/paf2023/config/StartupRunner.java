@@ -100,7 +100,7 @@ public class StartupRunner implements ApplicationRunner {
         MeasurementTimeSortHandler measurementTimeSortHandler = new MeasurementTimeSortHandler(measurementRepo, thresholdErrorHandler);
         TripMeasurementHandler tripMeasurementHandler = new TripMeasurementHandler(measurementRepo, measurementTimeSortHandler);
         Trip trip = tripRepo.getById(1L);
-        tripMeasurementHandler.handle(trip);
+//        tripMeasurementHandler.handle(trip);
 
         System.out.println("vehicleService.getVehicleModel(1L)");
 

@@ -2,6 +2,7 @@ import {Component, afterNextRender} from '@angular/core';
 import {Trip} from '../model/trip.model';
 import {Measurement} from '../model/measurement.model';
 import {TripService} from '../service/trip.service';
+import {VehicleService} from "../service/vehicle.service";
 import {CommonModule} from '@angular/common';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
@@ -15,6 +16,7 @@ import * as utils from "../../utils"
 import {dateInYyyyMmDdHhMmSs, getAverageSpeed} from "../../utils";
 import _default from "chart.js/dist/plugins/plugin.tooltip";
 import numbers = _default.defaults.animations.numbers;
+import {Vehicle} from "../model/vehicle.model";
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +32,7 @@ import numbers = _default.defaults.animations.numbers;
 })
 export class TripComponent {
   trips: Trip[] = [];
+  vehicles: Vehicle[] = [];
   tripPaths: Array<Array<Object>> = [];
   distance: number = 0;
   duration: number = 0;
@@ -71,13 +74,19 @@ export class TripComponent {
   }
 
 
-  constructor(private tripService: TripService) {
+  constructor(private tripService: TripService, private vehicleService: VehicleService) {
     this.datePickerStart = null
     this.datePickerEnd = null
+    this.getVehicles();
     this.getTrips();
-    console.log("date")
   }
 
+  getVehicles(): void {
+    this.vehicleService.getVehicles()
+      .subscribe((data) => {
+        this.vehicles = data;
+      });
+  }
 
   getTrips(): void {
     this.distance = 0;

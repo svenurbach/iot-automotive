@@ -36,7 +36,7 @@ public class MeasurementServiceTest {
     public void setup() {
         MockitoAnnotations.openMocks(this);
         measurementRepoSubject = new MeasurementRepoSubject();
-        measurementService = new MeasurementService(measurementRepoSubject);
+//        measurementService = new MeasurementService(measurementRepoSubject);
     }
 
 //    @Test
