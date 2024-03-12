@@ -63,5 +63,19 @@ public class TripController {
         }
     }
 
+    @GetMapping(path = "/findAllByVehicleIds")
+    public List<Trip> findAllByVehicleIds(@RequestParam List<Long> vehicleIds,
+                                          @RequestParam(required = false) String startTime,
+                                          @RequestParam(required = false) String endTime) {
+        if (startTime != null && endTime != null) {
+            // date format example 2018-01-17T05:01:33.000Z
+            Date start = Date.from(Instant.parse(startTime));
+            Date end = Date.from(Instant.parse(endTime));
+            return tripService.findAllByVehicleIdsAndDateRange(vehicleIds, start, end);
+        } else {
+            return tripService.findAllByVehicleIds(vehicleIds);
+        }
+    }
+
 }
 

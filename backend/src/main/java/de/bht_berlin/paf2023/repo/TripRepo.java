@@ -47,4 +47,12 @@ public interface TripRepo extends JpaRepository<Trip, Long> {
             @Param("startDate") Date startDate,
             @Param("endDate") Date endDate);
 
+    @Query("SELECT m.trip FROM Measurement m WHERE m.vehicle.id IN :vehicleIds")
+    List<Trip> findAllByVehicleIds(@Param("vehicleIds") List<Long> vehicleIds);
+
+//    @Query("SELECT m FROM Measurement m WHERE m.vehicle.id IN :vehicleIds AND m.trip.trip_start BETWEEN :startTime AND :endTime")
+//    List<Trip> findAllByVehicleIdsAndDateRange(@Param("vehicleIds") List<Long> vehicleIds, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+    @Query("SELECT DISTINCT m.trip FROM Measurement m WHERE m.vehicle.id IN :vehicleIds AND m.trip.trip_start BETWEEN :startTime AND :endTime")
+    List<Trip> findAllByVehicleIdsAndDateRange(@Param("vehicleIds") List<Long> vehicleIds, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 }

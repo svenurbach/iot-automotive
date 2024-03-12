@@ -76,8 +76,17 @@ public class TripService implements MeasurementObserver {
         return repository.findAllByVehicleId(vehicleId);
     }
 
+
     public List<Trip> findAllByVehicleId(long vehicleId, Date startDate, Date endDate) {
         return repository.findAllByVehicleIdAndDateRange(vehicleId, startDate, endDate);
+    }
+
+    public List<Trip> findAllByVehicleIdsAndDateRange(List<Long> vehicleId, Date startDate, Date endDate) {
+        return repository.findAllByVehicleIdsAndDateRange(vehicleId, startDate, endDate);
+    }
+
+    public List<Trip> findAllByVehicleIds(List<Long> vehicleIds) {
+        return repository.findAllByVehicleIds(vehicleIds);
     }
 
     public Optional<Measurement> findLatestMeasurementOfFirstUnfinishedTrip(long vehicleId) {

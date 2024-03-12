@@ -19,7 +19,10 @@ import _default from "chart.js/dist/plugins/plugin.tooltip";
 import numbers = _default.defaults.animations.numbers;
 
 import {RouterLink} from '@angular/router';
-import {filter} from "rxjs";
+import {filter, Observable} from "rxjs";
+import {switchMap, tap} from 'rxjs/operators';
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -38,7 +41,7 @@ export class TripComponent {
   tripPaths: Array<Array<Object>> = [];
   distance: number = 0;
   duration: number = 0;
-  vehicleSelection: number = 1;
+  vehicleSelection: number = 0;
   durationString: string = "";
   speeds: number[] = [];
   displayedColumns: string[] = [
@@ -79,24 +82,34 @@ export class TripComponent {
 
 
   constructor(private tripService: TripService, private vehicleService: VehicleService) {
-    this.datePickerStart = null
-    this.datePickerEnd = null
-    this.getVehicles();
-    this.getTrips();
+    this.datePickerStart = null;
+    this.datePickerEnd = null;
+
+    this.getVehicles().subscribe(() => {
+      this.getTrips();
+    });
   }
 
-  getVehicles(): void {
-    this.vehicleService.getVehicles()
-      .subscribe((data) => {
-        this.vehicles = data;
-      });
+  getVehicles(): Observable<any> {
+    return this.vehicleService.getVehicles().pipe(
+      tap(data => this.vehicles = data)
+    );
   }
 
   getTrips(): void {
     this.distance = 0;
     this.duration = 0;
     this.speeds = [];
-    this.tripService.getTrips(this.vehicleSelection, this.datePickerStart, this.datePickerEnd).subscribe((data) => {
+    const vehicleIds: number[] = [];
+    if (this.vehicleSelection == 0) {
+      this.vehicles.forEach(function (vehicle) {
+        vehicleIds.push(vehicle.id)
+      });
+    } else {
+      vehicleIds.push(this.vehicleSelection)
+    }
+    // console.log("arr", vehicleIds)
+    this.tripService.getTrips(vehicleIds, this.datePickerStart, this.datePickerEnd).subscribe((data) => {
       this.trips = data;
       console.log(data);
       this.trips.forEach((trip) => {
