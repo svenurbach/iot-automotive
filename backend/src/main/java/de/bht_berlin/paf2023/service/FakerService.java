@@ -103,7 +103,7 @@ public class FakerService {
                     insuranceContract.setPolicyNumber(faker.idNumber().valid());
                     insuranceContract.setDeductible(faker.number().numberBetween(0L, 1000));
 
-                    //                    foreign key generation for person
+                    //                    foreign key generation for insurance
                     Insurance existingInsurance = this.insuranceRepo.getById(generateRandomForeignKey(dataSet,
                             "insurance"));
                     insuranceContract.setInsurance(existingInsurance);
@@ -113,8 +113,8 @@ public class FakerService {
                     insuranceContract.setPolicyholder(existingPerson);
 
                     //                    foreign key generation for vehicle
-                    Vehicle existingVehicle = this.vehicleRepo.getById(generateRandomForeignKey(dataSet, "vehicle"));
-                    insuranceContract.setVehicle(existingVehicle);
+//                    Vehicle existingVehicle = this.vehicleRepo.getById((long) i);
+//                    insuranceContract.setVehicle(existingVehicle);
 
                     this.contractRepo.save(insuranceContract);
                 }
@@ -135,7 +135,6 @@ public class FakerService {
                     Person person = new Person();
                     person.setName(faker.name().fullName());
                     person.setDateOfBirth(faker.date().birthday());
-                    person.setCurrentTripID(faker.number().numberBetween(0L, 9999L));
                     this.personRepo.save(person);
                 }
                 break;

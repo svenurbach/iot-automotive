@@ -8,16 +8,12 @@
     <strong>{{vehicle.vehicleModel.modelName}} </strong>  <br>
     <strong>{{vehicle.licensePlate}}</strong>  <br>
     </div>
-    <a href="/vehicle/{{vehicle.id}}">Details</a>
+    <a [routerLink]="['/vehicle', vehicle.id]">Details</a>
   </li>
   }
 
-
-
-
-
   @empty {
-  <span>Task list is empty</span>
+  <span>Car list is empty</span>
   }
 </ul>
 

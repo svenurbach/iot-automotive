@@ -1,5 +1,6 @@
 package de.bht_berlin.paf2023.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,7 +25,7 @@ public class InsuranceContract extends IdentifiedEntity {
     private Date begin;
 
     @OneToOne
-    @JsonIgnoreProperties("insuranceContract")
+    @JsonIgnore
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
@@ -54,7 +55,6 @@ public class InsuranceContract extends IdentifiedEntity {
 
     }
 
-//    @Setter
     public static class Builder {
         private String policyNumber;
         private Long deductible;

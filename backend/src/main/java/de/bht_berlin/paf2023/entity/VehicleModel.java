@@ -48,6 +48,6 @@ public class VehicleModel extends IdentifiedEntity {
 
     @OneToMany(mappedBy = "vehicleModel", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Vehicle> vehicle;
+    private List<Vehicle> vehicles;
 
 }

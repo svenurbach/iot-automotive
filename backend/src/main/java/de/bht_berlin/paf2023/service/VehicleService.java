@@ -1,6 +1,7 @@
 package de.bht_berlin.paf2023.service;
 
 import de.bht_berlin.paf2023.entity.Measurement;
+import de.bht_berlin.paf2023.entity.Person;
 import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.VehicleModel;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import java.util.List;
 
 @Service
 public class VehicleService {
@@ -49,8 +52,11 @@ public class VehicleService {
         for (int i=0; i< test.size();i++){
             System.out.println(test.get(i).getIsError() == true);
         }
+        return test;
+    }
 
-    return test;
+    public List<Vehicle> getVehiclesByPerson(Long personId) {
+        return vehicleRepo.findByInsuranceContract_Policyholder(personId);
     }
 
 }
