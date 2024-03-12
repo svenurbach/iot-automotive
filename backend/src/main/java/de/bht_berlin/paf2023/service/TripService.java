@@ -1,17 +1,16 @@
 package de.bht_berlin.paf2023.service;
 
-import de.bht_berlin.paf2023.component.HandleSingleTripStrategy;
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
-import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import de.bht_berlin.paf2023.entity.measurements.SpeedMeasurement;
+import de.bht_berlin.paf2023.handler.TripMeasurementHandler;
 import de.bht_berlin.paf2023.observer.MeasurementObserver;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.TripRepo;
-import de.bht_berlin.paf2023.repo.VehicleRepo;
 import de.bht_berlin.paf2023.strategy.TripHandlerStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -21,6 +20,7 @@ import java.util.stream.Collectors;
 public class TripService implements MeasurementObserver {
     private final TripRepo repository;
     private final MeasurementRepoSubject measurementRepo;
+    private static TripMeasurementHandler tripMeasurementHandler;
     public TripHandlerStrategy tripHandlerStrategy;
 
     @Override
@@ -43,6 +43,11 @@ public class TripService implements MeasurementObserver {
         measurementRepo.addObserver(this);
     }
 
+
+    public void setTripMeasurementHandler(TripMeasurementHandler handler) {
+        tripMeasurementHandler = handler;
+    }
+
     public static void endTrip(Trip trip, LocationMeasurement endLocation, MeasurementRepoSubject measurementRepo,
                                TripRepo repository) {
         trip.setTrip_end(endLocation.getTimestamp());
@@ -52,6 +57,7 @@ public class TripService implements MeasurementObserver {
         trip.finish(endLocation);
         measurementRepo.updateMeasurement(endLocation);
         repository.save(trip);
+        tripMeasurementHandler.handle(trip);
     }
 
     public static Trip startTrip(LocationMeasurement startLocation, TripRepo repository) {

@@ -3,13 +3,13 @@ package de.bht_berlin.paf2023.handler;
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 
 /**
  * Handler class responsible for sorting measurements by time.
  */
-
 public class MeasurementTimeSortHandler implements MeasurementHandler {
     private MeasurementHandler nextHandler;
     private MeasurementRepoSubject measurementRepo;

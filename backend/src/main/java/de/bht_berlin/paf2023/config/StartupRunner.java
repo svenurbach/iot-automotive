@@ -49,7 +49,6 @@ public class StartupRunner implements ApplicationRunner {
     @Autowired
     private TripRepo tripRepo;
 
-    @Autowired
     private TripService service;
 
     @Autowired
@@ -81,6 +80,13 @@ public class StartupRunner implements ApplicationRunner {
 
         // instantiate strategy go segment trips from import
         SegmentTripsInDBStrategy segmentTripsInDBStrategy = new SegmentTripsInDBStrategy(tripRepo, measurementRepo);
+        ComparitiveListErrorHandler comparitiveListErrorHandler = new ComparitiveListErrorHandler(measurementRepo, measurementService);
+        ThresholdErrorHandler thresholdErrorHandler = new ThresholdErrorHandler(measurementRepo, comparitiveListErrorHandler, measurementService, vehicleModelRepo);
+        MeasurementTimeSortHandler measurementTimeSortHandler = new MeasurementTimeSortHandler(measurementRepo, thresholdErrorHandler);
+        TripMeasurementHandler tripMeasurementHandler = new TripMeasurementHandler(measurementRepo, measurementTimeSortHandler);
+
+        TripService service = new TripService(tripRepo, measurementRepo);
+        service.setTripMeasurementHandler(tripMeasurementHandler);
         // set strategy
         service.changeTripHandlerStrategy(segmentTripsInDBStrategy);
         // call segment method on strategy
@@ -95,14 +101,11 @@ public class StartupRunner implements ApplicationRunner {
 
 //        MeasurementService measurementService = new MeasurementService();
 //        VehicleModelRepo
-        ComparitiveListErrorHandler comparitiveListErrorHandler = new ComparitiveListErrorHandler(measurementRepo, measurementService);
-        ThresholdErrorHandler thresholdErrorHandler = new ThresholdErrorHandler(measurementRepo, comparitiveListErrorHandler, measurementService, vehicleModelRepo);
-        MeasurementTimeSortHandler measurementTimeSortHandler = new MeasurementTimeSortHandler(measurementRepo, thresholdErrorHandler);
-        TripMeasurementHandler tripMeasurementHandler = new TripMeasurementHandler(measurementRepo, measurementTimeSortHandler);
-        Trip trip = tripRepo.getById(1L);
-        tripMeasurementHandler.handle(trip);
 
-        System.out.println("vehicleService.getVehicleModel(1L)");
+//        Trip trip = tripRepo.getById(1L);
+//        tripMeasurementHandler.handle(trip);
+
+//        System.out.println("vehicleService.getVehicleModel(1L)");
 
     }
 

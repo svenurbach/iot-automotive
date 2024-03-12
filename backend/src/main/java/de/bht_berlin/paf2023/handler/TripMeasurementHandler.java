@@ -3,6 +3,8 @@ package de.bht_berlin.paf2023.handler;
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +14,7 @@ import java.util.List;
  * Handler class responsible for processing measurements related to a trip.
  */
 public class TripMeasurementHandler implements MeasurementHandler {
+
     private MeasurementHandler nextHandler;
     private MeasurementRepoSubject measurementRepo;
 
