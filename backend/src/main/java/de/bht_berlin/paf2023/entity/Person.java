@@ -15,8 +15,6 @@ public class Person extends IdentifiedEntity {
 
     private Date dateOfBirth;
 
-    private Long currentTripID;
-
     @OneToMany(mappedBy = "policyholder", cascade = CascadeType.ALL)
     private List<InsuranceContract> insuranceContracts;
 

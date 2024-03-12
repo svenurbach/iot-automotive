@@ -34,7 +34,7 @@ export class VehicleDetailsComponent{
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params['id'];
-      this.vehicleService.getVehicleById(id).subscribe(data => {
+      this.vehicleService.getVehicle(id).subscribe(data => {
         this.vehicle = data;
         this.sumTrips$ = this.getTrips(id);
         this.getAllMeasurementErrors(id);

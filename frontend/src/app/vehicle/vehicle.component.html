@@ -15,8 +15,13 @@
     <div class="vehicle-details-line">
     <p>{{vehicle.licensePlate}}</p>  <br>
     </div>
+    <a [routerLink]="['/vehicle', vehicle.id]">Details</a>
   </li>
   </div>
+  }
+
+  @empty {
+  <span>Car list is empty</span>
   }
 </ul>
 
