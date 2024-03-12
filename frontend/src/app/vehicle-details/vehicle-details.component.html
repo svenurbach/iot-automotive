@@ -1,6 +1,6 @@
 <h1>Fahrzeug Details</h1>
 
-
+<div class="upper-half">
 <ul class="vehicle">
   <li class="vehicle-details">
     <div class="all-details">
@@ -21,23 +21,28 @@
         <label>Baujahr:</label>
         <p>{{vehicle?.vehicleModel?.constructionYear}}</p>
       </div>
-<!--          <div class="vehicle-details">-->
-<!--            <label>Autohalter:</label> <p>{{contract.policyholder}}</p> -->
-<!--          </div>-->
-<!--          <div class="vehicle-details">-->
-<!--            <label>Versicherung:</label> <p>{{}}</p> -->
-<!--          </div>-->
-<!--          <div class="vehicle-details">-->
-<!--          <label>Versicherungsnummer:</label> <p>{{contract.policyNumber}}</p> -->
-<!--          </div>-->
+          <div class="vehicle-details">
+            <label>Autohalter:</label>
+            <p>{{contract.policyholder}}</p>
+          </div>
+          <div class="vehicle-details">
+<!--            <label>Versicherung:</label> <p>{{}}</p>-->
+          </div>
+          <div class="vehicle-details">
+          <label>Versicherungsnummer:</label>
+            <p>{{contract.policyNumber}}</p>
+          </div>
       <div class="vehicle-details">
         <label>Fahrten:</label>
         <p>{{ sumTrips$ | async }}</p>
       </div>
     </div>
-
-    <div class="chart-container">
-      <canvas id="MyChart"><p>{{ chart }}</p></canvas>
-    </div>
   </li>
 </ul>
+<div class="loc-pieChart">
+  <app-osm-view></app-osm-view>
+  <div class="chart-container">
+    <canvas id="MyChart"><p>{{ chart }}</p></canvas>
+  </div>
+</div>
+</div>

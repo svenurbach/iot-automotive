@@ -27,7 +27,7 @@ export class VehicleService {
   }
 
   getVehicle(id: number): Observable<Vehicle>{
-    const url = `${this.url}/vehicle/${id}`;
+    const url = `${this.url}/${id}`;
     return this.http.get<Vehicle>(url).pipe(
       tap(_ => console.log(`fetched vehicle by car with id=${id}`)),
       catchError(this.handleError<Vehicle>(`getVehicle id=${id}`))

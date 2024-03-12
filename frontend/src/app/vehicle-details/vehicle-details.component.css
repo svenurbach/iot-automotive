@@ -3,8 +3,8 @@ h1{
 }
 
 img {
-  width: 600px;
-  height: 450px;
+  width: 500px;
+  height: 350px;
   object-fit: cover;
   border-radius: 5px;
 }
@@ -25,4 +25,20 @@ label{
   font-weight: bold;
 }
 
+.loc-pieChart{
+  display: flex;
+  flex-direction: column;
+}
 
+.upper-half{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+app-osm-view{
+  margin: 0 30% 0 30%;
+}
+
+canvas{
+  width: 700px;
+}

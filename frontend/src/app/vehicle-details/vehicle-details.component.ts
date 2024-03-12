@@ -9,13 +9,15 @@ import {map} from "rxjs/operators";
 import {AsyncPipe} from "@angular/common";
 import {Measurement} from "../model/measurement.model";
 import Chart from 'chart.js/auto';
+import {OsmViewComponent} from "../osm-view/osm-view.component";
 
 @Component({
   selector: 'app-vehicle-details',
   standalone: true,
-  imports: [
-    AsyncPipe
-  ],
+    imports: [
+        AsyncPipe,
+        OsmViewComponent
+    ],
   templateUrl: './vehicle-details.component.html',
   styleUrl: './vehicle-details.component.css'
 })
