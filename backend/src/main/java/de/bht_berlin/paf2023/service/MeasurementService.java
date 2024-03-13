@@ -135,13 +135,22 @@ public class MeasurementService {
      * @return True if an error is found in future measurements, false otherwise
      */
     public boolean findErrorInFutureArray(int counter, ArrayList<Measurement> values, ArrayList<Double> measurementArrayInDouble,
-                                          Double tolerance, List<Double> comparativeValuesArrayFuture, int comparativeValuesArraySize){
+                                          Double tolerance, ArrayList<Double> comparativeValuesArrayFuture, int comparativeValuesArraySize){
         int endIndex = counter + comparativeValuesArraySize;
-        ArrayList<Double> futureMeasurements = IntStream.range(counter, Math.min(endIndex, values.size()))
-                .filter(i -> values.get(i).getIsError() != null && !values.get(i).getIsError())
-                .mapToObj(i -> measurementArrayInDouble.get(i))
-                .collect(Collectors.toCollection(ArrayList::new));
-        double averageFuture = calculateAverageMeasurements(futureMeasurements);
+//        ArrayList<Double> futureMeasurements = IntStream.range(counter, Math.min(endIndex, values.size()))
+//                .filter(i -> values.get(i).getIsError() != null && !values.get(i).getIsError())
+//                .mapToObj(i -> measurementArrayInDouble.get(i))
+//                .collect(Collectors.toCollection(ArrayList::new));
+//        ArrayList<Double> futureMeasurements = new ArrayList<>();
+        while (comparativeValuesArrayFuture.size() < comparativeValuesArraySize && counter < endIndex){
+            if(values.get(counter).getIsError() == null || !values.get(counter).getIsError()){
+                comparativeValuesArrayFuture.add(measurementArrayInDouble.get(counter + (comparativeValuesArrayFuture.size()+1)));
+            }
+        }
+
+
+        double averageFuture = calculateAverageMeasurements(comparativeValuesArrayFuture);
+        System.out.println("comparativeValuesArrayFuture " + comparativeValuesArrayFuture + "current: " + measurementArrayInDouble.get(counter));
 
         return !isValueInTolerance(averageFuture, counter, measurementArrayInDouble, tolerance);
     }

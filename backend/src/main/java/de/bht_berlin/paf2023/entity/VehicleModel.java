@@ -40,7 +40,6 @@ public class VehicleModel extends IdentifiedEntity {
 
     private Float locationTolerance;
 
-    private Float fuelLevelTolerance;
 
     private Float AxisTolerance;
 

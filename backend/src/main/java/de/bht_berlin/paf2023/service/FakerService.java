@@ -165,10 +165,10 @@ public class FakerService {
                     vehicleModel.setWeight((float) faker.number().randomDouble(2, 300, 1200));
 //                    vehicleModel.setFueltype();
                     vehicleModel.setMaxSpeed((float) faker.number().numberBetween(180, 600));
-                    vehicleModel.setMaxAcceleration((float) faker.number().numberBetween(-20, 100));
-                    vehicleModel.setAccelerationTolerance((float) faker.number().randomDouble(2, 0, 1));
+                    vehicleModel.setMaxAcceleration((float) faker.number().numberBetween(0, 100));
+                    vehicleModel.setAccelerationTolerance((float) 0.8);
+//                    vehicleModel.setAccelerationTolerance((float) faker.number().randomDouble(2, 0, 1));
                     vehicleModel.setSpeedTolerance((float) faker.number().randomDouble(2, 0, 1));
-                    vehicleModel.setFuelLevelTolerance((float) faker.number().randomDouble(2, 0, 1));
                     vehicleModel.setLocationTolerance((float) faker.number().randomDouble(2, 0, 1));
                     vehicleModel.setImgURL(imgURLArray[randomIndex]);
                     this.vehicleModelRepo.save(vehicleModel);

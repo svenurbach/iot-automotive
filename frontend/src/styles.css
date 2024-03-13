@@ -23,10 +23,18 @@ div.entity-card:hover {
   background-color: #f7f2ff;
 }
 
-p, label {
+p, label  {
   font-size: 0.9rem
 }
 
+div.location{
+  padding: 0 !important;
+}
+
+address{
+  font-size: 0.7rem;
+  font-style: normal;
+}
 h1 {
   font-size: 1.8rem !important;
   margin: 0 0 0.8em 0 !important;
