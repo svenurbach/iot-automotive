@@ -1,0 +1,8 @@
+.icon {
+    width: 50px;
+}
+
+.entity-card li {
+    display: flex;
+    flex-direction: row;
+}

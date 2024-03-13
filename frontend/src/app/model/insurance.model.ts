@@ -1,8 +1,17 @@
 export interface Insurance {
   id: number;
-  policyNumber: string;
+  begin: Date;
+  contractDistance: number;
+  contractPrice: number;
   deductible: number;
-// //   vehicle_id: number;
-  policyholder: string;
-//   insurance_id: number;
+  policyNumber: string;
+  insurance: {
+    id: number;
+    insuranceName: string;
+    insuranceType: string;
+    insuranceCompany: {
+      id: number;
+      companyName: string;
+    }
+  }
 }

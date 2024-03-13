@@ -1,8 +1,12 @@
-<h2>Vertragsdetails</h2>
-<p>Vertragsnummer: {{contract.policyNumber}}</p>
-<p>Vertragsnummer: {{contract.deductible}}</p>
-<p>Vertragsnummer: {{contract.policyNumber}}</p>
-<p>Vertragsnummer: {{contract.policyNumber}}</p>
-<p>Vertragsnummer: {{contract.policyNumber}}</p>
-<p>Vertragsnummer: {{contract.policyNumber}}</p>
-<p>Vertragsnummer: {{contract.policyNumber}}</p>
+<h1>Vertragsdetails</h1>
+<ul>
+    <li><span>Versicherungspartner:</span> {{contract.insurance.insuranceCompany.companyName}}</li>
+    <li><span>Versicherungtarif:</span> {{contract.insurance.insuranceName}}</li>
+    <li><span>Vertragsnummer:</span> {{contract.policyNumber}}</li>
+    <hr>
+    <li><span>Versicherungsbeginn:</span> {{contract.begin  | date:"dd.MM.yyyy"}}</li>
+    <li><span>Versicherungsart:</span> {{contract.insurance.insuranceType}}</li>
+    <li><span>Kilometer:</span> {{contract.contractDistance}} km</li>
+    <li><span>Selbstbeteiligung:</span> {{contract.deductible}} EUR</li>
+    <li><span>Versicherungskosten (jährlich):</span> {{contract.contractPrice}} EUR</li>
+</ul>
