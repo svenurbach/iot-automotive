@@ -14,10 +14,6 @@ import java.util.Date;
 @Getter
 @Setter
 public class AxisMeasurement extends Measurement {
-
-//    @Id @GeneratedValue
-//    private Integer id;
-
     private Float axisAngle;
 
     public AxisMeasurement() {

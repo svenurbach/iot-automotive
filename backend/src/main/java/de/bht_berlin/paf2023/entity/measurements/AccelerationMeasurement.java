@@ -14,15 +14,10 @@ import java.util.Date;
 @Getter
 @Setter
 public class AccelerationMeasurement extends Measurement {
-
-//    @Id @GeneratedValue
-//    private Integer id;
-
     private Integer acceleration;
 
     public AccelerationMeasurement() {
     }
-
 
     public AccelerationMeasurement(Date timestamp, int acceleration, Vehicle vehicle) {
         this.acceleration = acceleration;
