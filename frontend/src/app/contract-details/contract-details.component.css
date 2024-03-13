@@ -12,3 +12,11 @@ li {
     list-style-type: none;
     font-weight: bold;
 }
+
+.icon {
+    width: 50px;
+}
+
+.vehicle {
+    font-weight: bold;
+}

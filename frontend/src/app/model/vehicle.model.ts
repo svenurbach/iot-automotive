@@ -1,11 +1,11 @@
 export interface Vehicle   {
 
   id: number;
-  licensePlate: String;
+  licensePlate: string;
   vehicleModel: {
     modelName: string;
     constructionYear: number;
-    imgURL: String;
+    imgURL: string;
     manufacturer: string;
   }
 }
