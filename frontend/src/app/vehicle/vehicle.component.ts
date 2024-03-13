@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import {Vehicle} from "../model/vehicle.model";
 import {VehicleService} from "../service/vehicle.service";
 import {RouterLink} from "@angular/router";
+import {OsmViewComponent} from "../osm-view/osm-view.component";
 
 
 @Component({
   selector: 'app-vehicle',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, OsmViewComponent],
   templateUrl: './vehicle.component.html',
   styleUrl: './vehicle.component.css'
 })

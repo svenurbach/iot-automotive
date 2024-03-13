@@ -3,7 +3,7 @@ import {VehicleDetailsComponent} from "./vehicle-details/vehicle-details.compone
 import {RouterModule, Routes} from '@angular/router';
 import {TripComponent} from './trip/trip.component';
 import {HomeComponent} from './home/home.component';
-import {ContractOverviewComponent} from './insurance/contract-overview/contract-overview.component';
+import {ContractOverviewComponent} from './contract-overview/contract-overview.component';
 import {VehicleComponent} from './vehicle/vehicle.component';
 import {TripDetailComponent} from "./trip-detail/trip-detail.component";
 import {NgModule} from "@angular/core";

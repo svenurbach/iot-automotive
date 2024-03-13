@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Insurance } from '../../model/insurance.model';
-import { InsuranceService } from '../../service/insurance.service';
+import { Insurance } from '../model/insurance.model';
+import { InsuranceService } from '../service/insurance.service';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {ContractDetailsComponent} from '../contract-details/contract-details.component';
-import {OsmViewComponent} from '../../osm-view/osm-view.component';
+import {OsmViewComponent} from '../osm-view/osm-view.component';
 
 @Component({
   selector: 'app-contract-overview',
@@ -23,9 +23,9 @@ import {OsmViewComponent} from '../../osm-view/osm-view.component';
   styleUrl: './contract-overview.component.css'
 })
 export class ContractOverviewComponent {
-
   contracts: Insurance[] = [];
   selectedContractId = "0";
+  currentItem = 1;
 
   constructor(private insuranceService: InsuranceService) {
     this.getContracts();

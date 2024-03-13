@@ -36,7 +36,7 @@
     </div>
   </div>
   <div class="loc-pieChart">
-    <app-osm-view></app-osm-view>
+    <app-osm-view [carId]="vehicle.id" [visibleMap]="true"></app-osm-view>
     <div class="chart-container">
       <canvas id="MyChart"><p>{{ chart }}</p></canvas>
     </div>
