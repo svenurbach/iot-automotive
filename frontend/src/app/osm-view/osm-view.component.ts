@@ -15,10 +15,12 @@ import * as Leaflet from 'leaflet';
 
 export class OsmViewComponent {
   @Input() carId: number = 0;
+  @Input() visibleMap: boolean = false;
   location: { lat: number, lon: number } = { lat: 0, lon: 0 };
   address: any;
   options: Leaflet.MapOptions = {};
   showMap = false;
+
 
   constructor(private findmycarService: FindmycarService) {}
 
@@ -34,13 +36,15 @@ export class OsmViewComponent {
         this.location.lon = location[1];
         this.getAddress(this.location.lat, this.location.lon);
 
-        this.options = {
-          layers: getLayers(this.location.lat, this.location.lon),
-          zoom: 17,
-          attributionControl: false,
-          center: new Leaflet.LatLng(this.location.lat, this.location.lon)
-        };
-        this.showMap = true;
+        if (this.visibleMap) {
+          this.options = {
+            layers: getLayers(this.location.lat, this.location.lon),
+            zoom: 17,
+            attributionControl: false,
+            center: new Leaflet.LatLng(this.location.lat, this.location.lon)
+          };
+          this.showMap = true;
+        }
       });
   }
 

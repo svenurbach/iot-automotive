@@ -8,8 +8,7 @@
     <div class="vehicle-details-line">
     <p id="model-name">{{vehicle.vehicleModel.modelName}}</p>  <br>
     <div id="location">
-    <img src="assets/icons/location-dot-solid.svg">
-    <p>Standort</p>
+      <app-osm-view [carId]="vehicle.id" [visibleMap]="false"></app-osm-view>
     </div>
     </div>
     <div class="vehicle-details-line">

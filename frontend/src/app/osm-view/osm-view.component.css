@@ -1,10 +1,22 @@
 .openstreetmap {
   height: 200px;
-  aspect-ratio: 1;
-  border: gray 1px solid;
+  border: gray 2px solid;
+  margin: 0.5rem 0;
 }
 
 .icon {
   width: 20px;
-  height: 20px;
+  padding-right: 0.5rem;
+}
+
+.location {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.adress-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
