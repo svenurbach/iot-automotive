@@ -35,6 +35,14 @@ export class VehicleService {
     );
   }
 
+  getVehicleByContract(id: number): Observable<Vehicle> {
+    const url = `${this.url}/findByInsurance/${id}`;
+    return this.http.get<Vehicle>(url).pipe(
+      tap(_ => console.log(`fetched vehicle by insurance with id=${id}`)),
+      catchError(this.handleError<Vehicle>(`getVehicleByContract id=${id}`))
+    );
+  }
+
   getCarsByPerson(id: number): Observable<Vehicle[]> {
       const url = `${this.url}/findByPerson/${id}`;
       return this.http.get<Vehicle[]>(url).pipe(
