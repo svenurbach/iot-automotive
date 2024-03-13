@@ -5,6 +5,7 @@ import {catchError, map, tap} from 'rxjs/operators';
 import {Trip} from '../model/trip.model';
 import {FormControl} from "@angular/forms";
 import {Measurement} from "../model/measurement.model";
+import {Vehicle} from "../model/vehicle.model";
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +38,7 @@ export class TripService {
       queryString += `vehicleIds=${vehicleId}&`
     })
     if (datePickerStart && datePickerEnd) {
-      queryString += `?startTime=${datePickerStart.toISOString()}&endTime=${datePickerEnd.toISOString()}`
+      queryString += `startTime=${datePickerStart.toISOString()}&endTime=${datePickerEnd.toISOString()}`
     }
     console.log("dateParams", queryString)
     return this.http.get<Trip[]>(this.url + queryString).pipe(
@@ -52,6 +53,10 @@ export class TripService {
       tap((_) => this.log(`fetched trip id=${id}`)),
       catchError(this.handleError<Trip>(`getTrip id=${id}`))
     );
+  }
+
+  getVehicle(tripId: number): Observable<Vehicle> {
+    return this.http.get<Vehicle>(`${this.url}/findVehiclebyTripId/${tripId}`)
   }
 
   getTotalDistanceForTrip(id: number): Observable<number> {

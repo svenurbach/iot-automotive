@@ -2,6 +2,7 @@ package de.bht_berlin.paf2023.service;
 
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
+import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import de.bht_berlin.paf2023.entity.measurements.SpeedMeasurement;
 import de.bht_berlin.paf2023.handler.TripMeasurementHandler;
@@ -82,6 +83,9 @@ public class TripService implements MeasurementObserver {
         return repository.findAllByVehicleId(vehicleId);
     }
 
+    public Optional<Vehicle> findVehicleByTripId(long tripId) {
+        return repository.findVehicleByTripId(tripId);
+    }
 
     public List<Trip> findAllByVehicleId(long vehicleId, Date startDate, Date endDate) {
         return repository.findAllByVehicleIdAndDateRange(vehicleId, startDate, endDate);

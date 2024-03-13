@@ -76,7 +76,7 @@ public class StartupRunner implements ApplicationRunner {
         List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
 
         // call measurement controller to create measurements from hashmap
-        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
+//        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
 
         // instantiate strategy go segment trips from import
         SegmentTripsInDBStrategy segmentTripsInDBStrategy = new SegmentTripsInDBStrategy(tripRepo, measurementRepo);
@@ -90,22 +90,15 @@ public class StartupRunner implements ApplicationRunner {
         // set strategy
         service.changeTripHandlerStrategy(segmentTripsInDBStrategy);
         // call segment method on strategy
-        service.tripHandlerStrategy.addData(vehicleRepo.findAll());
+//        service.tripHandlerStrategy.addData(vehicleRepo.findAll());
 
         // instantiate and set new strategy
         HandleSingleTripStrategy handleSingleTripStrategy = new HandleSingleTripStrategy(tripRepo, measurementRepo);
         service.changeTripHandlerStrategy(handleSingleTripStrategy);
 
         // enable scheduler to continously read csv to simulate incoming measurement stream
-//        measurementCreationService.setSchedulerActive(true);
+        measurementCreationService.setSchedulerActive(true);
 
-//        MeasurementService measurementService = new MeasurementService();
-//        VehicleModelRepo
-
-//        Trip trip = tripRepo.getById(1L);
-//        tripMeasurementHandler.handle(trip);
-
-//        System.out.println("vehicleService.getVehicleModel(1L)");
 
     }
 

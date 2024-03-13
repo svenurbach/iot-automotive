@@ -89,7 +89,7 @@
     <div class="dates-container">
       <p class="single-date"><span class="date-type">Start</span>{{dateInYyyyMmDdHhMmSs(trip.trip_start)}}</p>
       <div class="date-divider"></div>
-      <p class="single-date"><span class="date-type">Start</span>{{dateInYyyyMmDdHhMmSs(trip.trip_end)}}</p>
+      <p class="single-date"><span class="date-type" *ngIf="trip.state == 'FINISHED'">Ende</span>{{dateInYyyyMmDdHhMmSs(trip.trip_end)}}</p>
     </div>
      <p>Status: <span class="trip-status">{{trip.state}}</span></p>
     </div>

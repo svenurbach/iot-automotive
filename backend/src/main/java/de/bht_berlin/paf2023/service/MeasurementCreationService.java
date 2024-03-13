@@ -39,7 +39,7 @@ public class MeasurementCreationService {
     }
 
     @Async
-    @Scheduled(fixedDelay = 3000) // Example: Execute every 10 seconds
+    @Scheduled(fixedDelay = 4000) // Example: Execute every 10 seconds
     @Transactional
     public void processCsvFile() {
         if (schedulerActive == false) {

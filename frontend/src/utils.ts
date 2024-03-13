@@ -2,19 +2,23 @@ import {Measurement} from "./app/model/measurement.model";
 
 export function dateInYyyyMmDdHhMmSs(date: Date, dateDiveder: string = "."): string {
   const dateFormat = new Date(date);
-  return (
-    [
-      padTwoDigits(dateFormat.getDate()),
-      padTwoDigits(dateFormat.getMonth() + 1),
-      dateFormat.getFullYear(),
-    ].join(dateDiveder) +
-    " " +
-    [
-      padTwoDigits(dateFormat.getHours()),
-      padTwoDigits(dateFormat.getMinutes()),
-      padTwoDigits(dateFormat.getSeconds()),
-    ].join(":")
-  );
+  if (date == null) {
+    return "";
+  } else {
+    return (
+      [
+        padTwoDigits(dateFormat.getDate()),
+        padTwoDigits(dateFormat.getMonth() + 1),
+        dateFormat.getFullYear(),
+      ].join(dateDiveder) +
+      " " +
+      [
+        padTwoDigits(dateFormat.getHours()),
+        padTwoDigits(dateFormat.getMinutes()),
+        padTwoDigits(dateFormat.getSeconds()),
+      ].join(":")
+    );
+  }
 }
 
 export function padTwoDigits(num: number): string {
