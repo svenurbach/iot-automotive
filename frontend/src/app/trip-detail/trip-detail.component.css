@@ -41,3 +41,8 @@ google-map {
   max-width: 80%;
   min-height: 400px
 }
+
+.trip-status {
+  text-transform: lowercase;
+  margin-left: 0.5em;
+}

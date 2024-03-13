@@ -1,10 +1,7 @@
-h1{
-  padding-left: 40px;
-}
 
 .vehicle-img {
-  width: 400px;
-  height: 300px;
+  width: 300px;
+  height: 200px;
   object-fit: cover;
   border-radius: 5px;
 }
@@ -16,23 +13,19 @@ h1{
   flex-direction: row;
 }
 
-.vehicle-details{
-  margin: 15px;
-  justify-content: center;
-}
 
-.vehicle-details-line{
+.vehicle-details-line {
   display: flex;
   justify-content: space-between;
   margin: 0;
 }
 
-#location{
+#location {
   display: flex;
   flex-direction: row;
 }
 
-.vehicle-details-line img{
+.vehicle-details-line img {
   width: 17px;
 }
 
@@ -40,11 +33,11 @@ p {
   margin: 5px 0 0 0;
 }
 
-#model-name{
+#model-name {
   font-weight: bold;
 }
 
-li{
+li {
   font-size: 20px;
 }
 

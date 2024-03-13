@@ -1,4 +1,42 @@
 /*!* You can add global styles to this file, and also import other style files *!*/
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+div.entity-card {
+  border: #e3e3e3 solid 1px;
+  border-radius: 5px;
+  padding: 1em;
+  width: 300px
+
+}
+
+div.entity-card:hover {
+  cursor: pointer;
+  border-color: #673ab7;
+  background-color: #f7f2ff;
+}
+
+p, label {
+  font-size: 0.9rem
+}
+
+h1 {
+  font-size: 1.8rem !important;
+  margin: 0 0 0.8em 0 !important;
+}
+
+ul.entity-grid {
+  list-style: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  padding: 0;
+  gap: 0.5em;
+}

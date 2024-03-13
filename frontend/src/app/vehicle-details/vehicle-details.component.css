@@ -1,6 +1,3 @@
-h1{
-  padding-left: 40px;
-}
 
 img {
   width: 500px;
@@ -9,36 +6,45 @@ img {
   border-radius: 5px;
 }
 
-.all-details{
+.all-details {
   display: flex;
   flex-direction: column;
 }
 
-.vehicle-details{
+.vehicle-details {
+  margin: 0.5em 0;
+
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   width: 100%;
+  border-bottom: #e3e3e3 1px solid;
 }
 
-label{
+label, .vehicle-details p {
+  margin: 0;
+  padding: 0 0.7em
+
+}
+
+label {
   font-weight: bold;
 }
 
-.loc-pieChart{
+.loc-pieChart {
   display: flex;
   flex-direction: column;
 }
 
-.upper-half{
+.upper-half {
   display: flex;
   flex-wrap: wrap;
 }
 
-app-osm-view{
+app-osm-view {
   margin: 0 30% 0 30%;
 }
 
-canvas{
+canvas {
   width: 700px;
 }

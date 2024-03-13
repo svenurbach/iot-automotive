@@ -66,10 +66,10 @@
   </div>
 </div>
 <h2>Alle Fahrten</h2>
-<ul class="trips-grid">
+<ul class="entity-grid">
   @for(trip of trips; track trip.id){
   <li>
-    <div class="trip-card" [routerLink]="['/trips', trip.id]">
+    <div class="entity-card" [routerLink]="['/trips', trip.id]">
       <google-map
        height="200px"
        width="300px"
@@ -87,9 +87,9 @@
         </google-map>
 
     <div class="dates-container">
-      <div class="single-date"><span class="date-type">Start</span>{{dateInYyyyMmDdHhMmSs(trip.trip_start)}}</div>
+      <p class="single-date"><span class="date-type">Start</span>{{dateInYyyyMmDdHhMmSs(trip.trip_start)}}</p>
       <div class="date-divider"></div>
-      <div class="single-date"><span class="date-type">Start</span>{{dateInYyyyMmDdHhMmSs(trip.trip_end)}}</div>
+      <p class="single-date"><span class="date-type">Start</span>{{dateInYyyyMmDdHhMmSs(trip.trip_end)}}</p>
     </div>
      <p>Status: <span class="trip-status">{{trip.state}}</span></p>
     </div>

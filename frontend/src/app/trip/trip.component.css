@@ -28,7 +28,7 @@ div.dates-container {
   gap: 2em;
 }
 
-div.single-date {
+p.single-date {
   margin: 1em 0;
   display: flex;
   flex-flow: row wrap;
@@ -74,17 +74,17 @@ ul.trips-grid {
   gap: 0.5em
 }
 
-div.trip-card {
-  border: #e3e3e3 solid 1px;
-  border-radius: 5px;
-  padding: 1em;
-}
+/*div.trip-card {*/
+/*  border: #e3e3e3 solid 1px;*/
+/*  border-radius: 5px;*/
+/*  padding: 1em;*/
+/*}*/
 
-div.trip-card:hover {
-  cursor: pointer;
-  border-color: #673ab7;
-  background-color: #f7f2ff;
-}
+/*div.trip-card:hover {*/
+/*  cursor: pointer;*/
+/*  border-color: #673ab7;*/
+/*  background-color: #f7f2ff;*/
+/*}*/
 
 p .trip-status {
   font-weight: bold;

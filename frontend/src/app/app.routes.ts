@@ -10,12 +10,12 @@ import {NgModule} from "@angular/core";
 
 export const routes: Routes = [
   // see index.html for start web page
-  {path: '', component: HomeComponent},
-  {path: 'dashboard', component: HomeComponent},
+  {path: '', component: VehicleComponent},
+  // {path: 'dashboard', component: HomeComponent},
   {path: 'insurance', component: ContractOverviewComponent},
-  {path: 'vehicle', component: VehicleComponent},
+  // {path: 'vehicle', component: VehicleComponent},
   {path: 'trips', component: TripComponent},
-  { path: 'vehicle/:id', component: VehicleDetailsComponent},
+  {path: 'vehicle/:id', component: VehicleDetailsComponent},
   {path: 'trips/:id', component: TripDetailComponent}
 ];
 
