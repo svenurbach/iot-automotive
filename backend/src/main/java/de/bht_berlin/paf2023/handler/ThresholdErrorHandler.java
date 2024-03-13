@@ -121,8 +121,6 @@ public class ThresholdErrorHandler implements MeasurementHandler {
             }
             setErrorOnMeasurement(measurementRepo, measurement, isError);
         }
-
-        System.out.println("ThresholdErrorHandler Method processMeasurement return");
         return measurement;
     }
 }

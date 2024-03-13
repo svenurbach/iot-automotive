@@ -61,8 +61,6 @@ public class MeasurementService {
                 return roundToTwoDecimalPlaces((double) ((AccelerationMeasurement) measurement).getAcceleration());
             case "AxisMeasurement":
                 return roundToTwoDecimalPlaces((double) ((AxisMeasurement) measurement).getAxisAngle());
-            case "FuelMeasurement":
-                return roundToTwoDecimalPlaces((double) ((FuelMeasurement) measurement).getFuelLevel());
             case "SpeedMeasurement":
                 return roundToTwoDecimalPlaces((double) ((SpeedMeasurement) measurement).getSpeed());
             case "SteeringWheelMeasurement":

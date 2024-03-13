@@ -3,8 +3,6 @@ package de.bht_berlin.paf2023.handler;
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
-import de.bht_berlin.paf2023.service.MeasurementService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.HashMap;
