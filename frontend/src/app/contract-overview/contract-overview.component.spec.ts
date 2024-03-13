@@ -1,22 +1,23 @@
-<p>insurance works!</p>
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ContractOverviewComponent } from './contract-overview.component';
 
+describe('ContractOverviewComponent', () => {
+  let component: ContractOverviewComponent;
+  let fixture: ComponentFixture<ContractOverviewComponent>;
 
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ContractOverviewComponent]
+    })
+    .compileComponents();
+    
+    fixture = TestBed.createComponent(ContractOverviewComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-<ul class="insurance">
-  @for (contract of contracts; track contract.id) {
-    <li>
-      {{contract.id}}
-    </li>
-    <li>
-      Policynumber; <span>{{contract.policyNumber}}</span>
-    </li>
-    <li>
-      dd; <span>{{contract.deductible}}</span>
-    </li>
-
-  }
-  @empty {
-    <span>Task list is empty</span>
-  }
-</ul>
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

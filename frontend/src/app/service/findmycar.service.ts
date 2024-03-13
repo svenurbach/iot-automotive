@@ -26,7 +26,10 @@ export class FindmycarService {
 
     getParkingLocation(vehicleId: number): Observable<Object> {
         const url = `${this.findCarUrl}/${vehicleId}`;
-        return this.http.get<Object>(url)
+        return this.http.get<Object>(url).pipe(
+          tap(_ => this.log(`fetched location by car`)),
+          catchError(this.handleError<Object>(`getParkingLocation by vehicleId`))
+        );
     }
 
     private handleError<T>(operation = 'operation', result?: T) {
