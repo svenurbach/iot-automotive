@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { SimpleChanges } from '@angular/core';
-import { Insurance } from '../../model/insurance.model';
-import { InsuranceService } from '../../service/insurance.service';
+import { Insurance } from '../model/insurance.model';
+import { InsuranceService } from '../service/insurance.service';
 
 @Component({
   selector: 'app-contract-details',

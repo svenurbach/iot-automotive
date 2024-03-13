@@ -3,3 +3,8 @@
   aspect-ratio: 1;
   border: gray 1px solid;
 }
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
