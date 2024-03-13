@@ -4,6 +4,7 @@ import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Person;
 import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.VehicleModel;
+import de.bht_berlin.paf2023.repo.InsuranceRepo;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.repo.VehicleModelRepo;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
@@ -21,12 +22,14 @@ public class VehicleService {
     private final VehicleRepo vehicleRepo;
     private final VehicleModelRepo vehicleModelRepo;
     private final MeasurementRepo measurementRepo;
+    private final InsuranceRepo insuranceRepo;
 
     @Autowired
-    public VehicleService(VehicleRepo vehicleRepo, VehicleModelRepo vehicleModelRepo, MeasurementRepo measurementRepo) {
+    public VehicleService(VehicleRepo vehicleRepo, VehicleModelRepo vehicleModelRepo, MeasurementRepo measurementRepo, InsuranceRepo insuranceRepo) {
         this.vehicleRepo = vehicleRepo;
         this.vehicleModelRepo = vehicleModelRepo;
         this.measurementRepo = measurementRepo;
+        this.insuranceRepo = insuranceRepo;
     }
 
 
@@ -57,6 +60,10 @@ public class VehicleService {
 
     public List<Vehicle> getVehiclesByPerson(Long personId) {
         return vehicleRepo.findByInsuranceContract_Policyholder(personId);
+    }
+
+    public Vehicle getCarByIncurance(Long insuranceId) {
+        return vehicleRepo.findByInsuranceContract(insuranceId);
     }
 
 }

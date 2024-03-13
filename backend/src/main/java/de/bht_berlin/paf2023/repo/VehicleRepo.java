@@ -23,4 +23,11 @@ public interface VehicleRepo extends JpaRepository<Vehicle, Long> {
             "WHERE p.id = :personId")
     List<Vehicle> findByInsuranceContract_Policyholder(@Param("personId") Long personId);
 
+    @Query("SELECT v " +
+            "FROM Vehicle v " +
+            "JOIN v.insuranceContract c " +
+            "JOIN c.policyholder p " +
+            "WHERE c.id = :insuranceId")
+    Vehicle findByInsuranceContract(Long insuranceId);
+
 }

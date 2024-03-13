@@ -5,6 +5,11 @@ export interface Insurance {
   contractPrice: number;
   deductible: number;
   policyNumber: string;
+  policyholder: {
+    id: number;
+    name: string;
+    dateOfBirth: Date;
+  }
   insurance: {
     id: number;
     insuranceName: string;

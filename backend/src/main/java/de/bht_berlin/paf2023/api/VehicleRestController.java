@@ -25,4 +25,10 @@ public class VehicleRestController {
         return vehicleService.getVehiclesByPerson(id);
 //        http://localhost:8080/api/vehicle/findByPerson/1
     }
+
+    @GetMapping(path = "/findByInsurance/{id}")
+    public Vehicle getCarByIncurance(@PathVariable Long id) {
+        return vehicleService.getCarByIncurance(id);
+//        http://localhost:8080/api/vehicle/findByInsurance/1
+    }
 }

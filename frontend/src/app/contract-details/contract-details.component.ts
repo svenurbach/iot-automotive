@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core'
-import { SimpleChanges } from '@angular/core';
 import { Insurance } from '../model/insurance.model';
+import { Vehicle } from '../model/vehicle.model';
 import { InsuranceService } from '../service/insurance.service';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { VehicleService } from '../service/vehicle.service';
 
 
 @Component({
@@ -16,14 +17,16 @@ import { DatePipe } from '@angular/common';
 export class ContractDetailsComponent {
 
   contract: Insurance = {} as Insurance;
+  vehicle: Vehicle = {} as Vehicle;
 
-  constructor(private route: ActivatedRoute, private insuranceService: InsuranceService) {
+  constructor(private route: ActivatedRoute, private insuranceService: InsuranceService, private vehicleService: VehicleService) {
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params['id'];
       this.getContract(id);
+      this.getVehicle(id);
     });
   }
 
@@ -33,6 +36,15 @@ export class ContractDetailsComponent {
         this.contract = data;
         console.log(data)
         console.log(this.contract)
+      });
+  }
+
+  getVehicle(id: number): void {
+    this.vehicleService.getVehicleByContract(id)
+      .subscribe((data) => {
+        this.vehicle = data;
+        console.log(data)
+        console.log(this.vehicle)
       });
   }
 }
