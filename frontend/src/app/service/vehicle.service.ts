@@ -70,7 +70,7 @@ export class VehicleService {
   }
 
   private log(message: string) {
-    // this.messageService.add(`InsuranceService: ${message}`);
+    // this.messageService.add(`VehicleService: ${message}`);
     console.log(`InsuranceService: ${message}`);
   }
 }
