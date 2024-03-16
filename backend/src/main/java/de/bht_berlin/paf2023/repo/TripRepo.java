@@ -36,8 +36,18 @@ public interface TripRepo extends JpaRepository<Trip, Long> {
             "AND m.timestamp = (SELECT MAX(m2.timestamp) FROM Measurement m2 WHERE m2.trip.id = (SELECT MIN(t.id) FROM Trip t WHERE t.state = 0 OR t.state = 1))")
     Optional<Measurement> findLatestMeasurementOfFirstUnfinishedTrip();
 
-    @Query("SELECT t FROM Trip t WHERE t.state = 0 OR t.state = 1 ORDER BY t.id ASC")
+//    @Query("SELECT t FROM Trip t WHERE t.state = 0 OR t.state = 1 ORDER BY t.id ASC")
+//    Trip findFirstUnfinishedTrip(Pageable pageable);
+
+    @Query("SELECT t FROM Trip t WHERE t.state = 0 OR t.state = 1 ORDER BY t.id ASC LIMIT 1")
     Trip findFirstUnfinishedTrip();
+
+
+    @Query("SELECT m.trip FROM Measurement m WHERE m.vehicle.id = :vehicleId AND m.trip.state = 0 OR m.trip.state = 1" +
+            " ORDER BY " +
+            "m" +
+            ".timestamp DESC")
+    Trip findCurrentTripByVehicleId(long vehicleId);
 
     @Query("SELECT DISTINCT m.trip FROM Measurement m " +
             "WHERE m.vehicle.id = :vehicleId " +

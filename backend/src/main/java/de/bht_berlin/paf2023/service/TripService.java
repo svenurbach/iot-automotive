@@ -11,7 +11,6 @@ import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.TripRepo;
 import de.bht_berlin.paf2023.strategy.TripHandlerStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -51,6 +50,10 @@ public class TripService implements MeasurementObserver {
 
     public static void endTrip(Trip trip, LocationMeasurement endLocation, MeasurementRepoSubject measurementRepo,
                                TripRepo repository) {
+        System.out.print("ending trip" + trip.getId() + endLocation.getTimestamp());
+        if (endLocation.getTimestamp().getTime() < trip.getTrip_start().getTime()) {
+            return;
+        }
         trip.setTrip_end(endLocation.getTimestamp());
         trip.setEnd_longitude(endLocation.getLongitude());
         trip.setEnd_latitude(endLocation.getLatitude());

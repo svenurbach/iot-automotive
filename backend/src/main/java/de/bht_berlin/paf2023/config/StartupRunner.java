@@ -72,7 +72,7 @@ public class StartupRunner implements ApplicationRunner {
 
         // read out csv file to create hashmap for batch measurement import
         List<List<String>> records =
-                MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test.csv");
+                MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test3.csv");
         List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
 
         // call measurement controller to create measurements from hashmap
@@ -90,7 +90,7 @@ public class StartupRunner implements ApplicationRunner {
         // set strategy
         service.changeTripHandlerStrategy(segmentTripsInDBStrategy);
         // call segment method on strategy
-//        service.tripHandlerStrategy.addData(vehicleRepo.findAll());
+        service.tripHandlerStrategy.addData(vehicleRepo.findAll());
 
         // instantiate and set new strategy
         HandleSingleTripStrategy handleSingleTripStrategy = new HandleSingleTripStrategy(tripRepo, measurementRepo);
