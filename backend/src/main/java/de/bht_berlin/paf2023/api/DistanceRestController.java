@@ -4,6 +4,7 @@ import de.bht_berlin.paf2023.service.DistanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+//todo delete
 @RestController
 @CrossOrigin
 @RequestMapping(path = "/trip")

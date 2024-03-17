@@ -8,7 +8,6 @@
 #logo:hover,
 #logo:active {
   color: #eee;
-
 }
 
 mat-sidenav {
@@ -50,14 +49,29 @@ mat-toolbar {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  padding-right: 2em;
+  padding: 0.0em 2em 0 0;
+  height: 80px
 }
 
-.personSelect {
-  margin: auto 0;
+#personSelect {
+  margin-top: 1em;
   background-color: transparent;
+  width: 300px
 }
 
-.personSelect div {
-  background-color: transparent !important;
+#menu-container {
+  display: flex;
+  margin: 0;
+  height: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#menu-container a {
+  margin: 0 0
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled), mat-select {
+  background-color: transparent !important
 }

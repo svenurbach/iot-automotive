@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+// todo delete this class
 @Service
 public class DistanceService {
     private final TripRepo repository;

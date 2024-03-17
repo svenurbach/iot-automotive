@@ -31,6 +31,13 @@ public class MeasurementControllerSingleton {
         this.measurementRepo = measurementRepo;
     }
 
+    /**
+     * create singleton instance
+     *
+     * @param vehicleRepo     vehicle repository
+     * @param measurementRepo measurement repositry
+     * @return return singleton instance
+     */
     public static MeasurementControllerSingleton getInstance(VehicleRepo vehicleRepo, MeasurementRepoSubject measurementRepo) {
         if (instance == null) {
             instance = new MeasurementControllerSingleton(vehicleRepo, measurementRepo);
@@ -38,8 +45,18 @@ public class MeasurementControllerSingleton {
         return instance;
     }
 
+    /**
+     * read out csv file and create a nested list of strings for each line of file
+     *
+     * @param file string path of csv file
+     * @return nested list of strings
+     */
     public List readFile(String file) {
         List<List<String>> records = new ArrayList<>();
+
+        /**
+         * read file line by line and add them as string array to list
+         */
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -54,15 +71,23 @@ public class MeasurementControllerSingleton {
         return records;
     }
 
+    /**
+     * create hashmap from readout
+     *
+     * @param readOuts nested list of strings
+     * @return hashmap containing values and keys from csv table header
+     */
     public List<HashMap> createHashMap(List<List<String>> readOuts) {
 
         List<String> keys = new ArrayList<>();
         List<HashMap> allReadOuts = new ArrayList<>();
 
+        // get keys of csv table header
         for (int i = 0; i < readOuts.get(0).size(); i++) {
             keys.add(readOuts.get(0).get(i));
         }
 
+        // get values from each line
         for (int i = 1; i < readOuts.size(); i++) {
             HashMap<String, String> valuesMeasured = new HashMap<>();
             for (int j = 0; j < keys.size(); j++) {
@@ -73,10 +98,19 @@ public class MeasurementControllerSingleton {
         return allReadOuts;
     }
 
+    /**
+     * parse date strings to date objects
+     *
+     * @param dateString string of date
+     * @return date object
+     */
     private static Date parseDateFromString(String dateString) {
         Date date = null;
-        String pattern = "yyyy-MM-dd HH:mm:ss"; // Use the pattern that matches your date string format
 
+        // define pattern for parsing
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+
+        // create new date object
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
             date = dateFormat.parse(dateString);
@@ -87,21 +121,35 @@ public class MeasurementControllerSingleton {
         return date;
     }
 
+    /**
+     * read out a csv file line by line and create measurement from each line
+     *
+     * @param file             string path to csv file
+     * @param columnHeaders    list of strings containing column headers
+     * @param currentLineIndex index of line to read from csv file
+     * @return
+     */
     public List<HashMap> readFileLineByLine(String file, List<String> columnHeaders, int currentLineIndex) {
         List<HashMap> readout = null;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
+            // initialize new list
             List<List<String>> valuesInList = new ArrayList<>();
+            // add column headers to list
             valuesInList.add(columnHeaders);
+
+            // set cursor
             for (int i = 0; i < currentLineIndex; i++) {
                 br.readLine();
             }
 
+            // add values of line to new list
             if ((line = br.readLine()) != null) {
                 List<String> values = Arrays.asList(line.split(DELIMITER));
                 valuesInList.add(values);
+
+                // initialize hashmap of list containing a line's values
                 readout = createHashMap(valuesInList);
-//                createMeasurementEntities(readout);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -111,6 +159,12 @@ public class MeasurementControllerSingleton {
         return readout;
     }
 
+    /**
+     * get column headers of a given csv file
+     *
+     * @param file string path to csv file
+     * @return list of string containng column headers
+     */
     public List<String> getCSVColumnHeaders(String file) {
         List<String> columnHeaders = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -124,16 +178,25 @@ public class MeasurementControllerSingleton {
         return columnHeaders;
     }
 
+    /**
+     * create measurement entites from a given list of hashmaps
+     *
+     * @param readOuts list of hashmap containing one measurement
+     */
     public void createMeasurementEntities(List<HashMap> readOuts) {
 
-
+        // iterate through list of hashmaps
         for (int i = 0; i < readOuts.size(); i++) {
 
+            // create date object for timestamp
             Date timestamp = parseDateFromString(readOuts.get(i).get("Timestamp").toString());
 
+            // parse vehicle id
             Long vehicleid = Long.valueOf((readOuts.get(i).get("Vehicle").toString()));
+            // retrieve the vehicle from repo
             Vehicle existingVehicle = this.vehicleRepo.getById(vehicleid);
 
+            // create measurement type according to key and set value along with vehicle and timestamp
             if (readOuts.get(i).get("Latitude") != null) {
                 List<Float> location = new ArrayList<>();
                 location.add(Float.parseFloat(readOuts.get(i).get("Latitude").toString()));
@@ -165,10 +228,6 @@ public class MeasurementControllerSingleton {
                         "Steering").toString()),
                         existingVehicle));
             }
-
-//            tire pressures
-//            pedal measurements
-
         }
     }
 }

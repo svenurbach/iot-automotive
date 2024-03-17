@@ -2,8 +2,6 @@ package de.bht_berlin.paf2023.repo;
 
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
-import de.bht_berlin.paf2023.entity.Vehicle;
-import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import de.bht_berlin.paf2023.observer.MeasurementObserver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,7 +17,7 @@ public class MeasurementRepoSubject {
     @Autowired
     private MeasurementRepo measurementRepo;
 
-//    public List<Measurement> findByVehicle_new(Vehicle vehicle) {
+    //    public List<Measurement> findByVehicle_new(Vehicle vehicle) {
 //        return measurementRepo.findMeasurements_Vehicle(vehicle);
 //    }
 //
@@ -30,6 +28,52 @@ public class MeasurementRepoSubject {
 //        return measurementRepo.findAllMeasurementsFromVehicleWithError(id, error);
 //    }
 
+
+    public void addObserver(MeasurementObserver observer) {
+        observers.add(observer);
+    }
+
+
+    public void removeObserver(MeasurementObserver observer) {
+        observers.remove(observer);
+    }
+
+    /**
+     * saves measurement to repo and notifies injectjed observers
+     *
+     * @param measurement measurement object to be saved to db
+     */
+    public void addMeasurement(Measurement measurement) {
+        measurementRepo.save(measurement);
+        notifyObservers(measurement);
+    }
+
+    public void updateMeasurement(Measurement measurement) {
+        measurementRepo.save(measurement);
+    }
+
+    public Measurement findLastLocationMeasurementByTripId(long tripId) {
+        return measurementRepo.findLastLocationMeasurementByTripId(tripId);
+    }
+
+    private void notifyObservers(Measurement newMeasurement) {
+        for (MeasurementObserver observer : observers) {
+            observer.updateMeasurement(newMeasurement);
+        }
+    }
+
+    public void setIsError(Measurement measurement, boolean isError) {
+        measurement.setIsError(isError);
+        measurementRepo.save(measurement);
+    }
+
+    /***
+     *  forwarding calls to Measurement Repo and passing back return values to calling method
+     * */
+
+    public long getTotalMeasurementCount() {
+        return measurementRepo.count();
+    }
 
     public List<Measurement> findByVehicle(long vehicleId) {
         return measurementRepo.findByVehicle(vehicleId);
@@ -60,7 +104,6 @@ public class MeasurementRepoSubject {
         return measurementRepo.findLastMeasurementByTripId(tripId);
     }
 
-
     public List<Measurement> findByMeasurementType(String measurementType) {
         return measurementRepo.findMeasurementType(measurementType);
     }
@@ -72,42 +115,5 @@ public class MeasurementRepoSubject {
 
     public List<Measurement> findMeasurementTypeInTrip(String measurementType, long trip) {
         return measurementRepo.findMeasurementTypeInTrip(measurementType, trip);
-    }
-
-    public void addObserver(MeasurementObserver observer) {
-        observers.add(observer);
-    }
-
-    public void removeObserver(MeasurementObserver observer) {
-        observers.remove(observer);
-    }
-
-    public void addMeasurement(Measurement measurement) {
-        measurementRepo.save(measurement);
-        notifyObservers(measurement);
-    }
-
-
-    public void updateMeasurement(Measurement measurement) {
-        measurementRepo.save(measurement);
-    }
-
-    public Measurement findLastLocationMeasurementByTripId(long tripId) {
-        return measurementRepo.findLastLocationMeasurementByTripId(tripId);
-    }
-
-    private void notifyObservers(Measurement newMeasurement) {
-        for (MeasurementObserver observer : observers) {
-            observer.updateMeasurement(newMeasurement);
-        }
-    }
-
-    public long getTotalMeasurementCount() {
-        return measurementRepo.count();
-    }
-
-    public void setIsError(Measurement measurement, boolean isError) {
-        measurement.setIsError(isError);
-        measurementRepo.save(measurement);
     }
 }
