@@ -64,11 +64,11 @@ public class StartupRunner implements ApplicationRunner {
         dataSet.put("insurance", 10L);
         dataSet.put("vehicle_model", 10L);
         dataSet.put("vehicle", 10L);
-        dataSet.put("trip", 10L);
+//        dataSet.put("trip", 10L);
         dataSet.put("contract", 10L);
 
         //call faker to create dummy set
-//        iService.generateDummyDataSet(dataSet);
+        iService.generateDummyDataSet(dataSet);
 
         // read out csv file to create hashmap for batch measurement import
         List<List<String>> records =

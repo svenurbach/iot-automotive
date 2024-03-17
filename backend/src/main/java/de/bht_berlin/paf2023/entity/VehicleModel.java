@@ -19,8 +19,6 @@ public class VehicleModel extends IdentifiedEntity {
 
     private Float weight;
 
-    private String fuelType;
-
     private Float maxSpeed;
 
     private Float maxAcceleration;

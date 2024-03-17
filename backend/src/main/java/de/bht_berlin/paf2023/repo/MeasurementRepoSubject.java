@@ -104,6 +104,7 @@ public class MeasurementRepoSubject {
 
     public void setIsError(Measurement measurement, boolean isError) {
         measurement.setIsError(isError);
+        System.out.println("SETTING ERROR BEFORE SAVE");
         measurementRepo.save(measurement);
     }
 }

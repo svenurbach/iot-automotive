@@ -7,7 +7,7 @@ import de.bht_berlin.paf2023.service.MeasurementService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.stream.IntStream;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ComparitiveListErrorHandler implements MeasurementHandler {
     private MeasurementHandler nextHandler;
@@ -40,68 +40,85 @@ public class ComparitiveListErrorHandler implements MeasurementHandler {
 
     @Override
     public void handle(HashMap<String, ArrayList<Measurement>> hashMap) {
+        AtomicInteger measurementcounter = new AtomicInteger();
         System.out.println("ComparitiveListErrorHandler");
-        comparativeValuesArraySize = 3;
-        HashMap<String, ArrayList<Measurement>> processedHashMap = new HashMap<>();
-        System.out.println("Hashmap: " + hashMap);
-        ArrayList<Double> measurementArrayInDouble = new ArrayList<>();
-        hashMap.keySet().forEach((type) -> {
-            measurementArrayInDouble.addAll(measurementService.parseMeasurementArrayToDouble(hashMap.get(type)));
-            System.out.println("hashMap.get(type): " + hashMap.get(type));
-        });
-        hashMap.keySet().forEach((type) -> {
-            // get individual tolerance
-            switch (type){
-                case "SpeedMeasurement": tolerance = hashMap.get(type).get(0).getVehicle().getVehicleModel().getSpeedTolerance();
-                    break;
-                case "AccelerationMeasurement": tolerance = hashMap.get(type).get(0).getVehicle().getVehicleModel().getAccelerationTolerance();
-                    break;
-                case "LocationMeasurement": tolerance = hashMap.get(type).get(0).getVehicle().getVehicleModel().getLocationTolerance();
-                    break;
-//                case "AxisMeasurement": tolerance = hashMap.get(type).get(0).getVehicle().getVehicleModel().getAxisTolerance();
-//                break;
-//                case "SteeringWheelMeasurement": tolerance = hashMap.get(type).get(0).getVehicle().getVehicleModel().getSteeringWheelTolerance();
-//                break;
-            }
 
-            if (measurementArrayInDouble.size() < comparativeValuesArraySize) {
-                System.out.println("Nicht genügend Werte im Array, um Messfehler zu identifizieren" + " " + type + " " + measurementArrayInDouble.size());
-                return;
+        comparativeValuesArraySize = 3;
+//        HashMap<String, ArrayList<Measurement>> processedHashMap = new HashMap<>();
+//        ArrayList<Double> measurementArrayInDouble = new ArrayList<>();
+
+//        hashMap.keySet().forEach((type) -> {
+//            measurementArrayInDouble.addAll(measurementService.parseMeasurementArrayToDouble(hashMap.get(type)));
+//            System.out.println("hashMap.get(type): " + hashMap.get(type));
+//        });
+
+        hashMap.keySet().forEach((type) -> {
+            HashMap<String, ArrayList<Measurement>> processedHashMap = new HashMap<>();
+            ArrayList<Double> measurementArrayInDouble = new ArrayList<>();
+            // get individual tolerance
+            switch (type) {
+                case "SpeedMeasurement":
+                    tolerance = hashMap.get(type).get(0).getVehicle().getVehicleModel().getSpeedTolerance();
+                    break;
+                case "AccelerationMeasurement":
+                    tolerance = hashMap.get(type).get(0).getVehicle().getVehicleModel().getAccelerationTolerance();
+                    break;
+                case "LocationMeasurement":
+                    tolerance = hashMap.get(type).get(0).getVehicle().getVehicleModel().getLocationTolerance();
+                    break;
+                case "AxisMeasurement":
+                    tolerance = hashMap.get(type).get(0).getVehicle().getVehicleModel().getAxisTolerance();
+                    break;
+                case "SteeringWheelMeasurement":
+                    tolerance = hashMap.get(type).get(0).getVehicle().getVehicleModel().getSteeringWheelTolerance();
+                    break;
             }
+            measurementArrayInDouble.addAll(measurementService.parseMeasurementArrayToDouble(hashMap.get(type)));
+//            System.out.println("hashMap.get(type): " + hashMap.get(type));
+            if (measurementArrayInDouble.size() < comparativeValuesArraySize) {
+                System.out.println("Nicht genügend Werte im Array, um Messfehler zu identifizieren");
+                return;
+            } else {
             ArrayList<Double> comparativeValuesArrayPast = new ArrayList<>();
             ArrayList<Double> comparativeValuesArrayFuture = new ArrayList<>();
+//            IntStream.range(0, hashMap.get(type).size()).forEach(i -> {
+            for (int i = 0; i < hashMap.get(type).size(); i++){
+                System.out.println("measurementcounter: " + measurementcounter + " " + " " + hashMap.get(type).get(i).getId());
 
-            IntStream.range(0, hashMap.get(type).size()).forEach(i -> {
+                measurementcounter.getAndIncrement();
+
                 // ignore Measurement with error
-                if (hashMap.get(type).get(i).getIsError() != null && hashMap.get(type).get(i).getIsError()) {
-//                    continue;
-                } else {
+                if (hashMap.get(type).get(i).getIsError() == null || !hashMap.get(type).get(i).getIsError()) {
+//                    System.out.println("Measurement Type: " +  hashMap.get(type).get(i).getMeasurementType());
                     ArrayList<Boolean> hasError = new ArrayList<>();
-                if (i >= comparativeValuesArraySize) {
-                    boolean isError =  measurementService.findErrorInPastArray(i, hashMap.get(type), measurementArrayInDouble, tolerance,
-                            comparativeValuesArrayPast, comparativeValuesArraySize);
-                    hasError.add(isError);
-                    System.out.println("isError past " + isError);
-                }
                     if (i >= 0 && i < hashMap.get(type).size() - comparativeValuesArraySize) {
-                        boolean isError = measurementService.findErrorInFutureArray(i, hashMap.get(type), measurementArrayInDouble, tolerance,
-                                comparativeValuesArrayFuture, comparativeValuesArraySize);
+                        boolean isError = measurementService.findErrorInFutureArray(i, hashMap.get(type), measurementArrayInDouble,
+                                tolerance, comparativeValuesArrayFuture, comparativeValuesArraySize);
                         hasError.add(isError);
-                        System.out.println(comparativeValuesArrayFuture);
                         System.out.println("isError future " + isError);
-
+//                        System.out.println("comparativeValuesArrayFuture: " + comparativeValuesArrayFuture);
+                    }
+                    if (i >= comparativeValuesArraySize) {
+                        boolean isError = measurementService.findErrorInPastArray(i, hashMap.get(type), measurementArrayInDouble,
+                                tolerance, comparativeValuesArrayPast, comparativeValuesArraySize);
+                        hasError.add(isError);
+                        System.out.println("isError past " + isError);
+//                        System.out.println("comparativeValuesArrayPast: " + comparativeValuesArrayPast);
                     }
                     boolean hasAtLeastOneError = false;
-                    for (boolean isError: hasError) {
-                        if (isError == true){
+                    for (boolean isError : hasError) {
+                        if (isError) {
                             hasAtLeastOneError = true;
-//                            System.out.println("isError = true " + );
                         }
-                    }                    setErrorOnMeasurement(measurementRepo, hashMap.get(type).get(i), hasAtLeastOneError);
+                    }
+                    setErrorOnMeasurement(measurementRepo, hashMap.get(type).get(i), hasAtLeastOneError);
                     processedHashMap.put(type, hashMap.get(type));
-                }
-            });
-            System.out.println("ComparitiveListErrorHandler Ende");
+                    System.out.println("Error 10");
+                } else {
+                    continue;
+                }}
+            }
+            measurementArrayInDouble.clear();
         });
     }
 }
