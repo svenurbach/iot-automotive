@@ -1,6 +1,7 @@
 package de.bht_berlin.paf2023.api;
 
 import de.bht_berlin.paf2023.entity.Trip;
+import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.repo.TripRepo;
 import de.bht_berlin.paf2023.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,7 @@ public class TripController {
     @GetMapping(path = "/findAll")
     public List<Trip> getAllTrips() {
         return tripService.getAllTrips();
-//        http://localhost:8080/api/trips/findAll
     }
-
-//    @GetMapping(path = "/findAll/{vehicleId}")
-//    public List<Trip> getAllTripsByVehicle(@PathVariable Long vehicleId) {
-//        return tripService.getAllTripsByVehicle(vehicleId);
-//    }
 
     @GetMapping(path = "/{id}")
     public Optional<Trip> getTrip(@PathVariable Long id) {
@@ -77,5 +72,9 @@ public class TripController {
         }
     }
 
+    @GetMapping(path = "/findVehiclebyTripId/{id}")
+    public Optional<Vehicle> findVehicleByTripId(@PathVariable Long id) {
+        return tripService.findVehicleByTripId(id);
+    }
 }
 

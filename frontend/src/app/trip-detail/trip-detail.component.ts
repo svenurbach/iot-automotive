@@ -1,16 +1,18 @@
 import {Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
 import * as utils from "../../utils";
 import {Measurement} from "../model/measurement.model";
 import {TripService} from "../service/trip.service";
 import {Trip} from "../model/trip.model";
 import {GoogleMapsModule} from '@angular/google-maps'
+import {Vehicle} from "../model/vehicle.model";
 
 
 @Component({
   selector: 'app-trip-detail',
   standalone: true,
-  imports: [GoogleMapsModule],
+  imports: [GoogleMapsModule, CommonModule],
   templateUrl: './trip-detail.component.html',
   styleUrl: './trip-detail.component.css'
 })
@@ -30,6 +32,9 @@ export class TripDetailComponent {
     trip_path: Object[] = [];
     trip_start: Date = new Date(0);
   };
+  vehicleId: number = 0;
+  vehicleModelName: string = "";
+  vehicleModelManufacturer: string = "";
   tripPath: Array<Object> = [];
   startAddress: any = {};
   endAddress: any = {};
@@ -104,7 +109,19 @@ export class TripDetailComponent {
             this.endAddress = addressData.results[0];
           });
       }
+      this.getVehicle();
+
     });
+  }
+
+  getVehicle() {
+    this.tripService.getVehicle(this.trip.id).subscribe((data) => {
+      console.log(this.trip.id)
+      console.log(data)
+      this.vehicleId = data.id;
+      this.vehicleModelName = data.vehicleModel.modelName;
+      this.vehicleModelManufacturer = data.vehicleModel.manufacturer;
+    })
   }
 
   getPolyLineOptions(): Object {

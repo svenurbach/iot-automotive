@@ -1,17 +1,25 @@
 <h1 id="top">Fahrt <span class="trip-status">{{trip.state}}</span></h1>
+
 <div class="start-end-container">
+  <div class="car-model">
+    <div class="img-container">
+      <img src="assets/icons/car-solid.svg" width="50px">
+    </div>
+    <h3>{{vehicleModelManufacturer}} {{vehicleModelName}}</h3>
+  </div>
   <div
     class="start-end-point"><h2>Start: {{dateInYyyyMmDdHhMmSs(trip.trip_start)}}</h2>
     <div class="address">
       <p>{{getAddress("start")}}</p>
     </div>
   </div>
-  <div class="start-end-point"><h2>Ende: {{dateInYyyyMmDdHhMmSs(trip.trip_end)}}</h2>
+  <div class="start-end-point" *ngIf="trip.state == 'FINISHED'"><h2>Ende: {{dateInYyyyMmDdHhMmSs(trip.trip_end)}}</h2>
     <div class="address">
       <p>{{getAddress("end")}}</p>
     </div>
   </div>
 </div>
+
 <div class="trip-inner-details">
   <div class="outer-maps-container">
     <google-map
@@ -30,28 +38,30 @@
         [options]="getPolyLineOptions()"></map-polyline>
     </google-map>
   </div>
-  <div class="trip-stats">
-    <div class="trip-stat-column">
-      <div class="img-container">
-        <img src="assets/icons/ruler-horizontal-solid.svg" width="50px">
-      </div>
-      <div class="stacked-stat"><h2>{{distance.toFixed(2)}} km</h2>
-      </div>
 
+  <div class="trip-stats">
+    <h2 class="regular-size">Statistik</h2>
+    <div class="trip-stat-inner-container">
+      <div class="trip-stat-column">
+        <div class="img-container">
+          <img src="assets/icons/ruler-horizontal-solid.svg" width="50px">
+        </div>
+        <div class="stacked-stat"><h3>{{distance.toFixed(2)}} km</h3>
+        </div>
+      </div>
       <div class="trip-stat-column">
         <div class="img-container">
           <img src="assets/icons/clock-solid.svg" width="50px">
         </div>
         <div class="stacked-stat">
-          <h2>{{convertDuration(duration)}}</h2>
+          <h3>{{convertDuration(duration)}}</h3>
         </div>
       </div>
-
       <div class="trip-stat-column">
         <div class="img-container">
           <img src="assets/icons/gauge-high-solid.svg" width="50px">
         </div>
-        <h2>&empty;{{average_speed.toFixed(1)}} km/h</h2>
+        <h3>&empty;{{average_speed.toFixed(1)}} km/h</h3>
       </div>
     </div>
   </div>

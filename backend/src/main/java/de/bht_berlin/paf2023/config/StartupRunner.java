@@ -72,11 +72,11 @@ public class StartupRunner implements ApplicationRunner {
 
         // read out csv file to create hashmap for batch measurement import
         List<List<String>> records =
-                MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test.csv");
+                MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test3.csv");
         List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
 
         // call measurement controller to create measurements from hashmap
-        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
+//        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
 
         // instantiate strategy go segment trips from import
         SegmentTripsInDBStrategy segmentTripsInDBStrategy = new SegmentTripsInDBStrategy(tripRepo, measurementRepo);
@@ -97,15 +97,8 @@ public class StartupRunner implements ApplicationRunner {
         service.changeTripHandlerStrategy(handleSingleTripStrategy);
 
         // enable scheduler to continously read csv to simulate incoming measurement stream
-//        measurementCreationService.setSchedulerActive(true);
+        measurementCreationService.setSchedulerActive(true);
 
-//        MeasurementService measurementService = new MeasurementService();
-//        VehicleModelRepo
-
-//        Trip trip = tripRepo.getById(1L);
-//        tripMeasurementHandler.handle(trip);
-
-//        System.out.println("vehicleService.getVehicleModel(1L)");
 
     }
 

@@ -1,12 +1,21 @@
-<!--<h1>Hello, {{ title }} for VFH Patterns and Framsworks</h1>-->
-<!--<p>Congratulations! Your app is running. 🎉</p>-->
 <header>
   <mat-toolbar color="primary">
-    <button (click)="showMenu=!showMenu" mat-icon-button class="example-icon"
-            aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span><a href="/" id="logo" title="Back to home"> {{ title }}</a></span>
+    <div>
+      <button (click)="showMenu=!showMenu" mat-icon-button class="example-icon"
+              aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span><a href="/" id="logo" title="Back to home"> {{ title }}</a></span>
+    </div>
+    <mat-form-field class="personSelect">
+      <mat-label>Versicherungshalter auswählen:</mat-label>
+      <mat-select [(value)]="policyholderSelection" (selectionChange)="onPolicyholderSelected($event)">
+        @for(policyholder of policyholders; track policyholder){
+        <mat-option [value]="policyholder">{{policyholder}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
   </mat-toolbar>
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">

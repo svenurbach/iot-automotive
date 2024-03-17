@@ -9,6 +9,7 @@ import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.TripRepo;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -39,13 +40,13 @@ public class MeasurementCreationService {
     }
 
     @Async
-    @Scheduled(fixedDelay = 3000) // Example: Execute every 10 seconds
+    @Scheduled(fixedDelay = 4000) // Example: Execute every 10 seconds
     @Transactional
     public void processCsvFile() {
         if (schedulerActive == false) {
             return;
         }
-        String file = "test.csv";
+        String file = "test3.csv";
         if (columnHeaders == null) {
             columnHeaders =
                     MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).getCSVColumnHeaders(file);
@@ -57,7 +58,6 @@ public class MeasurementCreationService {
             MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(readout);
         } else {
             Trip unfinishedTrip = tripRepo.findFirstUnfinishedTrip();
-
             if (unfinishedTrip == null) {
                 schedulerActive = false;
             } else {
@@ -65,6 +65,7 @@ public class MeasurementCreationService {
                 Date currentDate = new Date();
                 Date measurementDate = lastMeasurement.getTimestamp();
                 if ((currentDate.getTime() - measurementDate.getTime()) > 1000 * 60 * 60) {
+                    System.out.println("Ending trip from scheduler");
                     long vehicleId = lastMeasurement.getVehicle().getId();
                     LocationMeasurement lastLocation = (LocationMeasurement)
                             measurementRepo.findLastLocationMeasurementByVehicleId(vehicleId);

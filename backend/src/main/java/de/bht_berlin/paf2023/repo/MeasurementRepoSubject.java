@@ -47,6 +47,11 @@ public class MeasurementRepoSubject {
         return measurementRepo.findLastLocationMeasurementByVehicleId(vehicleId);
     }
 
+    public Measurement findLastLocationBeforeNewMeasurement(long vehicleId,
+                                                            Measurement newMeasurement) {
+        return measurementRepo.findLastLocationBeforeNewMeasurement(vehicleId, newMeasurement);
+    }
+
     public Trip findLastTripByVehicleId(long vehicleId) {
         return measurementRepo.findLastTripByVehicleId(vehicleId);
     }
@@ -81,7 +86,6 @@ public class MeasurementRepoSubject {
         measurementRepo.save(measurement);
         notifyObservers(measurement);
     }
-
 
 
     public void updateMeasurement(Measurement measurement) {

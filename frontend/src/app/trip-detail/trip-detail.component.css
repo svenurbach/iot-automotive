@@ -1,12 +1,28 @@
-div.trip-stats h2 {
+div.top-bar {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+div.car-model {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+div.trip-stats h3 {
   margin: 0;
   font-size: 16px;
+}
+
+div.trip-stats h2 {
+  text-align: center;
 }
 
 div.start-end-container {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 3em;
 }
 
 div.start-end-point {
@@ -16,15 +32,31 @@ div.start-end-point {
 div.trip-stats {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: flex-start;
-  gap: 45px
+  justify-content: center;
+
 }
 
 div.trip-inner-details {
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
-  gap: 45px
+  gap: 30px;
+  max-width: 950px;
+}
+
+div.trip-stat-inner-container {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  gap: 35px
+}
+
+div.trip-stat-column {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
 google-map {
@@ -44,5 +76,4 @@ google-map {
 
 .trip-status {
   text-transform: lowercase;
-  margin-left: 0.5em;
 }

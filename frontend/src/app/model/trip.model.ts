@@ -1,4 +1,5 @@
 import {Measurement} from "./measurement.model";
+import {Vehicle} from "./vehicle.model";
 
 export interface Trip {
   id: number;
