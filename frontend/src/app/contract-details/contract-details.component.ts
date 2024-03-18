@@ -6,7 +6,6 @@ import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { VehicleService } from '../service/vehicle.service';
 
-
 @Component({
   selector: 'app-contract-details',
   standalone: true,
@@ -18,6 +17,8 @@ export class ContractDetailsComponent {
 
   contract: Insurance = {} as Insurance;
   vehicle: Vehicle = {} as Vehicle;
+  contractIsLoaded=false;
+  vehicleIsLoaded=false;
 
   constructor(private route: ActivatedRoute, private insuranceService: InsuranceService, private vehicleService: VehicleService) {
   }
@@ -35,7 +36,7 @@ export class ContractDetailsComponent {
       .subscribe((data) => {
         this.contract = data;
         console.log(data)
-        console.log(this.contract)
+        this.contractIsLoaded=true;
       });
   }
 
@@ -44,7 +45,7 @@ export class ContractDetailsComponent {
       .subscribe((data) => {
         this.vehicle = data;
         console.log(data)
-        console.log(this.vehicle)
+        this.vehicleIsLoaded=true;
       });
   }
 }

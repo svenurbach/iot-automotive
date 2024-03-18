@@ -27,8 +27,6 @@ public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
     @Query("SELECT m FROM Measurement m WHERE m.vehicle.id = :vehicleId")
     List<Measurement> findByVehicle(long vehicleId);
 
-//    List<Measurement> findMeasurements_Vehicle(Vehicle car);
-
     @Query("SELECT m FROM Measurement m WHERE m.measurementType = :measurementType")
     List<Measurement> findMeasurementType(String measurementType);
 
@@ -44,27 +42,35 @@ public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
     @Query("SELECT m FROM Measurement m WHERE m.trip.id = :tripId")
     List<Measurement> getAllMeasurementsFromTrip(long tripId);
 
-
-//    acceleration, axis_angle, back_left_tire, back_right_tire, front_left_tire, front_right_tire, fuel_level, speed, steering_wheel_angle
-
     @Query("SELECT m FROM Measurement m WHERE m.vehicle.id = :vehicleId ORDER BY m.timestamp DESC")
     List<Measurement> findLastMeasurementByVehicleId(long vehicleId, Pageable pageable);
+
+    @Query("SELECT m.trip FROM Measurement m WHERE m.vehicle.id = :vehicleId ORDER BY m.timestamp DESC LIMIT 1")
+    Trip findLastTripByVehicleId(long vehicleId);
+
+    @Query("SELECT m FROM Measurement m WHERE m.trip.id = :tripId ORDER BY m.timestamp DESC LIMIT 1")
+    Measurement findLastMeasurementByTripId(long tripId);
 
     default Measurement findLastMeasurementByVehicleId(long vehicleId) {
         List<Measurement> measurements = findLastMeasurementByVehicleId(vehicleId, PageRequest.of(0, 1));
         return measurements.isEmpty() ? null : measurements.get(0);
     }
 
-
+    /**
+     * finds last measurement of a given vehicle prior to the current measurement. Checks looking for measurement
+     * id lower than current measurement id
+     *
+     * @param vehicleId          vehicle id as long
+     * @param currentMeasurement current measurement
+     * @return last measurement
+     */
     default Measurement findLastMeasurementBeforeCurrent(long vehicleId, Measurement currentMeasurement) {
         long currentId = currentMeasurement.getId();
 
-        // Retrieve measurements for the specified vehicle with IDs less than the current measurement's ID
         List<Measurement> measurements = findMeasurementsByVehicleIdAndIdLessThan(
                 vehicleId, currentId, PageRequest.of(0, 2, Sort.by(Sort.Direction.DESC, "timestamp"))
         );
 
-        // Return the last measurement from the filtered list
         return measurements.isEmpty() ? null : measurements.get(measurements.size() - 1);
     }
 
@@ -72,7 +78,13 @@ public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
             long vehicleId, long currentId, Pageable pageable
     );
 
-
+    /**
+     * finds last measurements with measurement type LocationMeasurement of a given vehicle id
+     *
+     * @param vehicleId vehicle id as long
+     * @param pageable  amount of measurements to be returned
+     * @return last location measurement
+     */
     @Query("SELECT m FROM Measurement m WHERE m.vehicle.id = :vehicleId AND m.measurementType = 'LocationMeasurement' ORDER BY m.timestamp DESC")
     List<Measurement> findLastLocationMeasurementByVehicleId(long vehicleId, Pageable pageable);
 
@@ -81,6 +93,16 @@ public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
         return measurements.isEmpty() ? null : measurements.get(0);
     }
 
+    /**
+     * finds last measurements with measurement type LocationMeasurement of a given vehicle id prior to current
+     * location measurement
+     * measurement
+     *
+     * @param vehicleId vehicle id as long
+     * @param timestamp timestamp of current measurement
+     * @param pageable  amount of measurements to be returned
+     * @return last location measurement
+     */
     @Query("SELECT m FROM Measurement m WHERE m.vehicle.id = :vehicleId AND m.measurementType = 'LocationMeasurement' AND m.timestamp < :timestamp ORDER BY m.timestamp DESC")
     List<Measurement> findLastLocationBeforeNewMeasurement(long vehicleId, Date timestamp, Pageable pageable);
 
@@ -90,6 +112,13 @@ public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
         return measurements.isEmpty() ? null : measurements.get(0);
     }
 
+    /**
+     * finds last measurement with measurement type LocationMeasurement of a given trip
+     *
+     * @param tripId   trip id as long
+     * @param pageable amount of measurements to be returned
+     * @return last location measurement
+     */
 
     @Query("SELECT m FROM Measurement m WHERE m.trip.id = :tripId AND m.measurementType = 'LocationMeasurement' ORDER" +
             " BY m.timestamp DESC")
@@ -100,9 +129,5 @@ public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
         return measurements.isEmpty() ? null : measurements.get(0);
     }
 
-    @Query("SELECT m.trip FROM Measurement m WHERE m.vehicle.id = :vehicleId ORDER BY m.timestamp DESC LIMIT 1")
-    Trip findLastTripByVehicleId(long vehicleId);
 
-    @Query("SELECT m FROM Measurement m WHERE m.trip.id = :tripId ORDER BY m.timestamp DESC LIMIT 1")
-    Measurement findLastMeasurementByTripId(long tripId);
 }

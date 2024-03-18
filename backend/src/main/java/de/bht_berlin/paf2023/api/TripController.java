@@ -44,26 +44,33 @@ public class TripController {
         return tripService.getTotalDistanceForTrip(tripRepo.findById(id).get());
     }
 
-    @GetMapping(path = "/findAll/{vehicleId}")
-    public List<Trip> findAllByVehicleId(@PathVariable Long vehicleId,
-                                         @RequestParam(required = false) String startTime,
-                                         @RequestParam(required = false) String endTime) {
-        if (startTime != null && endTime != null) {
-            // date format example 2018-01-17T05:01:33.000Z
-            Date start = Date.from(Instant.parse(startTime));
-            Date end = Date.from(Instant.parse(endTime));
-            return tripService.findAllByVehicleId(vehicleId, start, end);
-        } else {
-            return tripService.findAllByVehicleId(vehicleId);
-        }
-    }
+//    @GetMapping(path = "/findAll/{vehicleId}")
+//    public List<Trip> findAllByVehicleId(@PathVariable Long vehicleId,
+//                                         @RequestParam(required = false) String startTime,
+//                                         @RequestParam(required = false) String endTime) {
+//        if (startTime != null && endTime != null) {
+//            // date format example 2018-01-17T05:01:33.000Z
+//            Date start = Date.from(Instant.parse(startTime));
+//            Date end = Date.from(Instant.parse(endTime));
+//            return tripService.findAllByVehicleId(vehicleId, start, end);
+//        } else {
+//            return tripService.findAllByVehicleId(vehicleId);
+//        }
+//    }
 
+    /**
+     * endpoint for getting all trips belonging to a list of vehicles passed as url params within a time range
+     *
+     * @param vehicleIds vehicle id
+     * @param startTime  start time – date format example 2018-01-17T05:01:33.000Z
+     * @param endTime    end time – date format example 2018-01-17T05:01:33.000Z
+     * @return list of trips
+     */
     @GetMapping(path = "/findAllByVehicleIds")
     public List<Trip> findAllByVehicleIds(@RequestParam List<Long> vehicleIds,
                                           @RequestParam(required = false) String startTime,
                                           @RequestParam(required = false) String endTime) {
         if (startTime != null && endTime != null) {
-            // date format example 2018-01-17T05:01:33.000Z
             Date start = Date.from(Instant.parse(startTime));
             Date end = Date.from(Instant.parse(endTime));
             return tripService.findAllByVehicleIdsAndDateRange(vehicleIds, start, end);

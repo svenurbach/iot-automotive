@@ -38,7 +38,11 @@ public class FakerService {
         this.faker = new Faker(Locale.getDefault());
     }
 
-
+    /**
+     * generate fake for a given map with different set of entity types
+     *
+     * @param dataSet map containing entity types and amount of entities to be created
+     */
     public void generateDummyDataSet(Map dataSet) {
         for (Object entity : dataSet.keySet()) {
             generateDummyData((String) entity, (Long) dataSet.get(entity), dataSet);
@@ -46,6 +50,13 @@ public class FakerService {
 
     }
 
+    /**
+     * generates random ids of existing entities for foreign key references
+     *
+     * @param dataSet map of data set to be faked
+     * @param key     entity type to get a foreign key of
+     * @return foreign key as id
+     */
     public Long generateRandomForeignKey(Map dataSet, String key) {
         Long maxEntities = (Long) dataSet.get(key);
         if (maxEntities > 0) {
@@ -54,46 +65,63 @@ public class FakerService {
         return 0L;
     }
 
+    /**
+     * create entities for given map data set
+     *
+     * @param repoName        name of the repo the entity should be saved in
+     * @param numberOfEntries amount of entities which should be created
+     * @param dataSet         map of data set
+     */
     public void generateDummyData(String repoName, Long numberOfEntries, Map dataSet) {
         switch (repoName) {
             case "insurance":
+                // iterate through the amount of entities to be created
                 for (int i = 0; i < numberOfEntries; i++) {
+                    // create new entity and set mandatory attributes
                     Insurance insurance = new Insurance();
                     insurance.setInsuranceName(faker.artist().name());
                     insurance.setInsuranceType(faker.company().profession());
 
-                    // foreign key generation for person
+                    // reference related entity by foreign key
                     InsuranceCompany existingCompany = this.insuranceCompanyRepo.getById(generateRandomForeignKey(dataSet, "insurance_company"));
                     insurance.setInsuranceCompany(existingCompany);
 
+                    // save to repo
                     this.insuranceRepo.save(insurance);
                 }
                 break;
             case "insurance_company":
+                // iterate through the amount of entities to be created
                 for (int i = 0; i < numberOfEntries; i++) {
+                    // create new entity and set mandatory attributes
                     InsuranceCompany insuranceCompany = new InsuranceCompany();
                     insuranceCompany.setCompanyName(faker.company().name());
+
+                    // save to repo
                     this.insuranceCompanyRepo.save(insuranceCompany);
                 }
                 break;
             case "trip":
+                // iterate through the amount of entities to be created
                 for (int i = 0; i < numberOfEntries; i++) {
+                    // create new entity and set mandatory attributes
                     Trip trip = new Trip();
                     long randomTimestamp = faker.date().past(365, java.util.concurrent.TimeUnit.DAYS).getTime();
                     Date javaUtilDate = new Date(randomTimestamp);
                     trip.setTrip_start(javaUtilDate);
                     trip.setTrip_end(faker.date().future(1, java.util.concurrent.TimeUnit.DAYS, javaUtilDate));
-//                    trip.setAverage_speed(faker.number().numberBetween(0L, 140L));
 
-//                    foreign key generation for vehicle
+                    // reference related entity by foreign key
                     Vehicle existingVehicle = this.vehicleRepo.getById(generateRandomForeignKey(dataSet, "vehicle"));
-//                    trip.setVehicle(existingVehicle);
 
+                    // save to repo
                     this.tripRepo.save(trip);
                 }
                 break;
             case "contract":
+                // iterate through the amount of entities to be created
                 for (int i = 0; i < numberOfEntries; i++) {
+                    // create new entity and set mandatory attributes
                     InsuranceContract insuranceContract = new InsuranceContract();
                     long randomTimestamp = faker.date().past(365, java.util.concurrent.TimeUnit.DAYS).getTime();
                     Date javaUtilDate = new Date(randomTimestamp);
@@ -103,56 +131,70 @@ public class FakerService {
                     insuranceContract.setPolicyNumber(faker.idNumber().valid());
                     insuranceContract.setDeductible(faker.number().numberBetween(0L, 1000));
 
-                    //                    foreign key generation for insurance
+                    // reference related entity by foreign key
                     Insurance existingInsurance = this.insuranceRepo.getById(generateRandomForeignKey(dataSet,
                             "insurance"));
                     insuranceContract.setInsurance(existingInsurance);
 
-                    //                    foreign key generation for person
+                    // reference related entity by foreign key
                     Person existingPerson = this.personRepo.getById(generateRandomForeignKey(dataSet, "person"));
                     insuranceContract.setPolicyholder(existingPerson);
 
-                    //                    foreign key generation for vehicle
+                    // reference related entity by foreign key
 //                    Vehicle existingVehicle = this.vehicleRepo.getById((long) i);
 //                    insuranceContract.setVehicle(existingVehicle);
 
+                    // save to repo
                     this.contractRepo.save(insuranceContract);
                 }
                 break;
             case "measurement":
+                // iterate through the amount of entities to be created
                 for (int i = 0; i < numberOfEntries; i++) {
+                    // create new entity and set mandatory attributes
                     Measurement measurement = new Measurement();
                     long randomTimestamp = faker.date().past(365, java.util.concurrent.TimeUnit.DAYS).getTime();
-
                     Date javaUtilDate = new Date(randomTimestamp);
                     measurement.setTimestamp(javaUtilDate);
-//                    measurement.setInterval(faker.number().numberBetween(100, 999));
+
+                    // save to repo
                     this.measurementRepo.save(measurement);
                 }
                 break;
             case "person":
+                // iterate through the amount of entities to be created
                 for (int i = 0; i < numberOfEntries; i++) {
+                    // create new entity and set mandatory attributes
                     Person person = new Person();
                     person.setName(faker.name().fullName());
                     person.setDateOfBirth(faker.date().birthday());
+
+                    // save to repo
                     this.personRepo.save(person);
                 }
                 break;
             case "vehicle":
+                // iterate through the amount of entities to be created
                 for (int i = 0; i < numberOfEntries; i++) {
+                    // create new entity and set mandatory attributes
                     Vehicle vehicle = new Vehicle();
 //                    vehicle.setYearOfConstruction(faker.number().numberBetween(2000, 2023));
                     vehicle.setLicensePlate(String.valueOf(faker.lorem().word()));
                     vehicle.setVin(faker.idNumber().validSvSeSsn());
-                    //                    foreign key generation for vehicle
+
+                    // reference related entity by foreign key
                     VehicleModel existingVehicleModel = this.vehicleModelRepo.getById(generateRandomForeignKey(dataSet,
                             "vehicle_model"));
                     vehicle.setVehicleModel(existingVehicleModel);
+
+                    // save to repo
                     this.vehicleRepo.save(vehicle);
                 }
                 break;
             case "vehicle_model":
+                // iterate through the amount of entities to be created
                 for (int i = 0; i < numberOfEntries; i++) {
+                    // create new entity and set mandatory attributes
                     Random random = new Random();
                     String[] imgURLArray = {"https://image.stern.de/8424922/t/8I/v2/w1440/r0/-/30--artikel22517bild01jpg---b5e7066e38d38876.jpg",
                             "https://apps-cloud.n-tv.de/img/14348811-1421670548000/16-9/750/Opel-Adam.jpg",
@@ -177,6 +219,8 @@ public class FakerService {
                     vehicleModel.setLocationTolerance((float) faker.number().randomDouble(2, 0, 1));
                     vehicleModel.setSteeringWheelTolerance((float) faker.number().randomDouble(2, 0, 1));
                     vehicleModel.setImgURL(imgURLArray[randomIndex]);
+
+                    // save to repo
                     this.vehicleModelRepo.save(vehicleModel);
                 }
                 break;

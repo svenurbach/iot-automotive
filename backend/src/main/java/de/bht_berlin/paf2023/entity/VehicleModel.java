@@ -8,7 +8,9 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Entity @Getter @Setter
+@Entity
+@Getter
+@Setter
 public class VehicleModel extends IdentifiedEntity {
 
     private String modelName;
@@ -27,8 +29,8 @@ public class VehicleModel extends IdentifiedEntity {
     private Float minAxis;
 
     private Float maxSteeringWheel;
-    private Float minSteeringWheel;
 
+    private Float minSteeringWheel;
 
     private String imgURL;
 

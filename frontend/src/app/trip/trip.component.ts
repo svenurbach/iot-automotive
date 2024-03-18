@@ -16,11 +16,10 @@ import {FormsModule} from "@angular/forms";
 import * as utils from "../../utils"
 import {dateInYyyyMmDdHhMmSs, getAverageSpeed} from "../../utils";
 import _default from "chart.js/dist/plugins/plugin.tooltip";
-import numbers = _default.defaults.animations.numbers;
-
+import {AppComponent} from "../app.component";
 import {RouterLink} from '@angular/router';
-import {filter, Observable} from "rxjs";
-import {switchMap, tap} from 'rxjs/operators';
+import {BehaviorSubject, filter, Observable} from "rxjs";
+import {map, tap} from 'rxjs/operators';
 
 
 @Injectable({
@@ -38,6 +37,7 @@ import {switchMap, tap} from 'rxjs/operators';
 export class TripComponent {
   trips: Trip[] = [];
   vehicles: Vehicle[] = [];
+  policyholderSelection: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   tripPaths: Array<Array<Object>> = [];
   distance: number = 0;
   duration: number = 0;
@@ -81,17 +81,39 @@ export class TripComponent {
   }
 
 
-  constructor(private tripService: TripService, private vehicleService: VehicleService) {
+  constructor(private tripService: TripService, private vehicleService: VehicleService, private appComponent: AppComponent) {
     this.datePickerStart = null;
     this.datePickerEnd = null;
-
-    this.getVehicles().subscribe(() => {
-      this.getTrips();
+    this.policyholderSelection = this.appComponent._policyholderSelection;
+    this.appComponent._policyholderSelection.subscribe((personId: number) => {
+      this.getVehicles().subscribe(() => {
+        this.getTrips();
+      });
     });
   }
 
-  getVehicles(): Observable<any> {
+  getVehicles() {
+    var id = 0;
+    this.policyholderSelection.pipe(
+      map(value => Number(value))
+    ).subscribe((value: number) => {
+      id = value;
+    });
+    if (id == 0) {
+      return this.getAllVehicles()
+    } else {
+      return this.getVehiclesOfPerson(id)
+    }
+  }
+
+  getAllVehicles(): Observable<any> {
     return this.vehicleService.getVehicles().pipe(
+      tap(data => this.vehicles = data)
+    );
+  }
+
+  getVehiclesOfPerson(id: number): Observable<any> {
+    return this.vehicleService.getCarsByPerson(id).pipe(
       tap(data => this.vehicles = data)
     );
   }
@@ -108,10 +130,11 @@ export class TripComponent {
     } else {
       vehicleIds.push(this.vehicleSelection)
     }
-    // console.log("arr", vehicleIds)
     this.tripService.getTrips(vehicleIds, this.datePickerStart, this.datePickerEnd).subscribe((data) => {
+      if (data == null) {
+        return;
+      }
       this.trips = data;
-      console.log(data);
       this.trips.forEach((trip) => {
         if (trip.distance) {
           this.distance += trip.distance;

@@ -1,17 +1,17 @@
 <header>
   <mat-toolbar color="primary">
-    <div>
+    <div id="menu-container">
       <button (click)="showMenu=!showMenu" mat-icon-button class="example-icon"
               aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>
       </button>
       <span><a href="/" id="logo" title="Back to home"> {{ title }}</a></span>
     </div>
-    <mat-form-field class="personSelect">
+    <mat-form-field id="personSelect">
       <mat-label>Versicherungshalter auswählen:</mat-label>
-      <mat-select [(value)]="policyholderSelection" (selectionChange)="onPolicyholderSelected($event)">
-        @for(policyholder of policyholders; track policyholder){
-        <mat-option [value]="policyholder">{{policyholder}}</mat-option>
+      <mat-select [(value)]="policyholderSelection">
+        @for(policyholder of policyholders; track policyholder?.id){
+        <mat-option [value]="policyholder?.id">{{policyholder?.name}}</mat-option>
         }
       </mat-select>
     </mat-form-field>
@@ -42,73 +42,3 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-
-<!--<header>-->
-<!--  <mat-toolbar color="primary">-->
-<!--    <span> {{ title }} </span>-->
-<!--  </mat-toolbar>-->
-<!--</header>-->
-<!--<nav>-->
-<!--  <ul>-->
-<!--    <li>-->
-<!--      <a-->
-<!--        routerLink="/home-component"-->
-<!--        routerLinkActive="active"-->
-<!--        ariaCurrentWhenActive="page"-->
-<!--      >Home</a-->
-<!--      >-->
-<!--    </li>-->
-<!--    <li>-->
-<!--      <a-->
-<!--        routerLink="/trip-component"-->
-<!--        routerLinkActive="active"-->
-<!--        ariaCurrentWhenActive="page"-->
-<!--      >Trip</a-->
-<!--      >-->
-<!--    </li>-->
-<!--  </ul>-->
-<!--</nav>-->
-<!--<main class="main">-->
-<!--  <div class="content">-->
-<!--    <div class="left-side">-->
-<!--      <h1>Hello, {{ title }}</h1>-->
-<!--      <p>Congratulations! Your app is running. 🎉</p>-->
-<!--    </div>-->
-<!--    <div class="divider" role="separator" aria-label="Divider"></div>-->
-<!--    <div class="right-side">-->
-<!--      <div class="pill-group">-->
-<!--        @for (item of [-->
-<!--          {title: 'Explore the Docs', link: 'https://angular.dev'},-->
-<!--          {title: 'Learn with Tutorials', link: 'https://angular.dev/tutorials'},-->
-<!--          {title: 'CLI Docs', link: 'https://angular.dev/tools/cli'},-->
-<!--          {title: 'Angular Language Service', link: 'https://angular.dev/tools/language-service'},-->
-<!--          {title: 'Angular DevTools', link: 'https://angular.dev/tools/devtools'},-->
-<!--        ]; track item.title) {-->
-<!--          <a-->
-<!--            class="pill"-->
-<!--            [href]="item.link"-->
-<!--            target="_blank"-->
-<!--            rel="noopener"-->
-<!--          >-->
-<!--            <span>{{ item.title }}</span>-->
-<!--            <svg-->
-<!--              xmlns="http://www.w3.org/2000/svg"-->
-<!--              height="14"-->
-<!--              viewBox="0 -960 960 960"-->
-<!--              width="14"-->
-<!--              fill="currentColor"-->
-<!--            >-->
-<!--              <path-->
-<!--                d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"-->
-<!--              />-->
-<!--            </svg>-->
-<!--          </a>-->
-<!--        }-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</main>-->
-
-
-<!--<router-outlet></router-outlet>-->

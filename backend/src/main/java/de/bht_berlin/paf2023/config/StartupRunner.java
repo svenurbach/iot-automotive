@@ -57,7 +57,10 @@ public class StartupRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-//create entities with faker
+        /**
+         * set up entities to be created by faker
+         *
+         */
         Map<String, Long> dataSet = new LinkedHashMap<String, Long>();
         dataSet.put("person", 10L);
         dataSet.put("insurance_company", 10L);
@@ -67,12 +70,32 @@ public class StartupRunner implements ApplicationRunner {
 //        dataSet.put("trip", 10L);
         dataSet.put("contract", 10L);
 
-        //call faker to create dummy set
-        iService.generateDummyDataSet(dataSet);
+        /**
+         * call faker to create set of entities
+         */
+//        iService.generateDummyDataSet(dataSet);
 
-        // read out csv file to create hashmap for batch measurement import
+        /**
+         * instantiate handlers for measurement error detection
+         */
+        ComparitiveListErrorHandler comparitiveListErrorHandler = new ComparitiveListErrorHandler(measurementRepo, measurementService);
+        ThresholdErrorHandler thresholdErrorHandler = new ThresholdErrorHandler(measurementRepo, comparitiveListErrorHandler, measurementService, vehicleModelRepo);
+        MeasurementTimeSortHandler measurementTimeSortHandler = new MeasurementTimeSortHandler(measurementRepo, thresholdErrorHandler);
+        TripMeasurementHandler tripMeasurementHandler = new TripMeasurementHandler(measurementRepo, measurementTimeSortHandler);
+
+        /**
+         * instantiate trip service
+         */
+        TripService service = new TripService(tripRepo, measurementRepo);
+        // pass trip measurement handler to trip service
+        service.setTripMeasurementHandler(tripMeasurementHandler);
+
+        /**
+         * import trips from csv
+         */
+        // readout csv contents into hashmap
         List<List<String>> records =
-                MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("test3.csv");
+                MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("clean-import.csv");
         List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
 
         // call measurement controller to create measurements from hashmap
@@ -80,26 +103,21 @@ public class StartupRunner implements ApplicationRunner {
 
         // instantiate strategy go segment trips from import
         SegmentTripsInDBStrategy segmentTripsInDBStrategy = new SegmentTripsInDBStrategy(tripRepo, measurementRepo);
-        ComparitiveListErrorHandler comparitiveListErrorHandler = new ComparitiveListErrorHandler(measurementRepo, measurementService);
-        ThresholdErrorHandler thresholdErrorHandler = new ThresholdErrorHandler(measurementRepo, comparitiveListErrorHandler, measurementService, vehicleModelRepo);
-        MeasurementTimeSortHandler measurementTimeSortHandler = new MeasurementTimeSortHandler(measurementRepo, thresholdErrorHandler);
-        TripMeasurementHandler tripMeasurementHandler = new TripMeasurementHandler(measurementRepo, measurementTimeSortHandler);
 
-        TripService service = new TripService(tripRepo, measurementRepo);
-        service.setTripMeasurementHandler(tripMeasurementHandler);
-        // set strategy
+        // set segmenting strategy for csv imports
         service.changeTripHandlerStrategy(segmentTripsInDBStrategy);
         // call segment method on strategy
         service.tripHandlerStrategy.addData(vehicleRepo.findAll());
 
+        /**
+         * change trip handling strategy to scheduled readout for new measurements in csv file
+         */
         // instantiate and set new strategy
         HandleSingleTripStrategy handleSingleTripStrategy = new HandleSingleTripStrategy(tripRepo, measurementRepo);
         service.changeTripHandlerStrategy(handleSingleTripStrategy);
 
-        // enable scheduler to continously read csv to simulate incoming measurement stream
-        measurementCreationService.setSchedulerActive(true);
-
-
+        // import file and enable scheduler to continuously read csv to simulate incoming measurement stream
+//        measurementCreationService.importFile("clean-import.csv");
     }
 
 

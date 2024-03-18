@@ -1,4 +1,4 @@
-package service;
+package de.bht_berlin.paf2023.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 

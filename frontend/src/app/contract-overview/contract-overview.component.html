@@ -2,8 +2,8 @@
 
 <ul class="entity-grid">
   @for (contract of contracts; track contract.id){
-  <div class="entity-card">
-    <li [routerLink]="['/contract', contract.id]">
+  <li [routerLink]="['/contract', contract.id]">
+    <div class="entity-card">
       <div class="icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
           <path
@@ -13,13 +13,14 @@
 
       <div class="details">
         <ul>
-          @if (contract.insurance.insuranceCompany.companyName) { <li>{{ contract.insurance.insuranceCompany.companyName }}</li> }
+          @if (contract.insurance.insuranceCompany.companyName) { <li>{{ contract.insurance.insuranceCompany.companyName
+            }}</li> }
           @if (contract.insurance.insuranceType) { <li>{{ contract.insurance.insuranceType }}</li> }
           @if (contract.policyNumber) { <li>{{ contract.policyNumber }}</li> }
         </ul>
       </div>
-    </li>
-  </div>
+    </div>
+  </li>
   }
 
 </ul>

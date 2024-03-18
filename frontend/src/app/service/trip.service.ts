@@ -40,7 +40,6 @@ export class TripService {
     if (datePickerStart && datePickerEnd) {
       queryString += `startTime=${datePickerStart.toISOString()}&endTime=${datePickerEnd.toISOString()}`
     }
-    console.log("dateParams", queryString)
     return this.http.get<Trip[]>(this.url + queryString).pipe(
       tap((_) => this.log('fetched trips')),
       catchError(this.handleError<Trip[]>('getTrips', []))

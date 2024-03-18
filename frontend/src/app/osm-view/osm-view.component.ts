@@ -20,30 +20,34 @@ export class OsmViewComponent {
   address: any;
   options: Leaflet.MapOptions = {};
   showMap = false;
+  addressIsLoaded = false;
+  locationIsLoaded = false;
 
 
   constructor(private findmycarService: FindmycarService) {}
 
   ngOnInit() {
-    console.log("carId:", this.carId);
     this.getParkingLocation(this.carId);
   }
 
   getParkingLocation(carId: number): void {
     this.findmycarService.getParkingLocation(carId)
       .subscribe((location: any) => {
-        this.location.lat = location[0];
-        this.location.lon = location[1];
-        this.getAddress(this.location.lat, this.location.lon);
-
-        if (this.visibleMap) {
-          this.options = {
-            layers: getLayers(this.location.lat, this.location.lon),
-            zoom: 17,
-            attributionControl: false,
-            center: new Leaflet.LatLng(this.location.lat, this.location.lon)
-          };
-          this.showMap = true;
+        if (location) {
+          this.location.lat = location[0];
+          this.location.lon = location[1];
+          this.locationIsLoaded = true;
+          this.getAddress(this.location.lat, this.location.lon);
+          
+          if (this.visibleMap) {
+            this.options = {
+              layers: getLayers(this.location.lat, this.location.lon),
+              zoom: 17,
+              attributionControl: false,
+              center: new Leaflet.LatLng(this.location.lat, this.location.lon)
+            };
+            this.showMap = true;
+          }
         }
       });
   }
@@ -53,7 +57,7 @@ export class OsmViewComponent {
       .subscribe((address: any) => {
         this.address = address;
         console.log("getAddress", address);
-        console.log(this.address);
+        this.addressIsLoaded = true;
       });
   }
 }

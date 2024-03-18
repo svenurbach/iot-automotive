@@ -79,7 +79,6 @@ export class TripDetailComponent {
     this.duration = 0;
     this.average_speed = 0;
     this.tripService.getTrip(Number(this.tripId)).subscribe((data) => {
-      console.log(data)
       this.trip = data;
       if (data.distance) {
         this.distance = data.distance;
@@ -116,8 +115,6 @@ export class TripDetailComponent {
 
   getVehicle() {
     this.tripService.getVehicle(this.trip.id).subscribe((data) => {
-      console.log(this.trip.id)
-      console.log(data)
       this.vehicleId = data.id;
       this.vehicleModelName = data.vehicleModel.modelName;
       this.vehicleModelManufacturer = data.vehicleModel.manufacturer;

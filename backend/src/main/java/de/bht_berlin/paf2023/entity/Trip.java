@@ -88,10 +88,6 @@ public class Trip extends IdentifiedEntity {
         builder.append("\"id\": \"").append(getId()).append("\", ");
         builder.append("\"trip_start\": \"").append(trip_start).append("\", ");
         builder.append("\"trip_end\": \"").append(trip_end).append("\", ");
-//        builder.append("\"average_speed\": \"").append(average_speed).append("\", ");
-//        builder.append("\"startLocation\": \"").append(startLocation).append("\", ");
-//        builder.append("\"endLocation\": \"").append(endLocation).append("\", ");
-//        builder.append("\"vehicle\": \"").append(vehicle).append("\", ");
         builder.append("}");
         return builder.toString();
     }
