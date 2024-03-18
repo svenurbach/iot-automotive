@@ -78,7 +78,7 @@ public class TripService implements MeasurementObserver {
         repository.save(trip);
 
         // call trip measurement handler to analyze measurements for errors
-        tripMeasurementHandler.handle(trip);
+//        tripMeasurementHandler.handle(trip);
     }
 
     /**
