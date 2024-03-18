@@ -26,7 +26,6 @@ export class VehicleComponent {
     this.policyholderSelection = this.appComponent._policyholderSelection;
     this.appComponent._policyholderSelection.subscribe((personId: number) => {
       if (personId == 0) { 
-        console.log("PersonId is 0")
         this.getVehicles();
       } else {
         this.getCarsByPerson(personId);

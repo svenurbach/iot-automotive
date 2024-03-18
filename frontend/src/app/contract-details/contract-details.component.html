@@ -1,19 +1,21 @@
 <h1>Vertragsdetails</h1>
 
 <div class="wrapper">
-    <ul>
-        @if (contract.insurance.insuranceCompany.companyName) { <li><span>Versicherungspartner:</span> {{contract.insurance.insuranceCompany.companyName}}</li> }
-        @if (contract.insurance.insuranceName) { <li><span>Versicherungtarif:</span> {{contract.insurance.insuranceName}}</li> }
-        @if (contract.policyNumber) { <li><span>Vertragsnummer:</span> {{contract.policyNumber}}</li> }
-        <hr>
-        @if (contract.begin) { <li><span>Versicherungsbeginn:</span> {{contract.begin | date:"dd.MM.yyyy"}}</li> }
-        @if (contract.insurance.insuranceType) { <li><span>Versicherungsart:</span> {{contract.insurance.insuranceType}}</li> }
-        @if (contract.contractDistance) { <li><span>Kilometer:</span> {{contract.contractDistance}} km</li> }
-        @if (contract.deductible) { <li><span>Selbstbeteiligung:</span> {{contract.deductible}} EUR</li> }
-        @if (contract.contractPrice) { <li><span>Versicherungskosten (jährlich):</span> {{contract.contractPrice}} EUR</li> }
-    </ul>
+    @if (contractIsLoaded) {
+        <ul>
+            @if (contract.insurance.insuranceCompany.companyName) { <li><span>Versicherungspartner:</span> {{contract.insurance.insuranceCompany.companyName}}</li> }
+            @if (contract.insurance.insuranceName) { <li><span>Versicherungtarif:</span> {{contract.insurance.insuranceName}}</li> }
+            @if (contract.policyNumber) { <li><span>Vertragsnummer:</span> {{contract.policyNumber}}</li> }
+            <hr>
+            @if (contract.begin) { <li><span>Versicherungsbeginn:</span> {{contract.begin | date:"dd.MM.yyyy"}}</li> }
+            @if (contract.insurance.insuranceType) { <li><span>Versicherungsart:</span> {{contract.insurance.insuranceType}}</li> }
+            @if (contract.contractDistance) { <li><span>Kilometer:</span> {{contract.contractDistance}} km</li> }
+            @if (contract.deductible) { <li><span>Selbstbeteiligung:</span> {{contract.deductible}} EUR</li> }
+            @if (contract.contractPrice) { <li><span>Versicherungskosten (jährlich):</span> {{contract.contractPrice}} EUR</li> }
+        </ul>
+    }
     
-   @if (vehicle) {
+   @if (vehicleIsLoaded) {
        <div class="vehicle">
            <div class="icon">
                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
