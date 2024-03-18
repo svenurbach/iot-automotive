@@ -103,35 +103,6 @@ public class ThresholdErrorHandler implements MeasurementHandler {
      * @param measurement Measurement object to be processed
      * @return Processed Measurement object
      */
-//    private Measurement processMeasurement(Measurement measurement) {
-//        System.out.println("ThresholdErrorHandler: processMeasurement");
-//        // Checking if the measurement indicates an error
-//        if (measurement.getIsError() != null && !measurement.getIsError()) {}
-//        else {
-//            System.out.println("ThresholdErrorHandler: processMeasurement if Loop");
-//            boolean isError = false;
-//            // Processing based on measurement type
-//            if ("SpeedMeasurement".equals(measurement.getMeasurementType())) {
-//                Float maxSpeed = measurement.getVehicle().getVehicleModel().getMaxSpeed();
-//                SpeedMeasurement speedMeasurement = (SpeedMeasurement) measurement;
-//                Float currentSpeed = (float) speedMeasurement.getSpeed();
-//                // Checking if current speed exceeds the maximum allowed speed
-//                if(currentSpeed >= maxSpeed){
-//                    isError = true;
-//                }
-//            } else if ("AccelerationMeasurement".equals(measurement.getMeasurementType())) {
-//                Float maxAcceleration = measurement.getVehicle().getVehicleModel().getMaxAcceleration();
-//                AccelerationMeasurement accelerationMeasurement = (AccelerationMeasurement) measurement;
-//                Float currentAcceleration = (float) accelerationMeasurement.getAcceleration();
-//                // Checking if current acceleration exceeds the maximum allowed acceleration
-//                if (currentAcceleration >= maxAcceleration){
-//                    isError = true;
-//                }
-//            }
-//            setErrorOnMeasurement(measurementRepo, measurement, isError);
-//        }
-//        return measurement;
-//    }
     private Measurement processMeasurement(Measurement measurement) {
         if (measurement.getIsError() != null && !measurement.getIsError()) {
         } else {

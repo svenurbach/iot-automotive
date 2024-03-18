@@ -28,7 +28,12 @@ public interface MeasurementHandler {
      */
     void handle(Trip trip);
 
-    void handle(HashMap<String, ArrayList<Measurement>> sortMeasurementsFromTrip);
+    /**
+     * Handles all measurements from one trip.
+     *
+     * @param measurementsFromTrip The trip to be handled.
+     */
+    void handle(HashMap<String, ArrayList<Measurement>> measurementsFromTrip);
 
     default void setErrorOnMeasurement(MeasurementRepoSubject measurementRepo, Measurement measurement, boolean isError){
         measurementRepo.setIsError(measurement, isError);

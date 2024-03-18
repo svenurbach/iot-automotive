@@ -17,14 +17,13 @@ public class ComparitiveListErrorHandler implements MeasurementHandler {
     private MeasurementService measurementService;
 
     public ComparitiveListErrorHandler(MeasurementRepoSubject measurementRepo,
-//                                       MeasurementHandler nextHandler,
                                        MeasurementService measurementService) {
         this.measurementRepo = measurementRepo;
         this.measurementService = measurementService;
     }
 
     public void setNextHandler(MeasurementHandler nextHandler) {
-        this.nextHandler = nextHandler;
+        // Not implemented
     }
 
 
@@ -38,20 +37,17 @@ public class ComparitiveListErrorHandler implements MeasurementHandler {
         // Not implemented
     }
 
+    /**
+     * Handles the measurement data stored in a HashMap structure, identifying measurement errors and save them in the db.
+     *
+     * @param hashMap HashMap containing measurement data categorized by measurement types.
+     *                Key: String, representing the type of measurement, Value: ArrayList
+     *                of Measurement objects.
+     */
     @Override
     public void handle(HashMap<String, ArrayList<Measurement>> hashMap) {
-        AtomicInteger measurementcounter = new AtomicInteger();
         System.out.println("ComparitiveListErrorHandler");
-
         comparativeValuesArraySize = 3;
-//        HashMap<String, ArrayList<Measurement>> processedHashMap = new HashMap<>();
-//        ArrayList<Double> measurementArrayInDouble = new ArrayList<>();
-
-//        hashMap.keySet().forEach((type) -> {
-//            measurementArrayInDouble.addAll(measurementService.parseMeasurementArrayToDouble(hashMap.get(type)));
-//            System.out.println("hashMap.get(type): " + hashMap.get(type));
-//        });
-
         hashMap.keySet().forEach((type) -> {
             HashMap<String, ArrayList<Measurement>> processedHashMap = new HashMap<>();
             ArrayList<Double> measurementArrayInDouble = new ArrayList<>();
@@ -74,36 +70,23 @@ public class ComparitiveListErrorHandler implements MeasurementHandler {
                     break;
             }
             measurementArrayInDouble.addAll(measurementService.parseMeasurementArrayToDouble(hashMap.get(type)));
-//            System.out.println("hashMap.get(type): " + hashMap.get(type));
             if (measurementArrayInDouble.size() < comparativeValuesArraySize) {
                 System.out.println("Nicht genügend Werte im Array, um Messfehler zu identifizieren");
                 return;
             } else {
-            ArrayList<Double> comparativeValuesArrayPast = new ArrayList<>();
-            ArrayList<Double> comparativeValuesArrayFuture = new ArrayList<>();
-//            IntStream.range(0, hashMap.get(type).size()).forEach(i -> {
             for (int i = 0; i < hashMap.get(type).size(); i++){
-                System.out.println("measurementcounter: " + measurementcounter + " " + " " + hashMap.get(type).get(i).getId());
-
-                measurementcounter.getAndIncrement();
-
                 // ignore Measurement with error
                 if (hashMap.get(type).get(i).getIsError() == null || !hashMap.get(type).get(i).getIsError()) {
-//                    System.out.println("Measurement Type: " +  hashMap.get(type).get(i).getMeasurementType());
                     ArrayList<Boolean> hasError = new ArrayList<>();
                     if (i >= 0 && i < hashMap.get(type).size() - comparativeValuesArraySize) {
                         boolean isError = measurementService.findErrorInFutureArray(i, hashMap.get(type), measurementArrayInDouble,
-                                tolerance, comparativeValuesArrayFuture, comparativeValuesArraySize);
+                                tolerance, comparativeValuesArraySize);
                         hasError.add(isError);
-                        System.out.println("isError future " + isError);
-//                        System.out.println("comparativeValuesArrayFuture: " + comparativeValuesArrayFuture);
                     }
                     if (i >= comparativeValuesArraySize) {
                         boolean isError = measurementService.findErrorInPastArray(i, hashMap.get(type), measurementArrayInDouble,
-                                tolerance, comparativeValuesArrayPast, comparativeValuesArraySize);
+                                tolerance, comparativeValuesArraySize);
                         hasError.add(isError);
-                        System.out.println("isError past " + isError);
-//                        System.out.println("comparativeValuesArrayPast: " + comparativeValuesArrayPast);
                     }
                     boolean hasAtLeastOneError = false;
                     for (boolean isError : hasError) {
@@ -113,7 +96,6 @@ public class ComparitiveListErrorHandler implements MeasurementHandler {
                     }
                     setErrorOnMeasurement(measurementRepo, hashMap.get(type).get(i), hasAtLeastOneError);
                     processedHashMap.put(type, hashMap.get(type));
-                    System.out.println("Error 10");
                 } else {
                     continue;
                 }}
