@@ -17,22 +17,9 @@ public class MeasurementRepoSubject {
     @Autowired
     private MeasurementRepo measurementRepo;
 
-    //    public List<Measurement> findByVehicle_new(Vehicle vehicle) {
-//        return measurementRepo.findMeasurements_Vehicle(vehicle);
-//    }
-//
-//    public List<Measurement> findAllMeasurementErrorsPerTrip(boolean error) {
-//        return measurementRepo.findMeasurementError(error);
-//    }
-//    public List<Measurement> findAllMeasurementsFromVehicleWithError(Long id, boolean error){
-//        return measurementRepo.findAllMeasurementsFromVehicleWithError(id, error);
-//    }
-
-
     public void addObserver(MeasurementObserver observer) {
         observers.add(observer);
     }
-
 
     public void removeObserver(MeasurementObserver observer) {
         observers.remove(observer);

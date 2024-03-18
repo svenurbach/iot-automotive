@@ -10,14 +10,17 @@ import de.bht_berlin.paf2023.repo.TripRepo;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.support.PeriodicTrigger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ScheduledFuture;
 
 @Service
 public class MeasurementCreationService {
@@ -28,6 +31,12 @@ public class MeasurementCreationService {
     private int currentLineIndex = 1;
 
     private final int timeBetweenTripsInMinutes = 60;
+
+
+    private final int sceheduleIntervalInMillis = 4000;
+
+    // path to csv which is to be read line by line
+    private String file = "";
 
     private boolean schedulerActive;
     List<String> columnHeaders;
@@ -49,28 +58,39 @@ public class MeasurementCreationService {
      * run schedule method to read out csv line by line on given interval
      */
     @Async
-    @Scheduled(fixedDelay = 4000) // interval in millis
+    @Scheduled(fixedDelay = sceheduleIntervalInMillis) // interval in millis
     @Transactional
     public void processCsvFile() {
 
         // early return if scheduler is set to false
-        if (schedulerActive == false) {
+        if (schedulerActive == false || file.equals("")) {
             return;
         }
 
-        // path to csv which is to be read line by line
-        String file = "test3.csv";
+        this.runLineByLineImport();
+    }
 
+    public void setSchedulerActive(boolean schedulerActive) {
+        this.schedulerActive = schedulerActive;
+    }
+
+    public void importFile(String file) {
+        this.file = file;
+        this.setSchedulerActive(true);
+    }
+
+    public void runLineByLineImport() {
         // retrieve column headers from csv file and store in list of strings
         if (columnHeaders == null) {
             columnHeaders =
-                    MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).getCSVColumnHeaders(file);
+                    MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).getCSVColumnHeaders(this.file);
         }
 
         // create hashmap of read line
-        List<HashMap> readout = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFileLineByLine(file,
-                columnHeaders,
-                currentLineIndex);
+        List<HashMap> readout =
+                MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFileLineByLine(this.file,
+                        columnHeaders,
+                        currentLineIndex);
 
         if (readout != null) {
             // create measurement entities from hashmap
@@ -103,18 +123,10 @@ public class MeasurementCreationService {
                             measurementRepo.findLastLocationMeasurementByVehicleId(vehicleId);
 
                     // set trip to finish and save to repo
-                    unfinishedTrip.finish(lastLocation);
-                    unfinishedTrip.setTrip_end(lastLocation.getTimestamp());
-                    unfinishedTrip.setEnd_latitude(lastLocation.getLatitude());
-                    unfinishedTrip.setEnd_longitude(lastLocation.getLongitude());
-                    tripRepo.save(unfinishedTrip);
+                    TripService.endTrip(unfinishedTrip, lastLocation, measurementRepo, tripRepo);
                 }
             }
         }
         currentLineIndex++;
-    }
-
-    public void setSchedulerActive(boolean schedulerActive) {
-        this.schedulerActive = schedulerActive;
     }
 }
