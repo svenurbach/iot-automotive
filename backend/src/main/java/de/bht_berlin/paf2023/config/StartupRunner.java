@@ -73,7 +73,7 @@ public class StartupRunner implements ApplicationRunner {
         /**
          * call faker to create set of entities
          */
-//        iService.generateDummyDataSet(dataSet);
+        iService.generateDummyDataSet(dataSet);
 
         /**
          * instantiate handlers for measurement error detection

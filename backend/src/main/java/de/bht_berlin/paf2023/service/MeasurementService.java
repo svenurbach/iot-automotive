@@ -113,7 +113,7 @@ public class MeasurementService {
             return false;
         }
         int pointer = counter + 1;
-        while (arrayForFutureValues.size() < comparativeValuesArraySize) {
+        while (arrayForFutureValues.size() < comparativeValuesArraySize && pointer < values.size()) {
             if (values.get(pointer).getIsError() == null || !values.get(pointer).getIsError()){
                 arrayForFutureValues.add(measurementArrayInDouble.get(pointer));
             }
