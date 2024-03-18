@@ -1,4 +1,4 @@
-package service;
+package de.bht_berlin.paf2023.service;
 
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
