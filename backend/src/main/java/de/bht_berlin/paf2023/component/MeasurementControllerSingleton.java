@@ -216,13 +216,6 @@ public class MeasurementControllerSingleton {
                 this.measurementRepo.addMeasurement(new SpeedMeasurement(timestamp, Integer.parseInt(readOuts.get(i).get("Speed").toString()),
                         existingVehicle));
             }
-
-            if (readOuts.get(i).get("Fuel level") != null) {
-                this.measurementRepo.addMeasurement(new FuelMeasurement(timestamp, Integer.parseInt(readOuts.get(i).get("Fuel " +
-                        "level").toString()),
-                        existingVehicle));
-            }
-
             if (readOuts.get(i).get("Steering") != null) {
                 this.measurementRepo.addMeasurement(new SteeringWheelMeasurement(timestamp, Float.parseFloat(readOuts.get(i).get(
                         "Steering").toString()),

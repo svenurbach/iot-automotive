@@ -22,16 +22,8 @@ public class MeasurementService {
 //        this.vehicleModelRepo = vehicleModelRepo;
     }
 
-    public List<Measurement> findAllMeasurementsFromVehicleWithError(Long id){
-        return measurementRepo.findAllMeasurementsFromVehicleWithError(id);
-    }
-
-
-    // fügt Boolean über Messfehler zu Messung hinzu
-//    public void addMeasurement(Boolean measurementError, Measurement measurement) {
-////        Measurement measurement = new Measurement();
-//        measurement.setIsError(measurementError);
-//        measurementRepo.addMeasurement(measurement);
+//    public List<Measurement> findAllMeasurementsFromVehicleWithError(Long id){
+//        return measurementRepo.findAllMeasurementsFromVehicleWithError(id);
 //    }
 
 
@@ -61,8 +53,6 @@ public class MeasurementService {
                 return roundToTwoDecimalPlaces((double) ((AccelerationMeasurement) measurement).getAcceleration());
             case "AxisMeasurement":
                 return roundToTwoDecimalPlaces((double) ((AxisMeasurement) measurement).getAxisAngle());
-            case "FuelMeasurement":
-                return roundToTwoDecimalPlaces((double) ((FuelMeasurement) measurement).getFuelLevel());
             case "SpeedMeasurement":
                 return roundToTwoDecimalPlaces((double) ((SpeedMeasurement) measurement).getSpeed());
             case "SteeringWheelMeasurement":
@@ -112,97 +102,136 @@ public class MeasurementService {
     /**
      * Checks if a measurement value is within a certain tolerance range of the average.
      *
-     * @param average Average of the measurements.
-     * @param counter Index of the measurement value in the ArrayList.
+     * @param average                  Average of the measurements.
+     * @param counter                  Index of the measurement value in the ArrayList.
      * @param measurementArrayInDouble ArrayList of double values representing the measurements.
-     * @param tolerance Tolerance value within which the measurement should be.
+     * @param tolerance                Tolerance value within which the measurement should be.
      * @return True if the measurement value is within the tolerance range of the average, false otherwise.
      */
     public boolean isValueInTolerance(double average, int counter, ArrayList<Double> measurementArrayInDouble, Double tolerance) {
-        double lowerBound = average - (measurementArrayInDouble.get(counter) * tolerance);
-        double upperBound = average + (measurementArrayInDouble.get(counter) * tolerance);
+        double minValue = average - (measurementArrayInDouble.get(counter) * tolerance);
+        double maxValue = average + (measurementArrayInDouble.get(counter) * tolerance);
         double measurementValue = measurementArrayInDouble.get(counter);
-        return lowerBound <= measurementValue && measurementValue <= upperBound;
+        return minValue <= measurementValue && measurementValue <= maxValue;
     }
 
     /**
      * Finds if there is an error in future measurements based on the average of upcoming measurements and tolerance.
      *
-     * @param counter Index of the current measurement value
-     * @param values ArrayList of Measurement objects
-     * @param measurementArrayInDouble ArrayList of double values representing the measurements
-     * @param tolerance Tolerance value within which the measurement should be
+     * @param counter                      Index of the current measurement value
+     * @param values                       ArrayList of Measurement objects
+     * @param measurementArrayInDouble     ArrayList of double values representing the measurements
+     * @param tolerance                    Tolerance value within which the measurement should be
      * @param comparativeValuesArrayFuture List of double values representing future comparative measurements
-     * @param comparativeValuesArraySize Size of the comparative values array
+     * @param comparativeValuesArraySize   Size of the comparative values array
      * @return True if an error is found in future measurements, false otherwise
      */
     public boolean findErrorInFutureArray(int counter, ArrayList<Measurement> values, ArrayList<Double> measurementArrayInDouble,
-                                          Double tolerance, List<Double> comparativeValuesArrayFuture, int comparativeValuesArraySize){
-        int endIndex = counter + comparativeValuesArraySize;
-        ArrayList<Double> futureMeasurements = IntStream.range(counter, Math.min(endIndex, values.size()))
-                .filter(i -> values.get(i).getIsError() != null && !values.get(i).getIsError())
-                .mapToObj(i -> measurementArrayInDouble.get(i))
-                .collect(Collectors.toCollection(ArrayList::new));
-        double averageFuture = calculateAverageMeasurements(futureMeasurements);
+                                          Double tolerance, ArrayList<Double> comparativeValuesArrayFuture, int comparativeValuesArraySize) {
 
+        ArrayList<Double> arrayForFutureValues = new ArrayList<>();
+        int endIndex = values.size() -comparativeValuesArraySize-1;
+        System.out.println("pre outer future while");
+        if (counter > endIndex){
+            return false;
+        }
+        int pointer = counter +1;
+        while (arrayForFutureValues.size() < comparativeValuesArraySize) {
+            Measurement currentMeasurement = values.get(counter);
+            double currentValue = measurementArrayInDouble.get(counter);
+            if (values.get(pointer).getIsError() == null || values.get(pointer).getIsError()== false){
+                arrayForFutureValues.add(measurementArrayInDouble.get(pointer));
+            }
+            pointer++;
+//            if (values.get(counter + (comparativeValuesArrayFuture.size() + 1)).getIsError() == null || !values.get(counter + (comparativeValuesArrayFuture.size() + 1)).getIsError()) {
+//                System.out.println("Measurement Type Future: " + values.get(counter).getMeasurementType());
+//                comparativeValuesArrayFuture.add(measurementArrayInDouble.get(counter + (comparativeValuesArrayFuture.size() + 1)));
+//            }
+            ;
+        }
+        System.out.println("post outer future while");
+        System.out.println("Measurement Type Future: " + values.get(counter).getMeasurementType());
+
+        double averageFuture = arrayForFutureValues.stream()
+                .mapToDouble(Double::doubleValue)
+                .average()
+                .orElse(0.0);
+        System.out.println("comparativeValuesArrayFuture " + arrayForFutureValues + "current: " + measurementArrayInDouble.get(counter));
         return !isValueInTolerance(averageFuture, counter, measurementArrayInDouble, tolerance);
     }
 
     /**
      * Finds if there is an error in past measurements based on the average of past comparative measurements and tolerance.
      *
-     * @param counter Index of the current measurement value
-     * @param values ArrayList of Measurement objects
-     * @param measurementArrayInDouble ArrayList of double values representing the measurements
-     * @param tolerance Tolerance value within which the measurement should be
+     * @param counter                    Index of the current measurement value
+     * @param values                     ArrayList of Measurement objects
+     * @param measurementArrayInDouble   ArrayList of double values representing the measurements
+     * @param tolerance                  Tolerance value within which the measurement should be
      * @param comparativeValuesArrayPast ArrayList of double values representing past comparative measurements
      * @param comparativeValuesArraySize Size of the comparative values array
      * @return True if an error is found in past measurements, false otherwise
      */
     public boolean findErrorInPastArray(int counter, ArrayList<Measurement> values, ArrayList<Double> measurementArrayInDouble, Double tolerance,
-                                        ArrayList<Double> comparativeValuesArrayPast, int comparativeValuesArraySize){
+                                        ArrayList<Double> comparativeValuesArrayPast, int comparativeValuesArraySize) {
         boolean measurementError = false;
-        while(comparativeValuesArrayPast.size() < comparativeValuesArraySize) {
-            if(values.get(counter).getIsError() == null || !values.get(counter).getIsError()){
-                comparativeValuesArrayPast.add(measurementArrayInDouble.get(counter - (comparativeValuesArrayPast.size()+1)));
-            }
+        ArrayList<Double> arrayForPastValues = new ArrayList<>();
+        System.out.println("pre outer future while");
+        if (counter < comparativeValuesArraySize){
+            return false;
         }
-        double averagePast = comparativeValuesArrayPast.stream()
+        int pointer = counter -1;
+        while (arrayForPastValues.size() < comparativeValuesArraySize && pointer >= 0) {
+            Measurement currentMeasurement = values.get(counter);
+            double currentValue = measurementArrayInDouble.get(counter);
+            if (values.get(pointer).getIsError() == null || values.get(pointer).getIsError()== false){
+                arrayForPastValues.add(measurementArrayInDouble.get(pointer));
+            }
+            pointer--;
+//            if (values.get(counter).getIsError() == null || !values.get(counter).getIsError()) {
+//                if (values.get(counter - (comparativeValuesArrayPast.size() + 1)).getIsError() == null || !values.get(counter - (comparativeValuesArrayPast.size() + 1)).getIsError()) {
+//                    comparativeValuesArrayPast.add(measurementArrayInDouble.get(counter - (comparativeValuesArrayPast.size() + 1)));
+//                    System.out.println("comparativeValuesArrayPast: " + comparativeValuesArrayPast);
+//                    System.out.println("Measurement Type Past: " + values.get(counter).getMeasurementType());
+//                }
+//
+//            }
+        }
+        double averagePast = arrayForPastValues.stream()
                 .mapToDouble(Double::doubleValue)
                 .average()
                 .orElse(0.0);
-        if(!(isValueInTolerance(averagePast, counter, measurementArrayInDouble, tolerance))){
+        if (!(isValueInTolerance(averagePast, counter, measurementArrayInDouble, tolerance))) {
             measurementError = true;
         }
-        comparativeValuesArrayPast.clear();
+        arrayForPastValues.clear();
         return measurementError;
     }
 
-
-    public Map<String, Integer> countErrorsPerMeasurementType(long tripId) {
-        Map<String, Integer> errorCounts = new HashMap<>();
-        List<Measurement> allMeasurementsFromTrip = measurementRepo.getAllMeasurementsFromTrip(tripId);
-        for (int i = 0; i < allMeasurementsFromTrip.size(); i++) {
-            if (allMeasurementsFromTrip.get(i).getIsError()) {
-                String measurementType = allMeasurementsFromTrip.get(i).getMeasurementType();
-                if (!errorCounts.containsKey(measurementType)) {
-                    errorCounts.put(measurementType, 1);
-                } else {
-                    errorCounts.put(measurementType, errorCounts.get(measurementType) + 1);
-                }
-            }
-        }
-        return errorCounts;
-    }
-
-
-    public int countErrorsPerWholeTrip(HashMap<String, Integer> errorCountsMeasurementType){
-        int errorsTotal = 0;
-        for (Map.Entry<String, Integer> entry : errorCountsMeasurementType.entrySet()){
-            errorsTotal += entry.getValue();
-        }
-        return errorsTotal;
-        }
+//
+//    public Map<String, Integer> countErrorsPerMeasurementType(long tripId) {
+//        Map<String, Integer> errorCounts = new HashMap<>();
+//        List<Measurement> allMeasurementsFromTrip = measurementRepo.getAllMeasurementsFromTrip(tripId);
+//        for (int i = 0; i < allMeasurementsFromTrip.size(); i++) {
+//            if (allMeasurementsFromTrip.get(i).getIsError()) {
+//                String measurementType = allMeasurementsFromTrip.get(i).getMeasurementType();
+//                if (!errorCounts.containsKey(measurementType)) {
+//                    errorCounts.put(measurementType, 1);
+//                } else {
+//                    errorCounts.put(measurementType, errorCounts.get(measurementType) + 1);
+//                }
+//            }
+//        }
+//        return errorCounts;
+//    }
+//
+//
+//    public int countErrorsPerWholeTrip(HashMap<String, Integer> errorCountsMeasurementType){
+//        int errorsTotal = 0;
+//        for (Map.Entry<String, Integer> entry : errorCountsMeasurementType.entrySet()){
+//            errorsTotal += entry.getValue();
+//        }
+//        return errorsTotal;
+//        }
 
 
 }

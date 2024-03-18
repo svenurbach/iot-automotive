@@ -13,7 +13,6 @@ img {
 
 .vehicle-details {
   margin: 0.5em 0;
-
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -36,13 +35,17 @@ label {
   flex-direction: column;
 }
 
+canvas{
+  margin-top: 5em;
+}
+
 .upper-half {
   display: flex;
   flex-wrap: wrap;
 }
 
-app-osm-view {
-  margin: 0 30% 0 30%;
+.osm-view-container{
+  padding: 0 20%;
 }
 
 canvas {

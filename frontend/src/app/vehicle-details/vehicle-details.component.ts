@@ -24,7 +24,7 @@ import {OsmViewComponent} from "../osm-view/osm-view.component";
 export class VehicleDetailsComponent {
   public chart: any;
   vehicle!: Vehicle;
-  contract!: Insurance;
+  contract: Insurance = {} as Insurance;
   sumTrips$: Observable<number> = new Observable<number>();
   measurementErrors: Measurement[] = [];
   measurementTypes: string[] = [];
@@ -42,8 +42,6 @@ export class VehicleDetailsComponent {
         this.getAllMeasurementErrors(id);
       });
     });
-    // this.createChart();
-
   }
 
   getTrips(id: number): Observable<number> {
@@ -119,7 +117,6 @@ export class VehicleDetailsComponent {
       options: {
         aspectRatio: 2.5
       }
-
     });
   }
 

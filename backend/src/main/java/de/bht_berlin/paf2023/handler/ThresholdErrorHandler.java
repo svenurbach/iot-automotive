@@ -3,10 +3,13 @@ package de.bht_berlin.paf2023.handler;
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.entity.measurements.AccelerationMeasurement;
+import de.bht_berlin.paf2023.entity.measurements.AxisMeasurement;
 import de.bht_berlin.paf2023.entity.measurements.SpeedMeasurement;
+import de.bht_berlin.paf2023.entity.measurements.SteeringWheelMeasurement;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.VehicleModelRepo;
 import de.bht_berlin.paf2023.service.MeasurementService;
+
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,6 +89,7 @@ public class ThresholdErrorHandler implements MeasurementHandler {
      */
     private ArrayList<Measurement> processMeasurements(ArrayList<Measurement> measurements) {
         // Using stream to map each Measurement to its processed version
+        System.out.println("ThresholdErrorHandler: processMeasurements");
         return measurements.stream()
                 .map(this::processMeasurement)
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -99,30 +103,78 @@ public class ThresholdErrorHandler implements MeasurementHandler {
      * @param measurement Measurement object to be processed
      * @return Processed Measurement object
      */
+//    private Measurement processMeasurement(Measurement measurement) {
+//        System.out.println("ThresholdErrorHandler: processMeasurement");
+//        // Checking if the measurement indicates an error
+//        if (measurement.getIsError() != null && !measurement.getIsError()) {}
+//        else {
+//            System.out.println("ThresholdErrorHandler: processMeasurement if Loop");
+//            boolean isError = false;
+//            // Processing based on measurement type
+//            if ("SpeedMeasurement".equals(measurement.getMeasurementType())) {
+//                Float maxSpeed = measurement.getVehicle().getVehicleModel().getMaxSpeed();
+//                SpeedMeasurement speedMeasurement = (SpeedMeasurement) measurement;
+//                Float currentSpeed = (float) speedMeasurement.getSpeed();
+//                // Checking if current speed exceeds the maximum allowed speed
+//                if(currentSpeed >= maxSpeed){
+//                    isError = true;
+//                }
+//            } else if ("AccelerationMeasurement".equals(measurement.getMeasurementType())) {
+//                Float maxAcceleration = measurement.getVehicle().getVehicleModel().getMaxAcceleration();
+//                AccelerationMeasurement accelerationMeasurement = (AccelerationMeasurement) measurement;
+//                Float currentAcceleration = (float) accelerationMeasurement.getAcceleration();
+//                // Checking if current acceleration exceeds the maximum allowed acceleration
+//                if (currentAcceleration >= maxAcceleration){
+//                    isError = true;
+//                }
+//            }
+//            setErrorOnMeasurement(measurementRepo, measurement, isError);
+//        }
+//        return measurement;
+//    }
     private Measurement processMeasurement(Measurement measurement) {
-        // Checking if the measurement indicates an error
         if (measurement.getIsError() != null && !measurement.getIsError()) {
+        } else {
             boolean isError = false;
-            // Processing based on measurement type
-            if ("SpeedMeasurement".equals(measurement.getMeasurementType())) {
-                Float maxSpeed = measurement.getVehicle().getVehicleModel().getMaxSpeed();
-                SpeedMeasurement speedMeasurement = (SpeedMeasurement) measurement;
-                Float currentSpeed = (float) speedMeasurement.getSpeed();
-                // Checking if current speed exceeds the maximum allowed speed
-                measurement.setIsError(maxSpeed <= currentSpeed);
-                isError = true;
-            } else if ("AccelerationMeasurement".equals(measurement.getMeasurementType())) {
-                Float maxAcceleration = measurement.getVehicle().getVehicleModel().getMaxAcceleration();
-                AccelerationMeasurement accelerationMeasurement = (AccelerationMeasurement) measurement;
-                Float currentAcceleration = (float) accelerationMeasurement.getAcceleration();
-                // Checking if current acceleration exceeds the maximum allowed acceleration
-                measurement.setIsError(maxAcceleration <= currentAcceleration);
-                isError = true;
+            switch (measurement.getMeasurementType()) {
+                case "SpeedMeasurement":
+                    Float maxSpeed = measurement.getVehicle().getVehicleModel().getMaxSpeed();
+                    SpeedMeasurement speedMeasurement = (SpeedMeasurement) measurement;
+                    Float currentSpeed = (float) speedMeasurement.getSpeed();
+                    // Checking if current speed exceeds the maximum allowed speed
+                    if (currentSpeed >= maxSpeed) {
+                        isError = true;
+                    }
+                    break;
+                case "AccelerationMeasurement":
+                    Float maxAcceleration = measurement.getVehicle().getVehicleModel().getMaxAcceleration();
+                    AccelerationMeasurement accelerationMeasurement = (AccelerationMeasurement) measurement;
+                    Float currentAcceleration = (float) accelerationMeasurement.getAcceleration();
+                    if (currentAcceleration >= maxAcceleration) {
+                        isError = true;
+                    }
+                    break;
+                case "AxisMeasurement":
+                    Float maxAxis = measurement.getVehicle().getVehicleModel().getMaxAxis();
+                    Float minAxis = measurement.getVehicle().getVehicleModel().getMinAxis();
+                    AxisMeasurement axisMeasurement = (AxisMeasurement) measurement;
+                    Float currentAxis = axisMeasurement.getAxisAngle();
+                    if (currentAxis >= maxAxis || currentAxis <= minAxis) {
+                        isError = true;
+                    }
+                    break;
+                case "SteeringWheelMeasurement":
+                    Float maxSteeringWheel = measurement.getVehicle().getVehicleModel().getMaxSteeringWheel();
+                    Float minSteeringWheel = measurement.getVehicle().getVehicleModel().getMinSteeringWheel();
+                    SteeringWheelMeasurement steeringWheelMeasurement = (SteeringWheelMeasurement) measurement;
+                    Float currentSteeringWheel = steeringWheelMeasurement.getSteeringWheelAngle();
+                    if (currentSteeringWheel >= maxSteeringWheel || currentSteeringWheel <= minSteeringWheel) {
+                        isError = true;
+                    }
+                    break;
             }
             setErrorOnMeasurement(measurementRepo, measurement, isError);
         }
-
-        System.out.println("ThresholdErrorHandler Method processMeasurement return");
         return measurement;
     }
 }

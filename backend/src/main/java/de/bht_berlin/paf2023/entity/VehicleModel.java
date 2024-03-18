@@ -21,8 +21,6 @@ public class VehicleModel extends IdentifiedEntity {
 
     private Float weight;
 
-    private String fuelType;
-
     private Float maxSpeed;
 
     private Float maxAcceleration;
@@ -42,7 +40,6 @@ public class VehicleModel extends IdentifiedEntity {
 
     private Float locationTolerance;
 
-    private Float fuelLevelTolerance;
 
     private Float AxisTolerance;
 

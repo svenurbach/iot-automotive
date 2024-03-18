@@ -67,7 +67,7 @@ public class StartupRunner implements ApplicationRunner {
         dataSet.put("insurance", 10L);
         dataSet.put("vehicle_model", 10L);
         dataSet.put("vehicle", 10L);
-        dataSet.put("trip", 10L);
+//        dataSet.put("trip", 10L);
         dataSet.put("contract", 10L);
 
         /**

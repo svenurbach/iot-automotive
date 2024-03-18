@@ -19,26 +19,24 @@
       <label>Baujahr:</label>
       <p>{{vehicle?.vehicleModel?.constructionYear}}</p>
     </div>
-    <!--          <div class="vehicle-details">-->
-    <!--            <label>Autohalter:</label>-->
-    <!--            <p>{{contract.policyholder}}</p>-->
-    <!--          </div>-->
-    <!--          <div class="vehicle-details">-->
-    <!--&lt;!&ndash;            <label>Versicherung:</label> <p>{{}}</p>&ndash;&gt;-->
-    <!--          </div>-->
-    <!--          <div class="vehicle-details">-->
-    <!--          <label>Versicherungsnummer:</label>-->
-    <!--            <p>{{contract.policyNumber}}</p>-->
-    <!--          </div>-->
     <div class="vehicle-details">
       <label>Fahrten:</label>
       <p>{{ sumTrips$ | async }}</p>
     </div>
   </div>
+
   <div class="loc-pieChart">
-    <app-osm-view [carId]="vehicle.id" [visibleMap]="true"></app-osm-view>
+    <div class="osm-view-container">
+      @if (vehicle) {
+      <app-osm-view [carId]="vehicle.id" [visibleMap]="true"></app-osm-view>
+      }
+    </div>
+
     <div class="chart-container">
       <canvas id="MyChart"><p>{{ chart }}</p></canvas>
     </div>
   </div>
+
 </div>
+
+

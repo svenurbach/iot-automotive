@@ -31,8 +31,7 @@ public class VehicleController {
     }
 
     @GetMapping(path = "/{id}/measurementErrors")
-    public List<Measurement> findAllMeasurementsFromVehicleWithError(@PathVariable Long id)
-                                                                     {
+    public List<Measurement> findAllMeasurementsFromVehicleWithError(@PathVariable Long id) {
         return vehicleService.findAllMeasurementsFromVehicleWithError(id);
     }
 }
