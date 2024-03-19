@@ -109,7 +109,7 @@ public class MeasurementControllerSingleton {
      * @param dateString string of date
      * @return date object
      */
-    private static Date parseDateFromString(String dateString) {
+    public static Date parseDateFromString(String dateString) {
         Date date = null;
 
         // define pattern for parsing

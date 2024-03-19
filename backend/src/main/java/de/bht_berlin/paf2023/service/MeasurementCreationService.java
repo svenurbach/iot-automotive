@@ -30,6 +30,8 @@ public class MeasurementCreationService {
      */
     private int currentLineIndex = 1;
 
+    private long vehicleId = 2l;
+
     private final int timeBetweenTripsInMinutes = 60;
 
 
@@ -80,6 +82,7 @@ public class MeasurementCreationService {
 
     public void importFile(String file, long vehicleId) {
         this.file = file;
+        this.vehicleId = vehicleId;
         this.setSchedulerActive(true);
     }
 
@@ -95,6 +98,15 @@ public class MeasurementCreationService {
                 MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFileLineByLine(this.file,
                         columnHeaders,
                         currentLineIndex);
+
+        if (this.vehicleId != 0l) {
+            String pattern = "yyyy-MM-dd HH:mm:ss";
+
+            readout.get(0).put("Vehicle", (int) this.vehicleId);
+            // create date object for timestamp
+            Date timestamp =
+                    MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).parseDateFromString(readout.get(0).get("Timestamp").toString());
+        }
 
         if (readout != null) {
             // create measurement entities from hashmap

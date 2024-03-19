@@ -141,35 +141,4 @@ public class TripServiceTest {
 
         assertEquals(Double.valueOf(200.0), totalDistance);
     }
-
-
-//    @Test
-//    public void updateMeasurementTest() throws ParseException {
-//
-//        TripService service = new TripService(tripRepoMock, measurementRepoMock2);
-//        HandleSingleTripStrategy strategy = new HandleSingleTripStrategy(tripRepoMock, measurementRepoMock2);
-//        service.changeTripHandlerStrategy(strategy);
-//        HandleSingleTripStrategy strategySpy = spy(strategy);
-//        TripService serviceSpy = spy(service);
-//
-//        Vehicle vehicleMock = mock(Vehicle.class);
-//        when(vehicleMock.getId()).thenReturn(1L);
-//
-//        LocationMeasurement locationMeasurement = mock(LocationMeasurement.class);
-//        Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-02-18 06:01:33");
-//        when(locationMeasurement.getTimestamp()).thenReturn(date);
-//
-//        when(locationMeasurement.getTimestamp()).thenReturn(date);
-//
-//        when(locationMeasurement.getLatitude()).thenReturn(52.5237569f);
-//        when(locationMeasurement.getLongitude()).thenReturn(13.3344698f);
-//        when(locationMeasurement.getVehicle()).thenReturn(vehicleMock);
-//        when(locationMeasurement.getMeasurementType()).thenReturn("LocationMeasurement");
-//
-//        measurementRepoMock2.addMeasurement(locationMeasurement);
-//
-//        verify(strategySpy, atLeast(1)).addData(locationMeasurement);
-////        verify(repo, times(totalCount)).addMeasurement(any(Measurement.class));
-//
-//    }
 }
