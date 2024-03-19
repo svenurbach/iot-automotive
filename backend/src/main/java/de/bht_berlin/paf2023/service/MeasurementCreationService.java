@@ -66,7 +66,6 @@ public class MeasurementCreationService {
         if (schedulerActive == false || file.equals("")) {
             return;
         }
-
         this.runLineByLineImport();
     }
 
@@ -75,6 +74,11 @@ public class MeasurementCreationService {
     }
 
     public void importFile(String file) {
+        this.file = file;
+        this.setSchedulerActive(true);
+    }
+
+    public void importFile(String file, long vehicleId) {
         this.file = file;
         this.setSchedulerActive(true);
     }

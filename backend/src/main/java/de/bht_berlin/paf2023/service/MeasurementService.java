@@ -130,16 +130,16 @@ public class MeasurementService {
                                           Double tolerance, ArrayList<Double> comparativeValuesArrayFuture, int comparativeValuesArraySize) {
 
         ArrayList<Double> arrayForFutureValues = new ArrayList<>();
-        int endIndex = values.size() -comparativeValuesArraySize-1;
+        int endIndex = values.size() - comparativeValuesArraySize - 1;
         System.out.println("pre outer future while");
-        if (counter > endIndex){
+        if (counter > endIndex) {
             return false;
         }
-        int pointer = counter +1;
-        while (arrayForFutureValues.size() < comparativeValuesArraySize) {
+        int pointer = counter + 1;
+        while (arrayForFutureValues.size() < comparativeValuesArraySize && pointer < values.size() - 1) {
             Measurement currentMeasurement = values.get(counter);
             double currentValue = measurementArrayInDouble.get(counter);
-            if (values.get(pointer).getIsError() == null || values.get(pointer).getIsError()== false){
+            if (values.get(pointer).getIsError() == null || values.get(pointer).getIsError() == false) {
                 arrayForFutureValues.add(measurementArrayInDouble.get(pointer));
             }
             pointer++;
@@ -176,14 +176,14 @@ public class MeasurementService {
         boolean measurementError = false;
         ArrayList<Double> arrayForPastValues = new ArrayList<>();
         System.out.println("pre outer future while");
-        if (counter < comparativeValuesArraySize){
+        if (counter < comparativeValuesArraySize) {
             return false;
         }
-        int pointer = counter -1;
+        int pointer = counter - 1;
         while (arrayForPastValues.size() < comparativeValuesArraySize && pointer >= 0) {
             Measurement currentMeasurement = values.get(counter);
             double currentValue = measurementArrayInDouble.get(counter);
-            if (values.get(pointer).getIsError() == null || values.get(pointer).getIsError()== false){
+            if (values.get(pointer).getIsError() == null || values.get(pointer).getIsError() == false) {
                 arrayForPastValues.add(measurementArrayInDouble.get(pointer));
             }
             pointer--;

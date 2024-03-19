@@ -51,7 +51,7 @@ public class MeasurementControllerSingleton {
      * @param file string path of csv file
      * @return nested list of strings
      */
-    public List readFile(String file) {
+    public List readFile(String file) throws IOException {
         List<List<String>> records = new ArrayList<>();
 
         /**
@@ -63,10 +63,9 @@ public class MeasurementControllerSingleton {
                 String[] values = line.split(DELIMITER);
                 records.add(Arrays.asList(values));
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+            throw e;
         }
         return records;
     }
@@ -81,6 +80,12 @@ public class MeasurementControllerSingleton {
 
         List<String> keys = new ArrayList<>();
         List<HashMap> allReadOuts = new ArrayList<>();
+
+        //check for empty list
+        if (readOuts.isEmpty()) {
+            System.out.println("empty!");
+            return allReadOuts;
+        }
 
         // get keys of csv table header
         for (int i = 0; i < readOuts.get(0).size(); i++) {

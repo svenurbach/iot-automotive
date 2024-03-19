@@ -24,6 +24,16 @@ public class TripController {
     @Autowired
     private TripRepo tripRepo;
 
+    // Setter for TripService (for testing purposes)
+    public void setTripService(TripService tripService) {
+        this.tripService = tripService;
+    }
+
+    // Setter for TripRepo (for testing purposes)
+    public void setTripRepo(TripRepo tripRepo) {
+        this.tripRepo = tripRepo;
+    }
+
     @GetMapping(path = "/findAll")
     public List<Trip> getAllTrips() {
         return tripService.getAllTrips();
@@ -43,20 +53,6 @@ public class TripController {
     public Double getTotalDistanceForTrip(@PathVariable Long id) {
         return tripService.getTotalDistanceForTrip(tripRepo.findById(id).get());
     }
-
-//    @GetMapping(path = "/findAll/{vehicleId}")
-//    public List<Trip> findAllByVehicleId(@PathVariable Long vehicleId,
-//                                         @RequestParam(required = false) String startTime,
-//                                         @RequestParam(required = false) String endTime) {
-//        if (startTime != null && endTime != null) {
-//            // date format example 2018-01-17T05:01:33.000Z
-//            Date start = Date.from(Instant.parse(startTime));
-//            Date end = Date.from(Instant.parse(endTime));
-//            return tripService.findAllByVehicleId(vehicleId, start, end);
-//        } else {
-//            return tripService.findAllByVehicleId(vehicleId);
-//        }
-//    }
 
     /**
      * endpoint for getting all trips belonging to a list of vehicles passed as url params within a time range

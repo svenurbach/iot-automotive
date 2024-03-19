@@ -69,6 +69,5 @@ public class MeasurementCreationServiceTest {
 
         measurementCreationService.importFile(file);
         verify(measurementCreationService, timeout(10000)).runLineByLineImport();
-
     }
 }
