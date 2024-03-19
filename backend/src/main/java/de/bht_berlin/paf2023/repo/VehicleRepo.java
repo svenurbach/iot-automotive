@@ -16,6 +16,11 @@ import java.util.List;
 @Repository
 public interface VehicleRepo extends JpaRepository<Vehicle, Long> {
 
+    /**
+     * Retrieves a list of vehicles associated with a policyholder.
+     * @param personId The ID of the policyholder.
+     * @return A list of vehicles associated with the specified policyholder.
+     */
     @Query("SELECT v " +
             "FROM Vehicle v " +
             "JOIN v.insuranceContract c " +
@@ -23,11 +28,16 @@ public interface VehicleRepo extends JpaRepository<Vehicle, Long> {
             "WHERE p.id = :personId")
     List<Vehicle> findByInsuranceContract_Policyholder(@Param("personId") Long personId);
 
+    /**
+     * Retrieves the vehicle associated with a specific insurance contract.
+     * @param insuranceId The ID of the insurance contract.
+     * @return The vehicle associated with the specified insurance contract.
+     */
     @Query("SELECT v " +
             "FROM Vehicle v " +
             "JOIN v.insuranceContract c " +
             "JOIN c.policyholder p " +
             "WHERE c.id = :insuranceId")
-    Vehicle findByInsuranceContract(Long insuranceId);
+    Vehicle findByInsuranceContract(@Param("insuranceId") Long insuranceId);
 
 }

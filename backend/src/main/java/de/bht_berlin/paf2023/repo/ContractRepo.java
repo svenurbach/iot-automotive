@@ -14,7 +14,4 @@ import java.util.List;
 @Repository
 public interface ContractRepo extends JpaRepository<InsuranceContract, Long> {
 
-    @Query("SELECT c FROM InsuranceContract c JOIN c.insurance i JOIN i.insuranceCompany WHERE c.policyholder = :personId")
-    List<InsuranceContract> findInsuranceContractsByPersonID(@Param("personId") Long personId);
-
 }
