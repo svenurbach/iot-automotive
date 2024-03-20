@@ -107,18 +107,24 @@ public class MeasurementService {
      */
     public boolean findErrorInFutureArray(int counter, ArrayList<Measurement> values, ArrayList<Double> measurementArrayInDouble,
                                           Double tolerance, int comparativeValuesArraySize) {
+        // Create an ArrayList to store future values
         ArrayList<Double> arrayForFutureValues = new ArrayList<>();
+        // Calculate the index to stop considering future values
         int endIndex = values.size() - comparativeValuesArraySize - 1;
         if (counter > endIndex){
             return false;
         }
+        // Set the pointer to the next position after the current value
         int pointer = counter + 1;
+        // Iterates through the future values to add them to arrayForFutureValues
         while (arrayForFutureValues.size() < comparativeValuesArraySize && pointer < values.size()) {
+            // // Adds values with no errors to the arrayForFutureValues
             if (values.get(pointer).getIsError() == null || !values.get(pointer).getIsError()){
                 arrayForFutureValues.add(measurementArrayInDouble.get(pointer));
             }
             pointer++;
         }
+        // Calculates the average of future values
         double averageFuture = calculateAverage(arrayForFutureValues);
 //        arrayForFutureValues.clear();
         return !isValueInTolerance(averageFuture, counter, measurementArrayInDouble, tolerance);
@@ -138,20 +144,26 @@ public class MeasurementService {
                                         Double tolerance, int comparativeValuesArraySize) {
         boolean measurementError = false;
         ArrayList<Double> arrayForPastValues = new ArrayList<>();
+        // Checks if the counter is less than comparativeValuesArraySize
         if (counter < comparativeValuesArraySize){
             return false;
         }
         int pointer = counter - 1;
+        // Iterates through the past values to add them to arrayForPastValues
         while (arrayForPastValues.size() < comparativeValuesArraySize && pointer >= 0) {
+            // Adds values with no errors to the arrayForPastValues
             if (values.get(pointer).getIsError() == null || !values.get(pointer).getIsError()){
                 arrayForPastValues.add(measurementArrayInDouble.get(pointer));
             }
             pointer--;
         }
+        // Calculates the average of past values
         double averagePast = calculateAverage(arrayForPastValues);
+        // Checks if average of past values is within the tolerance range, if not, set measurementError to true
         if (!(isValueInTolerance(averagePast, counter, measurementArrayInDouble, tolerance))) {
             measurementError = true;
         }
+        // Clears the arrayForPastValues for future use
         arrayForPastValues.clear();
         return measurementError;
     }

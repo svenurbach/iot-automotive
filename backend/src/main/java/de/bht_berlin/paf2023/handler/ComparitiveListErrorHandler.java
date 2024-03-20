@@ -46,7 +46,6 @@ public class ComparitiveListErrorHandler implements MeasurementHandler {
      */
     @Override
     public void handle(HashMap<String, ArrayList<Measurement>> hashMap) {
-        System.out.println("ComparitiveListErrorHandler");
         comparativeValuesArraySize = 15;
         hashMap.keySet().forEach((type) -> {
             HashMap<String, ArrayList<Measurement>> processedHashMap = new HashMap<>();
@@ -116,19 +115,27 @@ public class ComparitiveListErrorHandler implements MeasurementHandler {
      * @param tolerance                Tolerance for error detection
      * @return                         True if errors are present for the specified index, otherwise False
      */
-    private boolean checkForErrors(int index, ArrayList<Double> measurementArrayInDouble, HashMap<String,
-            ArrayList<Measurement>> hashMap, String type, double tolerance) {
+    private boolean checkForErrors(int index, ArrayList<Double> measurementArrayInDouble, HashMap<String, ArrayList<Measurement>> hashMap,
+                                   String type, double tolerance) {
         ArrayList<Boolean> hasError = new ArrayList<>();
         if (index >= 0 && index < hashMap.get(type).size() - comparativeValuesArraySize) {
             boolean isError = measurementService.findErrorInFutureArray(index, hashMap.get(type), measurementArrayInDouble,
                     tolerance, comparativeValuesArraySize);
+            System.out.println("isError Future: " + isError);
             hasError.add(isError);
         }
         if (index >= comparativeValuesArraySize) {
             boolean isError = measurementService.findErrorInPastArray(index, hashMap.get(type), measurementArrayInDouble,
                     tolerance, comparativeValuesArraySize);
+            System.out.println("isError Past: " + isError);
             hasError.add(isError);
         }
         return hasError.stream().anyMatch(Boolean::booleanValue);
     }
+
+    public boolean checkForErrorsPublic(int index, ArrayList<Double> measurementArrayInDouble, HashMap<String, ArrayList<Measurement>> hashMap,
+                                        String type, double tolerance) {
+        return checkForErrors(index, measurementArrayInDouble, hashMap, type, tolerance);
+    }
 }
+

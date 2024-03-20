@@ -35,6 +35,14 @@ public interface MeasurementHandler {
      */
     void handle(HashMap<String, ArrayList<Measurement>> measurementsFromTrip);
 
+
+    /**
+     * Sets the error status on a measurement object and updates it in the measurement repository.
+     *
+     * @param measurementRepo Repository subject where the measurement object is stored
+     * @param measurement Measurement object for which the error status needs to be set
+     * @param isError Boolean value indicating whether the measurement is marked as an error (true) or not (false)
+     */
     default void setErrorOnMeasurement(MeasurementRepoSubject measurementRepo, Measurement measurement, boolean isError){
         measurementRepo.setIsError(measurement, isError);
     }

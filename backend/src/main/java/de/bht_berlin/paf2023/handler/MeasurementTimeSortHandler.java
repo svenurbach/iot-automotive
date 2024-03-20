@@ -45,9 +45,9 @@ public class MeasurementTimeSortHandler implements MeasurementHandler {
     }
 
     /**
-     * Sorts measurements in a HashMap by time and passes them to the next handler.
-     * Receives a HashMap of measurements grouped by their type and then sort them by time.
-     * The sorted measurements are then passed to the next handler.
+     * Handles a HashMap of measurements.
+     * This method processes the given HashMap of measurements by sorting them by time for each measurement type
+     * and passes the sorted measurements to the next handler.
      *
      * @param hashMap contains measurements grouped by their type.
      *                Key: Type of measurements,Value: ArrayList of measurements of that type.
@@ -55,6 +55,20 @@ public class MeasurementTimeSortHandler implements MeasurementHandler {
     @Override
     public void handle(HashMap<String, ArrayList<Measurement>> hashMap) {
         // HashMap to store sorted measurements by type
+        HashMap<String, ArrayList<Measurement>> sortedByTime = processHashMap(hashMap);
+        // Passing the sorted measurements to the next handler
+        nextHandler.handle(sortedByTime);
+    }
+
+
+    /**
+     * Processes a HashMap of measurements.
+     * This method sorts the measurements within each ArrayList in the given HashMap by their timestamps.
+     *
+     * @param hashMap HashMap containing lists of measurements, where the key is the type of measurement.
+     * @return New HashMap with measurements sorted by time for each measurement type
+     */
+    private HashMap<String, ArrayList<Measurement>> processHashMap(HashMap<String, ArrayList<Measurement>> hashMap){
         HashMap<String, ArrayList<Measurement>> sortedByTime = new HashMap<>();
         // Iterating over the entries of the given HashMap
         hashMap.forEach((type, values) -> {
@@ -63,7 +77,10 @@ public class MeasurementTimeSortHandler implements MeasurementHandler {
             // Adding sorted measurements to the new HashMap
             sortedByTime.put(type, values);
         });
-        // Passing the sorted measurements to the next handler
-        nextHandler.handle(sortedByTime);
+        return sortedByTime;
+    }
+
+    public HashMap<String, ArrayList<Measurement>> processHashMapPublic(HashMap<String, ArrayList<Measurement>> hashMap) {
+        return processHashMap(hashMap);
     }
 }

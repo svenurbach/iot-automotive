@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+
 /**
  * Handler class responsible for handling threshold errors in measurements.
  */
@@ -69,8 +70,6 @@ public class ThresholdErrorHandler implements MeasurementHandler {
      */
     @Override
     public void handle(HashMap<String, ArrayList<Measurement>> hashMap) {
-        System.out.println("ThresholdErrorHandler");
-        // Processing measurements using streams
         HashMap<String, ArrayList<Measurement>> processedHashMap = hashMap.entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
@@ -89,10 +88,13 @@ public class ThresholdErrorHandler implements MeasurementHandler {
      */
     private ArrayList<Measurement> processMeasurements(ArrayList<Measurement> measurements) {
         // Using stream to map each Measurement to its processed version
-        System.out.println("ThresholdErrorHandler: processMeasurements");
         return measurements.stream()
                 .map(this::processMeasurement)
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public ArrayList<Measurement> processMeasurementsPublic(ArrayList<Measurement> measurements){
+        return processMeasurements(measurements);
     }
 
     /**
@@ -109,8 +111,11 @@ public class ThresholdErrorHandler implements MeasurementHandler {
             boolean isError = false;
             switch (measurement.getMeasurementType()) {
                 case "SpeedMeasurement":
+                    // Retrieve maximum speed allowed for the vehicle
                     Float maxSpeed = measurement.getVehicle().getVehicleModel().getMaxSpeed();
+                    // Cast the measurement to SpeedMeasurement type
                     SpeedMeasurement speedMeasurement = (SpeedMeasurement) measurement;
+                    // Retrieve current speed measurement
                     Float currentSpeed = (float) speedMeasurement.getSpeed();
                     // Checking if current speed exceeds the maximum allowed speed
                     if (currentSpeed >= maxSpeed) {
@@ -144,8 +149,19 @@ public class ThresholdErrorHandler implements MeasurementHandler {
                     }
                     break;
             }
-            setErrorOnMeasurement(measurementRepo, measurement, isError);
+            // Set error status on the measurement object
+            this.setErrorOnMeasurement(measurementRepo, measurement, isError);
         }
+        // Return the processed measurement object
         return measurement;
+    }
+
+    public Measurement processMeasurementPublic(Measurement measurement){
+        return processMeasurement(measurement);
+    }
+
+    @Override
+    public void setErrorOnMeasurement(MeasurementRepoSubject measurementRepo, Measurement measurement, boolean isError) {
+        measurementRepo.setIsError(measurement, isError);
     }
 }

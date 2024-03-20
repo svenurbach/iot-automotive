@@ -59,12 +59,11 @@ export class VehicleDetailsComponent {
         const parsedData = JSON.parse(jsonData);
         this.measurementTypes = parsedData.map((item: any) => item.measurementType);
         this.countMap = this.getSumOfMeasurementErrorOfType(this.measurementTypes);
-        this.createChart();
+        this.createPieChart();
       });
   }
 
   getSumOfMeasurementErrorOfType(measurementTypes: string[]): Record<string, number> {
-    // const countMap: { [key: string]: number } = {};
     measurementTypes.forEach(type => {
       if (this.countMap[type]) {
         this.countMap[type]++;
@@ -72,7 +71,7 @@ export class VehicleDetailsComponent {
         this.countMap[type] = 1;
       }
     });
-    console.log("CountMap", this.countMap);
+    console.log("CountMap: ", this.countMap);
     return this.countMap;
   }
 
@@ -94,14 +93,14 @@ export class VehicleDetailsComponent {
   }
 
   // Kreisdiagramm für Messfehler pro Fahrzeug
-  createChart() {
-    this.chart = new Chart("MyChart", {
+  createPieChart() {
+    this.chart = new Chart("pieChartErrors", {
       type: 'pie',
       data: {
         labels: this.getMeasurementTypeFromMap(this.countMap),
         datasets: [
           {
-            label: "Sales",
+            label: "Errors per vehicle",
             data: this.getSumOfMeasurementErrorsByType(this.countMap),
             backgroundColor: [
               "#b91d47",
@@ -111,7 +110,6 @@ export class VehicleDetailsComponent {
               "#1e7145"
             ]
           },
-
         ]
       },
       options: {
