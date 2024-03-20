@@ -32,7 +32,6 @@ public class VehicleService {
         this.insuranceRepo = insuranceRepo;
     }
 
-
     public Vehicle addVehicle(Vehicle vehicle) {
         return vehicleRepo.save(vehicle);
     }
@@ -58,10 +57,21 @@ public class VehicleService {
         return test;
     }
 
+    /**
+     * Retrieves a list of vehicles associated with a specific policyholder.
+     * @param personId The ID of the policyholder.
+     * @return A list of vehicles associated with the specified policyholder.
+     */
     public List<Vehicle> getVehiclesByPerson(Long personId) {
         return vehicleRepo.findByInsuranceContract_Policyholder(personId);
     }
 
+
+    /**
+     * Retrieves the vehicle associated with a specific insurance contract.
+     * @param insuranceId The ID of the insurance contract.
+     * @return The vehicle associated with the specified insurance contract.
+     */
     public Vehicle getCarByIncurance(Long insuranceId) {
         return vehicleRepo.findByInsuranceContract(insuranceId);
     }

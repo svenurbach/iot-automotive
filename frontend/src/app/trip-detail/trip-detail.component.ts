@@ -80,7 +80,7 @@ export class TripDetailComponent {
     this.average_speed = 0;
     this.tripService.getTrip(Number(this.tripId)).subscribe((data) => {
       this.trip = data;
-      if (data.distance) {
+      if (data.distance && data.distance > 0) {
         this.distance = data.distance;
       } else {
         this.tripService
@@ -89,7 +89,12 @@ export class TripDetailComponent {
             this.distance = distance;
           })
       }
-      this.duration = new Date(data.trip_end).getTime() - new Date(data.trip_start).getTime();
+
+      let durationTemp: number = new Date(data.trip_end).getTime() - new Date(data.trip_start).getTime();
+      if (durationTemp > 0) {
+        this.duration = durationTemp
+      }
+
       this.tripPath = this.getPointsForPath(data.measurements);
       if (data.average_speed) {
         this.average_speed = data.average_speed;

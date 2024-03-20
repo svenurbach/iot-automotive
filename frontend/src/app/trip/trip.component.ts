@@ -143,11 +143,15 @@ export class TripComponent {
             .getTotalDistanceForTrip(trip.id)
             .subscribe((distance) => {
               // Accumulate total distance for all trips
-              this.distance += distance;
-
+              if (distance > 0) {
+                this.distance += distance;
+              }
             });
         }
-        this.duration += new Date(trip.trip_end).getTime() - new Date(trip.trip_start).getTime();
+        let durationTemp: number = new Date(trip.trip_end).getTime() - new Date(trip.trip_start).getTime();
+        if (durationTemp > 0) {
+          this.duration += durationTemp
+        }
         this.addTripPathToTrip(trip.id, this.getPointsForPath(trip.measurements))
         if (trip.average_speed) {
           this.speeds.push(trip.average_speed);

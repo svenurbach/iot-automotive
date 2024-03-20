@@ -18,6 +18,11 @@ public class FindMyCarRestController {
         this.findMyCarService = findMyCarService;
     }
 
+    /**
+     * Retrieves the last known position of a car by its ID.
+     * @param id The ID of the car whose last known position is to be retrieved.
+     * @return A list containing the latitude and longitude coordinates of the last known position of the car.
+     */
     @GetMapping(path = "/{id}")
     // http://localhost:8080/api/findMyCar/1
     public List<Float> getLastCarPosition(@PathVariable Long id) {
