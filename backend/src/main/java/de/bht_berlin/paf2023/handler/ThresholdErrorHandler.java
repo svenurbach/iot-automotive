@@ -70,6 +70,7 @@ public class ThresholdErrorHandler implements MeasurementHandler {
      */
     @Override
     public void handle(HashMap<String, ArrayList<Measurement>> hashMap) {
+        // Process the measurements and create a new HashMap with processed measurements
         HashMap<String, ArrayList<Measurement>> processedHashMap = hashMap.entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
@@ -106,6 +107,7 @@ public class ThresholdErrorHandler implements MeasurementHandler {
      * @return Processed Measurement object
      */
     private Measurement processMeasurement(Measurement measurement) {
+
         if (measurement.getIsError() != null && !measurement.getIsError()) {
         } else {
             boolean isError = false;

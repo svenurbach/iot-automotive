@@ -66,10 +66,6 @@ public class ComparitiveListErrorHandler implements MeasurementHandler {
                 setErrorOnMeasurement(measurementRepo, hashMap.get(type).get(i), isError);
                 processedHashMap.put(type, hashMap.get(type));
                 }
-//            else {
-//                    continue;
-//                }
-//            }
             }
             measurementArrayInDouble.clear();
         });
@@ -121,13 +117,11 @@ public class ComparitiveListErrorHandler implements MeasurementHandler {
         if (index >= 0 && index < hashMap.get(type).size() - comparativeValuesArraySize) {
             boolean isError = measurementService.findErrorInFutureArray(index, hashMap.get(type), measurementArrayInDouble,
                     tolerance, comparativeValuesArraySize);
-            System.out.println("isError Future: " + isError);
             hasError.add(isError);
         }
         if (index >= comparativeValuesArraySize) {
             boolean isError = measurementService.findErrorInPastArray(index, hashMap.get(type), measurementArrayInDouble,
                     tolerance, comparativeValuesArraySize);
-            System.out.println("isError Past: " + isError);
             hasError.add(isError);
         }
         return hasError.stream().anyMatch(Boolean::booleanValue);

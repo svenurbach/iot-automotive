@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
-import de.bht_berlin.paf2023.service.MeasurementService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 

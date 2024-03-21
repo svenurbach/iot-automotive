@@ -1,4 +1,4 @@
-package Handler;
+package de.bht_berlin.paf2023.Handler;
 
 import static org.mockito.Mockito.*;
 
@@ -43,7 +43,7 @@ class TripMeasurementHandlerTest {
 
 
     @Test
-    void handle_ValidTrip() {
+    void handleValidTrip() {
         long tripId = 1L;
         Trip trip = new Trip();
         trip.setId(tripId);
