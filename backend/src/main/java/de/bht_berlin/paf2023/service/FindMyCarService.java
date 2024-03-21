@@ -21,7 +21,7 @@ public class FindMyCarService {
      * @param positionStrategy The PositionStrategy to be used for finding the last position.
      */
     @Autowired
-    public FindMyCarService(@Qualifier("lastTripPositionStrategy") PositionStrategy positionStrategy) {
+    public FindMyCarService(PositionStrategy positionStrategy) {
         this.positionStrategy = positionStrategy;
     }
 
@@ -32,6 +32,15 @@ public class FindMyCarService {
      */
     public void setPositionStrategy(PositionStrategy positionStrategy) {
         this.positionStrategy = positionStrategy;
+    }
+
+    /**
+     * Gets the PositionStrategy to be used for finding the last position.
+     *
+     * @return The active PositionStrategy.
+     */
+    public PositionStrategy getPositionStrategy() {
+        return this.positionStrategy;
     }
 
     /**

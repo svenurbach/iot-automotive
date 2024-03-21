@@ -5,6 +5,7 @@ import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.repo.TripRepo;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import de.bht_berlin.paf2023.strategy.PositionStrategy;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Component
+@Primary
 public class LastTripPositionStrategy implements PositionStrategy {
 
     private final VehicleRepo vehicleRepo;
