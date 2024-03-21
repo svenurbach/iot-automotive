@@ -54,7 +54,7 @@ class InsuranceServiceTest {
     }
 
     @Test
-    void testGetInsuranceByCar() {
+    void getInsuranceByCar() {
         InsuranceContract contract = new InsuranceContract();
         Long carId = 1L;
 
@@ -68,7 +68,7 @@ class InsuranceServiceTest {
     }
 
     @Test
-    void testGetInsurancesByPerson() {
+    void getInsurancesByPerson() {
         InsuranceContract contract1 = new InsuranceContract();
         InsuranceContract contract2 = new InsuranceContract();
         Long personId = 1L;
