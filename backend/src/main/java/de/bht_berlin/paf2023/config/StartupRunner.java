@@ -62,18 +62,20 @@ public class StartupRunner implements ApplicationRunner {
          *
          */
         Map<String, Long> dataSet = new LinkedHashMap<String, Long>();
-        dataSet.put("person", 10L);
-        dataSet.put("insurance_company", 10L);
-        dataSet.put("insurance", 10L);
-        dataSet.put("vehicle_model", 10L);
-        dataSet.put("vehicle", 10L);
+        dataSet.put("person", 2L);
+        dataSet.put("insurance_company", 2L);
+        dataSet.put("insurance", 3L);
+        dataSet.put("vehicle_model", 3L);
+        dataSet.put("vehicle", 3L);
 //        dataSet.put("trip", 10L);
-        dataSet.put("contract", 10L);
+        dataSet.put("contract", 3L);
 
         /**
          * call faker to create set of entities
          */
         iService.generateDummyDataSet(dataSet);
+
+        iService.makePlausibleData();
 
         /**
          * instantiate handlers for measurement error detection
@@ -99,7 +101,7 @@ public class StartupRunner implements ApplicationRunner {
         List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
 
         // call measurement controller to create measurements from hashmap
-//        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
+        MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(allReadOuts);
 
         // instantiate strategy go segment trips from import
         SegmentTripsInDBStrategy segmentTripsInDBStrategy = new SegmentTripsInDBStrategy(tripRepo, measurementRepo);
@@ -107,7 +109,7 @@ public class StartupRunner implements ApplicationRunner {
         // set segmenting strategy for csv imports
         service.changeTripHandlerStrategy(segmentTripsInDBStrategy);
         // call segment method on strategy
-//        service.tripHandlerStrategy.addData(vehicleRepo.findAll());
+        service.tripHandlerStrategy.addData(vehicleRepo.findAll());
 
         /**
          * change trip handling strategy to scheduled readout for new measurements in csv file
@@ -117,7 +119,7 @@ public class StartupRunner implements ApplicationRunner {
         service.changeTripHandlerStrategy(handleSingleTripStrategy);
 
         // import file and enable scheduler to continuously read csv to simulate incoming measurement stream
-        measurementCreationService.importFile("clean-import.csv");
+//        measurementCreationService.importFile("clean-import.csv");
     }
 
 

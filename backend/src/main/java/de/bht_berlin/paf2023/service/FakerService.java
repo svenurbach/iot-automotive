@@ -225,6 +225,100 @@ public class FakerService {
                 }
                 break;
         }
+    }
+
+    public void makePlausibleData() {
+        List<Person> persons = personRepo.findAll();
+        List<InsuranceCompany> insuranceCompanies = insuranceCompanyRepo.findAll();
+        List<Insurance> insurances = insuranceRepo.findAll();
+        List<VehicleModel> vehicleModels = vehicleModelRepo.findAll();
+        List<Vehicle> vehicles = vehicleRepo.findAll();
+        List<InsuranceContract> insuranceContracts = contractRepo.findAll();
+
+        InsuranceCompany insuranceCompanyOne = insuranceCompanies.get(0);
+        insuranceCompanyOne.setCompanyName("Alianz");
+        InsuranceCompany insuranceCompanyTwo = insuranceCompanies.get(1);
+        insuranceCompanyTwo.setCompanyName("HUK Coburg");
+        for (int i = 0; i < insuranceCompanies.size(); i++) {
+            insuranceCompanyRepo.save(insuranceCompanies.get(i));
+        }
+
+        Insurance insuranceOne = insurances.get(0);
+        insuranceOne.setInsuranceCompany(insuranceCompanyTwo);
+        insuranceOne.setInsuranceName("Classic Select");
+        insuranceOne.setInsuranceType("Teilkasko");
+
+        Insurance insuranceTwo = insurances.get(1);
+        insuranceTwo.setInsuranceCompany(insuranceCompanyOne);
+        insuranceTwo.setInsuranceName("Komfort");
+        insuranceTwo.setInsuranceType("Vollkasko");
+
+        Insurance insuranceThree = insurances.get(2);
+        insuranceThree.setInsuranceCompany(insuranceCompanyOne);
+        insuranceThree.setInsuranceName("Premium");
+        insuranceThree.setInsuranceType("Vollkasko");
+
+
+        for (int i = 0; i < insurances.size(); i++) {
+            insuranceRepo.save(insurances.get(i));
+        }
+
+        VehicleModel vehicleModelOne = vehicleModels.get(0);
+        vehicleModelOne.setManufacturer("Volkswagen");
+        vehicleModelOne.setModelName("Golf GTE 1");
+        vehicleModelOne.setImgURL("https://uploads.vw-mms.de/system/production/images/vwn/080/882/images/2e3b58f75abcbedd61fe45f93fd1283e148760b8/DB2024AU00138_web_1600.jpg");
+
+        VehicleModel vehicleModelTwo = vehicleModels.get(1);
+        vehicleModelTwo.setManufacturer("Volkswagen");
+        vehicleModelTwo.setModelName("Tiguan Allspace");
+        vehicleModelTwo.setImgURL("https://uploads.vw-mms.de/system/production/images/vwn/036/795/images/5e5fc9aa428b278b08eedc58b10ede408e569a88/DB2021AU00494_web_1600.jpg");
+
+        VehicleModel vehicleModelThree = vehicleModels.get(2);
+        vehicleModelThree.setManufacturer("Peugot");
+        vehicleModelThree.setModelName("308");
+        vehicleModelThree.setImgURL("https://cdn.drivek.com/configurator-imgs/cars/de/Original/PEUGEOT/308" +
+                "/40577_WAGON-5-DOORS/peugeot-308-sw-2021-side-front.jpg");
+
+        for (int i = 0; i < vehicleModels.size(); i++) {
+            vehicleModelRepo.save(vehicleModels.get(i));
+        }
+
+        Vehicle vehicleOne = vehicles.get(0);
+        vehicleOne.setYearOfConstruction(2014);
+        vehicleOne.setLicensePlate("B-AS-1467");
+        vehicleOne.setVehicleModel(vehicleModelOne);
+
+        Vehicle vehicleTwo = vehicles.get(1);
+        vehicleTwo.setYearOfConstruction(2018);
+        vehicleTwo.setLicensePlate("B-AS-2451");
+        vehicleTwo.setVehicleModel(vehicleModelTwo);
+
+        Vehicle vehicleThree = vehicles.get(2);
+        vehicleThree.setYearOfConstruction(2022);
+        vehicleThree.setLicensePlate("B-NE-3347");
+        vehicleThree.setVehicleModel(vehicleModelThree);
+
+        for (int i = 0; i < vehicles.size(); i++) {
+            vehicleRepo.save(vehicles.get(i));
+        }
+
+        InsuranceContract insuranceContractOne = insuranceContracts.get(0);
+        insuranceContractOne.setPolicyholder(persons.get(0));
+        insuranceContractOne.setVehicle(vehicleOne);
+        insuranceContractOne.setInsurance(insuranceOne);
+
+        InsuranceContract insuranceContractTwo = insuranceContracts.get(1);
+        insuranceContractTwo.setPolicyholder(persons.get(0));
+        insuranceContractTwo.setVehicle(vehicleTwo);
+        insuranceContractTwo.setInsurance(insuranceTwo);
+
+        InsuranceContract insuranceContractThree = insuranceContracts.get(2);
+        insuranceContractThree.setPolicyholder(persons.get(1));
+        insuranceContractThree.setVehicle(vehicleThree);
+        insuranceContractThree.setInsurance(insuranceThree);
+        for (int i = 0; i < insuranceContracts.size(); i++) {
+            contractRepo.save(insuranceContracts.get(i));
+        }
 
     }
 }
