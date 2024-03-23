@@ -1,34 +1,29 @@
-# IOT_Automotive_PaF2023_2
-
-## API-Aufruf
-Beispiel: http://localhost:8080/api/hello/paf2023
+# IoT_Automotive_PaF2023_2
 
 ## Spring Framework
-### Getting Started
-Start in IntelliJ IDEA über den Run-Button.
-
-### Datenbank
+### Datenbank starten
 MacOS:  
 PostgreSQL installieren: ```brew install postgresql```
 PostgreSQL starten: ```/opt/homebrew/opt/postgresql@14/bin/postgres -D /opt/homebrew/var/postgresql@14```
 
-### Reference Documentation
-For further reference, please consider the following sections:
+### Erster Start / Starten
+1. Im Terminal in das `backend` Verzeichnis wechseln.
+1. `mvn clean install` ausführen. 
+1. In der `backend/src/main/resources/application.yml` sicherstellen das spring.jpa.hibernate.ddl-auto auf `create` steht.
+1. Start in IntelliJ IDEA über den Run-Button.
+1. Anschließend nach dem Starten der Applikation von `create` auf `update` setzen, damit bei einem erneuten Start die Datenbank nicht überschrieben wird bzw. es zu Fehlern kommt.
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.1.5/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.1.5/maven-plugin/reference/html/#build-image)
-* [Spring Boot Testcontainers support](https://docs.spring.io/spring-boot/docs/3.1.5/reference/html/features.html#features.testing.testcontainers)
-* [Testcontainers Postgres Module Reference Guide](https://java.testcontainers.org/modules/databases/postgres/)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/3.1.5/reference/htmlsingle/index.html#web)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/3.1.5/reference/htmlsingle/index.html#data.sql.jpa-and-spring-data)
-* [Testcontainers](https://java.testcontainers.org/)
+### Backend-API
+Endpunkt: http://localhost:8080/api/
 
-### Guides
-The following guides illustrate how to use some features concretely:
+## Angular Frontend
+### Starten
+1. Im Terminal in das `frontend` Verzeichnis wechseln.
+2. `npm install` ausführen.
+3. `ng serve` ausführen.
+4. Frontend ist erreichbar unter http://localhost:4200/
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
+### e2e Tests
+1. Im Terminal in das `frontend` Verzeichnis wechseln.
+2. `ng e2e` ausführen oder `npx cypress open` für die GUI.
 

@@ -166,7 +166,8 @@ public class FakerService {
                 for (int i = 0; i < numberOfEntries; i++) {
                     // create new entity and set mandatory attributes
                     Person person = new Person();
-                    person.setName(faker.name().fullName());
+                    String name = faker.name().firstName() + " " + faker.name().lastName();
+                    person.setName(name);
                     person.setDateOfBirth(faker.date().birthday());
 
                     // save to repo
@@ -202,7 +203,6 @@ public class FakerService {
                     int randomIndex = random.nextInt(imgURLArray.length);
                     VehicleModel vehicleModel = new VehicleModel();
                     vehicleModel.setModelName(faker.funnyName().name());
-                    vehicleModel.setConstructionYear(faker.number().numberBetween(2000, 2023));
                     vehicleModel.setManufacturer(faker.name().username());
 //                    vehicleModel.setWeight((float) faker.number().randomDouble(2, 300, 1200));
 //                    vehicleModel.setFueltype();

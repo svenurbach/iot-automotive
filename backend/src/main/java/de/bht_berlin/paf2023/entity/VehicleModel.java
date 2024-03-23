@@ -15,8 +15,6 @@ public class VehicleModel extends IdentifiedEntity {
 
     private String modelName;
 
-    private Integer constructionYear;
-
     private String manufacturer;
 
     private Float maxSpeed;
@@ -38,7 +36,6 @@ public class VehicleModel extends IdentifiedEntity {
     private Float accelerationTolerance;
 
     private Float locationTolerance;
-
 
     private Float AxisTolerance;
 

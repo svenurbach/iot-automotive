@@ -1,4 +1,4 @@
-<h1>Deine Fahrten</h1>
+<h1>Fahrtenübersicht</h1>
 <div class="trip-filter-bar">
 <mat-form-field>
   <mat-label>Fahrzeug auswählen:</mat-label>
@@ -13,12 +13,12 @@
 
   <div>
     <mat-form-field>
-      <mat-label>Enter a date range</mat-label>
+      <mat-label>Zeitraum auswählen:</mat-label>
       <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate matInput placeholder="Start date" [(ngModel)]="datePickerStart" (dateChange)="changeDate('start',
+        <input matStartDate matInput placeholder="Startdatum" [(ngModel)]="datePickerStart" (dateChange)="changeDate('start',
     $event)"
                id="inputStartDate"/>
-        <input matEndDate matInput placeholder="End date" [(ngModel)]="datePickerEnd" (dateChange)="changeDate('end',
+        <input matEndDate matInput placeholder="Enddatum" [(ngModel)]="datePickerEnd" (dateChange)="changeDate('end',
     $event)"
                id="inputEndDate"/>
       </mat-date-range-input>

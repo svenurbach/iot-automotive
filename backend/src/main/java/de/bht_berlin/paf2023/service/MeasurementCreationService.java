@@ -56,6 +56,10 @@ public class MeasurementCreationService {
         this.schedulerActive = false;
     }
 
+    public void setSchedulerActive(boolean schedulerActive) {
+        this.schedulerActive = schedulerActive;
+    }
+
     /**
      * run schedule method to read out csv line by line on given interval
      */
@@ -71,18 +75,13 @@ public class MeasurementCreationService {
         this.runLineByLineImport();
     }
 
-    public void setSchedulerActive(boolean schedulerActive) {
-        this.schedulerActive = schedulerActive;
-    }
-
+    /**
+     * sets given csv file as file to be read by importer and activates scheduler
+     *
+     * @param file path to csv file as string
+     */
     public void importFile(String file) {
         this.file = file;
-        this.setSchedulerActive(true);
-    }
-
-    public void importFile(String file, long vehicleId) {
-        this.file = file;
-        this.vehicleId = vehicleId;
         this.setSchedulerActive(true);
     }
 
@@ -98,15 +97,6 @@ public class MeasurementCreationService {
                 MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFileLineByLine(this.file,
                         columnHeaders,
                         currentLineIndex);
-
-        if (this.vehicleId != 0l) {
-            String pattern = "yyyy-MM-dd HH:mm:ss";
-
-            readout.get(0).put("Vehicle", (int) this.vehicleId);
-            // create date object for timestamp
-            Date timestamp =
-                    MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).parseDateFromString(readout.get(0).get("Timestamp").toString());
-        }
 
         if (readout != null) {
             // create measurement entities from hashmap
