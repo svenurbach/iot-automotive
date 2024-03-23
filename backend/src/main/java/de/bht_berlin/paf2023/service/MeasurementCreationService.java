@@ -99,15 +99,6 @@ public class MeasurementCreationService {
                         columnHeaders,
                         currentLineIndex);
 
-        if (this.vehicleId != 0l) {
-            String pattern = "yyyy-MM-dd HH:mm:ss";
-
-            readout.get(0).put("Vehicle", (int) this.vehicleId);
-            // create date object for timestamp
-            Date timestamp =
-                    MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).parseDateFromString(readout.get(0).get("Timestamp").toString());
-        }
-
         if (readout != null) {
             // create measurement entities from hashmap
             MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createMeasurementEntities(readout);

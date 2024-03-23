@@ -202,7 +202,6 @@ public class FakerService {
                     int randomIndex = random.nextInt(imgURLArray.length);
                     VehicleModel vehicleModel = new VehicleModel();
                     vehicleModel.setModelName(faker.funnyName().name());
-                    vehicleModel.setConstructionYear(faker.number().numberBetween(2000, 2023));
                     vehicleModel.setManufacturer(faker.name().username());
                     vehicleModel.setWeight((float) faker.number().randomDouble(2, 300, 1200));
 //                    vehicleModel.setFueltype();
