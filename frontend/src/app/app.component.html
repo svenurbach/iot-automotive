@@ -8,7 +8,7 @@
       <span><a href="/" id="logo" title="Back to home"> {{ title }}</a></span>
     </div>
     <mat-form-field id="personSelect">
-      <mat-label>Versicherungshalter auswählen:</mat-label>
+      <mat-label>Benutzer auswählen:</mat-label>
       <mat-select [(value)]="policyholderSelection">
         @for(policyholder of policyholders; track policyholder?.id){
         <mat-option [value]="policyholder?.id">{{policyholder?.name}}</mat-option>

@@ -166,7 +166,8 @@ public class FakerService {
                 for (int i = 0; i < numberOfEntries; i++) {
                     // create new entity and set mandatory attributes
                     Person person = new Person();
-                    person.setName(faker.name().fullName());
+                    String name = faker.name().firstName() + " " + faker.name().lastName();
+                    person.setName(name);
                     person.setDateOfBirth(faker.date().birthday());
 
                     // save to repo
