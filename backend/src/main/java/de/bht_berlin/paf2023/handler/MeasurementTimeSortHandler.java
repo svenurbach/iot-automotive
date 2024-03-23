@@ -3,7 +3,6 @@ package de.bht_berlin.paf2023.handler;
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 
@@ -80,6 +79,7 @@ public class MeasurementTimeSortHandler implements MeasurementHandler {
         return sortedByTime;
     }
 
+    // method for testing
     public HashMap<String, ArrayList<Measurement>> processHashMapPublic(HashMap<String, ArrayList<Measurement>> hashMap) {
         return processHashMap(hashMap);
     }

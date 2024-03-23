@@ -1,14 +1,16 @@
 package de.bht_berlin.paf2023.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
+/**
+ * Entity class representing generic measurements.
+ * This class inherits properties from the IdentifiedEntity class.
+ */
 @Entity
 @Getter
 @Setter
@@ -30,10 +32,5 @@ public class Measurement extends IdentifiedEntity {
     @ManyToOne
     @JoinColumn(name = "trip")
     Trip trip;
-
-    public Long getMeasuredValue(){
-        return this.measuredValue;
-    }
-
 
 }

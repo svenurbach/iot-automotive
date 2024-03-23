@@ -2,10 +2,6 @@ package de.bht_berlin.paf2023.repo;
 
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
-import de.bht_berlin.paf2023.entity.Vehicle;
-import de.bht_berlin.paf2023.entity.VehicleModel;
-import de.bht_berlin.paf2023.entity.Vehicle;
-import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,10 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.time.Instant;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Repository for {@link Measurement} entities.
@@ -119,7 +113,6 @@ public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
      * @param pageable amount of measurements to be returned
      * @return last location measurement
      */
-
     @Query("SELECT m FROM Measurement m WHERE m.trip.id = :tripId AND m.measurementType = 'LocationMeasurement' ORDER" +
             " BY m.timestamp DESC")
     List<Measurement> findLastLocationMeasurementByTripId(long tripId, Pageable pageable);

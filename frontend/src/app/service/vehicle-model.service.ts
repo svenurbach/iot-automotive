@@ -1,6 +1,5 @@
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable, of} from "rxjs";
-import {Insurance} from "../model/insurance.model";
 import {catchError, tap} from "rxjs/operators";
 import {VehicleModel} from "../model/vehicle-model.model";
 
@@ -26,8 +25,8 @@ export class VehicleModelService{
   getVehicleDetails(id: number): Observable<VehicleModel>{
     const url = `${this.url}/vehicleModel/${id}`;
     return this.http.get<VehicleModel>(url).pipe(
-      tap(_ => console.log(`fetched Insurance by car with id=${id}`)),
-      catchError(this.handleError<VehicleModel>(`getInsuranceByCar id=${id}`))
+      tap(_ => console.log(`fetched vehicle model with id=${id}`)),
+      catchError(this.handleError<VehicleModel>(`getVehicleDetails id=${id}`))
     );
   }
 

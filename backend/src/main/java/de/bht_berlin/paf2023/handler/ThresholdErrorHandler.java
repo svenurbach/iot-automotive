@@ -69,20 +69,6 @@ public class ThresholdErrorHandler implements MeasurementHandler {
      */
     @Override
     public void handle(HashMap<String, ArrayList<Measurement>> hashMap) {
-        System.out.println("ThresholdHandler" + hashMap.keySet());
-
-        for (String key : hashMap.keySet()) {
-            System.out.println("Key: " + key);
-
-            // Get the ArrayList of measurements associated with the current key
-            ArrayList<Measurement> measurementList = hashMap.get(key);
-
-            // Loop through all measurements in the ArrayList
-            for (Measurement measurement : measurementList) {
-                // Perform actions on each measurement as needed
-                System.out.println(measurementService.convertMeasurementToDouble(measurement));
-            }
-        }
         // Process the measurements and create a new HashMap with processed measurements
         HashMap<String, ArrayList<Measurement>> processedHashMap = hashMap.entrySet().stream()
                 .collect(Collectors.toMap(
@@ -107,6 +93,7 @@ public class ThresholdErrorHandler implements MeasurementHandler {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    // method for testing
     public ArrayList<Measurement> processMeasurementsPublic(ArrayList<Measurement> measurements){
         return processMeasurements(measurements);
     }
@@ -171,10 +158,12 @@ public class ThresholdErrorHandler implements MeasurementHandler {
         return measurement;
     }
 
+    // method for testing
     public Measurement processMeasurementPublic(Measurement measurement){
         return processMeasurement(measurement);
     }
 
+    // method for testing
     @Override
     public void setErrorOnMeasurement(MeasurementRepoSubject measurementRepo, Measurement measurement, boolean isError) {
         measurementRepo.setIsError(measurement, isError);

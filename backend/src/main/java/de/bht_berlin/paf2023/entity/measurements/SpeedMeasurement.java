@@ -2,41 +2,36 @@ package de.bht_berlin.paf2023.entity.measurements;
 
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Vehicle;
-import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
-//import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
+/**
+ * Entity class representing speed measurements.
+ * This class inherits properties from the Measurement class.
+ */
 @Entity
 @Getter
 @Setter
 public class SpeedMeasurement extends Measurement {
-
-//    @Autowired
-//    private MeasurementRepo measurementRepo;
-
-//    @Id @GeneratedValue
-//    private Integer id;
 
     private Integer speed;
 
     public SpeedMeasurement() {
     }
 
-
+    /**
+     * Constructs a new SpeedMeasurement object with the specified parameters.
+     * @param timestamp The timestamp of the measurement.
+     * @param speed The speed value.
+     * @param vehicle The vehicle associated with the measurement.
+     */
     public SpeedMeasurement(Date timestamp, int speed, Vehicle vehicle) {
         this.speed = speed;
         this.setTimestamp(timestamp);
         this.setVehicle(vehicle);
         this.setMeasurementType(this.getClass().getSimpleName());
     }
-
-
-
-
 }

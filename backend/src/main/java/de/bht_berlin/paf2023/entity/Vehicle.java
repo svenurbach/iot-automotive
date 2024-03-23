@@ -8,6 +8,10 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Entity class representing vehicles.
+ * This class inherits properties from the IdentifiedEntity class.
+ */
 @Entity
 @Getter
 @Setter
