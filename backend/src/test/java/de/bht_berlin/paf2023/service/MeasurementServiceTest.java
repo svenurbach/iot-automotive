@@ -13,6 +13,12 @@ public class MeasurementServiceTest {
     @Mock
     private MeasurementRepo measurementRepo;
 
+    /**
+     * This test method verifies the behavior of the findErrorInPastArray method in the MeasurementService class when
+     * no errors are present. It creates a MeasurementService instance with a given measurementRepo and sets up test
+     * data including measurements and corresponding values. The method to be tested is called with the test data,
+     * and the result is asserted to ensure it returns false, indicating no error.
+     */
     @Test
     void findErrorInPastArray_NoError() {
         MeasurementService measurementService = new MeasurementService(measurementRepo);
@@ -28,10 +34,17 @@ public class MeasurementServiceTest {
             values.add(measurement);
             measurementArrayInDouble.add(0.5);
         }
-        boolean result = measurementService.findErrorInPastArray(counter, values, measurementArrayInDouble, tolerance, comparativeValuesArraySize);
+        boolean result = measurementService.findErrorInPastArray(counter, values, measurementArrayInDouble, tolerance,
+                comparativeValuesArraySize);
         assertFalse(result, "Expected no error");
     }
 
+    /**
+     * This test method verifies the behavior of the findErrorInPastArray method in the MeasurementService class when
+     * an error is present. It creates a MeasurementService instance with a given measurementRepo and sets up test
+     * data including measurements and corresponding values. The method to be tested is called with the test data,
+     * and the result is asserted to ensure it returns true, indicating an error.
+     */
     @Test
     void findErrorInPastArray_Error() {
         MeasurementService measurementService = new MeasurementService(measurementRepo);
@@ -50,7 +63,8 @@ public class MeasurementServiceTest {
         Measurement measurement = new Measurement();
         values.add(measurement);
         measurementArrayInDouble.add(500.0);
-        boolean result = measurementService.findErrorInPastArray(counter, values, measurementArrayInDouble, tolerance, comparativeValuesArraySize);
+        boolean result = measurementService.findErrorInPastArray(counter, values, measurementArrayInDouble, tolerance,
+                comparativeValuesArraySize);
         assertTrue(result, "Expected an error");
     }
     }

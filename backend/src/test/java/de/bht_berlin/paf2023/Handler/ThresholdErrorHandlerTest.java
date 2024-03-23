@@ -4,29 +4,26 @@ import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.VehicleModel;
 import de.bht_berlin.paf2023.entity.measurements.SpeedMeasurement;
-import de.bht_berlin.paf2023.handler.ComparitiveListErrorHandler;
 import de.bht_berlin.paf2023.handler.MeasurementHandler;
 import de.bht_berlin.paf2023.handler.ThresholdErrorHandler;
-import de.bht_berlin.paf2023.handler.TripMeasurementHandler;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.VehicleModelRepo;
 import de.bht_berlin.paf2023.service.MeasurementService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
+/**
+ * Tests the functionality of ThresholdErrorHandler class. Sets up mocks for dependencies, tests processing of
+ * measurements with and without errors, and verifies setting error state on measurements.
+ */
 @RunWith(MockitoJUnitRunner.class)
 class ThresholdErrorHandlerTest {
 
@@ -42,7 +39,10 @@ class ThresholdErrorHandlerTest {
     }
 
 
-
+    /**
+     * Tests processing of a measurement with no error. Sets up necessary mocks and objects, invokes the method to
+     * process the measurement, and asserts that the measurement has no error after processing.
+     */
     @Test
     void processMeasurementTest_WithNoError() {
         // Arrange
@@ -59,13 +59,17 @@ class ThresholdErrorHandlerTest {
         measurement.setVehicle(vehicle);
         measurement.setSpeed(50);
 
-        // Act
+        // Call method to test
        Measurement afterProcess = handler.processMeasurementPublic(measurement);
 
-        // Assert
+        // Call the method to be tested
         assertFalse(afterProcess.getIsError());
     }
 
+    /**
+     * Tests processing of a measurement with an error. Sets up necessary mocks and objects, invokes the method to
+     * process the measurement, and asserts that the measurement has an error after processing.
+     */
     @Test
     void processMeasurementTest_WithError() {
         // Arrange
@@ -82,13 +86,17 @@ class ThresholdErrorHandlerTest {
         measurement.setVehicle(vehicle);
         measurement.setSpeed(500);
 
-        // Act
+        // Call the method to be tested
         Measurement afterProcess = handler.processMeasurementPublic(measurement);
 
-        // Assert
+        // What I expected
         assertTrue(afterProcess.getIsError());
     }
 
+    /**
+     * Tests setting error state on a measurement. Sets up necessary mocks and objects, calls the method to set error
+     * on a measurement, and verifies that the error state was correctly set on the measurement.
+     */
     @Test
     void setErrorOnMeasurementTest() {
         // Create mocks for MeasurementRepoSubject, Measurement and MeasurementHandler (Interface)

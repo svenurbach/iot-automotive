@@ -17,11 +17,5 @@ public class MeasurementController {
     @Autowired
     private MeasurementService measurementService;
 
-//    @RequestMapping(path = "/{id}/error")
-//    public List<Measurement> getMeasurementErrors(@PathVariable Long id){
-//        return measurementService.findAllMeasurementsFromVehicleWithError(id);
-//    }
-
-
 }
 

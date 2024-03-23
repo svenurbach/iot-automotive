@@ -46,7 +46,7 @@ public class ComparitiveListErrorHandler implements MeasurementHandler {
      */
     @Override
     public void handle(HashMap<String, ArrayList<Measurement>> hashMap) {
-        comparativeValuesArraySize = 15;
+        comparativeValuesArraySize = 3;
         hashMap.keySet().forEach((type) -> {
             HashMap<String, ArrayList<Measurement>> processedHashMap = new HashMap<>();
             ArrayList<Double> measurementArrayInDouble = new ArrayList<>();
@@ -62,8 +62,9 @@ public class ComparitiveListErrorHandler implements MeasurementHandler {
                 // ignore Measurement with error
                 if (hashMap.get(type).get(i).getIsError() == null || !hashMap.get(type).get(i).getIsError()) {
                      isError = checkForErrors(i, measurementArrayInDouble, hashMap, type, tolerance);
+                    System.out.println("Toleranz Handler: " + tolerance);
+                    setErrorOnMeasurement(measurementRepo, hashMap.get(type).get(i), isError);
                 }
-                setErrorOnMeasurement(measurementRepo, hashMap.get(type).get(i), isError);
                 processedHashMap.put(type, hashMap.get(type));
                 }
             }
@@ -113,6 +114,7 @@ public class ComparitiveListErrorHandler implements MeasurementHandler {
      */
     private boolean checkForErrors(int index, ArrayList<Double> measurementArrayInDouble, HashMap<String, ArrayList<Measurement>> hashMap,
                                    String type, double tolerance) {
+//        System.out.println(hashMap.get(type) + " " + hashMap.);
         ArrayList<Boolean> hasError = new ArrayList<>();
         if (index >= 0 && index < hashMap.get(type).size() - comparativeValuesArraySize) {
             boolean isError = measurementService.findErrorInFutureArray(index, hashMap.get(type), measurementArrayInDouble,

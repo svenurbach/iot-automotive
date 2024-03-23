@@ -204,7 +204,7 @@ public class FakerService {
                     vehicleModel.setModelName(faker.funnyName().name());
                     vehicleModel.setConstructionYear(faker.number().numberBetween(2000, 2023));
                     vehicleModel.setManufacturer(faker.name().username());
-                    vehicleModel.setWeight((float) faker.number().randomDouble(2, 300, 1200));
+//                    vehicleModel.setWeight((float) faker.number().randomDouble(2, 300, 1200));
 //                    vehicleModel.setFueltype();
                     vehicleModel.setMaxSpeed((float) faker.number().numberBetween(180, 600));
                     vehicleModel.setMaxAcceleration((float) faker.number().numberBetween(0, 100));
@@ -267,17 +267,49 @@ public class FakerService {
         vehicleModelOne.setManufacturer("Volkswagen");
         vehicleModelOne.setModelName("Golf GTE 1");
         vehicleModelOne.setImgURL("https://uploads.vw-mms.de/system/production/images/vwn/080/882/images/2e3b58f75abcbedd61fe45f93fd1283e148760b8/DB2024AU00138_web_1600.jpg");
+        vehicleModelOne.setMaxSpeed(200.0f);
+        vehicleModelOne.setMaxAcceleration(8.0f);
+        vehicleModelOne.setMinAcceleration(-5.0f);
+        vehicleModelOne.setMaxAxis(45.0f);
+        vehicleModelOne.setMinAxis(-45.0f);
+        vehicleModelOne.setMaxSteeringWheel(600.0f);
+        vehicleModelOne.setMinSteeringWheel(-600.0f);
+        vehicleModelOne.setSpeedTolerance(5.9f);
+        vehicleModelOne.setAccelerationTolerance(5.0f);
+        vehicleModelOne.setAxisTolerance(5.5f);
+        vehicleModelOne.setSteeringWheelTolerance(5.0f);
 
         VehicleModel vehicleModelTwo = vehicleModels.get(1);
         vehicleModelTwo.setManufacturer("Volkswagen");
         vehicleModelTwo.setModelName("Tiguan Allspace");
         vehicleModelTwo.setImgURL("https://uploads.vw-mms.de/system/production/images/vwn/036/795/images/5e5fc9aa428b278b08eedc58b10ede408e569a88/DB2021AU00494_web_1600.jpg");
+        vehicleModelTwo.setMaxSpeed(190.0f);
+        vehicleModelTwo.setMaxAcceleration(8.5f);
+        vehicleModelTwo.setMinAcceleration(-5.0f);
+        vehicleModelTwo.setMaxAxis(40.0f);
+        vehicleModelTwo.setMinAxis(-40.0f);
+        vehicleModelTwo.setMaxSteeringWheel(700.0f);
+        vehicleModelTwo.setMinSteeringWheel(-700.0f);
+        vehicleModelTwo.setSpeedTolerance(5.9f);
+        vehicleModelTwo.setAccelerationTolerance(5.0f);
+        vehicleModelTwo.setAxisTolerance(5.5f);
+        vehicleModelTwo.setSteeringWheelTolerance(5.0f);
 
         VehicleModel vehicleModelThree = vehicleModels.get(2);
         vehicleModelThree.setManufacturer("Peugot");
         vehicleModelThree.setModelName("308");
-        vehicleModelThree.setImgURL("https://cdn.drivek.com/configurator-imgs/cars/de/Original/PEUGEOT/308" +
-                "/40577_WAGON-5-DOORS/peugeot-308-sw-2021-side-front.jpg");
+        vehicleModelThree.setImgURL("https://www.autozeitung.de/assets/styles/article_image/public/field/image/peugeot-308-sw-2021-01.jpg");
+        vehicleModelThree.setMaxSpeed(190.0f);
+        vehicleModelThree.setMaxAcceleration(9.0f);
+        vehicleModelThree.setMinAcceleration(-5.0f);
+        vehicleModelThree.setMaxAxis(38.0f);
+        vehicleModelThree.setMinAxis(-38.0f);
+        vehicleModelThree.setMaxSteeringWheel(750.0f);
+        vehicleModelThree.setMinSteeringWheel(-750.0f);
+        vehicleModelThree.setSpeedTolerance(2.9f);
+        vehicleModelThree.setAccelerationTolerance(5.0f);
+        vehicleModelThree.setAxisTolerance(5.5f);
+        vehicleModelThree.setSteeringWheelTolerance(1.0f);
 
         for (int i = 0; i < vehicleModels.size(); i++) {
             vehicleModelRepo.save(vehicleModels.get(i));

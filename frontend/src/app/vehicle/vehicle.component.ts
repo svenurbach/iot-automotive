@@ -4,7 +4,7 @@ import {VehicleService} from "../service/vehicle.service";
 import {RouterLink} from "@angular/router";
 import {OsmViewComponent} from "../osm-view/osm-view.component";
 import {AppComponent} from "../app.component";
-import {BehaviorSubject, filter, Observable} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 
 
 @Component({
@@ -19,13 +19,12 @@ export class VehicleComponent {
   policyholderSelection: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   ngOnInit(): void {
-    // this.getAllMeasurementErrors();
   }
 
   constructor(private vehicleService: VehicleService, private appComponent: AppComponent) {
     this.policyholderSelection = this.appComponent._policyholderSelection;
     this.appComponent._policyholderSelection.subscribe((personId: number) => {
-      if (personId == 0) { 
+      if (personId == 0) {
         this.getVehicles();
       } else {
         this.getCarsByPerson(personId);
@@ -37,8 +36,6 @@ export class VehicleComponent {
     this.vehicleService.getVehicles()
       .subscribe((data) => {
         this.vehicles = data;
-        console.log(data)
-        console.log(this.vehicles)
       });
   }
 
@@ -46,8 +43,6 @@ export class VehicleComponent {
     this.vehicleService.getCarsByPerson(personId)
       .subscribe((data) => {
         this.vehicles = data;
-        console.log(data)
-        console.log(this.vehicles)
       });
   }
 

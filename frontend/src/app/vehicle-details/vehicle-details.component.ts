@@ -38,7 +38,6 @@ export class VehicleDetailsComponent {
       const id = params['id'];
       this.vehicleService.getVehicle(id).subscribe(data => {
         this.vehicle = data;
-        console.log("Vehicle data: ", data);
         this.sumTrips$ = this.getTrips(id);
         this.getAllMeasurementErrors(id);
       });
@@ -72,7 +71,6 @@ export class VehicleDetailsComponent {
         this.countMap[type] = 1;
       }
     });
-    console.log("CountMap: ", this.countMap);
     return this.countMap;
   }
 

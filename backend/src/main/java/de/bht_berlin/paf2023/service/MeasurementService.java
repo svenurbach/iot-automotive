@@ -38,7 +38,7 @@ public class MeasurementService {
      * @param measurement Measurement object to convert
      * @return converted double value
      */
-    private double convertMeasurementToDouble(Measurement measurement) {
+    public double convertMeasurementToDouble(Measurement measurement) {
         switch (measurement.getMeasurementType()) {
             case "AccelerationMeasurement":
                 return roundToTwoDecimalPlaces((double) ((AccelerationMeasurement) measurement).getAcceleration());
@@ -60,26 +60,6 @@ public class MeasurementService {
 
 
     /**
-     * Calculates the average of the measurements in an ArrayList of double values.
-     *
-     * @param measurementArrayList ArrayList of double values representing the measurements
-     * @return Average of measurements, rounded to two decimal places
-     */
-//    public double calculateAverageMeasurements(ArrayList<Double> measurementArrayList) {
-//        double sum = 0;
-//        for (Double measurement : measurementArrayList) {
-//            sum += measurement;
-//        }
-//        // check if ArrayList is not empty
-//        if (!measurementArrayList.isEmpty()) {
-//            double average = sum / measurementArrayList.size();
-//            return roundToTwoDecimalPlaces(average);
-//        } else {
-//            return 0.0;
-//        }
-//    }
-
-    /**
      * Checks if a measurement value is within a certain tolerance range of the average.
      *
      * @param average                  Average of the measurements.
@@ -89,10 +69,14 @@ public class MeasurementService {
      * @return True if the measurement value is within the tolerance range of the average, false otherwise.
      */
     public boolean isValueInTolerance(double average, int counter, ArrayList<Double> measurementArrayInDouble, Double tolerance) {
-        double minValue = average - (measurementArrayInDouble.get(counter) * tolerance);
-        double maxValue = average + (measurementArrayInDouble.get(counter) * tolerance);
-        double measurementValue = measurementArrayInDouble.get(counter);
-        return minValue <= measurementValue && measurementValue <= maxValue;
+        double valueToCheck = measurementArrayInDouble.get(counter);
+        if(valueToCheck == 0){
+            valueToCheck = 1;
+        }
+        double minValue = average - (valueToCheck * tolerance);
+        double maxValue = average + (valueToCheck * tolerance);
+        double measuredValue = measurementArrayInDouble.get(counter);
+        return minValue <= measuredValue && measuredValue <= maxValue;
     }
 
     /**
@@ -107,6 +91,7 @@ public class MeasurementService {
      */
     public boolean findErrorInFutureArray(int counter, ArrayList<Measurement> values, ArrayList<Double> measurementArrayInDouble,
                                           Double tolerance, int comparativeValuesArraySize) {
+        System.out.println("Toleranz Future Array: " + tolerance);
         // Create an ArrayList to store future values
         ArrayList<Double> arrayForFutureValues = new ArrayList<>();
         // Calculate the index to stop considering future values
@@ -126,7 +111,7 @@ public class MeasurementService {
         }
         // Calculates the average of future values
         double averageFuture = calculateAverage(arrayForFutureValues);
-//        arrayForFutureValues.clear();
+        arrayForFutureValues.clear();
         return !isValueInTolerance(averageFuture, counter, measurementArrayInDouble, tolerance);
     }
 
@@ -142,6 +127,7 @@ public class MeasurementService {
      */
     public boolean findErrorInPastArray(int counter, ArrayList<Measurement> values, ArrayList<Double> measurementArrayInDouble,
                                         Double tolerance, int comparativeValuesArraySize) {
+        System.out.println("Toleranz Past Array: " + tolerance);
         boolean measurementError = false;
         ArrayList<Double> arrayForPastValues = new ArrayList<>();
         // Checks if the counter is less than comparativeValuesArraySize

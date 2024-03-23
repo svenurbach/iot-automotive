@@ -60,7 +60,6 @@ public class ThresholdErrorHandler implements MeasurementHandler {
         // Not implemented
     }
 
-
     /**
      * Handles a HashMap of measurements by processing them to identify threshold errors,
      * and passes the processed measurements to the next handler.
@@ -70,6 +69,20 @@ public class ThresholdErrorHandler implements MeasurementHandler {
      */
     @Override
     public void handle(HashMap<String, ArrayList<Measurement>> hashMap) {
+        System.out.println("ThresholdHandler" + hashMap.keySet());
+
+        for (String key : hashMap.keySet()) {
+            System.out.println("Key: " + key);
+
+            // Get the ArrayList of measurements associated with the current key
+            ArrayList<Measurement> measurementList = hashMap.get(key);
+
+            // Loop through all measurements in the ArrayList
+            for (Measurement measurement : measurementList) {
+                // Perform actions on each measurement as needed
+                System.out.println(measurementService.convertMeasurementToDouble(measurement));
+            }
+        }
         // Process the measurements and create a new HashMap with processed measurements
         HashMap<String, ArrayList<Measurement>> processedHashMap = hashMap.entrySet().stream()
                 .collect(Collectors.toMap(
@@ -107,7 +120,6 @@ public class ThresholdErrorHandler implements MeasurementHandler {
      * @return Processed Measurement object
      */
     private Measurement processMeasurement(Measurement measurement) {
-
         if (measurement.getIsError() != null && !measurement.getIsError()) {
         } else {
             boolean isError = false;
@@ -120,15 +132,16 @@ public class ThresholdErrorHandler implements MeasurementHandler {
                     // Retrieve current speed measurement
                     Float currentSpeed = (float) speedMeasurement.getSpeed();
                     // Checking if current speed exceeds the maximum allowed speed
-                    if (currentSpeed >= maxSpeed) {
+                    if (currentSpeed >= maxSpeed || currentSpeed <= 0) {
                         isError = true;
                     }
                     break;
                 case "AccelerationMeasurement":
                     Float maxAcceleration = measurement.getVehicle().getVehicleModel().getMaxAcceleration();
+                    Float minAcceleration = measurement.getVehicle().getVehicleModel().getMinAcceleration();
                     AccelerationMeasurement accelerationMeasurement = (AccelerationMeasurement) measurement;
                     Float currentAcceleration = (float) accelerationMeasurement.getAcceleration();
-                    if (currentAcceleration >= maxAcceleration) {
+                    if (currentAcceleration >= maxAcceleration || currentAcceleration <= minAcceleration) {
                         isError = true;
                     }
                     break;
