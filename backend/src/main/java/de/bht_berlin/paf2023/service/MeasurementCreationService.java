@@ -56,6 +56,10 @@ public class MeasurementCreationService {
         this.schedulerActive = false;
     }
 
+    public void setSchedulerActive(boolean schedulerActive) {
+        this.schedulerActive = schedulerActive;
+    }
+
     /**
      * run schedule method to read out csv line by line on given interval
      */
@@ -71,18 +75,13 @@ public class MeasurementCreationService {
         this.runLineByLineImport();
     }
 
-    public void setSchedulerActive(boolean schedulerActive) {
-        this.schedulerActive = schedulerActive;
-    }
-
+    /**
+     * sets given csv file as file to be read by importer and activates scheduler
+     *
+     * @param file path to csv file as string
+     */
     public void importFile(String file) {
         this.file = file;
-        this.setSchedulerActive(true);
-    }
-
-    public void importFile(String file, long vehicleId) {
-        this.file = file;
-        this.vehicleId = vehicleId;
         this.setSchedulerActive(true);
     }
 
