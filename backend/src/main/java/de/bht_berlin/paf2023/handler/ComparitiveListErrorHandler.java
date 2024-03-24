@@ -7,7 +7,6 @@ import de.bht_berlin.paf2023.service.MeasurementService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ComparitiveListErrorHandler implements MeasurementHandler {
     private MeasurementHandler nextHandler;
