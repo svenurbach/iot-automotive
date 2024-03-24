@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Insurance } from '../model/insurance.model';
 import { InsuranceService } from '../service/insurance.service';
 import {ContractDetailsComponent} from '../contract-details/contract-details.component';
-import {OsmViewComponent} from '../osm-view/osm-view.component';
 import {RouterLink} from "@angular/router";
 import {AppComponent} from "../app.component";
 import {BehaviorSubject, filter, Observable} from "rxjs";
@@ -12,7 +11,6 @@ import {BehaviorSubject, filter, Observable} from "rxjs";
   standalone: true,
   imports: [
     ContractDetailsComponent,
-    OsmViewComponent,
     RouterLink
   ],
   templateUrl: './contract-overview.component.html',
