@@ -16,12 +16,12 @@ import java.util.List;
 @Getter
 @Setter
 @Table(
-        name = "vehicle",
-        indexes = {
-                @Index(name = "idx_year_of_construction", columnList = "yearOfConstruction"),
-                @Index(name = "idx_license_plate", columnList = "licensePlate"),
-                @Index(name = "idx_vin", columnList = "vin")
-        }
+    name = "vehicle",
+    indexes = {
+        @Index(name = "idx_year_of_construction", columnList = "yearOfConstruction"),
+        @Index(name = "idx_license_plate", columnList = "licensePlate"),
+        @Index(name = "idx_vin", columnList = "vin")
+    }
 )
 public class Vehicle extends IdentifiedEntity {
 
