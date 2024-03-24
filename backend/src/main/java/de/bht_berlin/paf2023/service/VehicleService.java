@@ -1,10 +1,8 @@
 package de.bht_berlin.paf2023.service;
 
 import de.bht_berlin.paf2023.entity.Measurement;
-import de.bht_berlin.paf2023.entity.Person;
 import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.VehicleModel;
-import de.bht_berlin.paf2023.repo.InsuranceRepo;
 import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.repo.VehicleModelRepo;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
@@ -14,22 +12,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import java.util.List;
-
 @Service
 public class VehicleService {
 
     private final VehicleRepo vehicleRepo;
     private final VehicleModelRepo vehicleModelRepo;
     private final MeasurementRepo measurementRepo;
-    private final InsuranceRepo insuranceRepo;
 
     @Autowired
-    public VehicleService(VehicleRepo vehicleRepo, VehicleModelRepo vehicleModelRepo, MeasurementRepo measurementRepo, InsuranceRepo insuranceRepo) {
+    public VehicleService(VehicleRepo vehicleRepo, VehicleModelRepo vehicleModelRepo, MeasurementRepo measurementRepo) {
         this.vehicleRepo = vehicleRepo;
         this.vehicleModelRepo = vehicleModelRepo;
         this.measurementRepo = measurementRepo;
-        this.insuranceRepo = insuranceRepo;
     }
 
     public Vehicle addVehicle(Vehicle vehicle) {
@@ -65,7 +59,6 @@ public class VehicleService {
     public List<Vehicle> getVehiclesByPerson(Long personId) {
         return vehicleRepo.findByInsuranceContract_Policyholder(personId);
     }
-
 
     /**
      * Retrieves the vehicle associated with a specific insurance contract.

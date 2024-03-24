@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class LastLocalMeasurementPositionStrategy implements PositionStrategy {
@@ -29,7 +28,7 @@ public class LastLocalMeasurementPositionStrategy implements PositionStrategy {
                 .stream()
                 .filter(measurement -> measurement instanceof LocationMeasurement)
                 .sorted(Comparator.comparing(Measurement::getTimestamp).reversed())
-                .collect(Collectors.toList());
+                .toList();
 
         LocationMeasurement lastLocation = (LocationMeasurement) locationMeasurements.get(0);//
         List<Float> lastPosition = new ArrayList<>();
