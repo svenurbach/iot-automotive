@@ -2,7 +2,7 @@ describe('template spec', () => {
   it('Test Vehicle Details Page ',  () => {
     cy.visit('http://localhost:4200/vehicle/1')
     cy.location('href').should('include', '/vehicle/')
-    cy.get('h1').should('contain', 'Fahrzeug Details')
+    cy.get('h1').should('contain', 'Fahrzeugdetails')
 
     cy.get('.vehicle-img').should('be.visible');
 

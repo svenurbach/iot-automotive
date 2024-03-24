@@ -5,6 +5,6 @@ describe('template spec', () => {
     cy.get('@vehicles').first().find('.icon svg').should('be.visible')
     cy.get('@vehicles').first().click()
     cy.location('href').should('include', '/vehicle/')
-    cy.get('h1').should('contain', 'Fahrzeug Details')
+    cy.get('h1').should('contain', 'Fahrzeugdetails')
   })
 })
