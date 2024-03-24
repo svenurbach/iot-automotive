@@ -1,6 +1,7 @@
 package de.bht_berlin.paf2023.api;
 
 import de.bht_berlin.paf2023.entity.Measurement;
+import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.service.VehicleService;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ public class VehicleController {
 
     /**
      * Constructs a new VehicleController with the specified VehicleService.
+     *
      * @param vehicleService The service responsible for vehicle-related operations.
      */
     public VehicleController(VehicleService vehicleService) {
@@ -30,25 +32,28 @@ public class VehicleController {
 
     /**
      * Retrieves all vehicles.
+     *
      * @return A list of all vehicles.
      */
     @GetMapping(path = "/findAll")
-    public List<Vehicle> getAllVehicles(){
+    public List<Vehicle> getAllVehicles() {
         return vehicleService.getAllVehicles();
     }
 
     /**
      * Retrieves details of a specific vehicle by its ID.
+     *
      * @param id ID of the vehicle to retrieve.
      * @return An Optional containing the vehicle details if found
      */
     @GetMapping(path = "/{id}")
-    public Optional<Vehicle> getVehicle(@PathVariable Long id){
+    public Optional<Vehicle> getVehicle(@PathVariable Long id) {
         return vehicleService.getVehicleDetail(id);
     }
 
     /**
      * Retrieves all measurements from a specific vehicle that have errors.
+     *
      * @param id ID of the vehicle.
      * @return A list of measurements with errors associated with the specified vehicle.
      */
@@ -59,6 +64,7 @@ public class VehicleController {
 
     /**
      * Retrieves all vehicles associated with a person.
+     *
      * @param id The ID of the person whose vehicles are to be retrieved.
      * @return A list of vehicles associated with the specified person.
      */
@@ -70,6 +76,7 @@ public class VehicleController {
 
     /**
      * Retrieves the vehicle associated with a particular insurance.
+     *
      * @param id The ID of the insurance.
      * @return The vehicle associated with the specified insurance.
      */
@@ -77,5 +84,10 @@ public class VehicleController {
     public Vehicle getCarByIncurance(@PathVariable Long id) {
         return vehicleService.getCarByIncurance(id);
         // http://localhost:8080/api/vehicle/findByInsurance/1
+    }
+
+    @GetMapping(path = "/findLastTrip/{id}")
+    public Trip findLastTripOfVehicle(@PathVariable Long id) {
+        return vehicleService.findLastTripOfVehicle(id);
     }
 }

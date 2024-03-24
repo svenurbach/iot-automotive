@@ -79,9 +79,6 @@ public class TripController {
         return tripService.findVehicleByTripId(id);
     }
 
-    @GetMapping(path = "/findLastTripOfVehicle/{id}")
-    public Trip findLastTripOfVehicle(@PathVariable Long id) {
-        return tripService.findLastTripOfVehicle(id);
-    }
+
 }
 

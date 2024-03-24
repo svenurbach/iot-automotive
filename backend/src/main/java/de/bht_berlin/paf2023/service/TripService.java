@@ -304,8 +304,4 @@ public class TripService implements MeasurementObserver {
         return repository.findAllByVehicleIds(vehicleIds);
     }
 
-    public Trip findLastTripOfVehicle(long vehicleId) {
-        return measurementRepo.findLastTripByVehicleId(vehicleId);
-    }
-
 }
