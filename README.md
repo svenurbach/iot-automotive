@@ -6,6 +6,11 @@ MacOS:
 PostgreSQL installieren: ```brew install postgresql```
 PostgreSQL starten: ```/opt/homebrew/opt/postgresql@14/bin/postgres -D /opt/homebrew/var/postgresql@14```
 
+### Datenbank initialisieren
+1. Datenbank "paf2023" anlegen
+1. Role "paf2023_role" anlegen
+1. Datenbank-User "paf2023" mit Passwort "paf2023" anlegen und Rolle zuweisen
+
 ### Starten
 1. Im Terminal in das `backend` Verzeichnis wechseln.
 1. `mvn clean install` ausführen. 
