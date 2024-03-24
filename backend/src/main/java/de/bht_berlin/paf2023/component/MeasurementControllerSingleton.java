@@ -2,7 +2,6 @@ package de.bht_berlin.paf2023.component;
 
 import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.entity.measurements.*;
-import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +53,7 @@ public class MeasurementControllerSingleton {
     public List readFile(String file) throws IOException {
         List<List<String>> records = new ArrayList<>();
 
-        /**
-         * read file line by line and add them as string array to list
-         */
+        // read file line by line and add them as string array to list
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -132,7 +129,7 @@ public class MeasurementControllerSingleton {
      * @param file             string path to csv file
      * @param columnHeaders    list of strings containing column headers
      * @param currentLineIndex index of line to read from csv file
-     * @return
+     * @return list containing one measurement represented as hashmap
      */
     public List<HashMap> readFileLineByLine(String file, List<String> columnHeaders, int currentLineIndex) {
         List<HashMap> readout = null;
@@ -156,8 +153,6 @@ public class MeasurementControllerSingleton {
                 // initialize hashmap of list containing a line's values
                 readout = createHashMap(valuesInList);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

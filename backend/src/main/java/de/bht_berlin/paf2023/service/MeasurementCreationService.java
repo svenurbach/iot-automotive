@@ -4,23 +4,18 @@ import de.bht_berlin.paf2023.component.MeasurementControllerSingleton;
 import de.bht_berlin.paf2023.entity.Measurement;
 import de.bht_berlin.paf2023.entity.Trip;
 import de.bht_berlin.paf2023.entity.measurements.LocationMeasurement;
-import de.bht_berlin.paf2023.repo.MeasurementRepo;
 import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
 import de.bht_berlin.paf2023.repo.TripRepo;
 import de.bht_berlin.paf2023.repo.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.support.PeriodicTrigger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ScheduledFuture;
 
 @Service
 public class MeasurementCreationService {
@@ -29,8 +24,6 @@ public class MeasurementCreationService {
      * counter to remember already read lines
      */
     private int currentLineIndex = 1;
-
-    private long vehicleId = 2l;
 
     private final int timeBetweenTripsInMinutes = 60;
 
@@ -68,8 +61,8 @@ public class MeasurementCreationService {
     @Transactional
     public void processCsvFile() {
 
-        // early return if scheduler is set to false
-        if (schedulerActive == false || file.equals("")) {
+        // early return if scheduler is set to false or file not existing
+        if (!schedulerActive || file.equals("")) {
             return;
         }
         this.runLineByLineImport();
@@ -104,7 +97,6 @@ public class MeasurementCreationService {
         } else {
             // if hashmap contains no more data, ergo all file contents is read, find an unfinished trip
             Trip unfinishedTrip = tripRepo.findFirstUnfinishedTrip();
-
             if (unfinishedTrip == null) {
                 // set scheduler inactive if all trips are finished
                 schedulerActive = false;
@@ -120,7 +112,6 @@ public class MeasurementCreationService {
 
                 // end trip if time difference is greater than set interval
                 if ((currentDate.getTime() - measurementDate.getTime()) > 1000 * 60 * this.timeBetweenTripsInMinutes) {
-
                     // get vehicle id from trip
                     long vehicleId = lastMeasurement.getVehicle().getId();
 

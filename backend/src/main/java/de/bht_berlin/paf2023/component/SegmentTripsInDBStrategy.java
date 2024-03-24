@@ -93,7 +93,6 @@ public class SegmentTripsInDBStrategy implements TripHandlerStrategy {
             //determine start measurement for a trip
             int startingMeasurement = newTripIndices.get(i);
 
-            //todo check if needed
             int endMeasurement = 0;
 
             //determine end measurement for a trip
@@ -107,7 +106,6 @@ public class SegmentTripsInDBStrategy implements TripHandlerStrategy {
             for (int j = startingMeasurement; j <= endMeasurement; j++) {
                 measurements.add(list.get(j));
 
-                //todo check if needed
                 ints.add(Math.toIntExact(list.get(j).getId()));
             }
             // add new list to segmented list
