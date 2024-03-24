@@ -43,7 +43,6 @@ public class MeasurementRepoSubject {
         measurementRepo.save(measurement);
     }
 
-    // todo still needed?
     public Measurement findLastLocationMeasurementByTripId(long tripId) {
         return measurementRepo.findLastLocationMeasurementByTripId(tripId);
     }
@@ -64,7 +63,6 @@ public class MeasurementRepoSubject {
      *  forwarding calls to Measurement Repo and passing back return values to calling method
      * */
 
-    // todo still needed?
     public long getTotalMeasurementCount() {
         return measurementRepo.count();
     }
@@ -73,7 +71,6 @@ public class MeasurementRepoSubject {
         return measurementRepo.findByVehicle(vehicleId);
     }
 
-    // todo still needed?
     public Measurement findLastMeasurementByVehicleId(long vehicleId) {
         return measurementRepo.findLastMeasurementByVehicleId(vehicleId);
     }
@@ -99,7 +96,6 @@ public class MeasurementRepoSubject {
         return measurementRepo.findLastMeasurementByTripId(tripId);
     }
 
-    // todo still needed?
     public List<Measurement> findByMeasurementType(String measurementType) {
         return measurementRepo.findMeasurementType(measurementType);
     }
