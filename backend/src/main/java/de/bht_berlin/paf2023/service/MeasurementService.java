@@ -91,7 +91,6 @@ public class MeasurementService {
      */
     public boolean findErrorInFutureArray(int counter, ArrayList<Measurement> values, ArrayList<Double> measurementArrayInDouble,
                                           Double tolerance, int comparativeValuesArraySize) {
-        System.out.println("Toleranz Future Array: " + tolerance);
         // Create an ArrayList to store future values
         ArrayList<Double> arrayForFutureValues = new ArrayList<>();
         // Calculate the index to stop considering future values
@@ -127,7 +126,6 @@ public class MeasurementService {
      */
     public boolean findErrorInPastArray(int counter, ArrayList<Measurement> values, ArrayList<Double> measurementArrayInDouble,
                                         Double tolerance, int comparativeValuesArraySize) {
-        System.out.println("Toleranz Past Array: " + tolerance);
         boolean measurementError = false;
         ArrayList<Double> arrayForPastValues = new ArrayList<>();
         // Checks if the counter is less than comparativeValuesArraySize

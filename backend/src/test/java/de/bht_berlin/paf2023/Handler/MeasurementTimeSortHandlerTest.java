@@ -1,6 +1,5 @@
 package de.bht_berlin.paf2023.Handler;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 

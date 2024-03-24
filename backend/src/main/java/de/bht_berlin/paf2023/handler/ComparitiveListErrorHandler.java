@@ -7,7 +7,6 @@ import de.bht_berlin.paf2023.service.MeasurementService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ComparitiveListErrorHandler implements MeasurementHandler {
     private MeasurementHandler nextHandler;
@@ -58,11 +57,10 @@ public class ComparitiveListErrorHandler implements MeasurementHandler {
                 return;
             } else {
             for (int i = 0; i < hashMap.get(type).size(); i++){
-                boolean isError = false;
+                boolean isError;
                 // ignore Measurement with error
                 if (hashMap.get(type).get(i).getIsError() == null || !hashMap.get(type).get(i).getIsError()) {
                      isError = checkForErrors(i, measurementArrayInDouble, hashMap, type, tolerance);
-                    System.out.println("Toleranz Handler: " + tolerance);
                     setErrorOnMeasurement(measurementRepo, hashMap.get(type).get(i), isError);
                 }
                 processedHashMap.put(type, hashMap.get(type));
@@ -114,7 +112,6 @@ public class ComparitiveListErrorHandler implements MeasurementHandler {
      */
     private boolean checkForErrors(int index, ArrayList<Double> measurementArrayInDouble, HashMap<String, ArrayList<Measurement>> hashMap,
                                    String type, double tolerance) {
-//        System.out.println(hashMap.get(type) + " " + hashMap.);
         ArrayList<Boolean> hasError = new ArrayList<>();
         if (index >= 0 && index < hashMap.get(type).size() - comparativeValuesArraySize) {
             boolean isError = measurementService.findErrorInFutureArray(index, hashMap.get(type), measurementArrayInDouble,
@@ -129,6 +126,7 @@ public class ComparitiveListErrorHandler implements MeasurementHandler {
         return hasError.stream().anyMatch(Boolean::booleanValue);
     }
 
+    // method for testing
     public boolean checkForErrorsPublic(int index, ArrayList<Double> measurementArrayInDouble, HashMap<String, ArrayList<Measurement>> hashMap,
                                         String type, double tolerance) {
         return checkForErrors(index, measurementArrayInDouble, hashMap, type, tolerance);

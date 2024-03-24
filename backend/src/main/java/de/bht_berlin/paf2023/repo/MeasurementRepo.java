@@ -113,7 +113,6 @@ public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
      * @param pageable amount of measurements to be returned
      * @return last location measurement
      */
-
     @Query("SELECT m FROM Measurement m WHERE m.trip.id = :tripId AND m.measurementType = 'LocationMeasurement' ORDER" +
             " BY m.timestamp DESC")
     List<Measurement> findLastLocationMeasurementByTripId(long tripId, Pageable pageable);
