@@ -27,12 +27,14 @@
 
   <div class="loc-pieChart">
     <div class="osm-view-container">
+      <h2>Letzter Standort</h2>
       @if (vehicle) {
       <app-osm-view [carId]="vehicle.id" [visibleMap]="true"></app-osm-view>
       }
     </div>
-
     <div class="chart-container">
+      @if (hasErrors()) {<h2>Messfehler</h2>}
+      @else {<h2>Keine Messfehler!</h2>}
       <canvas id="pieChartErrors"><p>{{ chart }}</p></canvas>
     </div>
   </div>

@@ -15,12 +15,12 @@ public class InsuranceRestController {
 
     private final ContractRepo contractRepo;
 
-    @Autowired
-    private InsuranceService insuranceService;
+    private final InsuranceService insuranceService;
 
     @Autowired
-    public InsuranceRestController(ContractRepo contractRepo) {
+    public InsuranceRestController(ContractRepo contractRepo, InsuranceService insuranceService) {
         this.contractRepo = contractRepo;
+        this.insuranceService = insuranceService;
     }
 
     /**

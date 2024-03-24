@@ -35,7 +35,7 @@ label {
   flex-direction: column;
 }
 
-canvas{
+canvas {
   margin-top: 5em;
 }
 
@@ -44,10 +44,19 @@ canvas{
   flex-wrap: wrap;
 }
 
-.osm-view-container{
+.osm-view-container {
   padding: 0 20%;
 }
 
 canvas {
   width: 700px;
+}
+
+.chart-container h2 {
+  margin-top: 2em;
+  padding: 0 20%
+}
+
+.chart-container canvas {
+  margin: 0
 }

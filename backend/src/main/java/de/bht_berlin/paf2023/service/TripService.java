@@ -280,7 +280,7 @@ public class TripService implements MeasurementObserver {
      */
     public List<Measurement> filterOutErrors(List<Measurement> measurements) {
         return measurements.stream()
-                .filter(measurement -> measurement.getIsError() == null || measurement.getIsError() == false)
+                .filter(measurement -> measurement.getIsError() == null || !measurement.getIsError())
                 .collect(Collectors.toList());
     }
 
@@ -292,20 +292,8 @@ public class TripService implements MeasurementObserver {
         return repository.findAll();
     }
 
-    public List<Trip> getTripsByDateRange(Date start, Date end) {
-        return repository.getTripsByDateRange(start, end);
-    }
-
-    public List<Trip> findAllByVehicleId(long vehicleId) {
-        return repository.findAllByVehicleId(vehicleId);
-    }
-
     public Optional<Vehicle> findVehicleByTripId(long tripId) {
         return repository.findVehicleByTripId(tripId);
-    }
-
-    public List<Trip> findAllByVehicleId(long vehicleId, Date startDate, Date endDate) {
-        return repository.findAllByVehicleIdAndDateRange(vehicleId, startDate, endDate);
     }
 
     public List<Trip> findAllByVehicleIdsAndDateRange(List<Long> vehicleId, Date startDate, Date endDate) {
@@ -316,7 +304,4 @@ public class TripService implements MeasurementObserver {
         return repository.findAllByVehicleIds(vehicleIds);
     }
 
-    public Optional<Measurement> findLatestMeasurementOfFirstUnfinishedTrip(long vehicleId) {
-        return repository.findLatestMeasurementOfFirstUnfinishedTrip();
-    }
 }
