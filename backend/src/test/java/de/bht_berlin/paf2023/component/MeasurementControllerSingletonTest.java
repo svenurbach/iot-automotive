@@ -44,7 +44,7 @@ public class MeasurementControllerSingletonTest {
 
 
         List<List<String>> records =
-                MeasurementControllerSingleton.getInstance(vehicleRepoMock, repo).readFile("../import-for-unittest" +
+                MeasurementControllerSingleton.getInstance(vehicleRepoMock, repo).readFile("../backend/imports/import-for-unittest" +
                         ".csv");
         List<HashMap> allReadOuts =
                 MeasurementControllerSingleton.getInstance(vehicleRepoMock, repo).createHashMap(records);

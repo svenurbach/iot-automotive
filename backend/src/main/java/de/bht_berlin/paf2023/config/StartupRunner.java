@@ -75,7 +75,7 @@ public class StartupRunner implements ApplicationRunner {
 
         // import trips from csv and readout csv contents into hashmap
         List<List<String>> records =
-                MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("clean-import.csv");
+                MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).readFile("backend/imports/clean-import.csv");
         List<HashMap> allReadOuts = MeasurementControllerSingleton.getInstance(vehicleRepo, measurementRepo).createHashMap(records);
 
         // call measurement controller to create measurements from hashmap
@@ -95,8 +95,7 @@ public class StartupRunner implements ApplicationRunner {
         service.changeTripHandlerStrategy(handleSingleTripStrategy);
 
         // import file and enable scheduler to continuously read csv to simulate incoming measurement stream
-        measurementCreationService.importFile("clean-import-line.csv");
-//        measurementCreationService.importFile("clean-import.csv");
+        measurementCreationService.importFile("backend/imports/clean-import-line.csv");
     }
 
 
