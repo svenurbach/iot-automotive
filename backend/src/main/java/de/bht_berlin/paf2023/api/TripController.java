@@ -5,7 +5,6 @@ import de.bht_berlin.paf2023.entity.Vehicle;
 import de.bht_berlin.paf2023.repo.TripRepo;
 import de.bht_berlin.paf2023.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
