@@ -58,7 +58,7 @@ public class InsuranceService {
      * @return The insurance contract associated with the specified car, or null if the car is not found or does not have an insurance contract.
      */
     public InsuranceContract getInsuranceByCar(Long id) {
-        return Objects.requireNonNull(vehicleRepo.findById(id).orElse(null)).getInsuranceContract();
+        return vehicleRepo.findById(id).orElse(null).getInsuranceContract();
     }
 
     /**
@@ -68,7 +68,7 @@ public class InsuranceService {
      * @return A list of insurance contracts associated with the specified person, or null if the person is not found.
      */
     public List<InsuranceContract> getInsurancesByPerson(Long id) {
-        return Objects.requireNonNull(personRepo.findById(id).orElse(null)).getInsuranceContracts();
+        return personRepo.findById(id).orElse(null).getInsuranceContracts();
     }
 
     /**
