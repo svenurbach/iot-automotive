@@ -274,10 +274,10 @@ public class FakerService {
         vehicleModelOne.setMinAxis(-45.0f);
         vehicleModelOne.setMaxSteeringWheel(600.0f);
         vehicleModelOne.setMinSteeringWheel(-600.0f);
-        vehicleModelOne.setSpeedTolerance(5.9f);
-        vehicleModelOne.setAccelerationTolerance(5.0f);
-        vehicleModelOne.setAxisTolerance(5.5f);
-        vehicleModelOne.setSteeringWheelTolerance(5.0f);
+        vehicleModelOne.setSpeedTolerance(1.9f);
+        vehicleModelOne.setAccelerationTolerance(1.5f);
+        vehicleModelOne.setAxisTolerance(2.5f);
+        vehicleModelOne.setSteeringWheelTolerance(2.3f);
 
         VehicleModel vehicleModelTwo = vehicleModels.get(1);
         vehicleModelTwo.setManufacturer("Volkswagen");
@@ -290,10 +290,10 @@ public class FakerService {
         vehicleModelTwo.setMinAxis(-40.0f);
         vehicleModelTwo.setMaxSteeringWheel(700.0f);
         vehicleModelTwo.setMinSteeringWheel(-700.0f);
-        vehicleModelTwo.setSpeedTolerance(5.9f);
-        vehicleModelTwo.setAccelerationTolerance(5.0f);
-        vehicleModelTwo.setAxisTolerance(5.5f);
-        vehicleModelTwo.setSteeringWheelTolerance(5.0f);
+        vehicleModelTwo.setSpeedTolerance(1.9f);
+        vehicleModelTwo.setAccelerationTolerance(1.4f);
+        vehicleModelTwo.setAxisTolerance(2.5f);
+        vehicleModelTwo.setSteeringWheelTolerance(2.0f);
 
         VehicleModel vehicleModelThree = vehicleModels.get(2);
         vehicleModelThree.setManufacturer("Peugot");
@@ -306,10 +306,10 @@ public class FakerService {
         vehicleModelThree.setMinAxis(-38.0f);
         vehicleModelThree.setMaxSteeringWheel(750.0f);
         vehicleModelThree.setMinSteeringWheel(-750.0f);
-        vehicleModelThree.setSpeedTolerance(2.9f);
-        vehicleModelThree.setAccelerationTolerance(5.0f);
-        vehicleModelThree.setAxisTolerance(5.5f);
-        vehicleModelThree.setSteeringWheelTolerance(1.0f);
+        vehicleModelThree.setSpeedTolerance(1.9f);
+        vehicleModelThree.setAccelerationTolerance(1.5f);
+        vehicleModelThree.setAxisTolerance(2.5f);
+        vehicleModelThree.setSteeringWheelTolerance(2.0f);
 
         for (int i = 0; i < vehicleModels.size(); i++) {
             vehicleModelRepo.save(vehicleModels.get(i));
