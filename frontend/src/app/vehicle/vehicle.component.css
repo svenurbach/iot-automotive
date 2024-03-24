@@ -35,6 +35,7 @@ p {
 
 #model-name {
   font-weight: bold;
+  margin: 0;
 }
 
 li {

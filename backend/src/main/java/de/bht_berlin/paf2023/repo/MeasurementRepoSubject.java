@@ -17,6 +17,10 @@ public class MeasurementRepoSubject {
     @Autowired
     private MeasurementRepo measurementRepo;
 
+    public void setMeasurementRepo(MeasurementRepo measurementRepo) {
+        this.measurementRepo = measurementRepo;
+    }
+
     public void addObserver(MeasurementObserver observer) {
         observers.add(observer);
     }
@@ -50,6 +54,7 @@ public class MeasurementRepoSubject {
     }
 
     public void setIsError(Measurement measurement, boolean isError) {
+        System.out.println("setIsError");
         measurement.setIsError(isError);
         measurementRepo.save(measurement);
     }
@@ -96,7 +101,6 @@ public class MeasurementRepoSubject {
     }
 
     public List<Measurement> getAllMeasurementsFromTrip(long id) {
-        System.out.println("Ausgabe");
         return measurementRepo.getAllMeasurementsFromTrip(id);
     }
 

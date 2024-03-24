@@ -17,7 +17,7 @@
     </div>
     <div class="vehicle-details">
       <label>Baujahr:</label>
-      <p>{{vehicle?.vehicleModel?.constructionYear}}</p>
+      <p>{{vehicle?.yearOfConstruction}}</p>
     </div>
     <div class="vehicle-details">
       <label>Fahrten:</label>
@@ -35,8 +35,7 @@
     <div class="chart-container">
       @if (hasErrors()) {<h2>Messfehler</h2>}
       @else {<h2>Keine Messfehler!</h2>}
-      <canvas id="MyChart"><p>{{ chart }}</p></canvas>
-
+      <canvas id="pieChartErrors"><p>{{ chart }}</p></canvas>
     </div>
   </div>
 

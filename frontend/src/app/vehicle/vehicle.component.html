@@ -6,7 +6,10 @@
   <li class="vehicle-details" [routerLink]="['/vehicle', vehicle.id]">
     <img src="{{vehicle.vehicleModel.imgURL}}" alt="Fahrzeugbild" class="vehicle-img">
     <div class="vehicle-details-line">
-    <p id="model-name">{{vehicle.vehicleModel.modelName}}</p>  <br>
+    <div>
+    <p id="manufacturer">{{vehicle.vehicleModel.manufacturer}}</p>
+    <p id="model-name">{{vehicle.vehicleModel.modelName}}</p>
+    </div>
     <div id="location">
       <app-osm-view [carId]="vehicle.id" [visibleMap]="false"></app-osm-view>
     </div>

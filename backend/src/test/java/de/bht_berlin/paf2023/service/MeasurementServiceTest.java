@@ -1,129 +1,72 @@
 package de.bht_berlin.paf2023.service;
 
-import de.bht_berlin.paf2023.entity.Measurement;
-import de.bht_berlin.paf2023.repo.MeasurementRepo;
-import de.bht_berlin.paf2023.repo.MeasurementRepoSubject;
-import de.bht_berlin.paf2023.service.MeasurementService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import de.bht_berlin.paf2023.entity.Measurement;
+import de.bht_berlin.paf2023.repo.MeasurementRepo;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 public class MeasurementServiceTest {
-
     @Mock
-
     private MeasurementRepo measurementRepo;
 
-    private MeasurementRepoSubject measurementRepoSubject;
-
-
-    @InjectMocks
-    private MeasurementService measurementService;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.openMocks(this);
-        measurementRepoSubject = new MeasurementRepoSubject();
-//        measurementService = new MeasurementService(measurementRepoSubject);
+    /**
+     * This test method verifies the behavior of the findErrorInPastArray method in the MeasurementService class when
+     * no errors are present. It creates a MeasurementService instance with a given measurementRepo and sets up test
+     * data including measurements and corresponding values. The method to be tested is called with the test data,
+     * and the result is asserted to ensure it returns false, indicating no error.
+     */
+    @Test
+    void findErrorInPastArray_NoError() {
+        MeasurementService measurementService = new MeasurementService(measurementRepo);
+        int counter = 4;
+        ArrayList<Measurement> values = new ArrayList<>();
+        ArrayList<Double> measurementArrayInDouble = new ArrayList<>();
+        Double tolerance = 0.1;
+        int comparativeValuesArraySize = 3;
+        // Testdata without errors
+        for (int i = 0; i < 5; i++) {
+            Measurement measurement = new Measurement();
+            measurement.setIsError(false);
+            values.add(measurement);
+            measurementArrayInDouble.add(0.5);
+        }
+        boolean result = measurementService.findErrorInPastArray(counter, values, measurementArrayInDouble, tolerance,
+                comparativeValuesArraySize);
+        assertFalse(result, "Expected no error");
     }
 
-//    @Test
-//    public void testRoundToTwoDecimalPlaces_WithIntegerInput() {
-//        double value = 15.0;
-//        double result = measurementService.roundToTwoDecimalPlaces(value);
-//        assertEquals(15.0, result);
-//    }
-//
-//    @Test
-//    public void testRoundToTwoDecimalPlaces_WithFractionalInput() {
-//        double value = 15.555;
-//        double result = measurementService.roundToTwoDecimalPlaces(value);
-//        assertEquals(15.56, result);
-//    }
-//
-//    @Test
-//    public void testRoundToTwoDecimalPlaces_WithNegativeInput() {
-//        double value = -15.555;
-//        double result = measurementService.roundToTwoDecimalPlaces(value);
-//        assertEquals(-15.56, result);
-//    }
-//
-//    @Test
-//    public void testRoundToTwoDecimalPlaces_WithZeroInput() {
-//        double value = 0.0;
-//        double result = measurementService.roundToTwoDecimalPlaces(value);
-//        assertEquals(0.0, result);
-//    }
-//
-//    @Test
-//    public void testCalculateAverageMeasurements_WithNonEmptyList() {
-//        ArrayList<Double> measurementArrayList = new ArrayList<>();
-//        measurementArrayList.add(10.0);
-//        measurementArrayList.add(20.0);
-//        measurementArrayList.add(30.0);
-//        double result = measurementService.calculateAverageMeasurements(measurementArrayList);
-//        assertEquals(20.0, result);
-//    }
-//
-//    @Test
-//    public void testCalculateAverageMeasurements_WithEmptyList() {
-//        ArrayList<Double> measurementArrayList = new ArrayList<>();
-//        double result = measurementService.calculateAverageMeasurements(measurementArrayList);
-//        assertEquals(0.0, result);
-//    }
-//
-//    @Test
-//    public void testCalculateAverageMeasurements_WithSingleValue() {
-//        ArrayList<Double> measurementArrayList = new ArrayList<>();
-//        measurementArrayList.add(15.0);
-//        double result = measurementService.calculateAverageMeasurements(measurementArrayList);
-//        assertEquals(15.0, result);
-//    }
-//
-//
-//    @Test
-//    public void testFindMeasurementError_WithNotEnoughValues() {
-//        ArrayList<Double> measurementArrayInDouble = new ArrayList<>(Arrays.asList(10.0, 20.0));
-//        int comparativeValuesArraySize = 5;
-//        Double tolerance = 0.1;
-//        MeasurementService measurementService = new MeasurementService(measurementRepoSubject);
-//        boolean result = measurementService.findMeasurementError(measurementArrayInDouble, comparativeValuesArraySize, tolerance);
-//        assertTrue(result);
-//    }
-
-//    @Test
-//    public void testFindMeasurementError_WithNoError() {
-//        ArrayList<Double> measurementArrayInDouble = new ArrayList<>(Arrays.asList(10.0, 20.0, 30.0, 25.0, 35.0));
-////        ArrayList<Double> measurementArrayInDouble = new ArrayList<>(Arrays.asList(10.0, 10.0, 10.0, 10.0, 10.0, 10.0));
-//        int comparativeValuesArraySize = 3;
-//        Double tolerance = 0.9;
-//        MeasurementService measurementService = new MeasurementService(measurementRepoSubject);
-//        boolean result = measurementService.findMeasurementError(measurementArrayInDouble, comparativeValuesArraySize, tolerance);
-//        assertFalse(result);
-//    }
-
-//    @Test
-//    public void testFindMeasurementError_WithError() {
-//        ArrayList<Double> measurementArrayInDouble = new ArrayList<>(Arrays.asList(10.0, 20000.0, 15.0, 25.00, 27.00, 30.0, 15.0, 5.0));
-////        ArrayList<Double> measurementArrayInDouble = new ArrayList<>(Arrays.asList(10.0, 10.0, 10.0, 10.0, 10.0, 10.0));
-//        int comparativeValuesArraySize = 3;
-//        Double tolerance = 0.1;
-//        MeasurementService measurementService = new MeasurementService(measurementRepoSubject);
-//        boolean result = measurementService.findMeasurementError(measurementArrayInDouble, comparativeValuesArraySize, tolerance);
-//        assertTrue(result);
-//    }
+    /**
+     * This test method verifies the behavior of the findErrorInPastArray method in the MeasurementService class when
+     * an error is present. It creates a MeasurementService instance with a given measurementRepo and sets up test
+     * data including measurements and corresponding values. The method to be tested is called with the test data,
+     * and the result is asserted to ensure it returns true, indicating an error.
+     */
+    @Test
+    void findErrorInPastArray_Error() {
+        MeasurementService measurementService = new MeasurementService(measurementRepo);
+        int counter = 5;
+        ArrayList<Measurement> values = new ArrayList<>();
+        ArrayList<Double> measurementArrayInDouble = new ArrayList<>();
+        Double tolerance = 0.1;
+        int comparativeValuesArraySize = 3;
+        // Testdata with error
+        for (int i = 0; i < 5; i++) {
+            Measurement measurement = new Measurement();
+            measurement.setIsError(false);
+            values.add(measurement);
+            measurementArrayInDouble.add(0.1);
+        }
+        Measurement measurement = new Measurement();
+        values.add(measurement);
+        measurementArrayInDouble.add(500.0);
+        boolean result = measurementService.findErrorInPastArray(counter, values, measurementArrayInDouble, tolerance,
+                comparativeValuesArraySize);
+        assertTrue(result, "Expected an error");
+    }
+    }
 
 
-}

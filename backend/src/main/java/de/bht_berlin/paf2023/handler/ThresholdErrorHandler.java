@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+
 /**
  * Handler class responsible for handling threshold errors in measurements.
  */
@@ -59,7 +60,6 @@ public class ThresholdErrorHandler implements MeasurementHandler {
         // Not implemented
     }
 
-
     /**
      * Handles a HashMap of measurements by processing them to identify threshold errors,
      * and passes the processed measurements to the next handler.
@@ -69,8 +69,21 @@ public class ThresholdErrorHandler implements MeasurementHandler {
      */
     @Override
     public void handle(HashMap<String, ArrayList<Measurement>> hashMap) {
-        System.out.println("ThresholdErrorHandler");
-        // Processing measurements using streams
+        System.out.println("ThresholdHandler" + hashMap.keySet());
+
+        for (String key : hashMap.keySet()) {
+            System.out.println("Key: " + key);
+
+            // Get the ArrayList of measurements associated with the current key
+            ArrayList<Measurement> measurementList = hashMap.get(key);
+
+            // Loop through all measurements in the ArrayList
+            for (Measurement measurement : measurementList) {
+                // Perform actions on each measurement as needed
+                System.out.println(measurementService.convertMeasurementToDouble(measurement));
+            }
+        }
+        // Process the measurements and create a new HashMap with processed measurements
         HashMap<String, ArrayList<Measurement>> processedHashMap = hashMap.entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
@@ -89,10 +102,13 @@ public class ThresholdErrorHandler implements MeasurementHandler {
      */
     private ArrayList<Measurement> processMeasurements(ArrayList<Measurement> measurements) {
         // Using stream to map each Measurement to its processed version
-        System.out.println("ThresholdErrorHandler: processMeasurements");
         return measurements.stream()
                 .map(this::processMeasurement)
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public ArrayList<Measurement> processMeasurementsPublic(ArrayList<Measurement> measurements){
+        return processMeasurements(measurements);
     }
 
     /**
@@ -103,54 +119,29 @@ public class ThresholdErrorHandler implements MeasurementHandler {
      * @param measurement Measurement object to be processed
      * @return Processed Measurement object
      */
-//    private Measurement processMeasurement(Measurement measurement) {
-//        System.out.println("ThresholdErrorHandler: processMeasurement");
-//        // Checking if the measurement indicates an error
-//        if (measurement.getIsError() != null && !measurement.getIsError()) {}
-//        else {
-//            System.out.println("ThresholdErrorHandler: processMeasurement if Loop");
-//            boolean isError = false;
-//            // Processing based on measurement type
-//            if ("SpeedMeasurement".equals(measurement.getMeasurementType())) {
-//                Float maxSpeed = measurement.getVehicle().getVehicleModel().getMaxSpeed();
-//                SpeedMeasurement speedMeasurement = (SpeedMeasurement) measurement;
-//                Float currentSpeed = (float) speedMeasurement.getSpeed();
-//                // Checking if current speed exceeds the maximum allowed speed
-//                if(currentSpeed >= maxSpeed){
-//                    isError = true;
-//                }
-//            } else if ("AccelerationMeasurement".equals(measurement.getMeasurementType())) {
-//                Float maxAcceleration = measurement.getVehicle().getVehicleModel().getMaxAcceleration();
-//                AccelerationMeasurement accelerationMeasurement = (AccelerationMeasurement) measurement;
-//                Float currentAcceleration = (float) accelerationMeasurement.getAcceleration();
-//                // Checking if current acceleration exceeds the maximum allowed acceleration
-//                if (currentAcceleration >= maxAcceleration){
-//                    isError = true;
-//                }
-//            }
-//            setErrorOnMeasurement(measurementRepo, measurement, isError);
-//        }
-//        return measurement;
-//    }
     private Measurement processMeasurement(Measurement measurement) {
         if (measurement.getIsError() != null && !measurement.getIsError()) {
         } else {
             boolean isError = false;
             switch (measurement.getMeasurementType()) {
                 case "SpeedMeasurement":
+                    // Retrieve maximum speed allowed for the vehicle
                     Float maxSpeed = measurement.getVehicle().getVehicleModel().getMaxSpeed();
+                    // Cast the measurement to SpeedMeasurement type
                     SpeedMeasurement speedMeasurement = (SpeedMeasurement) measurement;
+                    // Retrieve current speed measurement
                     Float currentSpeed = (float) speedMeasurement.getSpeed();
                     // Checking if current speed exceeds the maximum allowed speed
-                    if (currentSpeed >= maxSpeed) {
+                    if (currentSpeed >= maxSpeed || currentSpeed <= 0) {
                         isError = true;
                     }
                     break;
                 case "AccelerationMeasurement":
                     Float maxAcceleration = measurement.getVehicle().getVehicleModel().getMaxAcceleration();
+                    Float minAcceleration = measurement.getVehicle().getVehicleModel().getMinAcceleration();
                     AccelerationMeasurement accelerationMeasurement = (AccelerationMeasurement) measurement;
                     Float currentAcceleration = (float) accelerationMeasurement.getAcceleration();
-                    if (currentAcceleration >= maxAcceleration) {
+                    if (currentAcceleration >= maxAcceleration || currentAcceleration <= minAcceleration) {
                         isError = true;
                     }
                     break;
@@ -173,8 +164,19 @@ public class ThresholdErrorHandler implements MeasurementHandler {
                     }
                     break;
             }
-            setErrorOnMeasurement(measurementRepo, measurement, isError);
+            // Set error status on the measurement object
+            this.setErrorOnMeasurement(measurementRepo, measurement, isError);
         }
+        // Return the processed measurement object
         return measurement;
+    }
+
+    public Measurement processMeasurementPublic(Measurement measurement){
+        return processMeasurement(measurement);
+    }
+
+    @Override
+    public void setErrorOnMeasurement(MeasurementRepoSubject measurementRepo, Measurement measurement, boolean isError) {
+        measurementRepo.setIsError(measurement, isError);
     }
 }

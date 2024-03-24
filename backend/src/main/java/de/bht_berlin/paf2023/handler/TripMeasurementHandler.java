@@ -49,7 +49,6 @@ public class TripMeasurementHandler implements MeasurementHandler {
      */
     @Override
     public void handle(Trip trip) {
-        System.out.println("TripMeasurementHandler");
         // Retrieve ID of the trip
         long tripId = trip.getId();
         // Retrieve all measurements associated with trip from repo

@@ -17,11 +17,10 @@ public class VehicleModel extends IdentifiedEntity {
 
     private String manufacturer;
 
-    private Float weight;
-
     private Float maxSpeed;
 
     private Float maxAcceleration;
+    private Float minAcceleration;
 
     private Float maxAxis;
     private Float minAxis;
