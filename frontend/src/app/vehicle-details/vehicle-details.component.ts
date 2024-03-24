@@ -14,10 +14,10 @@ import {OsmViewComponent} from "../osm-view/osm-view.component";
 @Component({
   selector: 'app-vehicle-details',
   standalone: true,
-    imports: [
-        AsyncPipe,
-        OsmViewComponent
-    ],
+  imports: [
+    AsyncPipe,
+    OsmViewComponent
+  ],
   templateUrl: './vehicle-details.component.html',
   styleUrl: './vehicle-details.component.css'
 })
@@ -91,6 +91,14 @@ export class VehicleDetailsComponent {
       sums.push(value);
     });
     return sums;
+  }
+
+  hasErrors(): boolean {
+    if (this.chart.data.labels.length > 0) {
+      return true;
+    } else {
+      return false
+    }
   }
 
   // Kreisdiagramm für Messfehler pro Fahrzeug
