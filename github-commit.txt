@@ -1,0 +1,1558 @@
+commit 771cb8ddcc9b808dd71690b787df8be458f6eefe
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Sun Mar 24 21:13:28 2024 +0100
+
+    CSV updated
+
+commit 4ac9ccc9f3bf57dc6d396cfcb146d8de7265d1ad
+Merge: d3e9238 759d2a2
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Sun Mar 24 20:30:49 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit d3e9238d8640cc329d7347455f652bf0c4ab99bc
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Sun Mar 24 20:30:41 2024 +0100
+
+    changed tolerances
+
+commit 759d2a25d9a422a7bdf22ba538ed546662ff602e
+Merge: 7c23784 f433aa6
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Mar 24 17:19:07 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+    
+     Conflicts:
+    	backend/src/main/java/de/bht_berlin/paf2023/config/StartupRunner.java
+
+commit 7c23784b7bd236e06465d61e68b955d83bed7f52
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Mar 24 17:17:55 2024 +0100
+
+    moved imports
+
+commit f433aa675bd7f9fd459cee68dee3224ae259587d
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Sun Mar 24 17:17:25 2024 +0100
+
+    format
+
+commit 94e9565ed749907969857a755dae8b25135ae420
+Merge: c37e6b4 da1a67a
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Sun Mar 24 17:04:33 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+    
+    # Conflicts:
+    #       backend/src/main/java/de/bht_berlin/paf2023/config/StartupRunner.java
+    #       clean-import.csv
+
+commit c37e6b407fc3455783bf7cb901da90e32ba720e8
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Sun Mar 24 17:03:02 2024 +0100
+
+    added JavaDoc
+
+commit da1a67ab4c96bc86a1e4fbec0aa686d1a592677c
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Sun Mar 24 16:11:47 2024 +0100
+
+    paf2023 role
+
+commit 7ca62305230271697397353cce90c0c508769a38
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Sun Mar 24 15:59:21 2024 +0100
+
+    cleanup
+
+commit 483dd8395c20a1176ddaf202ecb2a1c36d5b3fa6
+Merge: 6d88141 92f4ad5
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Sun Mar 24 15:51:01 2024 +0100
+
+    Merge remote-tracking branch 'origin/main'
+
+commit 6d88141d3b3f3e67857de20a9a07fb538562fa29
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Sun Mar 24 15:50:50 2024 +0100
+
+    remove update
+
+commit 92f4ad5074d5706c29819ab82f5738a2b8f63cba
+Merge: ad461a4 d5ee079
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Mar 24 15:31:17 2024 +0100
+
+    edit acceleration importer files
+
+commit ad461a48011e5898da9217438277bd766fbba2ba
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Mar 24 15:30:20 2024 +0100
+
+    edit acceleration importer files
+
+commit d5ee07927f0dde09d2ef322a964c1ce38956941a
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Sun Mar 24 14:29:22 2024 +0100
+
+    refactor
+
+commit 74134899f0e31a812ea3a59aaf58d24b9c9e8332
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Sun Mar 24 14:28:44 2024 +0100
+
+    add index
+
+commit 117dc9f0c914b7024020c894a4600a0de403d46a
+Merge: 156d0fb f4102ac
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Sun Mar 24 14:25:47 2024 +0100
+
+    Merge remote-tracking branch 'origin/main'
+
+commit 156d0fb6d2e9452b87f2adc51b2f6bf8d45793a1
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Sun Mar 24 14:14:46 2024 +0100
+
+    set default
+
+commit ac74c142d4a0499a9c0276d6f7f77532c1442668
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Sun Mar 24 14:14:30 2024 +0100
+
+    cleanup
+
+commit f4102acb9277519c5f0f5e0c48c6824b55b9ed93
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Mar 24 13:22:55 2024 +0100
+
+    cleanup
+
+commit d1a890985bca4de764d29cbcdc60af4ca486cd74
+Merge: 1da2397 9b02077
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Mar 24 11:19:33 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit 1da2397ad31b9197d423fc1620f5c3f9295eb1d2
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Mar 24 11:19:13 2024 +0100
+
+    new csv linebylineimport
+
+commit 9b020773d3fc8464e746ec40710843ed2fe237ac
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Sun Mar 24 09:52:31 2024 +0100
+
+    cleanup
+
+commit c7fdd4920f0fb37b00603a8d99766ad44fae2a7a
+Merge: 538c994 4c301cf
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Mar 24 02:04:55 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+    
+     Conflicts:
+    	frontend/src/app/vehicle-details/vehicle-details.component.html
+
+commit 538c9943c6c25e3598e1d24b5e5725d18e6e3e19
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Mar 24 02:03:49 2024 +0100
+
+    add conditional headline
+
+commit 95aa5fd0c88ae6d0edcf717f87e12f600084c692
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Sat Mar 23 23:45:02 2024 +0100
+
+    code cleanup, added javaDoc
+
+commit 4c301cfbf7a5b2134b45bf603ee82a84c23950c4
+Merge: b20983d e19ef57
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Sat Mar 23 19:44:00 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit b20983d89294b543e5eaaa4318e4ce03a92a6ba0
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Sat Mar 23 19:43:48 2024 +0100
+
+    tests for error handling
+
+commit e19ef57aa41d1601d3752918ddee0072742332bf
+Merge: 7fc28b8 da40d24
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sat Mar 23 19:43:27 2024 +0100
+
+    merge
+
+commit 7fc28b8bdfd1b73229e27002997781b4e9eff5a6
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sat Mar 23 19:42:31 2024 +0100
+
+    cleanup
+
+commit da40d2498d23d8ec15e3152d817cc2607c48c57e
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Sat Mar 23 16:32:24 2024 +0100
+
+    readme
+
+commit 6c831f666bcbd39df7bf057fb5ed5f3514a2e7d9
+Merge: a305a0d 982b299
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sat Mar 23 02:53:46 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit a305a0d603ce0de0851412748adca69f6ca7bf9e
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sat Mar 23 02:52:21 2024 +0100
+
+    fixes
+
+commit 982b299f3d165a96b08950f3ad559fbec34eda89
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Fri Mar 22 10:47:16 2024 +0100
+
+    readme
+
+commit 7640006b5550b853fa58790b30dedcbf7c6e0b99
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Fri Mar 22 10:04:48 2024 +0100
+
+    text changes
+
+commit 16d35aabab4b897cb06baefb59e7181d2e02deed
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Fri Mar 22 10:01:25 2024 +0100
+
+    cleanup files
+
+commit ef2d7cc4d39c04638a2baf63308b630eee8894bc
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Fri Mar 22 09:49:44 2024 +0100
+
+    remove title
+
+commit c56fc8d92028d2a336898ade7f06cfab15112421
+Merge: 802129f a3b4fec
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Fri Mar 22 00:08:11 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit 802129f139ef28074109a2ecc8d86b8dcbaed136
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Fri Mar 22 00:08:02 2024 +0100
+
+    doing tests
+
+commit a3b4fecd50a5bb70ac06d9f1b80fb1c6e6d0e94e
+Merge: 377bfe4 8a9fdb8
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Thu Mar 21 23:41:18 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit 377bfe414138724e411e36a4e13a2e0cd7516b5d
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Thu Mar 21 23:41:02 2024 +0100
+
+    added plausible data
+
+commit 8a9fdb80fadb36e908a8a50de903f73690f9ca1e
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Thu Mar 21 16:24:27 2024 +0100
+
+    builder test
+
+commit 9fa187c458f72985b5376e0b98f6dba54336a64f
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Thu Mar 21 13:57:29 2024 +0100
+
+    typo
+
+commit a82d097b4e654f99b1dc321dabdb85f122878daa
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Thu Mar 21 13:18:16 2024 +0100
+
+    cleanup, unitests, e2e
+
+commit 96338fbf9005f492c0c079d9c707f7afb825c5ef
+Merge: bc37ecf 5c0bb06
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Mar 20 23:33:18 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+    
+    # Conflicts:
+    #       backend/src/main/java/de/bht_berlin/paf2023/service/MeasurementService.java
+
+commit bc37ecfd39bb86365d2da7e1c946afc25ab1666c
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Mar 20 23:26:46 2024 +0100
+
+    added some tests
+
+commit 5c0bb06a1ad87342b6db0cbf9247d6afeae03c4e
+Merge: 631eabd c245de8
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Wed Mar 20 00:25:42 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit 631eabdb69e9ec6583f0d18da6adc684b0657877
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Wed Mar 20 00:25:09 2024 +0100
+
+    finished e2e & unittests
+
+commit 7719bfbeec1acf7332bc296172bbe334edfbfe72
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Tue Mar 19 10:23:06 2024 +0100
+
+    unit tests working status
+
+commit c245de8ac82b99ff41d833f0d2b7c86d551b3b32
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Tue Mar 19 09:45:12 2024 +0100
+
+    add javadoc
+
+commit 1d1529e6bc19ae2a4ba4f590289df3326e45fd9f
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Mon Mar 18 22:09:01 2024 +0100
+
+    refactored huge method in ComaritiveListErrorHandler
+
+commit a9dcf03b4bf679251eb9e1d549e249ce0c0b08ec
+Merge: f97c0d2 8a47b73
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Mon Mar 18 20:01:04 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+    
+    # Conflicts:
+    #       backend/src/main/java/de/bht_berlin/paf2023/config/StartupRunner.java
+
+commit f97c0d2afc482bf0933b0ac76587d5d6675df973
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Mon Mar 18 19:59:06 2024 +0100
+
+    added test classes
+
+commit 8a47b73a19750480018249a7d0eb7315216be84e
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Mon Mar 18 13:28:34 2024 +0100
+
+    patch console errors
+
+commit d52fe25c36b8b8c8815b0d88519ae05b04f6e71a
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Mon Mar 18 12:19:59 2024 +0100
+
+    add person cars and contracts
+
+commit 10617d5638e436c2a4ab92828aa7b4916f3edd7d
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Mon Mar 18 11:21:40 2024 +0100
+
+    cleanup unittests
+
+commit 74d06b615f571742c3eae96bebf9bf1543a9ea13
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Mon Mar 18 11:12:40 2024 +0100
+
+    move unittests. delete example e2e
+
+commit 0fca79a9669e1754a83d9e6755c4c92908ceeeb8
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Mon Mar 18 11:05:42 2024 +0100
+
+    e2e
+
+commit 0cfdbbf4dfc3a8fa9efd74d4d717d29885020572
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Mon Mar 18 10:18:21 2024 +0100
+
+    comment out error handling
+
+commit cead3422794232678e85bee6389077a933f840e6
+Merge: d180ef1 b78bf12
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Mon Mar 18 10:12:08 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+    
+     Conflicts:
+    	backend/src/main/java/de/bht_berlin/paf2023/config/StartupRunner.java
+    	backend/src/main/java/de/bht_berlin/paf2023/repo/MeasurementRepoSubject.java
+
+commit d180ef18437cf7c0d3946b68dc82203fa2b3e4cd
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Mon Mar 18 10:09:05 2024 +0100
+
+    java docs and unit tests
+
+commit b78bf125f92c08f0d546639be391964c14e36081
+Merge: a70868d 5f19728
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Sun Mar 17 21:16:26 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit a70868d90292c4428a59fcc3e75f13b650c9505f
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Sun Mar 17 21:16:16 2024 +0100
+
+    Error Handling fixed
+
+commit 93690f7b2c47848a9353a93f109275a62492ba05
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Mar 17 13:44:12 2024 +0100
+
+    calc stats fix and java docs
+
+commit 5f19728efe72fd9085ce61a487a421218ab8e522
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sat Mar 16 14:07:24 2024 +0100
+
+    fixed trip segmentation
+
+commit 5d11cb179929988f76a29af6c7d3007e7f9ae6dd
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Thu Mar 14 10:01:29 2024 +0100
+
+    vehicle detail
+
+commit 04bfd6e0b932020928058ba9ee2556d0fd80dd89
+Merge: 0f0937a 31cf0ec
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Thu Mar 14 00:01:57 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit 0f0937ac820a451cb532d8662bd7ce0151f45429
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Thu Mar 14 00:00:35 2024 +0100
+
+    styling refined, added vehicle in trip detail page
+
+commit c909d496a557b56d54b100b947bc2f338c4849d7
+Merge: 5ff7707 31cf0ec
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Mar 13 23:25:27 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit 5ff77076f36e4e3ddaaa5ff91589bb1bf0d6e7d7
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Mar 13 23:25:19 2024 +0100
+
+    doing: fix algo
+
+commit 31cf0ec0f7464301530f29d49aea4d8b77948507
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Wed Mar 13 19:18:46 2024 +0100
+
+    get vehcile details
+
+commit 1139f9d811c4afbe975d61cabe3625276a113e5f
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Wed Mar 13 19:18:28 2024 +0100
+
+    get vehicle details
+
+commit ffdaf0c37f8a432519bbf0bdb54d56c88ee81cdc
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Wed Mar 13 19:18:12 2024 +0100
+
+    add getcarbyinsurance
+
+commit 3153c0fce4a5b1b20517bf6ed5a7ecdcfcf1fc87
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Wed Mar 13 17:56:35 2024 +0100
+
+    cypress & cleanup
+
+commit 28e9312f74ab40461174dc41dd3360eca873dff9
+Merge: cd61c89 ec50435
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Mar 13 17:53:03 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit ec50435173876a2f8b9026507241d0b821b8aba0
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Wed Mar 13 17:48:13 2024 +0100
+
+    vertragsdetails
+
+commit d91f957947d7b5258abcf5e973d3657da97de182
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Wed Mar 13 16:52:54 2024 +0100
+
+    contract overview
+
+commit cd61c8949194306a07ebc95db972e7e2f6ab1cf7
+Merge: b12f9c1 fad205b
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Mar 13 16:51:05 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit b12f9c1cad056bc8a0aca5f1ae6edd6236430508
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Mar 13 16:50:52 2024 +0100
+
+    removed unused imports
+
+commit fad205b62830046c635060afde37aff9918ec180
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Wed Mar 13 16:08:04 2024 +0100
+
+    map switch, styling
+
+commit 775f2491a2391fe98096f47d13501c23df9bfaef
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Wed Mar 13 14:11:54 2024 +0100
+
+    findmycar component
+
+commit 1f1fae2cb8221633bf66018d6757e2ae610edc1a
+Merge: 8031b4f 419a534
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Mar 13 12:29:04 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit 8031b4fb0bdb9e4865ef630aac80ae24120be47d
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Mar 13 12:28:42 2024 +0100
+
+    ----
+
+commit 419a534ed0920e06d3cf52c132e3254428fdd366
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Wed Mar 13 00:22:13 2024 +0100
+
+    global css, new home screen, routing
+
+commit daaa1a0de44a8cd84001262d854c68c420e8eb5c
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Tue Mar 12 23:29:55 2024 +0100
+
+    doing: frontend css vehicle details
+
+commit 098e28f91288863c17abc09549532dac4559f9f3
+Merge: 51ab247 5fcdeef
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Tue Mar 12 22:19:46 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+    
+    # Conflicts:
+    #       frontend/src/app/service/vehicle.service.ts
+
+commit 51ab2472c9c7f4407502071955e0f218b0d5504d
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Tue Mar 12 22:17:53 2024 +0100
+
+    doing: frontend css vehicle details
+
+commit 5fcdeef781ac5eacb0346ce531b4dbb9c54bc76a
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Tue Mar 12 22:14:16 2024 +0100
+
+    wip multiple vehicleids in trip query
+
+commit 3613cb6e1bddf88b5877ed9dc0928972e2eef8b0
+Merge: c21d547 d53004f
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Tue Mar 12 20:25:44 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit c21d5472574150a9bd897accb35ab3d9e49f3000
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Tue Mar 12 20:25:38 2024 +0100
+
+    wip
+
+commit d53004f60e098e9253f7ff745c8e60a6ec0923f9
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Tue Mar 12 20:19:29 2024 +0100
+
+    cypress
+
+commit 8a66334c769d073a4f7bfce86b1d2f5bb7a75d24
+Merge: 65b4c7c 6485a3a
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Tue Mar 12 13:56:08 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit 6485a3ac7f8c2f2ee0d285c03d02d166e2124399
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Tue Mar 12 13:55:54 2024 +0100
+
+    vehicle get All
+
+commit 65b4c7c3b17058e3c889fc2184457102b4a6181e
+Merge: 20f5c8c 2eab1f0
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Tue Mar 12 13:55:19 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+    
+    # Conflicts:
+    #       frontend/src/app/vehicle/vehicle.component.html
+
+commit 20f5c8c7c4cf0fea64b9140a2c9e62a549de3e5b
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Tue Mar 12 13:54:02 2024 +0100
+
+    doing: frontend css vehicle details
+
+commit 2eab1f012b1be6f63eb25988d2a7267a31992d40
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Tue Mar 12 13:48:57 2024 +0100
+
+    vehicle overview, details, osm component
+
+commit e6920dde804fc0fac0667cd166f324c9c5119bb3
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Tue Mar 12 12:58:19 2024 +0100
+
+    get cars from person
+
+commit b9c66be675a5e30e088076c58da7767e844db752
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Tue Mar 12 10:13:19 2024 +0100
+
+    enabled error measurements
+
+commit 5379a282a3b5204f2d3d1e7108e685a842c1bcd2
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Tue Mar 12 10:11:39 2024 +0100
+
+    minor addition trip overview all select
+
+commit b5e2c0282f971108fcb3538aec82ac81d74f513c
+Merge: ba761fe 278efba
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Tue Mar 12 10:05:46 2024 +0100
+
+    Merge branch 'wip-yiji'
+    
+    # Conflicts:
+    #       frontend/src/app/model/vehicle.model.ts
+    #       frontend/src/app/trip/trip.component.html
+    #       frontend/src/app/trip/trip.component.ts
+
+commit ba761fe03c390fff5c7a67f9f7ae47e351d4e786
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Tue Mar 12 10:02:41 2024 +0100
+
+    working vehicles in trips
+
+commit 278efba74c6d1c733215107d143a7033b1d69320
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Mon Mar 11 23:02:58 2024 +0100
+
+    trip overview styling
+
+commit ec4222185eda49a8a5a808c33158bd0d10ec3435
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Mon Mar 11 23:02:03 2024 +0100
+
+    doing: frontend graph
+
+commit 5976c97b0e36710f3e4dd37250bcbbb2abc5d52f
+Merge: 537224c 1bb28d1
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Mon Mar 11 11:45:09 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+    
+    # Conflicts:
+    #       frontend/src/app/app.routes.ts
+    #       frontend/src/app/insurance/insurance/insurance.component.html
+    #       frontend/src/app/model/insurance.model.ts
+    #       test.csv
+
+commit 537224c59a97c500a0d8eea7962f3403b1137e59
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Mon Mar 11 11:40:46 2024 +0100
+
+    doing: frontend vehicle details
+
+commit 1bb28d1cf43996da35cc71d4f60a55c593c09bc7
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Mon Mar 11 09:54:32 2024 +0100
+
+    trip details and some css
+
+commit 825d9a012693b6607bc241fc95c23bed0143cbd8
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Mar 10 00:47:44 2024 +0100
+
+    trip overview mostly done except styling
+
+commit 04905351d55d31e1627bb7b09a8664616460817c
+Merge: 586a270 3dbc6aa
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sat Mar 9 13:13:20 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+    
+     Conflicts:
+    	frontend/src/app/app.routes.ts
+
+commit 586a2709b7917cc85605435eca369856e98626d0
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sat Mar 9 13:11:18 2024 +0100
+
+    wip angular
+
+commit 3dbc6aa9ac91e0fe52094e6119cabec2d27ac7e2
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Fri Mar 8 23:19:46 2024 +0100
+
+    insurance us overview and details
+
+commit f86a1b684007bc73872083ea110203f04091ecd9
+Merge: 2d98a40 f782bbd
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Fri Mar 8 21:40:04 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+    
+    # Conflicts:
+    #       backend/src/main/java/de/bht_berlin/paf2023/Paf2023Application.java
+    #       backend/src/main/java/de/bht_berlin/paf2023/component/MeasurementControllerSingleton.java
+    #       test.csv
+
+commit 2d98a40252b4887b14531013dd7191bfc612c05c
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Fri Mar 8 21:35:36 2024 +0100
+
+    vehiclemodel api
+
+commit f782bbd0fbaf92d7b6fbfcd6883b817ccccf6334
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Fri Mar 8 21:34:37 2024 +0100
+
+    frontend +cypress
+
+commit bc9f46f1f083b4432166305e6f965833a86d87f0
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Fri Mar 8 17:51:10 2024 +0100
+
+    date format example comment
+
+commit 227b3c5ecb3516269f70f2ece3c41b49e3d0888d
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Fri Mar 8 17:49:07 2024 +0100
+
+    added endpoints and trip analysis methods
+
+commit ae66cb9f03f057f68bd00d14c951031793f393dd
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Thu Mar 7 13:55:36 2024 +0100
+
+    Chain Pattern working
+
+commit 183f9c47d37c2d83fa440548c72fe6103b0280b5
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Thu Mar 7 00:00:29 2024 +0100
+
+    wip trip calculations
+
+commit 5b89561e6eb7b79a48280e16fe18cc45d81a3984
+Merge: 089b44b b47f88c
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Wed Mar 6 23:33:19 2024 +0100
+
+    merge
+
+commit 089b44b6a2f9c85d734693b8d4488475997d4021
+Merge: bce4519 82065fa
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Wed Mar 6 23:26:41 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+    
+     Conflicts:
+    	backend/src/main/java/de/bht_berlin/paf2023/Paf2023Application.java
+    	backend/src/main/java/de/bht_berlin/paf2023/entity/Trip.java
+    	backend/src/main/java/de/bht_berlin/paf2023/repo/MeasurementRepo.java
+
+commit b47f88ca1892e5521e0ceeab3cbf84045885f687
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Wed Mar 6 23:20:07 2024 +0100
+
+    clean up and fixes: trip segment strategies
+
+commit 82065fa23726a433e2c1ea7aae0c774ebae87835
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Tue Mar 5 13:47:10 2024 +0100
+
+    chain of Reponsibility Pattern on errorhandling
+
+commit eb56d40a25cb834f9e4c8e4688e074aa1294f806
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Mon Mar 4 01:31:29 2024 +0100
+
+    check before push
+
+commit 84d34aa785be4c7251aa0be1f7103a2b57359b33
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Mon Mar 4 01:28:15 2024 +0100
+
+    working HandleSingleTrip and BatchTrip
+
+commit b2b91ee84ee3f199dbc73bfd3298174edf11c6ad
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Sun Mar 3 20:30:50 2024 +0100
+
+    handle all Measurements from trip with 'compare-array'
+
+commit 4e90023d885e7c5e24090dd83d13cc06f4fbc371
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Sun Mar 3 13:40:34 2024 +0100
+
+    fixed algo
+
+commit bce45193bd23e712467207de9553640f615e9163
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sat Mar 2 09:11:27 2024 +0100
+
+    added steering wheel measurements
+
+commit d1235c96057a7dfb9f83c7a035f022fa93d643e0
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sat Mar 2 02:13:39 2024 +0100
+
+    implemented tripservice strategies
+
+commit e5a3448a9c952ceca527a18750ad3352e0922c7a
+Merge: 78bbbc3 a9cd3d2
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Fri Mar 1 22:07:04 2024 +0100
+
+    Merge remote-tracking branch 'origin/main'
+    
+    # Conflicts:
+    #       backend/src/main/java/de/bht_berlin/paf2023/Paf2023Application.java
+
+commit 78bbbc33de1f805c228b4149757feeeaae87f559
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Fri Mar 1 22:01:43 2024 +0100
+
+    find measurement errors and count
+
+commit a9cd3d25f93ba134424a09c18a0bcee8d83b7f92
+Merge: f7ba3bf 1b45c50
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Fri Mar 1 21:57:04 2024 +0100
+
+    Merge branch 'pattern-rebuild'
+
+commit 1b45c503666078ad79d612dafa5d10bbdf7a80e8
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Fri Mar 1 21:56:03 2024 +0100
+
+    refactored for patterns
+
+commit f7ba3bf0b010fe4f106bc08ad22f21f3f069b599
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Fri Mar 1 17:56:21 2024 +0100
+
+    fix strategypattern
+    
+    fix warnings
+    
+    fix warnings
+
+commit 9441ebc90bd1e91f0e4e694953706f0bdc036951
+Merge: 8202f3b 3dc1fe9
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Thu Feb 29 23:56:50 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+
+commit 8202f3b0e82e2b272687f1dcb6007cfbc0d1614b
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Thu Feb 29 23:56:07 2024 +0100
+
+    find measurement error fixes
+
+commit 0ce60f9cf2971497a0fd4d0d9b430a4c22125e81
+Merge: 756be29 3dc1fe9
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Thu Feb 29 22:54:20 2024 +0100
+
+    Merge branch 'main' into pattern-rebuild
+
+commit 3dc1fe933e8cef3d4fc5e116c680f41b5a2f4eae
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Thu Feb 29 22:53:42 2024 +0100
+
+    added error attribute on measurement
+
+commit 756be2989d919db092d45878e1f7925b7bb84c9f
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Thu Feb 29 22:52:41 2024 +0100
+
+    wip
+
+commit 36f38e8c17add9c5579261df59039f2c2c8ce4b0
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Thu Feb 29 22:04:29 2024 +0100
+
+    wip before pattern rebuild
+
+commit e097f1981daef5310b18d7b17157768964a95e19
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Thu Feb 29 13:23:29 2024 +0100
+
+    fix warnings
+
+commit 303e9fa2d96a7ceeb0b537f701222008c2c49963
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Thu Feb 29 13:22:58 2024 +0100
+
+    fix warnings
+
+commit f67804b0a559147eb4f0e94bd34df24d9fd39cb6
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Thu Feb 29 13:20:29 2024 +0100
+
+    fix warnings
+
+commit f69c0381809b4787b1fda9bb51e0ef0e57899329
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Thu Feb 29 13:12:36 2024 +0100
+
+    US: insurance - builder pattern
+
+commit 8f8063a93d850a024eae34442fb7eb1fe06d0d71
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Thu Feb 29 13:12:24 2024 +0100
+
+    US: findMyCar - strategy pattern
+
+commit b85aea64643675b91a65e3d69a20e0f4ee3160bc
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Thu Feb 29 00:02:52 2024 +0100
+
+    fix json output
+
+commit 5cc0b6a9823fb566cce4a4b6bb0eb59fa6d58eba
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Wed Feb 28 23:41:13 2024 +0100
+
+    cleanup stuffed
+
+commit b152e35d92a8cd2be875a7a4c061266debe99be9
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Wed Feb 28 22:58:20 2024 +0100
+
+    remove unused classes, update db schema
+
+commit deed1bd16362a49a87fdf8c77b9f5ee9aa1b3f79
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Wed Feb 28 21:29:15 2024 +0100
+
+    status
+
+commit b1ee459802a787a8dbb7f9b0b10ba73ac3fd50b0
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Feb 28 19:51:32 2024 +0100
+
+    wip
+
+commit 38b34886b8ca75816aaaabb82cdb54a138239a60
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Wed Feb 28 19:32:07 2024 +0100
+
+    wip yiji csv segmentation
+
+commit 31aa944c6f9b8eaadb4b13f49733a3a7d3fa5aee
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Feb 28 19:30:15 2024 +0100
+
+    wip
+
+commit e037da74cc4aaa37eaebfb22666c0f1c923c164b
+Merge: 8adea8f e53407d
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Feb 28 13:21:33 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+    
+    # Conflicts:
+    #       backend/src/main/java/de/bht_berlin/paf2023/Paf2023Application.java
+    #       backend/src/main/java/de/bht_berlin/paf2023/repo/MeasurementRepo.java
+    #       backend/src/main/java/de/bht_berlin/paf2023/service/MeasurementService.java
+
+commit 8adea8fe0a69afc9aff15843b4b7d2be75148991
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Feb 28 12:25:31 2024 +0100
+
+    measurement error doing
+
+commit e53407d696619fdedc144c810d685cdb0d992c12
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Wed Feb 28 12:22:32 2024 +0100
+
+    working trip segmentation
+
+commit 39f53bfe4f742fd48876d27f6cea2056c1eda8ef
+Merge: 2b61a00 0077253
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Feb 28 00:32:31 2024 +0100
+
+    Merge branch 'main' of github.com:svenurbach/iot-automotive
+    
+    # Conflicts:
+    #       backend/src/main/java/de/bht_berlin/paf2023/Paf2023Application.java
+    #       backend/src/main/java/de/bht_berlin/paf2023/entity/Measurement.java
+
+commit 2b61a00312a889cb45016200bdb44b58034bf174
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Feb 28 00:27:22 2024 +0100
+
+    detect measurement error in the making
+
+commit 0077253caaaaf4fd0a2cd3291e378d872d1891a7
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Mon Feb 26 15:47:25 2024 +0100
+
+    us insurance faker data
+
+commit 969f673c506efb35425bec654cd1a73c76d702af
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Mon Feb 26 15:32:25 2024 +0100
+
+    jpa correction
+
+commit 4efa2d0996aad3cf79bfe31d9cfba45ddbbed0e0
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Mon Feb 26 13:35:49 2024 +0100
+
+    ---
+
+commit 26102e5c9a408b59eea03bf8e617a275087a96db
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Feb 25 23:48:07 2024 +0100
+
+    measurement type, tripService
+
+commit 2282f2f296497da8c4eee4a21e195600f285b490
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Feb 25 16:47:28 2024 +0100
+
+    fixed stuff
+
+commit e60ef7c76dab0a95bbbed21b1a2983089c4457e0
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Feb 25 15:58:51 2024 +0100
+
+    working importer
+
+commit 805e077e014f9fe8a4d2e18b299cfe70c704f08c
+Merge: b5fc0e9 5735e85
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Feb 25 15:46:54 2024 +0100
+
+    Merge branch 'main' into working-csv-importer
+    
+    # Conflicts:
+    #       backend/src/main/java/de/bht_berlin/paf2023/entity/Trip.java
+
+commit 5735e85a496593829595d568784feb4b1edea12a
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Sun Feb 25 15:02:10 2024 +0100
+
+    wip
+
+commit ff701dbf5fc0e48a376a04402cf36cb8281180db
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Feb 25 14:42:47 2024 +0100
+
+    test new repo
+
+commit 6fb873da09a5f247dee2238ab97153e9543e0c6b
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Sun Feb 25 13:46:56 2024 +0100
+
+    fidnmycar
+
+commit b5fc0e9ed8466c22bfc96e31d71b9d61a56b0123
+Author: Yi-Ji Lu <yiji85@googlemail.com>
+Date:   Sun Feb 25 13:36:25 2024 +0100
+
+    init new github repo
+
+commit 5f94fd24e5ccdc7f75a6bfc6a7839c78dae428a5
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Fri Feb 23 12:50:26 2024 +0100
+
+    remove DrivingBehavior
+    rework entities
+    add FindMyCar
+
+commit bce5acb8e65e7b375bcd50b5aceaf537aca6eb13
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Mon Jan 22 15:35:25 2024 +0100
+
+    US: Insurance
+
+commit 1326ffd579e6f8d7eda71209d7d424abbf560dfc
+Author: s87410 <yiji85@googlemail.com>
+Date:   Thu Jan 18 22:21:30 2024 +0100
+
+    working status import measurement csv into db
+
+commit 15b3d53e2acbd10b53ed947628247a823fa6c31b
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Thu Jan 18 21:31:17 2024 +0100
+
+    US: Insurance
+
+commit 0ad9733aba96f1a6f71b0cd9d09adfc776f9b350
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Thu Jan 18 18:59:07 2024 +0100
+
+    US: Insurance
+
+commit 8ce4dfd1b8c5dd4105d9c0403fb7a68f7065f985
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Thu Jan 18 18:23:12 2024 +0100
+
+    US: Insurance
+
+commit 33e3d81d1236bc1704ba5e936292ce3c31c06eb4
+Author: s87410 <yiji85@googlemail.com>
+Date:   Wed Jan 17 22:44:20 2024 +0100
+
+    measurement creation from csv parser
+
+commit 3a9ed88b40078d692066ce305e576467728f8e40
+Author: s87410 <yiji85@googlemail.com>
+Date:   Mon Jan 15 00:02:59 2024 +0100
+
+    added locations in measurement factory
+
+commit acb6af373e0f415e1733b397c7818a632ab7eea2
+Author: s87410 <yiji85@googlemail.com>
+Date:   Sun Jan 14 23:49:09 2024 +0100
+
+    wip mesaurement singleton measurementcontroller factory
+
+commit e638d1a716e72782e27176f88c95518921f45bcd
+Merge: 4e6053f 6658e3b
+Author: s87410 <yiji85@googlemail.com>
+Date:   Tue Jan 9 23:21:45 2024 +0100
+
+    merge fix
+
+commit 4e6053f601cedadeef5dbb1bc0e101830e053ff5
+Author: s87410 <yiji85@googlemail.com>
+Date:   Tue Jan 9 23:20:11 2024 +0100
+
+    foreign key generation with hashmap
+
+commit 6658e3bec108695032233c2fccf22868b867b10e
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Tue Jan 9 21:57:33 2024 +0100
+
+    table and chartjs
+
+commit c0f805f13b0d9bb9acb274e9e5ed28603c52e29e
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Tue Jan 9 21:57:06 2024 +0100
+
+    trip as json
+
+commit 7befb59e100b6db1ac0732c0c3cb23857246e1f1
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Tue Jan 9 18:41:43 2024 +0100
+
+    test trip attributes
+
+commit 8718c4d59df52088e0868208e78200f890101233
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Tue Jan 9 17:52:20 2024 +0100
+
+    build frontend
+
+commit a55afb64f0cae289e6659d2b77d1a6e156d32052
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Tue Jan 9 14:42:50 2024 +0100
+
+    remove because of angular 17 standalone components
+    
+    and remove all unused dependecies
+
+commit 7ff6379cbb7666a9d1ccc1739c023f6b9f5087f9
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Mon Jan 8 18:09:07 2024 +0100
+
+    change test method to getAll
+
+commit d1f88d047c651869a9fda8e25d0d951e934c7402
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Mon Jan 8 18:08:45 2024 +0100
+
+    disable faker for all data
+
+commit 54e21c877c963152c7a901c696a9c427e77cbd0a
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Mon Jan 8 18:08:24 2024 +0100
+
+    add trip component
+
+commit 094865ff04a6c941c00247aa74939eb340c14e8b
+Author: s87410 <yiji85@googlemail.com>
+Date:   Sun Jan 7 23:35:28 2024 +0100
+
+    fixed comments
+
+commit 013bc1ec11888e550416acb112d4c69bc2202b66
+Author: s87410 <yiji85@googlemail.com>
+Date:   Sun Jan 7 23:34:18 2024 +0100
+
+    first working set of faker data generations
+
+commit bd0c014a544b9f05f5241fdd56f4d75e6b49d2b9
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Sun Jan 7 21:11:24 2024 +0100
+
+    repositories
+
+commit 8eca7fc4c0d1b4075a38bcf4f0aaebaf367e3287
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Sun Jan 7 21:05:50 2024 +0100
+
+    repositories
+
+commit ab5c5687572eb56904909eda86d577df76fae79e
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Sun Jan 7 21:02:14 2024 +0100
+
+    repositories
+
+commit 2ff6781e7cbbd3c1e28ac220734b668d8329e9ed
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Sun Jan 7 20:12:26 2024 +0100
+
+    fix faker, api distance
+
+commit 050fa1fcc24de6a8bfae7345cbf837b9197d34c4
+Author: s87410 <yiji85@googlemail.com>
+Date:   Sun Jan 7 17:01:31 2024 +0100
+
+    distance service updated
+
+commit ef92e95fe039922c5e6240a4395265a6ba3b79db
+Merge: 0427eb8 32e7000
+Author: s87410 <yiji85@googlemail.com>
+Date:   Sun Jan 7 16:05:02 2024 +0100
+
+    Merge branch 'main' of https://gitlab.bht-berlin.de/s87410/iot_automotive_paf2023_2
+
+commit 32e70002c682aecf10271139d1a0e179e3998b0f
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Sun Jan 7 16:04:57 2024 +0100
+
+    init faker
+
+commit 0427eb8438c587b583fa7dc7aa038816d22215ea
+Author: s87410 <yiji85@googlemail.com>
+Date:   Sun Jan 7 16:04:54 2024 +0100
+
+    distance service
+
+commit 09f9f1bc257efb50686a15c0cde61e61cf028058
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Sun Jan 7 14:03:50 2024 +0100
+
+    fix date end
+
+commit c572e103d6a7df33733801b6d0ea0b829be359e5
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Sun Jan 7 13:22:12 2024 +0100
+
+    datenbank model
+
+commit 981f2a8ceb81785eac74ab3a461ab9f30469463b
+Merge: a53a342 5f45153
+Author: s87410 <yiji85@googlemail.com>
+Date:   Sun Jan 7 11:55:09 2024 +0100
+
+    Merge branch 'main' of https://gitlab.bht-berlin.de/s87410/iot_automotive_paf2023_2
+
+commit a53a3423a0d05514e1e7e27bbb5dc3b9bba92e13
+Author: s87410 <yiji85@googlemail.com>
+Date:   Sun Jan 7 11:55:00 2024 +0100
+
+    fixed long data types in entities
+
+commit 5f451535400d62ad976ad375938928b9676ba088
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Tue Jan 2 11:13:36 2024 +0100
+
+    add frontend
+
+commit f32835241ff33280c29bf1188416dc6a1bbff8a4
+Author: Yaman Al Kadri <yamanalkadri@gmail.com>
+Date:   Wed Dec 13 20:11:56 2023 +0100
+
+    Fahrverhalten + Verbrauch Klassen hochladen
+
+commit 82033885e66a6c58ef8c860c7a191d7ab9a48b06
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Sat Dec 9 15:22:54 2023 +0100
+
+    Methoden für UC messen beschrieben
+
+commit f05916db97fe02c272b1302392b6f04d47ab8a95
+Author: s87410 <yiji85@googlemail.com>
+Date:   Thu Dec 7 20:50:17 2023 +0100
+
+    services and controllers safety/measurements - addition
+
+commit fe72254bc2f7d04e48d72fd7d5850293fde579fc
+Author: s87410 <yiji85@googlemail.com>
+Date:   Thu Dec 7 20:46:31 2023 +0100
+
+    services and controllers safety/measurements
+
+commit 69a23c4f1426ed4070dd90689b9e988304d1497b
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Wed Dec 6 09:42:28 2023 +0100
+
+    user stories to code as comments
+
+commit 4807499b20f19f147dd11fccd024ec6c37c870a2
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Wed Nov 29 21:37:14 2023 +0100
+
+    updated uml
+
+commit bae4fec04f7b7d4a56c89a4b5fa51b8b1eb9b139
+Merge: aa6545a3 52f2541
+Author: s87410 <yiji85@googlemail.com>
+Date:   Wed Nov 29 21:35:11 2023 +0100
+
+    Merge branch 'main' of https://gitlab.bht-berlin.de/s87410/iot_automotive_paf2023_2
+
+commit aa6545a3c8099ce3ef25d1719bb0afa86b69f331
+Author: s87410 <yiji85@googlemail.com>
+Date:   Wed Nov 29 21:35:02 2023 +0100
+
+    edited classes
+
+commit 52f25416be5c075e3ba5b8a7b4d5099030dca4a4
+Merge: 52ec71c da623ee
+Author: Yaman Al Kadri <yamanalkadri@gmail.com>
+Date:   Wed Nov 29 18:21:27 2023 +0100
+
+    Merge branch 'main' of https://gitlab.bht-berlin.de/s87410/iot_automotive_paf2023_2
+
+commit 52ec71cd3ff537f34222d353a5935be3960d04be
+Author: Yaman Al Kadri <yamanalkadri@gmail.com>
+Date:   Wed Nov 29 18:16:45 2023 +0100
+
+    Test Classen erstellt für die Entity
+    muss noch bearbeitet und configuriert
+
+commit da623eeeed7024dd415aa274ad18f0eec6277246
+Author: Yaman Al Kadri <yamanalkadri@gmail.com>
+Date:   Wed Nov 29 18:16:45 2023 +0100
+
+    Test Classen erstellen für die Entity
+
+commit c4212698bfe41bffb23ec1aa4e4edab391dd2486
+Author: Anica W <s88294@bht-berlin.de>
+Date:   Tue Nov 28 17:57:01 2023 +0100
+
+    added entities
+
+commit ae04b1763b6b5ac25e7836e1c16f238479b5fa8e
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Mon Nov 27 10:11:37 2023 +0100
+
+    delete
+
+commit 33a12396166a7a4e85d276d150ce8f4ea6acc176
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Mon Nov 27 10:11:28 2023 +0100
+
+    init entity classes
+
+commit 5bd8a943b87e1af4099f8fa34be2cafc1f727e4d
+Merge: 35136b0 f07abe0
+Author: Sven Urbach <s87412@bht-berlin.de>
+Date:   Sun Nov 26 15:03:46 2023 +0100
+
+    Merge branch 'wip-su' into 'main'
+    
+    Wip su
+    
+    See merge request s87410/iot_automotive_paf2023_2!3
+
+commit f07abe08843945f1a3f734ab09a2e63d085db174
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Sun Nov 26 15:02:41 2023 +0100
+
+    uml
+
+commit 48250da16cafbfab7f5e860bf679a363d490ac5c
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Sun Nov 26 15:02:28 2023 +0100
+
+    driver methods
+
+commit 35136b0e873fb21f1ca743c02bb414835d62f249
+Author: s87410 <yiji85@googlemail.com>
+Date:   Sun Nov 26 14:04:39 2023 +0100
+
+    added classes
+
+commit 195982fb8e07dd7d6432f196df964d06112bbefd
+Merge: 5dc785a 4aec91e
+Author: Sven Urbach <s87412@bht-berlin.de>
+Date:   Thu Nov 23 22:34:19 2023 +0100
+
+    Merge branch 'wip-su' into 'main'
+    
+    add entities
+    
+    See merge request s87410/iot_automotive_paf2023_2!2
+
+commit 4aec91ec3366f9b20e9639b2db205dc5383079f3
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Thu Nov 23 22:33:31 2023 +0100
+
+    add entities
+
+commit 5dc785ade18d5a0d190d19af21b31fe61dfb0c1b
+Author: s87410 <yiji85@googlemail.com>
+Date:   Fri Nov 17 16:02:09 2023 +0100
+
+    modified git ignore
+
+commit a5dd4df99d0f4ba372c4d4b97add8c0aaa6403a0
+Merge: 613e19b 6fffc27
+Author: s87410 <yiji85@googlemail.com>
+Date:   Fri Nov 17 15:28:34 2023 +0100
+
+    Merge branch 'main' of https://gitlab.bht-berlin.de/s87410/iot_automotive_paf2023_2
+
+commit 613e19b5e4aa50fa12db6ebf0de20a7d8ba0bd44
+Author: s87410 <yiji85@googlemail.com>
+Date:   Fri Nov 17 15:24:43 2023 +0100
+
+    with logger
+
+commit 6fffc27f7d1085128b7f88b38e811b36729238df
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Fri Nov 17 15:03:10 2023 +0100
+
+    prä2
+
+commit c59d011af4ad3a8157ba0df428e9b058d7672849
+Author: s87410 <yiji85@googlemail.com>
+Date:   Fri Nov 17 15:02:31 2023 +0100
+
+    wip
+
+commit d128bb5402f9dd5a949c750264ddf865864d06d1
+Author: s87410 <yiji85@googlemail.com>
+Date:   Fri Nov 17 14:34:52 2023 +0100
+
+    updated gitignore2
+
+commit 7dd49a4285bf228a42adde986198ebd2e0c548bb
+Author: s87410 <yiji85@googlemail.com>
+Date:   Fri Nov 17 14:33:56 2023 +0100
+
+    updated gitignore
+
+commit 99d79e896ce56e1402ce15d0de5fae714cf45889
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Fri Nov 10 14:44:23 2023 +0100
+
+    switch readme
+
+commit 9b945bc49d2c989617f053e1ad02f04330c1618d
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Fri Nov 10 14:44:11 2023 +0100
+
+    webkonf stuff 2023-11-09
+
+commit 59bc2ac0a6a38bcaea652245263b9f14cb2834f0
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Fri Nov 10 14:43:41 2023 +0100
+
+    update
+
+commit fa90af65c7369ae7b884454f68b1edeca2aabba5
+Author: Sven Urbach <s87412@teams.bht-berlin.de>
+Date:   Fri Nov 10 13:05:38 2023 +0100
+
+    empty file
+
+commit 3af454baf7a70c7fb9a4b8eb08d0573b2e20422f
+Author: s87410 <yiji85@googlemail.com>
+Date:   Fri Nov 10 13:02:35 2023 +0100
+
+    test commit
+
+commit 5de3bc4034eb5fb432d9774e168dab268a17943b
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Fri Nov 10 12:56:15 2023 +0100
+
+    add spring help file
+
+commit a4199f36d3f2d646c8831c90e37900e3dd32a687
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Fri Nov 10 12:47:26 2023 +0100
+
+    add spring help file
+
+commit 4d9d14799da36a1495950ddc4dd464bae3eb7178
+Merge: e59f83e 0c42c6d
+Author: Sven Urbach <s87412@bht-berlin.de>
+Date:   Fri Nov 10 12:31:12 2023 +0100
+
+    add backend files
+
+commit 0c42c6d850d203258324cf7b4b3e8df8333c6da8
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Fri Nov 10 12:11:29 2023 +0100
+
+    init backend
+
+commit c0361412004360d9b950904e55145cba8ab318e8
+Author: Sven Urbach <urbachsven@gmail.com>
+Date:   Fri Nov 10 12:07:49 2023 +0100
+
+    ignore maven gradle
+
+commit e59f83efb79876c252962c3826efdb282b6572ea
+Author: s87410 <s87410@bht-berlin.de>
+Date:   Wed Oct 11 15:15:17 2023 +0200
+
+    Initial commit

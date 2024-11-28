@@ -9,7 +9,7 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: update # create
+      ddl-auto: create-drop # create
       enable_lazy_load_no_trans: true # lazy loading
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
       database-platform: org.hibernate.dialect.PostgreSQLDialect
